@@ -1,0 +1,141 @@
+package users
+
+import (
+	"fmt"
+	"time"
+
+	"github.com/aaronsky/asc-go/v1/asc/apps"
+	"github.com/aaronsky/asc-go/v1/asc/common"
+)
+
+// UserInvitation defines model for UserInvitation.
+type UserInvitation struct {
+	Attributes *struct {
+		AllAppsVisible      *bool         `json:"allAppsVisible,omitempty"`
+		Email               *common.Email `json:"email,omitempty"`
+		ExpirationDate      *time.Time    `json:"expirationDate,omitempty"`
+		FirstName           *string       `json:"firstName,omitempty"`
+		LastName            *string       `json:"lastName,omitempty"`
+		ProvisioningAllowed *bool         `json:"provisioningAllowed,omitempty"`
+		Roles               *[]UserRole   `json:"roles,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID            string               `json:"id"`
+	Links         common.ResourceLinks `json:"links"`
+	Relationships *struct {
+		VisibleApps *struct {
+			Data *[]struct {
+				ID   string `json:"id"`
+				Type string `json:"type"`
+			} `json:"data,omitempty"`
+			Links *struct {
+				Related *string `json:"related,omitempty"`
+				Self    *string `json:"self,omitempty"`
+			} `json:"links,omitempty"`
+			Meta *common.PagingInformation `json:"meta,omitempty"`
+		} `json:"visibleApps,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type string `json:"type"`
+}
+
+// UserInvitationCreateRequest defines model for UserInvitationCreateRequest.
+type UserInvitationCreateRequest struct {
+	Data struct {
+		Attributes struct {
+			AllAppsVisible      *bool        `json:"allAppsVisible,omitempty"`
+			Email               common.Email `json:"email"`
+			FirstName           string       `json:"firstName"`
+			LastName            string       `json:"lastName"`
+			ProvisioningAllowed *bool        `json:"provisioningAllowed,omitempty"`
+			Roles               []UserRole   `json:"roles"`
+		} `json:"attributes"`
+		Relationships *struct {
+			VisibleApps *struct {
+				Data *[]struct {
+					ID   string `json:"id"`
+					Type string `json:"type"`
+				} `json:"data,omitempty"`
+			} `json:"visibleApps,omitempty"`
+		} `json:"relationships,omitempty"`
+		Type string `json:"type"`
+	} `json:"data"`
+}
+
+// UserInvitationResponse defines model for UserInvitationResponse.
+type UserInvitationResponse struct {
+	Data     UserInvitation       `json:"data"`
+	Included *[]apps.App          `json:"included,omitempty"`
+	Links    common.DocumentLinks `json:"links"`
+}
+
+// UserInvitationsResponse defines model for UserInvitationsResponse.
+type UserInvitationsResponse struct {
+	Data     []UserInvitation          `json:"data"`
+	Included *[]apps.App               `json:"included,omitempty"`
+	Links    common.PagedDocumentLinks `json:"links"`
+	Meta     *common.PagingInformation `json:"meta,omitempty"`
+}
+
+type ListInvitationsOptions struct {
+	Fields *struct {
+		Apps            *[]string `url:"apps,omitempty"`
+		UserInvitations *[]string `url:"userInvitations,omitempty"`
+	} `url:"fields,omitempty"`
+	Filter *struct {
+		Roles       *[]string `url:"roles,omitempty"`
+		Email       *[]string `url:"email,omitempty"`
+		VisibleApps *[]string `url:"visibleApps,omitempty"`
+	} `url:"filter,omitempty"`
+	Include  *[]string `url:"include,omitempty"`
+	LimitAll *int      `url:"limit,omitempty"`
+	Limit    *struct {
+		VisibleApps *int `url:"visibleApps,omitempty"`
+	} `url:"limit,omitempty"`
+	Sort *[]string `url:"sort,omitempty"`
+}
+
+type GetInvitationOptions struct {
+	Fields *struct {
+		Apps            *[]string `url:"apps,omitempty"`
+		UserInvitations *[]string `url:"userInvitations,omitempty"`
+	} `url:"fields,omitempty"`
+	Include *[]string `url:"include,omitempty"`
+	Limit   *struct {
+		VisibleApps *int `url:"visibleApps,omitempty"`
+	} `url:"limit,omitempty"`
+}
+
+// ListInvitations gets a list of pending invitations to join your team.
+func (s *Service) ListInvitations(params *ListInvitationsOptions) (*UserInvitationsResponse, *common.Response, error) {
+	res := new(UserInvitationsResponse)
+	resp, err := s.Get("userInvitations", params, res)
+	return res, resp, err
+}
+
+// GetInvitation gets information about a pending invitation to join your team.
+func (s *Service) GetInvitation(id string, params *GetInvitationOptions) (*UserInvitationResponse, *common.Response, error) {
+	url := fmt.Sprintf("userInvitations/%s", id)
+	res := new(UserInvitationResponse)
+	resp, err := s.Get(url, params, res)
+	return res, resp, err
+}
+
+// CreateInvitation invites a user with assigned user roles to join your team.
+func (s *Service) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *common.Response, error) {
+	res := new(UserInvitationResponse)
+	resp, err := s.Post("userInvitations", body, res)
+	return res, resp, err
+}
+
+// CancelInvitation cancels a pending invitation for a user to join your team.
+func (s *Service) CancelInvitation(id string) (*common.Response, error) {
+	url := fmt.Sprintf("userInvitations/%s", id)
+	return s.Delete(url, nil)
+}
+
+// ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
+func (s *Service) ListVisibleAppsForInvitation(id string, params ListVisibleAppsOptions) (*apps.AppsResponse, *common.Response, error) {
+	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
+	res := new(apps.AppsResponse)
+	resp, err := s.Get(url, params, res)
+	return res, resp, err
+}
