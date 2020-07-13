@@ -16,7 +16,7 @@ type Device struct {
 		Name        *string           `json:"name,omitempty"`
 		Platform    *BundleIDPlatform `json:"platform,omitempty"`
 		Status      *string           `json:"status,omitempty"`
-		Udid        *string           `json:"udid,omitempty"`
+		UDID        *string           `json:"udid,omitempty"`
 	} `json:"attributes,omitempty"`
 	ID    string               `json:"id"`
 	Links common.ResourceLinks `json:"links"`
@@ -29,7 +29,7 @@ type DeviceCreateRequest struct {
 		Attributes struct {
 			Name     string           `json:"name"`
 			Platform BundleIDPlatform `json:"platform"`
-			Udid     string           `json:"udid"`
+			UDID     string           `json:"udid"`
 		} `json:"attributes"`
 		Type string `json:"type"`
 	} `json:"data"`

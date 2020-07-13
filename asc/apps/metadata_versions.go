@@ -39,7 +39,7 @@ type AppStoreVersionUpdateRequest struct {
 			Downloadable        *bool      `json:"downloadable,omitempty"`
 			EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
 			ReleaseType         *string    `json:"releaseType,omitempty"`
-			UsesIdfa            *bool      `json:"usesIdfa,omitempty"`
+			UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
 			VersionString       *string    `json:"versionString,omitempty"`
 		} `json:"attributes,omitempty"`
 		ID            string `json:"id"`
@@ -88,7 +88,7 @@ type AppStoreVersion struct {
 		EarliestReleaseDate *time.Time            `json:"earliestReleaseDate,omitempty"`
 		Platform            *Platform             `json:"platform,omitempty"`
 		ReleaseType         *string               `json:"releaseType,omitempty"`
-		UsesIdfa            *bool                 `json:"usesIdfa,omitempty"`
+		UsesIDFA            *bool                 `json:"usesIdfa,omitempty"`
 		VersionString       *string               `json:"versionString,omitempty"`
 	} `json:"attributes,omitempty"`
 	ID            string               `json:"id"`
@@ -165,7 +165,7 @@ type AppStoreVersion struct {
 				Self    *string `json:"self,omitempty"`
 			} `json:"links,omitempty"`
 		} `json:"build,omitempty"`
-		IdfaDeclaration *struct {
+		IDFADeclaration *struct {
 			Data *struct {
 				ID   string `json:"id"`
 				Type string `json:"type"`
@@ -212,7 +212,7 @@ type AppStoreVersionCreateRequest struct {
 			EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
 			Platform            Platform   `json:"platform"`
 			ReleaseType         *string    `json:"releaseType,omitempty"`
-			UsesIdfa            *bool      `json:"usesIdfa,omitempty"`
+			UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
 			VersionString       string     `json:"versionString"`
 		} `json:"attributes"`
 		Relationships struct {
@@ -260,7 +260,7 @@ type ListAppStoreVersionsQuery struct {
 		AgeRatingDeclarations         *[]string `url:"ageRatingDeclarations,omitempty"`
 		AppStoreVersionPhasedReleases *[]string `url:"appStoreVersionPhasedReleases,omitempty"`
 		RoutingAppCoverages           *[]string `url:"routingAppCoverages,omitempty"`
-		IdfaDeclarations              *[]string `url:"idfaDeclarations,omitempty"`
+		IDFADeclarations              *[]string `url:"idfaDeclarations,omitempty"`
 	} `url:"fields,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
@@ -282,7 +282,7 @@ type GetAppStoreVersionQuery struct {
 		AgeRatingDeclarations         *[]string `url:"ageRatingDeclarations,omitempty"`
 		AppStoreVersionPhasedReleases *[]string `url:"appStoreVersionPhasedReleases,omitempty"`
 		RoutingAppCoverages           *[]string `url:"routingAppCoverages,omitempty"`
-		IdfaDeclarations              *[]string `url:"idfaDeclarations,omitempty"`
+		IDFADeclarations              *[]string `url:"idfaDeclarations,omitempty"`
 		AppStoreVersionLocalizations  *[]string `url:"appStoreVersionLocalizations,omitempty"`
 	} `url:"fields,omitempty"`
 	Include *[]string `url:"include,omitempty"`

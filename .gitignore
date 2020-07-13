@@ -22,6 +22,7 @@ vendor/
 # Environment files, containing secrets
 .env
 *.p8
+.vscode/
 
 # System files
 Thumbs.db

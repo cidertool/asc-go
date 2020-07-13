@@ -6,7 +6,7 @@ import (
 	"github.com/aaronsky/asc-go/v1/asc/common"
 )
 
-// IDFADeclaration defines model for IdfaDeclaration.
+// IDFADeclaration defines model for IDFADeclaration.
 type IDFADeclaration struct {
 	Attributes *struct {
 		AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
@@ -31,7 +31,7 @@ type IDFADeclaration struct {
 	Type string `json:"type"`
 }
 
-// IDFADeclarationCreateRequest defines model for IdfaDeclarationCreateRequest.
+// IDFADeclarationCreateRequest defines model for IDFADeclarationCreateRequest.
 type IDFADeclarationCreateRequest struct {
 	Data struct {
 		Attributes struct {
@@ -52,7 +52,7 @@ type IDFADeclarationCreateRequest struct {
 	} `json:"data"`
 }
 
-// IDFADeclarationUpdateRequest defines model for IdfaDeclarationUpdateRequest.
+// IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.
 type IDFADeclarationUpdateRequest struct {
 	Data struct {
 		Attributes *struct {
@@ -66,7 +66,7 @@ type IDFADeclarationUpdateRequest struct {
 	} `json:"data"`
 }
 
-// IDFADeclarationResponse defines model for IdfaDeclarationResponse.
+// IDFADeclarationResponse defines model for IDFADeclarationResponse.
 type IDFADeclarationResponse struct {
 	Data  IDFADeclaration      `json:"data"`
 	Links common.DocumentLinks `json:"links"`
@@ -74,7 +74,7 @@ type IDFADeclarationResponse struct {
 
 type GetIDFADeclarationForAppStoreVersionQuery struct {
 	Fields *struct {
-		IdfaDeclarations *[]string `url:"idfaDeclarations,omitempty"`
+		IDFADeclarations *[]string `url:"idfaDeclarations,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
