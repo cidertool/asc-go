@@ -67,7 +67,7 @@ type GameCenterEnabledVersionsResponse struct {
 	Meta     *common.PagingInformation   `json:"meta,omitempty"`
 }
 
-type ListGameCenterEnabledVersionsForAppOptions struct {
+type ListGameCenterEnabledVersionsForAppQuery struct {
 	Fields *struct {
 		Apps                      *[]string `url:"apps,omitempty"`
 		GameCenterEnabledVersions *[]string `url:"gameCenterEnabledVersions,omitempty"`
@@ -80,9 +80,10 @@ type ListGameCenterEnabledVersionsForAppOptions struct {
 		Platform      *[]string `url:"platform,omitempty"`
 		VersionString *[]string `url:"versionString,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListCompatibleVersionsForGameCenterEnabledVersionOptions struct {
+type ListCompatibleVersionsForGameCenterEnabledVersionQuery struct {
 	Fields *struct {
 		Apps                      *[]string `url:"apps,omitempty"`
 		GameCenterEnabledVersions *[]string `url:"gameCenterEnabledVersions,omitempty"`
@@ -96,30 +97,32 @@ type ListCompatibleVersionsForGameCenterEnabledVersionOptions struct {
 		Platform      *[]string `url:"platform,omitempty"`
 		VersionString *[]string `url:"versionString,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListCompatibleVersionIDsForGameCenterEnabledVersionOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-func (s *Service) ListGameCenterEnabledVersionsForApp(id string, params *ListGameCenterEnabledVersionsForAppOptions) (*GameCenterEnabledVersionsResponse, *common.Response, error) {
+func (s *Service) ListGameCenterEnabledVersionsForApp(id string, params *ListGameCenterEnabledVersionsForAppQuery) (*GameCenterEnabledVersionsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/gameCenterEnabledVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
-func (s *Service) ListCompatibleVersionsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionsForGameCenterEnabledVersionOptions) (*GameCenterEnabledVersionsResponse, *common.Response, error) {
+func (s *Service) ListCompatibleVersionsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionsResponse, *common.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
-func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionIDsForGameCenterEnabledVersionOptions) (*GameCenterEnabledVersionCompatibleVersionsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionIDsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionCompatibleVersionsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionCompatibleVersionsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

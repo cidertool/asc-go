@@ -48,7 +48,7 @@ type AppPricesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListPricesOptions struct {
+type ListPricesQuery struct {
 	Fields *struct {
 		AppPrices     *[]string `url:"appPrices,omitempty"`
 		Apps          *[]string `url:"apps,omitempty"`
@@ -56,9 +56,10 @@ type ListPricesOptions struct {
 	} `url:"fields,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetPriceOptions struct {
+type GetPriceQuery struct {
 	Fields *struct {
 		AppPrices *[]string `url:"appPrices,omitempty"`
 	} `url:"fields,omitempty"`
@@ -66,17 +67,17 @@ type GetPriceOptions struct {
 }
 
 // ListPricesForApp gets current price tier of an app and any future planned price changes.
-func (s *Service) ListPricesForApp(id string, params *ListPricesOptions) (*AppPricesResponse, *common.Response, error) {
+func (s *Service) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetPrice reads current price and scheduled price changes for an app, including price tier and start date.
-func (s *Service) GetPrice(id string, params *GetPriceOptions) (*AppPriceResponse, *common.Response, error) {
+func (s *Service) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

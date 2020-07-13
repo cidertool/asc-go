@@ -37,17 +37,18 @@ type BuildIconsResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListIconsOptions struct {
+type ListIconsQuery struct {
 	Fields *struct {
 		BuildIcons *[]string `url:"buildIcons,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.
-func (s *Service) ListIconsForBuild(id string, params *ListIconsOptions) (*BuildIconsResponse, *common.Response, error) {
+func (s *Service) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

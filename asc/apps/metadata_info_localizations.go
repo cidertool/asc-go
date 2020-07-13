@@ -81,7 +81,7 @@ type AppInfoLocalizationsResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListAppInfoLocalizationsForAppInfoOptions struct {
+type ListAppInfoLocalizationsForAppInfoQuery struct {
 	Fields *struct {
 		AppInfos             *[]string `url:"appInfos,omitempty"`
 		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
@@ -91,6 +91,7 @@ type ListAppInfoLocalizationsForAppInfoOptions struct {
 	Filter  *struct {
 		Locale *[]string `url:"locale,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 type GetAppInfoLocalization struct {
@@ -101,10 +102,10 @@ type GetAppInfoLocalization struct {
 }
 
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.
-func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoOptions) (*AppInfoLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/appInfoLocalizations", id)
 	res := new(AppInfoLocalizationsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -112,7 +113,7 @@ func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppI
 func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalization) (*AppInfoLocalizationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

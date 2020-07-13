@@ -72,7 +72,7 @@ type IDFADeclarationResponse struct {
 	Links common.DocumentLinks `json:"links"`
 }
 
-type GetIDFADeclarationForAppStoreVersionOptions struct {
+type GetIDFADeclarationForAppStoreVersionQuery struct {
 	Fields *struct {
 		IdfaDeclarations *[]string `url:"idfaDeclarations,omitempty"`
 	} `url:"fields,omitempty"`
@@ -100,9 +100,9 @@ func (s *Service) DeleteIDFADeclaration(id string) (*common.Response, error) {
 }
 
 // GetIDFADeclarationForAppStoreVersion reads your declared Advertising Identifier (IDFA) usage responses.
-func (s *Service) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionOptions) (*IDFADeclarationResponse, *common.Response, error) {
+func (s *Service) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/idfaDeclaration", id)
 	res := new(IDFADeclarationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

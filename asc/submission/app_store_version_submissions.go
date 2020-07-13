@@ -46,7 +46,7 @@ type AppStoreVersionSubmissionResponse struct {
 	Links common.DocumentLinks      `json:"links"`
 }
 
-type GetAppStoreVersionSubmissionForAppStoreVersionOptions struct {
+type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 	Fields *struct {
 		AppStoreVersions           *[]string `url:"appStoreVersions,omitempty"`
 		AppStoreVersionSubmissions *[]string `url:"appStoreVersionSubmissions,omitempty"`
@@ -72,9 +72,9 @@ func (s *Service) DeleteSubmission(id string) (*common.Response, error) {
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
-func (s *Service) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionOptions) (*AppStoreVersionSubmissionResponse, *common.Response, error) {
+func (s *Service) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

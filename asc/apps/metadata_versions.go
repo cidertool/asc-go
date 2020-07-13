@@ -250,7 +250,7 @@ type AppStoreVersionBuildLinkageResponse struct {
 	Links common.DocumentLinks `json:"links"`
 }
 
-type ListAppStoreVersionsOptions struct {
+type ListAppStoreVersionsQuery struct {
 	Fields *struct {
 		Apps                          *[]string `url:"apps,omitempty"`
 		AppStoreVersionSubmissions    *[]string `url:"appStoreVersionSubmissions,omitempty"`
@@ -270,9 +270,10 @@ type ListAppStoreVersionsOptions struct {
 		Platform      *[]string `url:"platform,omitempty"`
 		AppStoreState *[]string `url:"appStoreState,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetAppStoreVersionOptions struct {
+type GetAppStoreVersionQuery struct {
 	Fields *struct {
 		AppStoreVersions              *[]string `url:"appStoreVersions,omitempty"`
 		AppStoreVersionSubmissions    *[]string `url:"appStoreVersionSubmissions,omitempty"`
@@ -290,31 +291,31 @@ type GetAppStoreVersionOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type GetAgeRatingDeclarationForAppStoreVersionOptions struct {
+type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
 	Fields *struct {
 		AgeRatingDeclarations *[]string `url:"ageRatingDeclarations,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetRoutingAppCoverageForVersionOptions struct {
+type GetRoutingAppCoverageForVersionQuery struct {
 	Fields *struct {
 		RoutingAppCoverages *[]string `url:"routingAppCoverages,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
-func (s *Service) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsOptions) (*AppStoreVersionsResponse, *common.Response, error) {
+func (s *Service) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppStoreVersion gets information for a specific app store version.
-func (s *Service) GetAppStoreVersion(id string, params *GetAppStoreVersionOptions) (*AppStoreVersionResponse, *common.Response, error) {
+func (s *Service) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -344,7 +345,7 @@ func (s *Service) DeleteAppStoreVersion(id string) (*common.Response, error) {
 func (s *Service) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.Get(url, nil, res)
+	resp, err := s.GetWithQuery(url, nil, res)
 	return res, resp, err
 }
 
@@ -357,17 +358,17 @@ func (s *Service) UpdateBuildForAppStoreVersion(id string, body *AppStoreVersion
 }
 
 // GetAgeRatingDeclarationForAppStoreVersion gets the age-related information declared for your app.
-func (s *Service) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionOptions) (*AgeRatingDeclarationResponse, *common.Response, error) {
+func (s *Service) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetRoutingAppCoverageForAppStoreVersion gets the routing app coverage file that is associated with a specific App Store version
-func (s *Service) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionOptions) (*RoutingAppCoverageResponse, *common.Response, error) {
+func (s *Service) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

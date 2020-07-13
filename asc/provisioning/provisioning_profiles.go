@@ -104,7 +104,7 @@ type ProfilesResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListProfileOptions struct {
+type ListProfileQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 		Devices      *[]string `url:"devices,omitempty"`
@@ -124,9 +124,10 @@ type ListProfileOptions struct {
 		ProfileState *[]string `url:"profileState,omitempty"`
 		ProfileType  *[]string `url:"profileType,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetProfileOptions struct {
+type GetProfileQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 		Devices      *[]string `url:"devices,omitempty"`
@@ -140,24 +141,26 @@ type GetProfileOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetBundleIDForProfileOptions struct {
+type GetBundleIDForProfileQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListCertificatesForProfileOptions struct {
+type ListCertificatesForProfileQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListDevicesInProfileOptions struct {
+type ListDevicesInProfileQuery struct {
 	Fields *struct {
 		Devices *[]string `url:"devices,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // CreateProfile creates a new provisioning profile.
@@ -174,40 +177,40 @@ func (s *Service) DeleteProfile(id string) (*common.Response, error) {
 }
 
 // ListProfiles finds and list provisioning profiles and download their data.
-func (s *Service) ListProfiles(params *ListProfileOptions) (*ProfilesResponse, *common.Response, error) {
+func (s *Service) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *common.Response, error) {
 	res := new(ProfilesResponse)
-	resp, err := s.Get("profiles", params, res)
+	resp, err := s.GetWithQuery("profiles", params, res)
 	return res, resp, err
 }
 
 // GetProfile gets information for a specific provisioning profile and download its data.
-func (s *Service) GetProfile(id string, params *GetProfileOptions) (*ProfileResponse, *common.Response, error) {
+func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *common.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBundleIDForProfile gets the bundle ID information for a specific provisioning profile.
-func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileOptions) (*BundleIDResponse, *common.Response, error) {
+func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *common.Response, error) {
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListCertificatesInProfile gets a list of all certificates and their data for a specific provisioning profile.
-func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileOptions) (*CertificatesResponse, *common.Response, error) {
+func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *common.Response, error) {
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListDevicesInProfile gets a list of all devices for a specific provisioning profile.
-func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileOptions) (*DevicesResponse, *common.Response, error) {
+func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *common.Response, error) {
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

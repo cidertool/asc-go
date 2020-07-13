@@ -60,7 +60,7 @@ type DevicesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListDevicesOptions struct {
+type ListDevicesQuery struct {
 	Fields *struct {
 		Devices *[]string `url:"devices,omitempty"`
 	} `url:"fields,omitempty"`
@@ -71,11 +71,12 @@ type ListDevicesOptions struct {
 		Status   *[]string `url:"status,omitempty"`
 		UDID     *[]string `url:"udid,omitempty"`
 	} `url:"filter,omitempty"`
-	Limit *int      `url:"limit,omitempty"`
-	Sort  *[]string `url:"sort,omitempty"`
+	Limit  *int      `url:"limit,omitempty"`
+	Sort   *[]string `url:"sort,omitempty"`
+	Cursor *string   `url:"cursor,omitempty"`
 }
 
-type GetDeviceOptions struct {
+type GetDeviceQuery struct {
 	Fields *struct {
 		Devices *[]string `url:"devices,omitempty"`
 	} `url:"fields,omitempty"`
@@ -89,17 +90,17 @@ func (s *Service) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *com
 }
 
 // ListDevices finds and lists devices registered to your team.
-func (s *Service) ListDevices(params *ListDevicesOptions) (*DevicesResponse, *common.Response, error) {
+func (s *Service) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *common.Response, error) {
 	res := new(DevicesResponse)
-	resp, err := s.Get("devices", params, res)
+	resp, err := s.GetWithQuery("devices", params, res)
 	return res, resp, err
 }
 
 // GetDevice gets information for a specific device registered to your team.
-func (s *Service) GetDevice(id string, params *GetDeviceOptions) (*DeviceResponse, *common.Response, error) {
+func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *common.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

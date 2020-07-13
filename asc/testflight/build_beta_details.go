@@ -90,7 +90,7 @@ type BuildBetaDetailsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBuildBetaDetailsOptions struct {
+type ListBuildBetaDetailsQuery struct {
 	Fields *struct {
 		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
 		Builds           *[]string `url:"builds,omitempty"`
@@ -101,9 +101,10 @@ type ListBuildBetaDetailsOptions struct {
 	} `url:"filter,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetBuildBetaDetailsOptions struct {
+type GetBuildBetaDetailsQuery struct {
 	Fields *struct {
 		Builds           *[]string `url:"builds,omitempty"`
 		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
@@ -111,46 +112,46 @@ type GetBuildBetaDetailsOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetBuildForBuildBetaDetailOptions struct {
+type GetBuildForBuildBetaDetailQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetBuildBetaDetailForBuildOptions struct {
+type GetBuildBetaDetailForBuildQuery struct {
 	Fields *struct {
 		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.
-func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsOptions) (*BuildBetaDetailsResponse, *common.Response, error) {
+func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *common.Response, error) {
 	res := new(BuildBetaDetailsResponse)
-	resp, err := s.Get("buildBetaDetails", params, res)
+	resp, err := s.GetWithQuery("buildBetaDetails", params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetail gets a specific build beta details resource.
-func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsOptions) (*BuildBetaDetailResponse, *common.Response, error) {
+func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForBuildBetaDetail gets the build information for a specific build beta details resource.
-func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailOptions) (*builds.BuildResponse, *common.Response, error) {
+func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*builds.BuildResponse, *common.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(builds.BuildResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetailForBuild gets the beta test details for a specific build.
-func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildOptions) (*BuildBetaDetailResponse, *common.Response, error) {
+func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

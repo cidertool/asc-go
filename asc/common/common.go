@@ -113,14 +113,7 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	return response, err
 }
 
-func (c *Client) Get(url string, query interface{}, v interface{}) (*Response, error) {
-	var err error
-	if query != nil {
-		url, err = c.addOptions(url, query)
-		if err != nil {
-			return nil, err
-		}
-	}
+func (c *Client) Get(url string, v interface{}) (*Response, error) {
 	req, err := c.newRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -130,6 +123,17 @@ func (c *Client) Get(url string, query interface{}, v interface{}) (*Response, e
 		return resp, err
 	}
 	return resp, err
+}
+
+func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*Response, error) {
+	var err error
+	if query != nil {
+		url, err = c.addOptions(url, query)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return c.Get(url, v)
 }
 
 func (c *Client) Post(url string, body interface{}, v interface{}) (*Response, error) {
@@ -184,38 +188,4 @@ func (c *Client) addOptions(s string, opt interface{}) (string, error) {
 
 	u.RawQuery = qs.Encode()
 	return u.String(), nil
-}
-
-// Bool is a helper routine that allocates a new bool value
-// to store v and returns a pointer to it.
-func Bool(v bool) *bool {
-	p := new(bool)
-	*p = v
-	return p
-}
-
-// Int is a helper routine that allocates a new int value
-// to store v and returns a pointer to it, but unlike Int
-// its argument value is an int.
-func Int(v int) *int {
-	p := new(int)
-	*p = v
-	return p
-}
-
-// Float is a helper routine that allocates a new float64 value
-// to store v and returns a pointer to it, but unlike Float
-// its argument value is a float64.
-func Float(v float64) *float64 {
-	p := new(float64)
-	*p = v
-	return p
-}
-
-// String is a helper routine that allocates a new string value
-// to store v and returns a pointer to it.
-func String(v string) *string {
-	p := new(string)
-	*p = v
-	return p
 }

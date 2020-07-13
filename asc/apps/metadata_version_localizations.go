@@ -111,14 +111,15 @@ type AppStoreVersionLocalizationUpdateRequest struct {
 	} `json:"data"`
 }
 
-type ListLocalizationsForAppStoreVersionOptions struct {
+type ListLocalizationsForAppStoreVersionQuery struct {
 	Fields *struct {
 		AppStoreVersionLocalizations *[]string `url:"appStoreVersionLocalizations,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetAppStoreVersionLocalizationOptions struct {
+type GetAppStoreVersionLocalizationQuery struct {
 	Fields *struct {
 		AppPreviewSets               *[]string `url:"appPreviewSets,omitempty"`
 		AppScreenshotSets            *[]string `url:"appScreenshotSets,omitempty"`
@@ -131,7 +132,7 @@ type GetAppStoreVersionLocalizationOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListAppScreenshotSetsForAppStoreVersionLocalizationOptions struct {
+type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
 	Fields *struct {
 		AppScreenshotSets            *[]string `url:"appScreenshotSets,omitempty"`
 		AppScreenshots               *[]string `url:"appScreenshots,omitempty"`
@@ -142,9 +143,10 @@ type ListAppScreenshotSetsForAppStoreVersionLocalizationOptions struct {
 	Filter  *struct {
 		ScreenshotDisplayType *[]string `url:"screenshotDisplayType,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListAppPreviewSetsForAppStoreVersionLocalizationOptions struct {
+type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 	Fields *struct {
 		AppPreviewSets               *[]string `url:"appPreviewSets,omitempty"`
 		AppPreviews                  *[]string `url:"appPreviews,omitempty"`
@@ -155,21 +157,22 @@ type ListAppPreviewSetsForAppStoreVersionLocalizationOptions struct {
 	Filter  *struct {
 		PreviewType *[]string `url:"previewType,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // ListLocalizationsForAppStoreVersion gets a list of localized, version-level information about an app, for all locales.
-func (s *Service) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionOptions) (*AppStoreVersionLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionQuery) (*AppStoreVersionLocalizationsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionLocalizations", id)
 	res := new(AppStoreVersionLocalizationsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppStoreVersionLocalization reads localized version-level information.
-func (s *Service) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationOptions) (*AppStoreVersionLocalizationResponse, *common.Response, error) {
+func (s *Service) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationQuery) (*AppStoreVersionLocalizationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -195,17 +198,17 @@ func (s *Service) DeleteAppStoreVersionLocalization(id string) (*common.Response
 }
 
 // ListAppScreenshotSetsForAppStoreVersionLocalization lists all screenshot sets for a specific localization.
-func (s *Service) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationOptions) (*AppScreenshotSetsResponse, *common.Response, error) {
+func (s *Service) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationQuery) (*AppScreenshotSetsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appScreenshotSets", id)
 	res := new(AppScreenshotSetsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAppPreviewSetsForAppStoreVersionLocalization lists all app preview sets for a specific localization.
-func (s *Service) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationOptions) (*AppPreviewSetsResponse, *common.Response, error) {
+func (s *Service) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationQuery) (*AppPreviewSetsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appPreviewSets", id)
 	res := new(AppPreviewSetsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

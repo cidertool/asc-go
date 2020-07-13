@@ -69,7 +69,7 @@ type AppStoreVersionPhasedReleaseUpdateRequest struct {
 	} `json:"data"`
 }
 
-type GetAppStoreVersionPhasedReleaseForAppStoreVersionOptions struct {
+type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 	Fields *struct {
 		AppStoreVersionPhasedReleases *[]string `url:"appStoreVersionPhasedReleases,omitempty"`
 	} `url:"fields,omitempty"`
@@ -97,9 +97,9 @@ func (s *Service) DeletePhasedRelease(id string) (*common.Response, error) {
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersion reads the phased release status and configuration for a version with phased release enabled.
-func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionOptions) (*AppStoreVersionPhasedReleaseResponse, *common.Response, error) {
+func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

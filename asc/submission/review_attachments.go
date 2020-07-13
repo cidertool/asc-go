@@ -77,41 +77,42 @@ type AppStoreReviewAttachmentsResponse struct {
 	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
-// ReadAttachmentOptions are query options forGetAttachment
-type ReadAttachmentOptions struct {
+// ReadAttachmentQuery are query options forGetAttachment
+type ReadAttachmentQuery struct {
 	Fields *struct {
 		AppStoreReviewAttachments *[]string `url:"appStoreReviewAttachments,omitempty"`
 	} `url:"fields,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 }
 
-// ListAttachmentOptions are query options for ListAttachmentsForReviewDetail
-type ListAttachmentOptions struct {
+// ListAttachmentQuery are query options for ListAttachmentsForReviewDetail
+type ListAttachmentQuery struct {
 	Fields *struct {
 		AppStoreReviewAttachments *[]string `url:"appStoreReviewAttachments,omitempty"`
 		AppStoreReviewDetails     *[]string `url:"appStoreReviewDetails,omitempty"`
 	} `url:"fields,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
 // GetAttachment gets information about an App Store review attachment and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_attachment_information
-func (s *Service) GetAttachment(id string, params *ReadAttachmentOptions) (*AppStoreReviewAttachmentResponse, *common.Response, error) {
+func (s *Service) GetAttachment(id string, params *ReadAttachmentQuery) (*AppStoreReviewAttachmentResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAttachmentsForReviewDetail lists all the App Store review attachments you include with a version when you submit it for App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_review_attachments_for_an_app_store_review_detail
-func (s *Service) ListAttachmentsForReviewDetail(id string, params *ListAttachmentOptions) (*AppStoreReviewAttachmentsResponse, *common.Response, error) {
+func (s *Service) ListAttachmentsForReviewDetail(id string, params *ListAttachmentQuery) (*AppStoreReviewAttachmentsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s/appStoreReviewAttachments", id)
 	res := new(AppStoreReviewAttachmentsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

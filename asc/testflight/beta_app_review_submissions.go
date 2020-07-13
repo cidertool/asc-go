@@ -70,7 +70,7 @@ type BetaAppReviewSubmissionsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBetaAppReviewSubmissionsOptions struct {
+type ListBetaAppReviewSubmissionsQuery struct {
 	Fields *struct {
 		Builds                   *[]string `url:"builds,omitempty"`
 		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
@@ -81,9 +81,10 @@ type ListBetaAppReviewSubmissionsOptions struct {
 	} `url:"filter,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetBetaAppReviewSubmissionOptions struct {
+type GetBetaAppReviewSubmissionQuery struct {
 	Fields *struct {
 		Builds                   *[]string `url:"builds,omitempty"`
 		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
@@ -91,13 +92,13 @@ type GetBetaAppReviewSubmissionOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetBuildForBetaAppReviewSubmissionOptions struct {
+type GetBuildForBetaAppReviewSubmissionQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetBetaAppReviewSubmissionForBuildOptions struct {
+type GetBetaAppReviewSubmissionForBuildQuery struct {
 	Fields *struct {
 		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
 	} `url:"fields,omitempty"`
@@ -111,32 +112,32 @@ func (s *Service) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCre
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
-func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsOptions) (*BetaAppReviewSubmissionsResponse, *common.Response, error) {
+func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *common.Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
-	resp, err := s.Get("betaAppReviewSubmissions", params, res)
+	resp, err := s.GetWithQuery("betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmission gets a specific beta app review submission.
-func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionOptions) (*BetaAppReviewSubmissionResponse, *common.Response, error) {
+func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForBetaAppReviewSubmission gets the build information for a specific beta app review submission.
-func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionOptions) (*builds.BuildResponse, *common.Response, error) {
+func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*builds.BuildResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(builds.BuildResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmissionForBuild gets the beta app review submission status for a specific build.
-func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildOptions) (*BetaAppReviewSubmissionResponse, *common.Response, error) {
+func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

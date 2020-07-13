@@ -6,7 +6,7 @@ import (
 	"github.com/aaronsky/asc-go/v1/asc/common"
 )
 
-type DownloadFinanceReportsOptions struct {
+type DownloadFinanceReportsQuery struct {
 	Filter struct {
 		RegionCode   []string `url:"regionCode"`
 		ReportDate   []string `url:"reportDate"`
@@ -15,7 +15,7 @@ type DownloadFinanceReportsOptions struct {
 	} `url:"filter"`
 }
 
-type DownloadSalesAndTrendsReportsOptions struct {
+type DownloadSalesAndTrendsReportsQuery struct {
 	Filter struct {
 		Frequency     []string  `url:"frequency"`
 		ReportDate    *[]string `url:"reportDate,omitempty"`
@@ -27,15 +27,15 @@ type DownloadSalesAndTrendsReportsOptions struct {
 }
 
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
-func (s *Service) DownloadFinanceReports(params *DownloadFinanceReportsOptions) (*bytes.Buffer, *common.Response, error) {
+func (s *Service) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *common.Response, error) {
 	res := new(bytes.Buffer)
-	resp, err := s.Get("financeReports", params, res)
+	resp, err := s.GetWithQuery("financeReports", params, res)
 	return res, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
-func (s *Service) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsOptions) (*bytes.Buffer, *common.Response, error) {
+func (s *Service) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *common.Response, error) {
 	res := new(bytes.Buffer)
-	resp, err := s.Get("salesReports", params, res)
+	resp, err := s.GetWithQuery("salesReports", params, res)
 	return res, resp, err
 }

@@ -122,7 +122,7 @@ type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type GetAppScreenshotSetOptions struct {
+type GetAppScreenshotSetQuery struct {
 	Fields *struct {
 		AppScreenshots    *[]string `url:"appScreenshots,omitempty"`
 		AppScreenshotSets *[]string `url:"appScreenshotSets,omitempty"`
@@ -133,24 +133,25 @@ type GetAppScreenshotSetOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListAppScreenshotsForSetOptions struct {
+type ListAppScreenshotsForSetQuery struct {
 	Fields *struct {
 		AppScreenshotSets *[]string `url:"appScreenshotSets,omitempty"`
 		AppScreenshots    *[]string `url:"appScreenshots,omitempty"`
 	} `url:"fields,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type ListAppScreenshotIDsForSetOptions struct {
+type ListAppScreenshotIDsForSetQuery struct {
 	Limit *int `url:"limit,omitempty"`
 }
 
 // GetAppScreenshotSet gets an app screenshot set including its display target, language, and the screenshot it contains.
-func (s *Service) GetAppScreenshotSet(id string, params *GetAppScreenshotSetOptions) (*AppScreenshotSetResponse, *common.Response, error) {
+func (s *Service) GetAppScreenshotSet(id string, params *GetAppScreenshotSetQuery) (*AppScreenshotSetResponse, *common.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
 	res := new(AppScreenshotSetResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -168,18 +169,18 @@ func (s *Service) DeleteAppScreenshotSet(id string) (*common.Response, error) {
 }
 
 // ListAppScreenshotsForSet lists all ordered screenshots in a screenshot set.
-func (s *Service) ListAppScreenshotsForSet(id string, params *ListAppScreenshotsForSetOptions) (*AppScreenshotsResponse, *common.Response, error) {
+func (s *Service) ListAppScreenshotsForSet(id string, params *ListAppScreenshotsForSetQuery) (*AppScreenshotsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/appScreenshots", id)
 	res := new(AppScreenshotsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAppScreenshotIDsForSet gets the ordered screenshot IDs in a screenshot set.
-func (s *Service) ListAppScreenshotIDsForSet(id string, params *ListAppScreenshotIDsForSetOptions) (*AppScreenshotSetAppScreenshotsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListAppScreenshotIDsForSet(id string, params *ListAppScreenshotIDsForSetQuery) (*AppScreenshotSetAppScreenshotsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	res := new(AppScreenshotSetAppScreenshotsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

@@ -64,33 +64,33 @@ type AppPreOrderResponse struct {
 	Links common.DocumentLinks `json:"links"`
 }
 
-// GetPreOrderOptions are query options for GetPreOrder
-type GetPreOrderOptions struct {
+// GetPreOrderQuery are query options for GetPreOrder
+type GetPreOrderQuery struct {
 	Fields *struct {
 		appPreOrders *[]string `url:"appPreOrders,omitempty"`
 	} `url:"fields,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetPreOrderForAppOptions struct {
+type GetPreOrderForAppQuery struct {
 	Fields *struct {
 		AppPreOrders *[]string `url:"appPreOrders,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // GetPreOrder gets information about your app's pre-order configuration.
-func (s *Service) GetPreOrder(id string, params *GetPreOrderOptions) (*AppPreOrderResponse, *common.Response, error) {
+func (s *Service) GetPreOrder(id string, params *GetPreOrderQuery) (*AppPreOrderResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetPreOrderForApp gets available date and release date of an app that is available for pre-order.
-func (s *Service) GetPreOrderForApp(id string, params *GetPreOrderForAppOptions) (*AppPreOrderResponse, *common.Response, error) {
+func (s *Service) GetPreOrderForApp(id string, params *GetPreOrderForAppQuery) (*AppPreOrderResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/preOrder", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

@@ -75,7 +75,7 @@ type BetaBuildLocalizationsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBetaBuildLocalizationsOptions struct {
+type ListBetaBuildLocalizationsQuery struct {
 	Fields *struct {
 		Builds                 *[]string `url:"builds,omitempty"`
 		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
@@ -88,7 +88,7 @@ type ListBetaBuildLocalizationsOptions struct {
 	} `url:"filter,omitempty"`
 }
 
-type GetBetaBuildLocalizationOptions struct {
+type GetBetaBuildLocalizationQuery struct {
 	Fields *struct {
 		Builds                 *[]string `url:"builds,omitempty"`
 		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
@@ -96,13 +96,13 @@ type GetBetaBuildLocalizationOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetBuildForBetaBuildLocalizationOptions struct {
+type GetBuildForBetaBuildLocalizationQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListBetaBuildLocalizationsForBuildOptions struct {
+type ListBetaBuildLocalizationsForBuildQuery struct {
 	Fields *struct {
 		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
 	} `url:"fields,omitempty"`
@@ -110,33 +110,33 @@ type ListBetaBuildLocalizationsForBuildOptions struct {
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
-func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsOptions) (*BetaBuildLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *common.Response, error) {
 	res := new(BetaBuildLocalizationsResponse)
-	resp, err := s.Get("betaBuildLocalizations", params, res)
+	resp, err := s.GetWithQuery("betaBuildLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaBuildLocalization gets localized beta build information for a specific build and locale.
-func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationOptions) (*BetaBuildLocalizationResponse, *common.Response, error) {
+func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForBetaBuildLocalization gets the build information associated with a specific beta build localization.
-func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationOptions) (*builds.BuildResponse, *common.Response, error) {
+func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*builds.BuildResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s/build", id)
 	res := new(builds.BuildResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBetaBuildLocalizationsForBuild gets a list of localized beta test information for a specific build.
-func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildOptions) (*BetaBuildLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaBuildLocalizations", id)
 	res := new(BetaBuildLocalizationsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

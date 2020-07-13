@@ -118,7 +118,7 @@ type UserVisibleAppsLinkagesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListUsersOptions struct {
+type ListUsersQuery struct {
 	Fields *struct {
 		Apps  *[]string `url:"apps,omitempty"`
 		Users *[]string `url:"users,omitempty"`
@@ -134,9 +134,10 @@ type ListUsersOptions struct {
 	} `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Sort    *[]string `url:"sort,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetUserOptions struct {
+type GetUserQuery struct {
 	Fields *struct {
 		Apps  *[]string `url:"apps,omitempty"`
 		Users *[]string `url:"users,omitempty"`
@@ -148,29 +149,31 @@ type GetUserOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListVisibleAppsOptions struct {
+type ListVisibleAppsQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListVisibleAppsByResourceIDOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListVisibleAppsByResourceIDQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // ListUsers gets a list of the users on your team.
-func (s *Service) ListUsers(params *ListUsersOptions) (*UsersResponse, *common.Response, error) {
+func (s *Service) ListUsers(params *ListUsersQuery) (*UsersResponse, *common.Response, error) {
 	res := new(UsersResponse)
-	resp, err := s.Get("users", params, res)
+	resp, err := s.GetWithQuery("users", params, res)
 	return res, resp, err
 }
 
 // GetUser gets information about a user on your team, such as name, roles, and app visibility.
-func (s *Service) GetUser(id string, params *GetUserOptions) (*UserResponse, *common.Response, error) {
+func (s *Service) GetUser(id string, params *GetUserQuery) (*UserResponse, *common.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -189,18 +192,18 @@ func (s *Service) RemoveUser(id string) (*common.Response, error) {
 }
 
 // ListVisibleAppsForUser gets a list of apps that a user on your team can view.
-func (s *Service) ListVisibleAppsForUser(id string, params *ListVisibleAppsOptions) (*apps.AppsResponse, *common.Response, error) {
+func (s *Service) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery) (*apps.AppsResponse, *common.Response, error) {
 	url := fmt.Sprintf("users/%s/visibleApps", id)
 	res := new(apps.AppsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListVisibleAppsByResourceIDForUser gets a list of app resource IDs to which a user on your team has access.
-func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDOptions) (*UserVisibleAppsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	res := new(UserVisibleAppsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

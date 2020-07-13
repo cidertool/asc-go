@@ -57,7 +57,7 @@ type PrereleaseVersionsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListPrereleaseVersionsOptions struct {
+type ListPrereleaseVersionsQuery struct {
 	Fields *struct {
 		Apps               *[]string `url:"apps,omitempty"`
 		Builds             *[]string `url:"builds,omitempty"`
@@ -77,9 +77,10 @@ type ListPrereleaseVersionsOptions struct {
 	Limit    *struct {
 		Builds *int `url:"builds,omitempty"`
 	} `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetPrereleaseVersionOptions struct {
+type GetPrereleaseVersionQuery struct {
 	Fields *struct {
 		Apps               *[]string `url:"apps,omitempty"`
 		Builds             *[]string `url:"builds,omitempty"`
@@ -91,75 +92,77 @@ type GetPrereleaseVersionOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type GetAppForPrereleaseVersionOptions struct {
+type GetAppForPrereleaseVersionQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListPrereleaseVersionsForAppOptions struct {
+type ListPrereleaseVersionsForAppQuery struct {
 	Fields *struct {
 		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBuildsForPrereleaseVersionOptions struct {
+type ListBuildsForPrereleaseVersionQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetPrereleaseVersionForBuildOptions struct {
+type GetPrereleaseVersionForBuildQuery struct {
 	Fields *struct {
 		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListPrereleaseVersions gets a list of prerelease versions for all apps.
-func (s *Service) ListPrereleaseVersions(params *ListPrereleaseVersionsOptions) (*PrereleaseVersionsResponse, *common.Response, error) {
+func (s *Service) ListPrereleaseVersions(params *ListPrereleaseVersionsQuery) (*PrereleaseVersionsResponse, *common.Response, error) {
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.Get("preReleaseVersions", params, res)
+	resp, err := s.GetWithQuery("preReleaseVersions", params, res)
 	return res, resp, err
 }
 
 // GetPrereleaseVersion gets information about a specific prerelease version.
-func (s *Service) GetPrereleaseVersion(id string, params *GetPrereleaseVersionOptions) (*PrereleaseVersionResponse, *common.Response, error) {
+func (s *Service) GetPrereleaseVersion(id string, params *GetPrereleaseVersionQuery) (*PrereleaseVersionResponse, *common.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForPrereleaseVersion gets the app information for a specific prerelease version.
-func (s *Service) GetAppForPrereleaseVersion(id string, params *GetAppForPrereleaseVersionOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForPrereleaseVersion(id string, params *GetAppForPrereleaseVersionQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListPrereleaseVersionsForApp gets a list of prerelease versions associated with a specific app.
-func (s *Service) ListPrereleaseVersionsForApp(id string, params *ListPrereleaseVersionsForAppOptions) (*PrereleaseVersionsResponse, *common.Response, error) {
+func (s *Service) ListPrereleaseVersionsForApp(id string, params *ListPrereleaseVersionsForAppQuery) (*PrereleaseVersionsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/preReleaseVersions", id)
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBuildsForPrereleaseVersion gets a list of builds of a specific prerelease version.
-func (s *Service) ListBuildsForPrereleaseVersion(id string, params *ListBuildsForPrereleaseVersionOptions) (*builds.BuildsResponse, *common.Response, error) {
+func (s *Service) ListBuildsForPrereleaseVersion(id string, params *ListBuildsForPrereleaseVersionQuery) (*builds.BuildsResponse, *common.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/builds", id)
 	res := new(builds.BuildsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetPrereleaseVersionForBuild gets the prerelease version for a specific build.
-func (s *Service) GetPrereleaseVersionForBuild(id string, params *GetPrereleaseVersionForBuildOptions) (*PrereleaseVersionResponse, *common.Response, error) {
+func (s *Service) GetPrereleaseVersionForBuild(id string, params *GetPrereleaseVersionForBuildQuery) (*PrereleaseVersionResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/preReleaseVersion", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

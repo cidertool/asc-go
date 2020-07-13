@@ -76,7 +76,7 @@ type AppEncryptionDeclarationsResponse struct {
 	Meta     *common.PagingInformation  `json:"meta,omitempty"`
 }
 
-type ListAppEncryptionDeclarationsOptions struct {
+type ListAppEncryptionDeclarationsQuery struct {
 	Fields *struct {
 		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
 		Apps                      *[]string `url:"apps,omitempty"`
@@ -88,9 +88,10 @@ type ListAppEncryptionDeclarationsOptions struct {
 	} `url:"filter,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetAppEncryptionDeclarationOptions struct {
+type GetAppEncryptionDeclarationQuery struct {
 	Fields *struct {
 		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
 		Apps                      *[]string `url:"apps,omitempty"`
@@ -98,32 +99,32 @@ type GetAppEncryptionDeclarationOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetAppForEncryptionDeclarationOptions struct {
+type GetAppForEncryptionDeclarationQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.
-func (s *Service) ListAppEncryptionDeclarations(params *ListAppEncryptionDeclarationsOptions) (*AppEncryptionDeclarationsResponse, *common.Response, error) {
+func (s *Service) ListAppEncryptionDeclarations(params *ListAppEncryptionDeclarationsQuery) (*AppEncryptionDeclarationsResponse, *common.Response, error) {
 	res := new(AppEncryptionDeclarationsResponse)
-	resp, err := s.Get("appEncryptionDeclarations", params, res)
+	resp, err := s.GetWithQuery("appEncryptionDeclarations", params, res)
 	return res, resp, err
 }
 
 // GetAppEncryptionDeclaration gets information about a specific app encryption declaration.
-func (s *Service) GetAppEncryptionDeclaration(id string, params *GetAppEncryptionDeclarationOptions) (*AppEncryptionDeclarationResponse, *common.Response, error) {
+func (s *Service) GetAppEncryptionDeclaration(id string, params *GetAppEncryptionDeclarationQuery) (*AppEncryptionDeclarationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForAppEncryptionDeclaration gets the app information from a specific app encryption declaration.
-func (s *Service) GetAppForAppEncryptionDeclaration(id string, params *GetAppForEncryptionDeclarationOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForAppEncryptionDeclaration(id string, params *GetAppForEncryptionDeclarationQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

@@ -82,7 +82,7 @@ type AppMediaStateError struct {
 	Description *string `json:"description,omitempty"`
 }
 
-type GetRoutingAppCoverageOptions struct {
+type GetRoutingAppCoverageQuery struct {
 	Fields *struct {
 		RoutingAppCoverages *[]string `url:"routingAppCoverages,omitempty"`
 	} `url:"fields,omitempty"`
@@ -90,10 +90,10 @@ type GetRoutingAppCoverageOptions struct {
 }
 
 // GetRoutingAppCoverage gets information about the routing app coverage file and its upload and processing status.
-func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageOptions) (*RoutingAppCoverageResponse, *common.Response, error) {
+func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *common.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

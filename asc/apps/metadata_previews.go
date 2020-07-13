@@ -127,7 +127,7 @@ type ImageAsset struct {
 	Width       *int    `json:"width,omitempty"`
 }
 
-type GetAppPreviewOptions struct {
+type GetAppPreviewQuery struct {
 	Fields *struct {
 		AppPreviews *[]string `url:"appPreviews,omitempty"`
 	} `url:"fields,omitempty"`
@@ -135,10 +135,10 @@ type GetAppPreviewOptions struct {
 }
 
 // GetAppPreview gets information about an app preview and its upload and processing status.
-func (s *Service) GetAppPreview(id string, params *GetAppPreviewOptions) (*AppPreviewResponse, *common.Response, error) {
+func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

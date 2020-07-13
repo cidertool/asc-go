@@ -90,7 +90,7 @@ type AppPreviewSetAppPreviewsLinkagesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type GetAppPreviewSetOptions struct {
+type GetAppPreviewSetQuery struct {
 	Fields *struct {
 		AppPreviews    *[]string `url:"appPreviews,omitempty"`
 		AppPreviewSets *[]string `url:"appPreviewSets,omitempty"`
@@ -101,24 +101,26 @@ type GetAppPreviewSetOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListAppPreviewsForSetOptions struct {
+type ListAppPreviewsForSetQuery struct {
 	Fields *struct {
 		AppPreviewSets *[]string `url:"appPreviewSets,omitempty"`
 		AppPreviews    *[]string `url:"appPreviews,omitempty"`
 	} `url:"fields,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type ListAppPreviewIDsForSetOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListAppPreviewIDsForSetQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // GetAppPreviewSet gets an app preview set including its display target, language, and the preview it contains.
-func (s *Service) GetAppPreviewSet(id string, params *GetAppPreviewSetOptions) (*AppPreviewSetResponse, *common.Response, error) {
+func (s *Service) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery) (*AppPreviewSetResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
 	res := new(AppPreviewSetResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -136,18 +138,18 @@ func (s *Service) DeleteAppPreviewSet(id string) (*common.Response, error) {
 }
 
 // ListAppPreviewsForSet lists all ordered previews in a preview set.
-func (s *Service) ListAppPreviewsForSet(id string, params *ListAppPreviewsForSetOptions) (*AppPreviewsResponse, *common.Response, error) {
+func (s *Service) ListAppPreviewsForSet(id string, params *ListAppPreviewsForSetQuery) (*AppPreviewsResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/appPreviews", id)
 	res := new(AppPreviewsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAppPreviewIDsForSet gets the ordered preview IDs in a preview set.
-func (s *Service) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsForSetOptions) (*AppPreviewSetAppPreviewsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsForSetQuery) (*AppPreviewSetAppPreviewsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	res := new(AppPreviewSetAppPreviewsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

@@ -75,7 +75,7 @@ type UserInvitationsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListInvitationsOptions struct {
+type ListInvitationsQuery struct {
 	Fields *struct {
 		Apps            *[]string `url:"apps,omitempty"`
 		UserInvitations *[]string `url:"userInvitations,omitempty"`
@@ -90,10 +90,11 @@ type ListInvitationsOptions struct {
 	Limit    *struct {
 		VisibleApps *int `url:"visibleApps,omitempty"`
 	} `url:"limit,omitempty"`
-	Sort *[]string `url:"sort,omitempty"`
+	Sort   *[]string `url:"sort,omitempty"`
+	Cursor *string   `url:"cursor,omitempty"`
 }
 
-type GetInvitationOptions struct {
+type GetInvitationQuery struct {
 	Fields *struct {
 		Apps            *[]string `url:"apps,omitempty"`
 		UserInvitations *[]string `url:"userInvitations,omitempty"`
@@ -105,17 +106,17 @@ type GetInvitationOptions struct {
 }
 
 // ListInvitations gets a list of pending invitations to join your team.
-func (s *Service) ListInvitations(params *ListInvitationsOptions) (*UserInvitationsResponse, *common.Response, error) {
+func (s *Service) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *common.Response, error) {
 	res := new(UserInvitationsResponse)
-	resp, err := s.Get("userInvitations", params, res)
+	resp, err := s.GetWithQuery("userInvitations", params, res)
 	return res, resp, err
 }
 
 // GetInvitation gets information about a pending invitation to join your team.
-func (s *Service) GetInvitation(id string, params *GetInvitationOptions) (*UserInvitationResponse, *common.Response, error) {
+func (s *Service) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *common.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -133,9 +134,9 @@ func (s *Service) CancelInvitation(id string) (*common.Response, error) {
 }
 
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
-func (s *Service) ListVisibleAppsForInvitation(id string, params ListVisibleAppsOptions) (*apps.AppsResponse, *common.Response, error) {
+func (s *Service) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*apps.AppsResponse, *common.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(apps.AppsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

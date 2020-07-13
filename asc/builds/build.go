@@ -198,7 +198,7 @@ type BuildBetaGroupsLinkagesRequest struct {
 	} `json:"data"`
 }
 
-type ListBuildsOptions struct {
+type ListBuildsQuery struct {
 	Fields *struct {
 		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
 		Apps                      *[]string `url:"apps,omitempty"`
@@ -235,16 +235,18 @@ type ListBuildsOptions struct {
 		BetaBuildLocalizations *int `url:"betaBuildLocalizations,omitempty"`
 		Icons                  *int `url:"icons,omitempty"`
 	} `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBuildsForAppOptions struct {
+type ListBuildsForAppQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetBuildsOptions struct {
+type GetBuildsQuery struct {
 	Fields *struct {
 		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
 		Apps                      *[]string `url:"apps,omitempty"`
@@ -267,78 +269,79 @@ type GetBuildsOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type GetAppForBuildOptions struct {
+type GetAppForBuildQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetAppStoreVersionForBuildOptions struct {
+type GetAppStoreVersionForBuildQuery struct {
 	Fields *struct {
 		AppStoreVersions *[]string `url:"appStoreVersions,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetBuildForAppStoreVersionOptions struct {
+type GetBuildForAppStoreVersionQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListResourceIDsForIndividualTestersForBuildOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListResourceIDsForIndividualTestersForBuildQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetAppEncryptionDeclarationForBuildOptions struct {
+type GetAppEncryptionDeclarationForBuildQuery struct {
 	Fields *struct {
 		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListBuilds finds and lists builds for all apps in App Store Connect.
-func (s *Service) ListBuilds(params *ListBuildsOptions) (*BuildsResponse, *common.Response, error) {
+func (s *Service) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *common.Response, error) {
 	res := new(BuildsResponse)
-	resp, err := s.Get("builds", params, res)
+	resp, err := s.GetWithQuery("builds", params, res)
 	return res, resp, err
 }
 
 // ListBuildsForApp gets a list of builds associated with a specific app.
-func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppOptions) (*BuildsResponse, *common.Response, error) {
+func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuild gets information about a specific build.
-func (s *Service) GetBuild(id string, params *GetBuildsOptions) (*BuildResponse, *common.Response, error) {
+func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBuild gets the app information for a specific build.
-func (s *Service) GetAppForBuild(id string, params *GetAppForBuildOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppStoreVersionForBuild gets the App Store version of a specific build.
-func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildOptions) (*apps.AppStoreVersionResponse, *common.Response, error) {
+func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*apps.AppStoreVersionResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(apps.AppStoreVersionResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForAppStoreVersion gets the build that is attached to a specific App Store version.
-func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionOptions) (*BuildResponse, *common.Response, error) {
+func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -381,18 +384,18 @@ func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, body *Bui
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.
-func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildOptions) (*BuildIndividualTestersLinkagesResponse, *common.Response, error) {
+func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppEncryptionDeclarationForBuild reads an app encryption declaration associated with a specific build.
-func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildOptions) (*AppEncryptionDeclarationResponse, *common.Response, error) {
+func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -400,6 +403,6 @@ func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppE
 func (s *Service) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
-	resp, err := s.Get(url, nil, res)
+	resp, err := s.GetWithQuery(url, nil, res)
 	return res, resp, err
 }

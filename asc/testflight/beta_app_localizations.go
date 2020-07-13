@@ -87,7 +87,7 @@ type BetaAppLocalizationsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBetaAppLocalizationsOptions struct {
+type ListBetaAppLocalizationsQuery struct {
 	Fields *struct {
 		Apps                 *[]string `url:"apps,omitempty"`
 		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
@@ -98,9 +98,10 @@ type ListBetaAppLocalizationsOptions struct {
 		App    *[]string `url:"app,omitempty"`
 		Locale *[]string `url:"locale,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetBetaAppLocalizationOptions struct {
+type GetBetaAppLocalizationQuery struct {
 	Fields *struct {
 		Apps                 *[]string `url:"apps,omitempty"`
 		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
@@ -108,47 +109,48 @@ type GetBetaAppLocalizationOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetAppForBetaAppLocalizationOptions struct {
+type GetAppForBetaAppLocalizationQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListBetaAppLocalizationsForAppOptions struct {
+type ListBetaAppLocalizationsForAppQuery struct {
 	Fields *struct {
 		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
-func (s *Service) ListBetaAppLocalizations(params *ListBetaAppLocalizationsOptions) (*BetaAppLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *common.Response, error) {
 	res := new(BetaAppLocalizationsResponse)
-	resp, err := s.Get("betaAppLocalizations", params, res)
+	resp, err := s.GetWithQuery("betaAppLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppLocalization gets localized beta app information for a specific app and locale.
-func (s *Service) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationOptions) (*BetaAppLocalizationResponse, *common.Response, error) {
+func (s *Service) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBetaAppLocalization gets the app information associated with a specific beta app localization.
-func (s *Service) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBetaAppLocalizationsForApp gets a list of localized beta test information for a specific app.
-func (s *Service) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppOptions) (*BetaAppLocalizationsResponse, *common.Response, error) {
+func (s *Service) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

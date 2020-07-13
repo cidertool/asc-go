@@ -96,8 +96,8 @@ type AppStoreReviewDetailResponse struct {
 	Links    common.DocumentLinks        `json:"links"`
 }
 
-// GetReviewDetailOptions are query options for GetReviewDetail
-type GetReviewDetailOptions struct {
+// GetReviewDetailQuery are query options for GetReviewDetail
+type GetReviewDetailQuery struct {
 	Fields *struct {
 		AppStoreReviewDetails     *[]string `url:"appStoreReviewDetails,omitempty"`
 		AppStoreReviewAttachments *[]string `url:"appStoreReviewAttachments,omitempty"`
@@ -108,7 +108,7 @@ type GetReviewDetailOptions struct {
 	} `url:"fields,omitempty"`
 }
 
-type GetAppStoreReviewDetailsForAppStoreVersionOptions struct {
+type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 	Fields *struct {
 		AppStoreReviewAttachments *[]string `url:"appStoreReviewAttachments,omitempty"`
 		AppStoreReviewDetails     *[]string `url:"appStoreReviewDetails,omitempty"`
@@ -129,18 +129,18 @@ func (s *Service) CreateReviewDetail(body *AppStoreReviewDetailCreateRequest) (*
 // GetReviewDetail gets App Review details you provided, including contact information, demo account, and notes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_detail_information
-func (s *Service) GetReviewDetail(id string, params *GetReviewDetailOptions) (*AppStoreReviewDetailResponse, *common.Response, error) {
+func (s *Service) GetReviewDetail(id string, params *GetReviewDetailQuery) (*AppStoreReviewDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetReviewDetailsForAppStoreVersion gets the details you provide to App Review so they can test your app.
-func (s *Service) GetReviewDetailsForAppStoreVersion(id string, params *GetAppStoreReviewDetailsForAppStoreVersionOptions) (*AppStoreReviewDetailResponse, *common.Response, error) {
+func (s *Service) GetReviewDetailsForAppStoreVersion(id string, params *GetAppStoreReviewDetailsForAppStoreVersionQuery) (*AppStoreReviewDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreReviewDetail", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

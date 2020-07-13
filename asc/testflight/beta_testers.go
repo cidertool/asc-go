@@ -160,7 +160,7 @@ type BetaTestersResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBetaTestersOptions struct {
+type ListBetaTestersQuery struct {
 	Fields *struct {
 		Apps        *[]string `url:"apps,omitempty"`
 		BetaGroups  *[]string `url:"betaGroups,omitempty"`
@@ -184,9 +184,10 @@ type ListBetaTestersOptions struct {
 		BetaGroups *int `url:"betaGroups,omitempty"`
 		Builds     *int `url:"builds,omitempty"`
 	} `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetBetaTesterOptions struct {
+type GetBetaTesterQuery struct {
 	Fields *struct {
 		Apps        *[]string `url:"apps,omitempty"`
 		BetaGroups  *[]string `url:"betaGroups,omitempty"`
@@ -201,44 +202,51 @@ type GetBetaTesterOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListAppsForBetaTesterOptions struct {
+type ListAppsForBetaTesterQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListAppIDsForBetaTesterOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListAppIDsForBetaTesterQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBuildsIndividuallyAssignedToBetaTesterOptions struct {
+type ListBuildsIndividuallyAssignedToBetaTesterQuery struct {
 	Fields *struct {
 		Builds *[]string `url:"builds,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBuildIDsIndividuallyAssignedToBetaTesterOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListBuildIDsIndividuallyAssignedToBetaTesterQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListIndividualTestersForBuildOptions struct {
+type ListIndividualTestersForBuildQuery struct {
 	Fields *struct {
 		BetaTesters *[]string `url:"betaTesters,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBetaGroupsForBetaTesterOptions struct {
+type ListBetaGroupsForBetaTesterQuery struct {
 	Fields *struct {
 		BetaGroups *[]string `url:"betaGroups,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListBetaGroupIDsForBetaTesterOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type ListBetaGroupIDsForBetaTesterQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
@@ -255,17 +263,17 @@ func (s *Service) DeleteBetaTester(id string) (*common.Response, error) {
 }
 
 // ListBetaTesters finds and lists beta testers for all apps, builds, and beta groups.
-func (s *Service) ListBetaTesters(id string, params *ListBetaTestersOptions) (*BetaTestersResponse, *common.Response, error) {
+func (s *Service) ListBetaTesters(id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *common.Response, error) {
 	res := new(BetaTestersResponse)
-	resp, err := s.Get("betaTesters", params, res)
+	resp, err := s.GetWithQuery("betaTesters", params, res)
 	return res, resp, err
 }
 
 // GetBetaTester gets a specific beta tester.
-func (s *Service) GetBetaTester(id string, params *GetBetaTesterOptions) (*BetaTesterResponse, *common.Response, error) {
+func (s *Service) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTesterResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
 	res := new(BetaTesterResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -300,57 +308,57 @@ func (s *Service) RemoveSingleBetaTesterAccessApps(id string, body *BetaTesterAp
 }
 
 // ListAppsForBetaTester gets a list of apps that a beta tester can test.
-func (s *Service) ListAppsForBetaTester(id string, params *ListAppsForBetaTesterOptions) (*apps.AppsResponse, *common.Response, error) {
+func (s *Service) ListAppsForBetaTester(id string, params *ListAppsForBetaTesterQuery) (*apps.AppsResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/apps", id)
 	res := new(apps.AppsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAppIDsForBetaTester gets a list of app resource IDs associated with a beta tester.
-func (s *Service) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTesterOptions) (*BetaTesterAppsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTesterQuery) (*BetaTesterAppsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	res := new(BetaTesterAppsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBuildsIndividuallyAssignedToBetaTester gets a list of builds individually assigned to a specific beta tester.
-func (s *Service) ListBuildsIndividuallyAssignedToBetaTester(id string, params *ListBuildsIndividuallyAssignedToBetaTesterOptions) (*builds.BuildsResponse, *common.Response, error) {
+func (s *Service) ListBuildsIndividuallyAssignedToBetaTester(id string, params *ListBuildsIndividuallyAssignedToBetaTesterQuery) (*builds.BuildsResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/builds", id)
 	res := new(builds.BuildsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBuildIDsIndividuallyAssignedToBetaTester gets a list of build resource IDs individually assigned to a specific beta tester.
-func (s *Service) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterOptions) (*BetaTesterBuildsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterQuery) (*BetaTesterBuildsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	res := new(BetaTesterBuildsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListIndividualTestersForBuild gets a list of beta testers individually assigned to a build.
-func (s *Service) ListIndividualTestersForBuild(id string, params *ListIndividualTestersForBuildOptions) (*BetaTestersResponse, *common.Response, error) {
+func (s *Service) ListIndividualTestersForBuild(id string, params *ListIndividualTestersForBuildQuery) (*BetaTestersResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/individualTesters", id)
 	res := new(BetaTestersResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBetaGroupsForBetaTester gets a list of beta groups that contain a specific beta tester.
-func (s *Service) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsForBetaTesterOptions) (*BetaGroupsResponse, *common.Response, error) {
+func (s *Service) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsForBetaTesterQuery) (*BetaGroupsResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListBetaGroupIDsForBetaTester gets a list of group resource IDs associated with a beta tester.
-func (s *Service) ListBetaGroupIDsForBetaTester(id string, params *ListBetaGroupIDsForBetaTesterOptions) (*BetaTesterBetaGroupsLinkagesResponse, *common.Response, error) {
+func (s *Service) ListBetaGroupIDsForBetaTester(id string, params *ListBetaGroupIDsForBetaTesterQuery) (*BetaTesterBetaGroupsLinkagesResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	res := new(BetaTesterBetaGroupsLinkagesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

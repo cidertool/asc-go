@@ -274,7 +274,7 @@ type AppBetaTestersLinkagesRequest struct {
 	} `json:"data"`
 }
 
-type ListAppsOptions struct {
+type ListAppsQuery struct {
 	Fields *struct {
 		Apps                     *[]string `url:"apps,omitempty"`
 		BetaLicenseAgreements    *[]string `url:"betaLicenseAgreements,omitempty"`
@@ -320,9 +320,10 @@ type ListAppsOptions struct {
 	Exists *struct {
 		GameCenterEnabledVersions *[]string `url:"gameCenterEnabledVersions,omitempty"`
 	} `url:"exists,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetAppOptions struct {
+type GetAppQuery struct {
 	Fields *struct {
 		Apps                      *[]string `url:"apps,omitempty"`
 		BetaLicenseAgreements     *[]string `url:"betaLicenseAgreements,omitempty"`
@@ -356,7 +357,7 @@ type GetAppOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListInAppPurchasesOptions struct {
+type ListInAppPurchasesQuery struct {
 	Fields *struct {
 		Apps           *[]string `url:"apps,omitempty"`
 		InAppPurchases *[]string `url:"inAppPurchases,omitempty"`
@@ -368,9 +369,10 @@ type ListInAppPurchasesOptions struct {
 	Limit   *int      `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Sort    *[]string `url:"sort,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetInAppPurchaseOptions struct {
+type GetInAppPurchaseQuery struct {
 	Fields *struct {
 		InAppPurchases *[]string `url:"inAppPurchases,omitempty"`
 	} `url:"fields,omitempty"`
@@ -381,17 +383,17 @@ type GetInAppPurchaseOptions struct {
 }
 
 // ListApps finds and lists apps added in App Store Connect.
-func (s *Service) ListApps(params *ListAppsOptions) (*AppsResponse, *common.Response, error) {
+func (s *Service) ListApps(params *ListAppsQuery) (*AppsResponse, *common.Response, error) {
 	res := new(AppsResponse)
-	resp, err := s.Get("apps", params, res)
+	resp, err := s.GetWithQuery("apps", params, res)
 	return res, resp, err
 }
 
 // GetApp gets information about a specific app.
-func (s *Service) GetApp(id string, params *GetAppOptions) (*AppResponse, *common.Response, error) {
+func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
@@ -410,17 +412,17 @@ func (s *Service) RemoveBetaTestersFromApp(id string, body *AppBetaTestersLinkag
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
-func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesOptions) (*InAppPurchasesResponse, *common.Response, error) {
+func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetInAppPurchase gets information about an in-app purchase.
-func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseOptions) (*InAppPurchaseResponse, *common.Response, error) {
+func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *common.Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

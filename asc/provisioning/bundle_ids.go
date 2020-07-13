@@ -103,7 +103,7 @@ type BundleIDsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBundleIDsOptions struct {
+type ListBundleIDsQuery struct {
 	Fields *struct {
 		BundleIds            *[]string `url:"bundleIds,omitempty"`
 		Profiles             *[]string `url:"profiles,omitempty"`
@@ -124,9 +124,10 @@ type ListBundleIDsOptions struct {
 		Platform   *[]string `url:"platform,omitempty"`
 		SeedID     *[]string `url:"seedId,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetBundleIDOptions struct {
+type GetBundleIDQuery struct {
 	Fields *struct {
 		BundleIds            *[]string `url:"bundleIds,omitempty"`
 		Profiles             *[]string `url:"profiles,omitempty"`
@@ -140,24 +141,26 @@ type GetBundleIDOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetAppForBundleIDOptions struct {
+type GetAppForBundleIDQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type ListProfilesForBundleIDOptions struct {
+type ListProfilesForBundleIDQuery struct {
 	Fields *struct {
 		Profiles *[]string `url:"profiles,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListCapabilitiesForBundleIDOptions struct {
+type ListCapabilitiesForBundleIDQuery struct {
 	Fields *struct {
 		BundleIDCapabilities *[]string `url:"bundleIdCapabilities,omitempty"`
 	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // CreateBundleID registers a new bundle ID for app development.
@@ -182,40 +185,40 @@ func (s *Service) DeleteBundleID(id string) (*common.Response, error) {
 }
 
 // ListBundleIDs finds and lists bundle IDs that are registered to your team.
-func (s *Service) ListBundleIDs(params *ListBundleIDsOptions) (*BundleIDsResponse, *common.Response, error) {
+func (s *Service) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *common.Response, error) {
 	res := new(BundleIDsResponse)
-	resp, err := s.Get("bundleIds", params, res)
+	resp, err := s.GetWithQuery("bundleIds", params, res)
 	return res, resp, err
 }
 
 // GetBundleID gets information about a specific bundle ID.
-func (s *Service) GetBundleID(id string, params *GetBundleIDOptions) (*BundleIDResponse, *common.Response, error) {
+func (s *Service) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *common.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBundleID gets app information for a specific bundle identifier.
-func (s *Service) GetAppForBundleID(id string, params *GetAppForBundleIDOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListProfilesForBundleID gets a list of all profiles for a specific bundle ID.
-func (s *Service) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDOptions) (*ProfilesResponse, *common.Response, error) {
+func (s *Service) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *common.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/profiles", id)
 	res := new(ProfilesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListCapabilitiesForBundleID gets a list of all capabilities for a specific bundle ID.
-func (s *Service) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDOptions) (*BundleIDCapabilitiesResponse, *common.Response, error) {
+func (s *Service) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *common.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/bundleIdCapabilities", id)
 	res := new(BundleIDCapabilitiesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

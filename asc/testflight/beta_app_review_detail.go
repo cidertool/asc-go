@@ -69,7 +69,7 @@ type BetaAppReviewDetailsResponse struct {
 	Meta     *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListBetaAppReviewDetailsOptions struct {
+type ListBetaAppReviewDetailsQuery struct {
 	Fields *struct {
 		Apps                 *[]string `url:"apps,omitempty"`
 		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
@@ -79,9 +79,10 @@ type ListBetaAppReviewDetailsOptions struct {
 	} `url:"filter,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetBetaAppReviewDetailOptions struct {
+type GetBetaAppReviewDetailQuery struct {
 	Fields *struct {
 		Apps                 *[]string `url:"apps,omitempty"`
 		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
@@ -89,46 +90,46 @@ type GetBetaAppReviewDetailOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetAppForBetaAppReviewDetailOptions struct {
+type GetAppForBetaAppReviewDetailQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetBetaAppReviewDetailsForAppOptions struct {
+type GetBetaAppReviewDetailsForAppQuery struct {
 	Fields *struct {
 		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
-func (s *Service) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsOptions) (*BetaAppReviewDetailsResponse, *common.Response, error) {
+func (s *Service) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *common.Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
-	resp, err := s.Get("betaAppReviewDetails", params, res)
+	resp, err := s.GetWithQuery("betaAppReviewDetails", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewDetail gets beta app review details for a specific app.
-func (s *Service) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailOptions) (*BetaAppReviewDetailResponse, *common.Response, error) {
+func (s *Service) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBetaAppReviewDetail gets the app information for a specific beta app review details resource.
-func (s *Service) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewDetailsForApp gets the beta app review details for a specific app.
-func (s *Service) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppOptions) (*BetaAppReviewDetailResponse, *common.Response, error) {
+func (s *Service) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

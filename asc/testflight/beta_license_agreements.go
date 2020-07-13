@@ -55,7 +55,7 @@ type BetaLicenseAgreementResponse struct {
 	Links    common.DocumentLinks `json:"links"`
 }
 
-type ListBetaLicenseAgreementsOptions struct {
+type ListBetaLicenseAgreementsQuery struct {
 	Fields *struct {
 		Apps                  *[]string `url:"apps,omitempty"`
 		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
@@ -65,9 +65,10 @@ type ListBetaLicenseAgreementsOptions struct {
 	} `url:"filter,omitempty"`
 	Include *[]string `url:"include,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
-type GetBetaLicenseAgreementOptions struct {
+type GetBetaLicenseAgreementQuery struct {
 	Fields *struct {
 		Apps                  *[]string `url:"apps,omitempty"`
 		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
@@ -75,46 +76,46 @@ type GetBetaLicenseAgreementOptions struct {
 	Include *[]string `url:"include,omitempty"`
 }
 
-type GetAppForBetaLicenseAgreementOptions struct {
+type GetAppForBetaLicenseAgreementQuery struct {
 	Fields *struct {
 		Apps *[]string `url:"apps,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
-type GetBetaLicenseAgreementForAppOptions struct {
+type GetBetaLicenseAgreementForAppQuery struct {
 	Fields *struct {
 		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
 	} `url:"fields,omitempty"`
 }
 
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
-func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsOptions) (*BetaLicenseAgreementsResponse, *common.Response, error) {
+func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *common.Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
-	resp, err := s.Get("betaLicenseAgreements", params, res)
+	resp, err := s.GetWithQuery("betaLicenseAgreements", params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreement gets a specific beta license agreement.
-func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementOptions) (*BetaLicenseAgreementResponse, *common.Response, error) {
+func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBetaLicenseAgreement gets the app information for a specific beta license agreement.
-func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementOptions) (*apps.AppResponse, *common.Response, error) {
+func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*apps.AppResponse, *common.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(apps.AppResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreementForApp gets the beta license agreement for a specific app.
-func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppOptions) (*BetaLicenseAgreementResponse, *common.Response, error) {
+func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

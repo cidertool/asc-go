@@ -59,56 +59,59 @@ type PerfPowerMetricsResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type GetPerfPowerMetricsOptions struct {
+type GetPerfPowerMetricsQuery struct {
 	Filter *struct {
 		DeviceType *[]string `url:"deviceType,omitempty"`
 		MetricType *[]string `url:"metricType,omitempty"`
 		Platform   *[]string `url:"platform,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type ListDiagnosticsSignaturesOptions struct {
+type ListDiagnosticsSignaturesQuery struct {
 	Fields *struct {
 		DiagnosticSignatures *[]string `url:"diagnosticSignatures,omitempty"`
 	} `url:"fields,omitempty"`
 	Filter *struct {
 		DiagnosticType *[]string `url:"diagnosticType,omitempty"`
 	} `url:"filter,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetLogsForDiagnosticSignatureOptions struct {
-	Limit *int `url:"limit,omitempty"`
+type GetLogsForDiagnosticSignatureQuery struct {
+	Limit  *int    `url:"limit,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
 // GetPerfPowerMetricsForApp gets the performance and power metrics data for the most recent versions of an app.
-func (s *Service) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsOptions) (*PerfPowerMetricsResponse, *common.Response, error) {
+func (s *Service) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetPerfPowerMetricsForBuild gets the performance and power metrics data for a specific build.
-func (s *Service) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsOptions) (*PerfPowerMetricsResponse, *common.Response, error) {
+func (s *Service) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListDiagnosticSignaturesForBuild lists the aggregate backtrace signatures captured for a specific build.
-func (s *Service) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesOptions) (*DiagnosticSignaturesResponse, *common.Response, error) {
+func (s *Service) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *common.Response, error) {
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // GetLogsForDiagnosticSignature gets the anonymized backtrace logs associated with a specific diagnostic signature.
-func (s *Service) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureOptions) (*DiagnosticLogsResponse, *common.Response, error) {
+func (s *Service) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *common.Response, error) {
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }

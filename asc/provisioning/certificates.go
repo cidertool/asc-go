@@ -63,7 +63,7 @@ type CertificatesResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type ListCertificatesOptions struct {
+type ListCertificatesQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 	} `url:"fields,omitempty"`
@@ -76,9 +76,10 @@ type ListCertificatesOptions struct {
 		CertificateType *[]string `url:"certificateType,omitempty"`
 		DisplayName     *[]string `url:"displayName,omitempty"`
 	} `url:"filter,omitempty"`
+	Cursor *string `url:"cursor,omitempty"`
 }
 
-type GetCertificateOptions struct {
+type GetCertificateQuery struct {
 	Fields *struct {
 		Certificates *[]string `url:"certificates,omitempty"`
 	} `url:"fields,omitempty"`
@@ -92,17 +93,17 @@ func (s *Service) CreateCertificate(body *CertificateCreateRequest) (*Certificat
 }
 
 // ListCertificates finds and lists certificates and download their data.
-func (s *Service) ListCertificates(params *ListCertificatesOptions) (*CertificatesResponse, *common.Response, error) {
+func (s *Service) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *common.Response, error) {
 	res := new(CertificatesResponse)
-	resp, err := s.Get("certificates", params, res)
+	resp, err := s.GetWithQuery("certificates", params, res)
 	return res, resp, err
 }
 
 // GetCertificate gets information about a certificate and download the certificate data.
-func (s *Service) GetCertificate(id string, params *GetCertificateOptions) (*CertificateResponse, *common.Response, error) {
+func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *common.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

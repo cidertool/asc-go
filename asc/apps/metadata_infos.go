@@ -163,7 +163,7 @@ type AppInfoUpdateRequest struct {
 	} `json:"data"`
 }
 
-type GetAppInfoOptions struct {
+type GetAppInfoQuery struct {
 	Fields *struct {
 		AppInfos             *[]string `url:"appInfos,omitempty"`
 		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
@@ -175,7 +175,7 @@ type GetAppInfoOptions struct {
 	} `url:"limit,omitempty"`
 }
 
-type ListAppInfosForAppOptions struct {
+type ListAppInfosForAppQuery struct {
 	Fields *struct {
 		AppInfos             *[]string `url:"appInfos,omitempty"`
 		Apps                 *[]string `url:"apps,omitempty"`
@@ -184,21 +184,22 @@ type ListAppInfosForAppOptions struct {
 	} `url:"fields,omitempty"`
 	Limit   *int      `url:"limit,omitempty"`
 	Include *[]string `url:"include,omitempty"`
+	Cursor  *string   `url:"cursor,omitempty"`
 }
 
 // Read App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
-func (s *Service) GetAppInfo(id string, params *GetAppInfoOptions) (*AppInfoResponse, *common.Response, error) {
+func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *common.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
 // ListAppInfosForApp gets information about an app that is currently live on App Store, or that goes live with the next version.
-func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppOptions) (*AppInfosResponse, *common.Response, error) {
+func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *common.Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 

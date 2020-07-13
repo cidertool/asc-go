@@ -79,7 +79,7 @@ type AppScreenshotsResponse struct {
 	Meta  *common.PagingInformation `json:"meta,omitempty"`
 }
 
-type GetAppScreenshotOptions struct {
+type GetAppScreenshotQuery struct {
 	Fields *struct {
 		AppScreenshots *[]string `url:"appScreenshots,omitempty"`
 	} `url:"fields,omitempty"`
@@ -87,10 +87,10 @@ type GetAppScreenshotOptions struct {
 }
 
 // GetAppScreenshot gets information about an app screenshot and its upload and processing status.
-func (s *Service) GetAppScreenshot(id string, params *GetAppScreenshotOptions) (*AppScreenshotResponse, *common.Response, error) {
+func (s *Service) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *common.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.Get(url, params, res)
+	resp, err := s.GetWithQuery(url, params, res)
 	return res, resp, err
 }
 
