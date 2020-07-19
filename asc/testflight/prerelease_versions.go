@@ -58,66 +58,48 @@ type PrereleaseVersionsResponse struct {
 }
 
 type ListPrereleaseVersionsQuery struct {
-	Fields *struct {
-		Apps               *[]string `url:"apps,omitempty"`
-		Builds             *[]string `url:"builds,omitempty"`
-		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		App                   *[]string `url:"app,omitempty"`
-		Builds                *[]string `url:"builds,omitempty"`
-		BuildsExpired         *[]string `url:"builds.expired,omitempty"`
-		BuildsProcessingState *[]string `url:"builds.processingState,omitempty"`
-		Platform              *[]string `url:"platform,omitempty"`
-		Version               *[]string `url:"version,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	Sort     *[]string `url:"sort,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		Builds *int `url:"builds,omitempty"`
-	} `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
+	FieldsBuilds                *[]string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions    *[]string `url:"fields[preReleaseVersions],omitempty"`
+	FilterApp                   *[]string `url:"filter[app],omitempty"`
+	FilterBuilds                *[]string `url:"filter[builds],omitempty"`
+	FilterBuildsExpired         *[]string `url:"filter[builds.expired],omitempty"`
+	FilterBuildsProcessingState *[]string `url:"filter[builds.processingState],omitempty"`
+	FilterPlatform              *[]string `url:"filter[platform],omitempty"`
+	FilterVersion               *[]string `url:"filter[version],omitempty"`
+	Include                     *[]string `url:"include,omitempty"`
+	Sort                        *[]string `url:"sort,omitempty"`
+	Limit                       *int      `url:"limit,omitempty"`
+	LimitBuilds                 *int      `url:"limit[builds],omitempty"`
+	Cursor                      *string   `url:"cursor,omitempty"`
 }
 
 type GetPrereleaseVersionQuery struct {
-	Fields *struct {
-		Apps               *[]string `url:"apps,omitempty"`
-		Builds             *[]string `url:"builds,omitempty"`
-		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		Builds *int `url:"builds,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsApps               *[]string `url:"fields[apps],omitempty"`
+	FieldsBuilds             *[]string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
+	Include                  *[]string `url:"include,omitempty"`
+	LimitBuilds              *int      `url:"limit[builds],omitempty"`
 }
 
 type GetAppForPrereleaseVersionQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type ListPrereleaseVersionsForAppQuery struct {
-	Fields *struct {
-		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
+	Limit                    *int      `url:"limit,omitempty"`
+	Cursor                   *string   `url:"cursor,omitempty"`
 }
 
 type ListBuildsForPrereleaseVersionQuery struct {
-	Fields *struct {
-		Builds *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	Limit        *int      `url:"limit,omitempty"`
+	Cursor       *string   `url:"cursor,omitempty"`
 }
 
 type GetPrereleaseVersionForBuildQuery struct {
-	Fields *struct {
-		PreReleaseVersions *[]string `url:"preReleaseVersions,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
 }
 
 // ListPrereleaseVersions gets a list of prerelease versions for all apps.

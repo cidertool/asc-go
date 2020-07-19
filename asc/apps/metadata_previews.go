@@ -128,10 +128,8 @@ type ImageAsset struct {
 }
 
 type GetAppPreviewQuery struct {
-	Fields *struct {
-		AppPreviews *[]string `url:"appPreviews,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsAppPreviews *[]string `url:"fields[appPreviews],omitempty"`
+	Include           *[]string `url:"include,omitempty"`
 }
 
 // GetAppPreview gets information about an app preview and its upload and processing status.

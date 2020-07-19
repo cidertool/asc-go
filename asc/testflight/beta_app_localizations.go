@@ -88,39 +88,29 @@ type BetaAppLocalizationsResponse struct {
 }
 
 type ListBetaAppLocalizationsQuery struct {
-	Fields *struct {
-		Apps                 *[]string `url:"apps,omitempty"`
-		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Filter  *struct {
-		App    *[]string `url:"app,omitempty"`
-		Locale *[]string `url:"locale,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	FilterApp                  *[]string `url:"filter[app],omitempty"`
+	FilterLocale               *[]string `url:"filter[locale],omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 type GetBetaAppLocalizationQuery struct {
-	Fields *struct {
-		Apps                 *[]string `url:"apps,omitempty"`
-		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
 }
 
 type GetAppForBetaAppLocalizationQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type ListBetaAppLocalizationsForAppQuery struct {
-	Fields *struct {
-		BetaAppLocalizations *[]string `url:"betaAppLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.

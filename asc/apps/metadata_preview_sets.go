@@ -91,24 +91,18 @@ type AppPreviewSetAppPreviewsLinkagesResponse struct {
 }
 
 type GetAppPreviewSetQuery struct {
-	Fields *struct {
-		AppPreviews    *[]string `url:"appPreviews,omitempty"`
-		AppPreviewSets *[]string `url:"appPreviewSets,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		AppPreviews *int `url:"appPreviews,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
+	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	LimitAppPreviews     *int      `url:"limit[appPreviews],omitempty"`
 }
 
 type ListAppPreviewsForSetQuery struct {
-	Fields *struct {
-		AppPreviewSets *[]string `url:"appPreviewSets,omitempty"`
-		AppPreviews    *[]string `url:"appPreviews,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
+	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
+	Limit                *int      `url:"limit,omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	Cursor               *string   `url:"cursor,omitempty"`
 }
 
 type ListAppPreviewIDsForSetQuery struct {

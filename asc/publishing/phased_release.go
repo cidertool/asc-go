@@ -70,9 +70,7 @@ type AppStoreVersionPhasedReleaseUpdateRequest struct {
 }
 
 type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
-	Fields *struct {
-		AppStoreVersionPhasedReleases *[]string `url:"appStoreVersionPhasedReleases,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsAppStoreVersionPhasedReleases *[]string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 }
 
 // CreatePhasedRelease enables phased release for an App Store version.

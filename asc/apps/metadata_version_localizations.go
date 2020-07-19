@@ -112,52 +112,38 @@ type AppStoreVersionLocalizationUpdateRequest struct {
 }
 
 type ListLocalizationsForAppStoreVersionQuery struct {
-	Fields *struct {
-		AppStoreVersionLocalizations *[]string `url:"appStoreVersionLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppStoreVersionLocalizations *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
+	Limit                              *int      `url:"limit,omitempty"`
+	Cursor                             *string   `url:"cursor,omitempty"`
 }
 
 type GetAppStoreVersionLocalizationQuery struct {
-	Fields *struct {
-		AppPreviewSets               *[]string `url:"appPreviewSets,omitempty"`
-		AppScreenshotSets            *[]string `url:"appScreenshotSets,omitempty"`
-		AppStoreVersionLocalizations *[]string `url:"appStoreVersionLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		AppPreviewSets    *int `url:"appPreviewSets,omitempty"`
-		AppScreenshotSets *int `url:"appScreenshotSets,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppPreviewSets               *[]string `url:"fields[appPreviewSets],omitempty"`
+	FieldsAppScreenshotSets            *[]string `url:"fields[appScreenshotSets],omitempty"`
+	FieldsAppStoreVersionLocalizations *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
+	Include                            *[]string `url:"include,omitempty"`
+	LimitAppPreviewSets                *int      `url:"limit[appPreviewSets],omitempty"`
+	LimitAppScreenshotSets             *int      `url:"limit[appScreenshotSets],omitempty"`
 }
 
 type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
-	Fields *struct {
-		AppScreenshotSets            *[]string `url:"appScreenshotSets,omitempty"`
-		AppScreenshots               *[]string `url:"appScreenshots,omitempty"`
-		AppStoreVersionLocalizations *[]string `url:"appStoreVersionLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Filter  *struct {
-		ScreenshotDisplayType *[]string `url:"screenshotDisplayType,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppScreenshotSets            *[]string `url:"fields[appScreenshotSets],omitempty"`
+	FieldsAppScreenshots               *[]string `url:"fields[appScreenshots],omitempty"`
+	FieldsAppStoreVersionLocalizations *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
+	Limit                              *int      `url:"limit,omitempty"`
+	Include                            *[]string `url:"include,omitempty"`
+	FilterScreenshotDisplayType        *[]string `url:"filter[screenshotDisplayType],omitempty"`
+	Cursor                             *string   `url:"cursor,omitempty"`
 }
 
 type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
-	Fields *struct {
-		AppPreviewSets               *[]string `url:"appPreviewSets,omitempty"`
-		AppPreviews                  *[]string `url:"appPreviews,omitempty"`
-		AppStoreVersionLocalizations *[]string `url:"appStoreVersionLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Filter  *struct {
-		PreviewType *[]string `url:"previewType,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppPreviewSets               *[]string `url:"fields[appPreviewSets],omitempty"`
+	FieldsAppPreviews                  *[]string `url:"fields[appPreviews],omitempty"`
+	FieldsAppStoreVersionLocalizations *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
+	Limit                              *int      `url:"limit,omitempty"`
+	Include                            *[]string `url:"include,omitempty"`
+	FilterPreviewType                  *[]string `url:"filter[previewType],omitempty"`
+	Cursor                             *string   `url:"cursor,omitempty"`
 }
 
 // ListLocalizationsForAppStoreVersion gets a list of localized, version-level information about an app, for all locales.

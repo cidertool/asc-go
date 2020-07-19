@@ -119,42 +119,30 @@ type UserVisibleAppsLinkagesResponse struct {
 }
 
 type ListUsersQuery struct {
-	Fields *struct {
-		Apps  *[]string `url:"apps,omitempty"`
-		Users *[]string `url:"users,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		Roles       *[]string `url:"roles,omitempty"`
-		VisibleApps *[]string `url:"visibleApps,omitempty"`
-		Username    *[]string `url:"username,omitempty"`
-	} `url:"filter,omitempty"`
-	LimitAll *int `url:"limit,omitempty"`
-	Limit    *struct {
-		VisibleApps *int `url:"visibleApps,omitempty"`
-	} `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Sort    *[]string `url:"sort,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsApps        *[]string `url:"fields[apps],omitempty"`
+	FieldsUsers       *[]string `url:"fields[users],omitempty"`
+	FilterRoles       *[]string `url:"filter[roles],omitempty"`
+	FilterVisibleApps *[]string `url:"filter[visibleApps],omitempty"`
+	FilterUsername    *[]string `url:"filter[username],omitempty"`
+	Limit             *int      `url:"limit,omitempty"`
+	LimitVisibleApps  *int      `url:"limit[visibleApps],omitempty"`
+	Include           *[]string `url:"include,omitempty"`
+	Sort              *[]string `url:"sort,omitempty"`
+	Cursor            *string   `url:"cursor,omitempty"`
 }
 
 type GetUserQuery struct {
-	Fields *struct {
-		Apps  *[]string `url:"apps,omitempty"`
-		Users *[]string `url:"users,omitempty"`
-	} `url:"fields,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		VisibleApps *int `url:"visibleApps,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsApps       *[]string `url:"fields[apps],omitempty"`
+	FieldsUsers      *[]string `url:"fields[users],omitempty"`
+	Include          *[]string `url:"include,omitempty"`
+	Limit            *int      `url:"limit,omitempty"`
+	LimitVisibleApps *int      `url:"limit[visibleApps],omitempty"`
 }
 
 type ListVisibleAppsQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	Limit      *int      `url:"limit,omitempty"`
+	Cursor     *string   `url:"cursor,omitempty"`
 }
 
 type ListVisibleAppsByResourceIDQuery struct {

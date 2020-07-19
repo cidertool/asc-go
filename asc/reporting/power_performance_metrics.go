@@ -60,23 +60,17 @@ type PerfPowerMetricsResponse struct {
 }
 
 type GetPerfPowerMetricsQuery struct {
-	Filter *struct {
-		DeviceType *[]string `url:"deviceType,omitempty"`
-		MetricType *[]string `url:"metricType,omitempty"`
-		Platform   *[]string `url:"platform,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FilterDeviceType *[]string `url:"filter[deviceType],omitempty"`
+	FilterMetricType *[]string `url:"filter[metricType],omitempty"`
+	FilterPlatform   *[]string `url:"filter[platform],omitempty"`
+	Cursor           *string   `url:"cursor,omitempty"`
 }
 
 type ListDiagnosticsSignaturesQuery struct {
-	Fields *struct {
-		DiagnosticSignatures *[]string `url:"diagnosticSignatures,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		DiagnosticType *[]string `url:"diagnosticType,omitempty"`
-	} `url:"filter,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsDiagnosticSignatures *[]string `url:"fields[diagnosticSignatures],omitempty"`
+	FilterDiagnosticType       *[]string `url:"filter[diagnosticType],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 type GetLogsForDiagnosticSignatureQuery struct {

@@ -76,33 +76,23 @@ type UserInvitationsResponse struct {
 }
 
 type ListInvitationsQuery struct {
-	Fields *struct {
-		Apps            *[]string `url:"apps,omitempty"`
-		UserInvitations *[]string `url:"userInvitations,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		Roles       *[]string `url:"roles,omitempty"`
-		Email       *[]string `url:"email,omitempty"`
-		VisibleApps *[]string `url:"visibleApps,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		VisibleApps *int `url:"visibleApps,omitempty"`
-	} `url:"limit,omitempty"`
-	Sort   *[]string `url:"sort,omitempty"`
-	Cursor *string   `url:"cursor,omitempty"`
+	FieldsApps            *[]string `url:"fields[apps],omitempty"`
+	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`
+	FilterRoles           *[]string `url:"filter[roles],omitempty"`
+	FilterEmail           *[]string `url:"filter[email],omitempty"`
+	FilterVisibleApps     *[]string `url:"filter[visibleApps],omitempty"`
+	Include               *[]string `url:"include,omitempty"`
+	Limit                 *int      `url:"limit,omitempty"`
+	LimitVisibleApps      *int      `url:"limit[visibleApps],omitempty"`
+	Sort                  *[]string `url:"sort,omitempty"`
+	Cursor                *string   `url:"cursor,omitempty"`
 }
 
 type GetInvitationQuery struct {
-	Fields *struct {
-		Apps            *[]string `url:"apps,omitempty"`
-		UserInvitations *[]string `url:"userInvitations,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		VisibleApps *int `url:"visibleApps,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsApps            *[]string `url:"fields[apps],omitempty"`
+	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`
+	Include               *[]string `url:"include,omitempty"`
+	LimitVisibleApps      *int      `url:"limit[visibleApps],omitempty"`
 }
 
 // ListInvitations gets a list of pending invitations to join your team.

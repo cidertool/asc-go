@@ -7,23 +7,19 @@ import (
 )
 
 type DownloadFinanceReportsQuery struct {
-	Filter struct {
-		RegionCode   []string `url:"regionCode"`
-		ReportDate   []string `url:"reportDate"`
-		ReportType   []string `url:"reportType"`
-		VendorNumber []string `url:"vendorNumber"`
-	} `url:"filter"`
+	FilterRegionCode   []string `url:"filter[regionCode]"`
+	FilterReportDate   []string `url:"filter[reportDate]"`
+	FilterReportType   []string `url:"filter[reportType]"`
+	FilterVendorNumber []string `url:"filter[vendorNumber]"`
 }
 
 type DownloadSalesAndTrendsReportsQuery struct {
-	Filter struct {
-		Frequency     []string  `url:"frequency"`
-		ReportDate    *[]string `url:"reportDate,omitempty"`
-		ReportSubType []string  `url:"reportSubType"`
-		ReportType    []string  `url:"reportType"`
-		VendorNumber  []string  `url:"vendorNumber"`
-		Version       *[]string `url:"version,omitempty"`
-	} `url:"filter"`
+	FilterFrequency     []string  `url:"filter[frequency]"`
+	FilterReportDate    *[]string `url:"filter[reportDate],omitempty"`
+	FilterReportSubType []string  `url:"filter[reportSubType]"`
+	FilterReportType    []string  `url:"filter[reportType]"`
+	FilterVendorNumber  []string  `url:"filter[vendorNumber]"`
+	FilterVersion       *[]string `url:"filter[version],omitempty"`
 }
 
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.

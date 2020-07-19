@@ -104,63 +104,47 @@ type BundleIDsResponse struct {
 }
 
 type ListBundleIDsQuery struct {
-	Fields *struct {
-		BundleIds            *[]string `url:"bundleIds,omitempty"`
-		Profiles             *[]string `url:"profiles,omitempty"`
-		BundleIDCapabilities *[]string `url:"bundleIdCapabilities,omitempty"`
-		Apps                 *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		Profiles             *int `url:"profiles,omitempty"`
-		BundleIDCapabilities *int `url:"bundleIdCapabilities,omitempty"`
-	} `url:"limit,omitempty"`
-	Sort   *[]string `url:"sort,omitempty"`
-	Filter *struct {
-		ID         *[]string `url:"id,omitempty"`
-		Identifier *[]string `url:"identifier,omitempty"`
-		Name       *[]string `url:"name,omitempty"`
-		Platform   *[]string `url:"platform,omitempty"`
-		SeedID     *[]string `url:"seedId,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBundleIds            *[]string `url:"fields[bundleIds],omitempty"`
+	FieldsProfiles             *[]string `url:"fields[profiles],omitempty"`
+	FieldsBundleIDCapabilities *[]string `url:"fields[bundleIdCapabilities],omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	LimitProfiles              *int      `url:"limit[profiles],omitempty"`
+	LimitBundleIDCapabilities  *int      `url:"limit[bundleIdCapabilities],omitempty"`
+	Sort                       *[]string `url:"sort,omitempty"`
+	FilterID                   *[]string `url:"filter[id],omitempty"`
+	FilterIdentifier           *[]string `url:"filter[identifier],omitempty"`
+	FilterName                 *[]string `url:"filter[name],omitempty"`
+	FilterPlatform             *[]string `url:"filter[platform],omitempty"`
+	FilterSeedID               *[]string `url:"filter[seedId],omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 type GetBundleIDQuery struct {
-	Fields *struct {
-		BundleIds            *[]string `url:"bundleIds,omitempty"`
-		Profiles             *[]string `url:"profiles,omitempty"`
-		BundleIDCapabilities *[]string `url:"bundleIdCapabilities,omitempty"`
-		Apps                 *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit *struct {
-		Profiles             *int `url:"profiles,omitempty"`
-		BundleIDCapabilities *int `url:"bundleIdCapabilities,omitempty"`
-	} `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsBundleIds            *[]string `url:"fields[bundleIds],omitempty"`
+	FieldsProfiles             *[]string `url:"fields[profiles],omitempty"`
+	FieldsBundleIDCapabilities *[]string `url:"fields[bundleIdCapabilities],omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	LimitProfiles              *int      `url:"limit[profiles],omitempty"`
+	LimitBundleIDCapabilities  *int      `url:"limit[bundleIdCapabilities],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
 }
 
 type GetAppForBundleIDQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type ListProfilesForBundleIDQuery struct {
-	Fields *struct {
-		Profiles *[]string `url:"profiles,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsProfiles *[]string `url:"fields[profiles],omitempty"`
+	Limit          *int      `url:"limit,omitempty"`
+	Cursor         *string   `url:"cursor,omitempty"`
 }
 
 type ListCapabilitiesForBundleIDQuery struct {
-	Fields *struct {
-		BundleIDCapabilities *[]string `url:"bundleIdCapabilities,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBundleIDCapabilities *[]string `url:"fields[bundleIdCapabilities],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 // CreateBundleID registers a new bundle ID for app development.

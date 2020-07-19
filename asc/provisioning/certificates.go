@@ -64,25 +64,19 @@ type CertificatesResponse struct {
 }
 
 type ListCertificatesQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Sort    *[]string `url:"sort,omitempty"`
-	Filter  *struct {
-		ID              *[]string `url:"id,omitempty"`
-		SerialNumber    *[]string `url:"serialNumber,omitempty"`
-		CertificateType *[]string `url:"certificateType,omitempty"`
-		DisplayName     *[]string `url:"displayName,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsCertificates    *[]string `url:"fields[certificates],omitempty"`
+	Limit                 *int      `url:"limit,omitempty"`
+	Include               *[]string `url:"include,omitempty"`
+	Sort                  *[]string `url:"sort,omitempty"`
+	FilterID              *[]string `url:"filter[id],omitempty"`
+	FilterSerialNumber    *[]string `url:"filter[serialNumber],omitempty"`
+	FilterCertificateType *[]string `url:"filter[certificateType],omitempty"`
+	FilterDisplayName     *[]string `url:"filter[displayName],omitempty"`
+	Cursor                *string   `url:"cursor,omitempty"`
 }
 
 type GetCertificateQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 }
 
 // CreateCertificate creates a new certificate using a certificate signing request.

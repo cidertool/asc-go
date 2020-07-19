@@ -77,32 +77,24 @@ type AppEncryptionDeclarationsResponse struct {
 }
 
 type ListAppEncryptionDeclarationsQuery struct {
-	Fields *struct {
-		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
-		Apps                      *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		App       *[]string `url:"app,omitempty"`
-		Builds    *[]string `url:"builds,omitempty"`
-		Platforms *[]string `url:"platforms,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
+	FilterApp                       *[]string `url:"filter[app],omitempty"`
+	FilterBuilds                    *[]string `url:"filter[builds],omitempty"`
+	FilterPlatforms                 *[]string `url:"filter[platforms],omitempty"`
+	Include                         *[]string `url:"include,omitempty"`
+	Limit                           *int      `url:"limit,omitempty"`
+	Cursor                          *string   `url:"cursor,omitempty"`
 }
 
 type GetAppEncryptionDeclarationQuery struct {
-	Fields *struct {
-		AppEncryptionDeclarations *[]string `url:"appEncryptionDeclarations,omitempty"`
-		Apps                      *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
+	Include                         *[]string `url:"include,omitempty"`
 }
 
 type GetAppForEncryptionDeclarationQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.

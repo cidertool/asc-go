@@ -55,45 +55,29 @@ type AppCategoryResponse struct {
 }
 
 type ListAppCategoriesQuery struct {
-	Exists *struct {
-		Parent *[]string `url:"parent,omitempty"`
-	} `url:"exists,omitempty"`
-	Fields *struct {
-		AppCategories *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		Platforms *[]string `url:"platforms,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		Subcategories *[]string `url:"subcategories,omitempty"`
-	} `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	ExistsParent        *[]string `url:"exists[parent],omitempty"`
+	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
+	FilterPlatforms     *[]string `url:"filter[platforms],omitempty"`
+	Include             *[]string `url:"include,omitempty"`
+	Limit               *int      `url:"limit,omitempty"`
+	LimitSubcategories  *[]string `url:"limit[subcategories],omitempty"`
+	Cursor              *string   `url:"cursor,omitempty"`
 }
 
 type ListSubcategoriesForAppCategoryQuery struct {
-	Fields *struct {
-		AppCategories *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
+	Limit               *int      `url:"limit,omitempty"`
+	Cursor              *string   `url:"cursor,omitempty"`
 }
 
 type GetAppCategoryQuery struct {
-	Fields *struct {
-		AppCategories *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		Subcategories *[]string `url:"subcategories,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
+	Include             *[]string `url:"include,omitempty"`
+	LimitSubcategories  *[]string `url:"limit[subcategories],omitempty"`
 }
 
 type GetAppCategoryForAppInfoQuery struct {
-	Fields *struct {
-		AppCategories *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
 }
 
 // ListAppCategories lists all categories on the App Store, including the category and subcategory hierarchy.

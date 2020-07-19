@@ -73,9 +73,7 @@ type IDFADeclarationResponse struct {
 }
 
 type GetIDFADeclarationForAppStoreVersionQuery struct {
-	Fields *struct {
-		IDFADeclarations *[]string `url:"idfaDeclarations,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsIDFADeclarations *[]string `url:"fields[idfaDeclarations],omitempty"`
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.

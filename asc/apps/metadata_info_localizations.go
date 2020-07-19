@@ -82,23 +82,17 @@ type AppInfoLocalizationsResponse struct {
 }
 
 type ListAppInfoLocalizationsForAppInfoQuery struct {
-	Fields *struct {
-		AppInfos             *[]string `url:"appInfos,omitempty"`
-		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Filter  *struct {
-		Locale *[]string `url:"locale,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
+	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	FilterLocale               *[]string `url:"filter[locale],omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
-type GetAppInfoLocalization struct {
-	Fields *struct {
-		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+type GetAppInfoLocalizationQuery struct {
+	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
 }
 
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.
@@ -110,7 +104,7 @@ func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppI
 }
 
 // GetAppInfoLocalization reads localized app-level information.
-func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalization) (*AppInfoLocalizationResponse, *common.Response, error) {
+func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *common.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)

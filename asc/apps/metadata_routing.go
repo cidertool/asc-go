@@ -83,10 +83,8 @@ type AppMediaStateError struct {
 }
 
 type GetRoutingAppCoverageQuery struct {
-	Fields *struct {
-		RoutingAppCoverages *[]string `url:"routingAppCoverages,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsRoutingAppCoverages *[]string `url:"fields[routingAppCoverages],omitempty"`
+	Include                   *[]string `url:"include,omitempty"`
 }
 
 // GetRoutingAppCoverage gets information about the routing app coverage file and its upload and processing status.

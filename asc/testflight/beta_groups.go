@@ -162,66 +162,50 @@ type BetaGroupsResponse struct {
 }
 
 type ListBetaGroupsQuery struct {
-	Fields *struct {
-		Apps        *[]string `url:"apps,omitempty"`
-		BetaGroups  *[]string `url:"betaGroups,omitempty"`
-		BetaTesters *[]string `url:"betaTesters,omitempty"`
-		Builds      *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		App                    *[]string `url:"app,omitempty"`
-		Builds                 *[]string `url:"builds,omitempty"`
-		ID                     *[]string `url:"id,omitempty"`
-		IsInternalGroup        *[]string `url:"isInternalGroup,omitempty"`
-		Name                   *[]string `url:"name,omitempty"`
-		PublicLinkEnabled      *[]string `url:"publicLinkEnabled,omitempty"`
-		PublicLinkLimitEnabled *[]string `url:"publicLinkLimitEnabled,omitempty"`
-		PublicLink             *[]string `url:"publicLink,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	Sort     *[]string `url:"sort,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		Builds      *int `url:"builds,omitempty"`
-		BetaTesters *int `url:"betaTesters,omitempty"`
-	} `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsApps                   *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups             *[]string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters            *[]string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
+	FilterApp                    *[]string `url:"filter[app],omitempty"`
+	FilterBuilds                 *[]string `url:"filter[builds],omitempty"`
+	FilterID                     *[]string `url:"filter[id],omitempty"`
+	FilterIsInternalGroup        *[]string `url:"filter[isInternalGroup],omitempty"`
+	FilterName                   *[]string `url:"filter[name],omitempty"`
+	FilterPublicLinkEnabled      *[]string `url:"filter[publicLinkEnabled],omitempty"`
+	FilterPublicLinkLimitEnabled *[]string `url:"filter[publicLinkLimitEnabled],omitempty"`
+	FilterPublicLink             *[]string `url:"filter[publicLink],omitempty"`
+	Include                      *[]string `url:"include,omitempty"`
+	Sort                         *[]string `url:"sort,omitempty"`
+	Limit                        *int      `url:"limit,omitempty"`
+	LimitBuilds                  *int      `url:"limit[builds],omitempty"`
+	LimitBetaTesters             *int      `url:"limit[betaTesters],omitempty"`
+	Cursor                       *string   `url:"cursor,omitempty"`
 }
 
 type GetBetaGroupQuery struct {
-	Fields *struct {
-		Apps        *[]string `url:"apps,omitempty"`
-		BetaGroups  *[]string `url:"betaGroups,omitempty"`
-		BetaTesters *[]string `url:"betaTesters,omitempty"`
-		Builds      *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		Builds      *int `url:"builds,omitempty"`
-		BetaTesters *int `url:"betaTesters,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsApps        *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds      *[]string `url:"fields[builds],omitempty"`
+	Include           *[]string `url:"include,omitempty"`
+	LimitBuilds       *int      `url:"limit[builds],omitempty"`
+	LimitBetaTesters  *int      `url:"limit[betaTesters],omitempty"`
 }
 
 type GetAppForBetaGroupQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type ListBetaGroupsForAppQuery struct {
-	Fields *struct {
-		BetaGroups *[]string `url:"betaGroups,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBetaGroups *[]string `url:"fields[betaGroups],omitempty"`
+	Limit            *int      `url:"limit,omitempty"`
+	Cursor           *string   `url:"cursor,omitempty"`
 }
 
 type ListBuildsForBetaGroupQuery struct {
-	Fields *struct {
-		Builds *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	Limit        *int      `url:"limit,omitempty"`
+	Cursor       *string   `url:"cursor,omitempty"`
 }
 
 type ListBuildIDsForBetaGroupQuery struct {
@@ -230,11 +214,9 @@ type ListBuildIDsForBetaGroupQuery struct {
 }
 
 type ListBetaTestersForBetaGroupQuery struct {
-	Fields *struct {
-		BetaTesters *[]string `url:"betaTesters,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
+	Limit             *int      `url:"limit,omitempty"`
+	Cursor            *string   `url:"cursor,omitempty"`
 }
 
 type ListBetaTesterIDsForBetaGroupQuery struct {

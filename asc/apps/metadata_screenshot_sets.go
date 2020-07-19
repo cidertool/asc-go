@@ -123,24 +123,18 @@ type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 }
 
 type GetAppScreenshotSetQuery struct {
-	Fields *struct {
-		AppScreenshots    *[]string `url:"appScreenshots,omitempty"`
-		AppScreenshotSets *[]string `url:"appScreenshotSets,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		AppScreenshots *int `url:"appScreenshots,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
+	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
+	Include                 *[]string `url:"include,omitempty"`
+	LimitAppScreenshots     *int      `url:"limit[appScreenshots],omitempty"`
 }
 
 type ListAppScreenshotsForSetQuery struct {
-	Fields *struct {
-		AppScreenshotSets *[]string `url:"appScreenshotSets,omitempty"`
-		AppScreenshots    *[]string `url:"appScreenshots,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
+	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
+	Limit                   *int      `url:"limit,omitempty"`
+	Include                 *[]string `url:"include,omitempty"`
+	Cursor                  *string   `url:"cursor,omitempty"`
 }
 
 type ListAppScreenshotIDsForSetQuery struct {

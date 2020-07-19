@@ -90,70 +90,48 @@ type AppPricePointsResponse struct {
 }
 
 type ListAppPriceTiersQuery struct {
-	Fields *struct {
-		AppPricePoints *[]string `url:"appPricePoints,omitempty"`
-		AppPriceTiers  *[]string `url:"appPriceTiers,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		ID *[]string `url:"id,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		PricePoints *int `url:"pricePoints,omitempty"`
-	} `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
+	FieldsAppPriceTiers  *[]string `url:"fields[appPriceTiers],omitempty"`
+	FilterID             *[]string `url:"filter[id],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	Limit                *int      `url:"limit,omitempty"`
+	LimitPricePoints     *int      `url:"limit[pricePoints],omitempty"`
+	Cursor               *string   `url:"cursor,omitempty"`
 }
 
 type GetAppPriceTierQuery struct {
-	Fields *struct {
-		AppPricePoints *[]string `url:"appPricePoints,omitempty"`
-		AppPriceTiers  *[]string `url:"appPriceTiers,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		PricePoints *int `url:"pricePoints,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
+	FieldsAppPriceTiers  *[]string `url:"fields[appPriceTiers],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	LimitPricePoints     *int      `url:"limit[pricePoints],omitempty"`
 }
 
 type ListPricePointsForAppPriceTierQuery struct {
-	Fields *struct {
-		AppPricePoints *[]string `url:"appPricePoints,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
+	Limit                *int      `url:"limit,omitempty"`
+	Cursor               *string   `url:"cursor,omitempty"`
 }
 
 type ListAppPricePointsQuery struct {
-	Fields *struct {
-		AppPricePoints *[]string `url:"appPricePoints,omitempty"`
-		Territories    *[]string `url:"territories,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		PriceTier *[]string `url:"priceTier,omitempty"`
-		Territory *[]string `url:"territory,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
+	FieldsTerritories    *[]string `url:"fields[territories],omitempty"`
+	FilterPriceTier      *[]string `url:"filter[priceTier],omitempty"`
+	FilterTerritory      *[]string `url:"filter[territory],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	Limit                *int      `url:"limit,omitempty"`
+	Cursor               *string   `url:"cursor,omitempty"`
 }
 
 type GetTerritoryForAppPricePointQuery struct {
-	Fields *struct {
-		Territories *[]string `url:"territories,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsTerritories *[]string `url:"fields[territories],omitempty"`
 }
 
 type GetAppPricePointQuery struct {
-	Fields *struct {
-		AppPricePoints *[]string `url:"appPricePoints,omitempty"`
-		Territories    *[]string `url:"territories,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		PriceTier *[]string `url:"priceTier,omitempty"`
-		Territory *[]string `url:"territory,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
+	FieldsTerritories    *[]string `url:"fields[territories],omitempty"`
+	FilterPriceTier      *[]string `url:"filter[priceTier],omitempty"`
+	FilterTerritory      *[]string `url:"filter[territory],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
 }
 
 // ListAppPriceTiers lists all app price tiers available in App Store Connect, including related price points.

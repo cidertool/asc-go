@@ -275,111 +275,91 @@ type AppBetaTestersLinkagesRequest struct {
 }
 
 type ListAppsQuery struct {
-	Fields *struct {
-		Apps                     *[]string `url:"apps,omitempty"`
-		BetaLicenseAgreements    *[]string `url:"betaLicenseAgreements,omitempty"`
-		PreReleaseVersions       *[]string `url:"preReleaseVersions,omitempty"`
-		BetaAppReviewDetails     *[]string `url:"betaAppReviewDetails,omitempty"`
-		BetaAppLocalizations     *[]string `url:"betaAppLocalizations,omitempty"`
-		Builds                   *[]string `url:"builds,omitempty"`
-		BetaGroups               *[]string `url:"betaGroups,omitempty"`
-		EndUserLicenseAgreements *[]string `url:"endUserLicenseAgreements,omitempty"`
-		AppStoreVersions         *[]string `url:"appStoreVersions,omitempty"`
-		Territories              *[]string `url:"territories,omitempty"`
-		AppPrices                *[]string `url:"appPrices,omitempty"`
-		AppPreOrders             *[]string `url:"appPreOrders,omitempty"`
-		AppInfos                 *[]string `url:"appInfos,omitempty"`
-		PerfPowerMetrics         *[]string `url:"perfPowerMetrics,omitempty"`
-		InAppPurchases           *[]string `url:"inAppPurchases,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		BundleID                      *[]string `url:"bundleId,omitempty"`
-		ID                            *[]string `url:"id,omitempty"`
-		Name                          *[]string `url:"name,omitempty"`
-		SKU                           *[]string `url:"sku,omitempty"`
-		AppStoreVersions              *[]string `url:"appStoreVersions,omitempty"`
-		AppStoreVersionsPlatform      *[]string `url:"appStoreVersionsPlatform,omitempty"`
-		AppStoreVersionsAppStoreState *[]string `url:"appStoreVersionsAppStoreState,omitempty"`
-		GameCenterEnabledVersions     *[]string `url:"gameCenterEnabledVersions,omitempty"`
-	} `url:"filter,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		PreReleaseVersions        *int `url:"preReleaseVersions,omitempty"`
-		Builds                    *int `url:"builds,omitempty"`
-		BetaGroups                *int `url:"betaGroups,omitempty"`
-		BetaAppLocalizations      *int `url:"betaAppLocalizations,omitempty"`
-		Prices                    *int `url:"prices,omitempty"`
-		AvailableTerritories      *int `url:"availableTerritories,omitempty"`
-		AppStoreVersions          *int `url:"appStoreVersions,omitempty"`
-		AppInfos                  *int `url:"appInfos,omitempty"`
-		GameCenterEnabledVersions *int `url:"gameCenterEnabledVersions,omitempty"`
-		InAppPurchases            *int `url:"inAppPurchases,omitempty"`
-	} `url:"limit,omitempty"`
-	Sort   *[]string `url:"sort,omitempty"`
-	Exists *struct {
-		GameCenterEnabledVersions *[]string `url:"gameCenterEnabledVersions,omitempty"`
-	} `url:"exists,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsApps                          *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements         *[]string `url:"fields[betaLicenseAgreements],omitempty"`
+	FieldsPreReleaseVersions            *[]string `url:"fields[preReleaseVersions],omitempty"`
+	FieldsBetaAppReviewDetails          *[]string `url:"fields[betaAppReviewDetails],omitempty"`
+	FieldsBetaAppLocalizations          *[]string `url:"fields[betaAppLocalizations],omitempty"`
+	FieldsBuilds                        *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaGroups                    *[]string `url:"fields[betaGroups],omitempty"`
+	FieldsEndUserLicenseAgreements      *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
+	FieldsAppStoreVersions              *[]string `url:"fields[appStoreVersions],omitempty"`
+	FieldsTerritories                   *[]string `url:"fields[territories],omitempty"`
+	FieldsAppPrices                     *[]string `url:"fields[appPrices],omitempty"`
+	FieldsAppPreOrders                  *[]string `url:"fields[appPreOrders],omitempty"`
+	FieldsAppInfos                      *[]string `url:"fields[appInfos],omitempty"`
+	FieldsPerfPowerMetrics              *[]string `url:"fields[perfPowerMetrics],omitempty"`
+	FieldsInAppPurchases                *[]string `url:"fields[inAppPurchases],omitempty"`
+	FilterBundleID                      *[]string `url:"filter[bundleId],omitempty"`
+	FilterID                            *[]string `url:"filter[id],omitempty"`
+	FilterName                          *[]string `url:"filter[name],omitempty"`
+	FilterSKU                           *[]string `url:"filter[sku],omitempty"`
+	FilterAppStoreVersions              *[]string `url:"filter[appStoreVersions],omitempty"`
+	FilterAppStoreVersionsPlatform      *[]string `url:"filter[appStoreVersionsPlatform],omitempty"`
+	FilterAppStoreVersionsAppStoreState *[]string `url:"filter[appStoreVersionsAppStoreState],omitempty"`
+	FilterGameCenterEnabledVersions     *[]string `url:"filter[gameCenterEnabledVersions],omitempty"`
+	Include                             *[]string `url:"include,omitempty"`
+	Limit                               *int      `url:"limit,omitempty"`
+	LimitPreReleaseVersions             *int      `url:"limit[preReleaseVersions],omitempty"`
+	LimitBuilds                         *int      `url:"limit[builds],omitempty"`
+	LimitBetaGroups                     *int      `url:"limit[betaGroups],omitempty"`
+	LimitBetaAppLocalizations           *int      `url:"limit[betaAppLocalizations],omitempty"`
+	LimitPrices                         *int      `url:"limit[prices],omitempty"`
+	LimitAvailableTerritories           *int      `url:"limit[availableTerritories],omitempty"`
+	LimitAppStoreVersions               *int      `url:"limit[appStoreVersions],omitempty"`
+	LimitAppInfos                       *int      `url:"limit[appInfos],omitempty"`
+	LimitGameCenterEnabledVersions      *int      `url:"limit[gameCenterEnabledVersions],omitempty"`
+	LimitInAppPurchases                 *int      `url:"limit[inAppPurchases],omitempty"`
+	Sort                                *[]string `url:"sort,omitempty"`
+	ExistsGameCenterEnabledVersions     *[]string `url:"exists[gameCenterEnabledVersions],omitempty"`
+	Cursor                              *string   `url:"cursor,omitempty"`
 }
 
 type GetAppQuery struct {
-	Fields *struct {
-		Apps                      *[]string `url:"apps,omitempty"`
-		BetaLicenseAgreements     *[]string `url:"betaLicenseAgreements,omitempty"`
-		PreReleaseVersions        *[]string `url:"preReleaseVersions,omitempty"`
-		BetaAppReviewDetails      *[]string `url:"betaAppReviewDetails,omitempty"`
-		BetaAppLocalizations      *[]string `url:"betaAppLocalizations,omitempty"`
-		Builds                    *[]string `url:"builds,omitempty"`
-		BetaGroups                *[]string `url:"betaGroups,omitempty"`
-		EndUserLicenseAgreements  *[]string `url:"endUserLicenseAgreements,omitempty"`
-		AppStoreVersions          *[]string `url:"appStoreVersions,omitempty"`
-		Territories               *[]string `url:"territories,omitempty"`
-		AppPrices                 *[]string `url:"appPrices,omitempty"`
-		AppPreOrders              *[]string `url:"appPreOrders,omitempty"`
-		AppInfos                  *[]string `url:"appInfos,omitempty"`
-		PerfPowerMetrics          *[]string `url:"perfPowerMetrics,omitempty"`
-		GameCenterEnabledVersions *[]string `url:"gameCenterEnabledVersions,omitempty"`
-		InAppPurchases            *[]string `url:"inAppPurchases,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		PreReleaseVersions        *int `url:"preReleaseVersions,omitempty"`
-		Builds                    *int `url:"builds,omitempty"`
-		BetaGroups                *int `url:"betaGroups,omitempty"`
-		BetaAppLocalizations      *int `url:"betaAppLocalizations,omitempty"`
-		Prices                    *int `url:"prices,omitempty"`
-		AvailableTerritories      *int `url:"availableTerritories,omitempty"`
-		AppStoreVersions          *int `url:"appStoreVersions,omitempty"`
-		AppInfos                  *int `url:"appInfos,omitempty"`
-		GameCenterEnabledVersions *int `url:"gameCenterEnabledVersions,omitempty"`
-		InAppPurchases            *int `url:"inAppPurchases,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements     *[]string `url:"fields[betaLicenseAgreements],omitempty"`
+	FieldsPreReleaseVersions        *[]string `url:"fields[preReleaseVersions],omitempty"`
+	FieldsBetaAppReviewDetails      *[]string `url:"fields[betaAppReviewDetails],omitempty"`
+	FieldsBetaAppLocalizations      *[]string `url:"fields[betaAppLocalizations],omitempty"`
+	FieldsBuilds                    *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaGroups                *[]string `url:"fields[betaGroups],omitempty"`
+	FieldsEndUserLicenseAgreements  *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
+	FieldsAppStoreVersions          *[]string `url:"fields[appStoreVersions],omitempty"`
+	FieldsTerritories               *[]string `url:"fields[territories],omitempty"`
+	FieldsAppPrices                 *[]string `url:"fields[appPrices],omitempty"`
+	FieldsAppPreOrders              *[]string `url:"fields[appPreOrders],omitempty"`
+	FieldsAppInfos                  *[]string `url:"fields[appInfos],omitempty"`
+	FieldsPerfPowerMetrics          *[]string `url:"fields[perfPowerMetrics],omitempty"`
+	FieldsGameCenterEnabledVersions *[]string `url:"fields[gameCenterEnabledVersions],omitempty"`
+	FieldsInAppPurchases            *[]string `url:"fields[inAppPurchases],omitempty"`
+	Include                         *[]string `url:"include,omitempty"`
+	LimitPreReleaseVersions         *int      `url:"limit[preReleaseVersions],omitempty"`
+	LimitBuilds                     *int      `url:"limit[builds],omitempty"`
+	LimitBetaGroups                 *int      `url:"limit[betaGroups],omitempty"`
+	LimitBetaAppLocalizations       *int      `url:"limit[betaAppLocalizations],omitempty"`
+	LimitPrices                     *int      `url:"limit[prices],omitempty"`
+	LimitAvailableTerritories       *int      `url:"limit[availableTerritories],omitempty"`
+	LimitAppStoreVersions           *int      `url:"limit[appStoreVersions],omitempty"`
+	LimitAppInfos                   *int      `url:"limit[appInfos],omitempty"`
+	LimitGameCenterEnabledVersions  *int      `url:"limit[gameCenterEnabledVersions],omitempty"`
+	LimitInAppPurchases             *int      `url:"limit[inAppPurchases],omitempty"`
 }
 
 type ListInAppPurchasesQuery struct {
-	Fields *struct {
-		Apps           *[]string `url:"apps,omitempty"`
-		InAppPurchases *[]string `url:"inAppPurchases,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		CanBeSubmitted    *[]string `url:"canBeSubmitted,omitempty"`
-		InAppPurchaseType *[]string `url:"inAppPurchaseType,omitempty"`
-	} `url:"filter,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Sort    *[]string `url:"sort,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsApps              *[]string `url:"fields[apps],omitempty"`
+	FieldsInAppPurchases    *[]string `url:"fields[inAppPurchases],omitempty"`
+	FilterCanBeSubmitted    *[]string `url:"filter[canBeSubmitted],omitempty"`
+	FilterInAppPurchaseType *[]string `url:"filter[inAppPurchaseType],omitempty"`
+	Limit                   *int      `url:"limit,omitempty"`
+	Include                 *[]string `url:"include,omitempty"`
+	Sort                    *[]string `url:"sort,omitempty"`
+	Cursor                  *string   `url:"cursor,omitempty"`
 }
 
 type GetInAppPurchaseQuery struct {
-	Fields *struct {
-		InAppPurchases *[]string `url:"inAppPurchases,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		Apps *int `url:"apps,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsInAppPurchases *[]string `url:"fields[inAppPurchases],omitempty"`
+	Include              *[]string `url:"include,omitempty"`
+	LimitApps            *int      `url:"limit[apps],omitempty"`
 }
 
 // ListApps finds and lists apps added in App Store Connect.

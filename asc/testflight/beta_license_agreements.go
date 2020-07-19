@@ -56,36 +56,26 @@ type BetaLicenseAgreementResponse struct {
 }
 
 type ListBetaLicenseAgreementsQuery struct {
-	Fields *struct {
-		Apps                  *[]string `url:"apps,omitempty"`
-		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		App *[]string `url:"app,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
+	FilterApp                   *[]string `url:"filter[app],omitempty"`
+	Include                     *[]string `url:"include,omitempty"`
+	Limit                       *int      `url:"limit,omitempty"`
+	Cursor                      *string   `url:"cursor,omitempty"`
 }
 
 type GetBetaLicenseAgreementQuery struct {
-	Fields *struct {
-		Apps                  *[]string `url:"apps,omitempty"`
-		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
+	Include                     *[]string `url:"include,omitempty"`
 }
 
 type GetAppForBetaLicenseAgreementQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type GetBetaLicenseAgreementForAppQuery struct {
-	Fields *struct {
-		BetaLicenseAgreements *[]string `url:"betaLicenseAgreements,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
 }
 
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.

@@ -70,36 +70,26 @@ type BetaAppReviewDetailsResponse struct {
 }
 
 type ListBetaAppReviewDetailsQuery struct {
-	Fields *struct {
-		Apps                 *[]string `url:"apps,omitempty"`
-		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		App *[]string `url:"app,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
+	FilterApp                  *[]string `url:"filter[app],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 type GetBetaAppReviewDetailQuery struct {
-	Fields *struct {
-		Apps                 *[]string `url:"apps,omitempty"`
-		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
 }
 
 type GetAppForBetaAppReviewDetailQuery struct {
-	Fields *struct {
-		Apps *[]string `url:"apps,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
 type GetBetaAppReviewDetailsForAppQuery struct {
-	Fields *struct {
-		BetaAppReviewDetails *[]string `url:"betaAppReviewDetails,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
 }
 
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.

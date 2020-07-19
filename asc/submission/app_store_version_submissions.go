@@ -47,11 +47,9 @@ type AppStoreVersionSubmissionResponse struct {
 }
 
 type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
-	Fields *struct {
-		AppStoreVersions           *[]string `url:"appStoreVersions,omitempty"`
-		AppStoreVersionSubmissions *[]string `url:"appStoreVersionSubmissions,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsAppStoreVersions           *[]string `url:"fields[appStoreVersions],omitempty"`
+	FieldsAppStoreVersionSubmissions *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`
+	Include                          *[]string `url:"include,omitempty"`
 }
 
 // CreateSubmission submits an App Store version to App Review.

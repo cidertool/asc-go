@@ -71,37 +71,27 @@ type BetaAppReviewSubmissionsResponse struct {
 }
 
 type ListBetaAppReviewSubmissionsQuery struct {
-	Fields *struct {
-		Builds                   *[]string `url:"builds,omitempty"`
-		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		Build           *[]string `url:"build,omitempty"`
-		BetaReviewState *[]string `url:"betaReviewState,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	FilterBuild                    *[]string `url:"filter[build],omitempty"`
+	FilterBetaReviewState          *[]string `url:"filter[betaReviewState],omitempty"`
+	Include                        *[]string `url:"include,omitempty"`
+	Limit                          *int      `url:"limit,omitempty"`
+	Cursor                         *string   `url:"cursor,omitempty"`
 }
 
 type GetBetaAppReviewSubmissionQuery struct {
-	Fields *struct {
-		Builds                   *[]string `url:"builds,omitempty"`
-		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	Include                        *[]string `url:"include,omitempty"`
 }
 
 type GetBuildForBetaAppReviewSubmissionQuery struct {
-	Fields *struct {
-		Builds *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
 type GetBetaAppReviewSubmissionForBuildQuery struct {
-	Fields *struct {
-		BetaAppReviewSubmissions *[]string `url:"betaAppReviewSubmissions,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
 }
 
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.

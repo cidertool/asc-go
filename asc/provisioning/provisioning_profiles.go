@@ -105,62 +105,46 @@ type ProfilesResponse struct {
 }
 
 type ListProfileQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-		Devices      *[]string `url:"devices,omitempty"`
-		Profiles     *[]string `url:"profiles,omitempty"`
-		ID           *[]string `url:"id,omitempty"`
-		Name         *[]string `url:"name,omitempty"`
-		BundleIds    *[]string `url:"bundleIds,omitempty"`
-	} `url:"fields,omitempty"`
-	Include  *[]string `url:"include,omitempty"`
-	LimitAll *int      `url:"limit,omitempty"`
-	Limit    *struct {
-		Certificates *int `url:"certificates,omitempty"`
-		Devices      *int `url:"devices,omitempty"`
-	} `url:"limit,omitempty"`
-	Sort   *[]string `url:"sort,omitempty"`
-	Filter *struct {
-		ProfileState *[]string `url:"profileState,omitempty"`
-		ProfileType  *[]string `url:"profileType,omitempty"`
-	} `url:"filter,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
+	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
+	FieldsProfiles     *[]string `url:"fields[profiles],omitempty"`
+	FieldsID           *[]string `url:"fields[id],omitempty"`
+	FieldsName         *[]string `url:"fields[name],omitempty"`
+	FieldsBundleIDs    *[]string `url:"fields[bundleIds],omitempty"`
+	Include            *[]string `url:"include,omitempty"`
+	Limit              *int      `url:"limit,omitempty"`
+	LimitCertificates  *int      `url:"limit[certificates],omitempty"`
+	LimitDevices       *int      `url:"limit[devices],omitempty"`
+	Sort               *[]string `url:"sort,omitempty"`
+	FilterProfileState *[]string `url:"filter[profileState],omitempty"`
+	FilterProfileType  *[]string `url:"filter[profileType],omitempty"`
+	Cursor             *string   `url:"cursor,omitempty"`
 }
 
 type GetProfileQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-		Devices      *[]string `url:"devices,omitempty"`
-		Profiles     *[]string `url:"profiles,omitempty"`
-		BundleIds    *[]string `url:"bundleIds,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit *struct {
-		Certificates *int `url:"certificates,omitempty"`
-		Devices      *int `url:"devices,omitempty"`
-	} `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
+	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
+	FieldsProfiles     *[]string `url:"fields[profiles],omitempty"`
+	FieldsBundleIds    *[]string `url:"fields[bundleIds],omitempty"`
+	LimitCertificates  *int      `url:"limit[certificates],omitempty"`
+	LimitDevices       *int      `url:"limit[devices],omitempty"`
+	Include            *[]string `url:"include,omitempty"`
 }
 
 type GetBundleIDForProfileQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 }
 
 type ListCertificatesForProfileQuery struct {
-	Fields *struct {
-		Certificates *[]string `url:"certificates,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
+	Limit              *int      `url:"limit,omitempty"`
+	Cursor             *string   `url:"cursor,omitempty"`
 }
 
 type ListDevicesInProfileQuery struct {
-	Fields *struct {
-		Devices *[]string `url:"devices,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	FieldsDevices *[]string `url:"fields[devices],omitempty"`
+	Limit         *int      `url:"limit,omitempty"`
+	Cursor        *string   `url:"cursor,omitempty"`
 }
 
 // CreateProfile creates a new provisioning profile.

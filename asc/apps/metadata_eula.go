@@ -91,20 +91,14 @@ type EndUserLicenseAgreementResponse struct {
 }
 
 type GetEULAQuery struct {
-	Fields *struct {
-		EndUserLicenseAgreements *[]string `url:"endUserLicenseAgreements,omitempty"`
-		Territories              *[]string `url:"territories,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		Territories *int `url:"territories,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
+	FieldsTerritories              *[]string `url:"fields[territories],omitempty"`
+	Include                        *[]string `url:"include,omitempty"`
+	LimitTerritories               *int      `url:"limit[territories],omitempty"`
 }
 
 type GetEULAForAppQuery struct {
-	Fields *struct {
-		EndUserLicenseAgreements *[]string `url:"endUserLicenseAgreements,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
 }
 
 // Add a custom end user license agreement (EULA) to an app and configure the territories to which it applies.

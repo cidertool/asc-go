@@ -164,27 +164,21 @@ type AppInfoUpdateRequest struct {
 }
 
 type GetAppInfoQuery struct {
-	Fields *struct {
-		AppInfos             *[]string `url:"appInfos,omitempty"`
-		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
-		AppCategories        *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *struct {
-		AppInfoLocalizations *int `url:"appInfoLocalizations,omitempty"`
-	} `url:"limit,omitempty"`
+	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
+	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories        *[]string `url:"fields[appCategories],omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	LimitAppInfoLocalizations  *int      `url:"limit[appInfoLocalizations],omitempty"`
 }
 
 type ListAppInfosForAppQuery struct {
-	Fields *struct {
-		AppInfos             *[]string `url:"appInfos,omitempty"`
-		Apps                 *[]string `url:"apps,omitempty"`
-		AppInfoLocalizations *[]string `url:"appInfoLocalizations,omitempty"`
-		AppCategories        *[]string `url:"appCategories,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
+	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
+	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories        *[]string `url:"fields[appCategories],omitempty"`
+	Limit                      *int      `url:"limit,omitempty"`
+	Include                    *[]string `url:"include,omitempty"`
+	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
 // Read App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.

@@ -49,21 +49,17 @@ type AppPricesResponse struct {
 }
 
 type ListPricesQuery struct {
-	Fields *struct {
-		AppPrices     *[]string `url:"appPrices,omitempty"`
-		Apps          *[]string `url:"apps,omitempty"`
-		AppPriceTiers *[]string `url:"appPriceTiers,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsAppPrices     *[]string `url:"fields[appPrices],omitempty"`
+	FieldsApps          *[]string `url:"fields[apps],omitempty"`
+	FieldsAppPriceTiers *[]string `url:"fields[appPriceTiers],omitempty"`
+	Include             *[]string `url:"include,omitempty"`
+	Limit               *int      `url:"limit,omitempty"`
+	Cursor              *string   `url:"cursor,omitempty"`
 }
 
 type GetPriceQuery struct {
-	Fields *struct {
-		AppPrices *[]string `url:"appPrices,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsAppPrices *[]string `url:"fields[appPrices],omitempty"`
+	Include         *[]string `url:"include,omitempty"`
 }
 
 // ListPricesForApp gets current price tier of an app and any future planned price changes.

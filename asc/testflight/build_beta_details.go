@@ -91,37 +91,27 @@ type BuildBetaDetailsResponse struct {
 }
 
 type ListBuildBetaDetailsQuery struct {
-	Fields *struct {
-		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
-		Builds           *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
-	Filter *struct {
-		ID    *[]string `url:"id,omitempty"`
-		Build *[]string `url:"build,omitempty"`
-	} `url:"filter,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Cursor  *string   `url:"cursor,omitempty"`
+	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
+	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
+	FilterID               *[]string `url:"filter[id],omitempty"`
+	FilterBuild            *[]string `url:"filter[build],omitempty"`
+	Include                *[]string `url:"include,omitempty"`
+	Limit                  *int      `url:"limit,omitempty"`
+	Cursor                 *string   `url:"cursor,omitempty"`
 }
 
 type GetBuildBetaDetailsQuery struct {
-	Fields *struct {
-		Builds           *[]string `url:"builds,omitempty"`
-		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
+	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
+	Include                *[]string `url:"include,omitempty"`
 }
 
 type GetBuildForBuildBetaDetailQuery struct {
-	Fields *struct {
-		Builds *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
 type GetBuildBetaDetailForBuildQuery struct {
-	Fields *struct {
-		BuildBetaDetails *[]string `url:"buildBetaDetails,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.

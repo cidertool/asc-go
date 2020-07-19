@@ -76,37 +76,27 @@ type BetaBuildLocalizationsResponse struct {
 }
 
 type ListBetaBuildLocalizationsQuery struct {
-	Fields *struct {
-		Builds                 *[]string `url:"builds,omitempty"`
-		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit   *int      `url:"limit,omitempty"`
-	Include *[]string `url:"include,omitempty"`
-	Filter  *struct {
-		Build  *[]string `url:"build,omitempty"`
-		Locale *[]string `url:"locale,omitempty"`
-	} `url:"filter,omitempty"`
+	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
+	Limit                        *int      `url:"limit,omitempty"`
+	Include                      *[]string `url:"include,omitempty"`
+	FilterBuild                  *[]string `url:"filter[build],omitempty"`
+	FilterLocale                 *[]string `url:"filter[locale],omitempty"`
 }
 
 type GetBetaBuildLocalizationQuery struct {
-	Fields *struct {
-		Builds                 *[]string `url:"builds,omitempty"`
-		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Include *[]string `url:"include,omitempty"`
+	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
+	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
+	Include                      *[]string `url:"include,omitempty"`
 }
 
 type GetBuildForBetaBuildLocalizationQuery struct {
-	Fields *struct {
-		Builds *[]string `url:"builds,omitempty"`
-	} `url:"fields,omitempty"`
+	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
 type ListBetaBuildLocalizationsForBuildQuery struct {
-	Fields *struct {
-		BetaBuildLocalizations *[]string `url:"betaBuildLocalizations,omitempty"`
-	} `url:"fields,omitempty"`
-	Limit *int `url:"limit,omitempty"`
+	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
+	Limit                        *int      `url:"limit,omitempty"`
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
