@@ -45,10 +45,7 @@ type AppStoreVersionUpdateRequest struct {
 		ID            string `json:"id"`
 		Relationships *struct {
 			Build *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"build,omitempty"`
 		} `json:"relationships,omitempty"`
 		Type string `json:"type"`
@@ -95,95 +92,41 @@ type AppStoreVersion struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AgeRatingDeclaration *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"ageRatingDeclaration,omitempty"`
 		App *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppStoreReviewDetail *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreReviewDetail,omitempty"`
 		AppStoreVersionLocalizations *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appStoreVersionLocalizations,omitempty"`
 		AppStoreVersionPhasedRelease *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionPhasedRelease,omitempty"`
 		AppStoreVersionSubmission *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionSubmission,omitempty"`
 		Build *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 		IDFADeclaration *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"idfaDeclaration,omitempty"`
 		RoutingAppCoverage *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"routingAppCoverage,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -217,16 +160,10 @@ type AppStoreVersionCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			App struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"app"`
 			Build *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"build,omitempty"`
 		} `json:"relationships"`
 		Type string `json:"type"`
@@ -235,19 +172,13 @@ type AppStoreVersionCreateRequest struct {
 
 // AppStoreVersionBuildLinkageRequest defines model for AppStoreVersionBuildLinkageRequest.
 type AppStoreVersionBuildLinkageRequest struct {
-	Data struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data common.RelationshipsData `json:"data"`
 }
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
 type AppStoreVersionBuildLinkageResponse struct {
-	Data struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.DocumentLinks `json:"links"`
+	Data  common.RelationshipsData `json:"data"`
+	Links common.DocumentLinks     `json:"links"`
 }
 
 type ListAppStoreVersionsQuery struct {

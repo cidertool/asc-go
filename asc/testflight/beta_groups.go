@@ -26,36 +26,18 @@ type BetaGroup struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		BetaTesters *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaTesters,omitempty"`
 		Builds *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"builds,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -80,22 +62,13 @@ type BetaGroupCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			App struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"app"`
 			BetaTesters *struct {
-				Data *[]struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *[]common.RelationshipsData `json:"data,omitempty"`
 			} `json:"betaTesters,omitempty"`
 			Builds *struct {
-				Data *[]struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *[]common.RelationshipsData `json:"data,omitempty"`
 			} `json:"builds,omitempty"`
 		} `json:"relationships"`
 		Type string `json:"type"`
@@ -119,38 +92,26 @@ type BetaGroupUpdateRequest struct {
 
 // BetaGroupBuildsLinkagesRequest defines model for BetaGroupBuildsLinkagesRequest.
 type BetaGroupBuildsLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // BetaGroupBetaTestersLinkagesRequest defines model for BetaGroupBetaTestersLinkagesRequest.
 type BetaGroupBetaTestersLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // BetaGroupBetaTestersLinkagesResponse defines model for BetaGroupBetaTestersLinkagesResponse.
 type BetaGroupBetaTestersLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaGroupBuildsLinkagesResponse defines model for BetaGroupBuildsLinkagesResponse.
 type BetaGroupBuildsLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaGroupsResponse defines model for BetaGroupsResponse.

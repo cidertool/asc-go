@@ -18,85 +18,37 @@ type AppInfo struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppInfoLocalizations *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appInfoLocalizations,omitempty"`
 		PrimaryCategory *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primaryCategory,omitempty"`
 		PrimarySubcategoryOne *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryOne,omitempty"`
 		PrimarySubcategoryTwo *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryTwo,omitempty"`
 		SecondaryCategory *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondaryCategory,omitempty"`
 		SecondarySubcategoryOne *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryOne,omitempty"`
 		SecondarySubcategoryTwo *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryTwo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -123,40 +75,22 @@ type AppInfoUpdateRequest struct {
 		ID            string `json:"id"`
 		Relationships *struct {
 			PrimaryCategory *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"primaryCategory,omitempty"`
 			PrimarySubcategoryOne *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"primarySubcategoryOne,omitempty"`
 			PrimarySubcategoryTwo *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"primarySubcategoryTwo,omitempty"`
 			SecondaryCategory *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"secondaryCategory,omitempty"`
 			SecondarySubcategoryOne *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"secondarySubcategoryOne,omitempty"`
 			SecondarySubcategoryTwo *struct {
-				Data *struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *common.RelationshipsData `json:"data,omitempty"`
 			} `json:"secondarySubcategoryTwo,omitempty"`
 		} `json:"relationships,omitempty"`
 		Type string `json:"type"`

@@ -61,10 +61,7 @@ type BundleIDCapabilityCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			BundleID struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"bundleId"`
 		} `json:"relationships"`
 		Type string `json:"type"`

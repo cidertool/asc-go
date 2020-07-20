@@ -14,16 +14,10 @@ type BetaTesterInvitationCreateRequest struct {
 	Data struct {
 		Relationships struct {
 			App struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"app"`
 			BetaTester struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"betaTester"`
 		} `json:"relationships"`
 		Type string `json:"type"`

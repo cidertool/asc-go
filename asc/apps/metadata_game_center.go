@@ -17,25 +17,13 @@ type GameCenterEnabledVersion struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		CompatibleVersions *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"compatibleVersions,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -43,20 +31,14 @@ type GameCenterEnabledVersion struct {
 
 // GameCenterEnabledVersionCompatibleVersionsLinkagesRequest defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesRequest.
 type GameCenterEnabledVersionCompatibleVersionsLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // GameCenterEnabledVersionCompatibleVersionsLinkagesResponse defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesResponse.
 type GameCenterEnabledVersionCompatibleVersionsLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 // GameCenterEnabledVersionsResponse defines model for GameCenterEnabledVersionsResponse.

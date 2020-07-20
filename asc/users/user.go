@@ -50,15 +50,9 @@ type User struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		VisibleApps *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"visibleApps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -75,10 +69,7 @@ type UserUpdateRequest struct {
 		ID            string `json:"id"`
 		Relationships *struct {
 			VisibleApps *struct {
-				Data *[]struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *[]common.RelationshipsData `json:"data,omitempty"`
 			} `json:"visibleApps,omitempty"`
 		} `json:"relationships,omitempty"`
 		Type string `json:"type"`
@@ -102,20 +93,14 @@ type UsersResponse struct {
 
 // UserVisibleAppsLinkagesRequest defines model for UserVisibleAppsLinkagesRequest.
 type UserVisibleAppsLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // UserVisibleAppsLinkagesResponse defines model for UserVisibleAppsLinkagesResponse.
 type UserVisibleAppsLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 type ListUsersQuery struct {

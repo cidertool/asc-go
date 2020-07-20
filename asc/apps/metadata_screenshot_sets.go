@@ -47,25 +47,13 @@ type AppScreenshotSet struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppScreenshots *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appScreenshots,omitempty"`
 		AppStoreVersionLocalization *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -79,10 +67,7 @@ type AppScreenshotSetCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			AppStoreVersionLocalization struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"appStoreVersionLocalization"`
 		} `json:"relationships"`
 		Type string `json:"type"`
@@ -106,20 +91,14 @@ type AppScreenshotSetsResponse struct {
 
 // AppScreenshotSetAppScreenshotsLinkagesRequest defines model for AppScreenshotSetAppScreenshotsLinkagesRequest.
 type AppScreenshotSetAppScreenshotsLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // AppScreenshotSetAppScreenshotsLinkagesResponse defines model for AppScreenshotSetAppScreenshotsLinkagesResponse.
 type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 type GetAppScreenshotSetQuery struct {

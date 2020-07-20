@@ -42,10 +42,7 @@ type AppStoreVersionPhasedReleaseCreateRequest struct {
 		} `json:"attributes,omitempty"`
 		Relationships struct {
 			AppStoreVersion struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"appStoreVersion"`
 		} `json:"relationships"`
 		Type string `json:"type"`

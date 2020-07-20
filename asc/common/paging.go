@@ -5,10 +5,12 @@ import (
 	"net/url"
 )
 
+// Reference is a wrapper type for a URL that contains a cursor parameter
 type Reference struct {
 	url.URL
 }
 
+// Cursor returns the cursor parameter on the Reference's internal URL.
 func (r *Reference) Cursor() string {
 	var cursor string
 	if r == nil {
@@ -19,10 +21,12 @@ func (r *Reference) Cursor() string {
 	return cursor
 }
 
+// MarshalJSON marshals the Reference into a JSON fragment
 func (r Reference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.String())
 }
 
+// UnmarshalJSON unmarshals the JSON fragment into a Reference
 func (r *Reference) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -61,4 +65,16 @@ type ResourceLinks struct {
 // DocumentLinks defines model for DocumentLinks.
 type DocumentLinks struct {
 	Self Reference `json:"self"`
+}
+
+// RelationshipsData contains data on the given relationship
+type RelationshipsData struct {
+	ID   string `json:"id"`
+	Type string `json:"type"`
+}
+
+// RelationshipsLinks contains links on the given relationship
+type RelationshipsLinks struct {
+	Related *string `json:"related,omitempty"`
+	Self    *string `json:"self,omitempty"`
 }

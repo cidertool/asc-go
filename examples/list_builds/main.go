@@ -34,8 +34,6 @@ func main() {
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
 
-	// b, _, err := client.Builds.ListBuildsForApp("com.wayfair.WayfairApp", nil)
-
 	var cursor string
 	params := builds.ListBuildsForAppQuery{}
 	for {

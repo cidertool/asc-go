@@ -45,14 +45,8 @@ type AppPreview struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviewSet *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appPreviewSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -69,10 +63,7 @@ type AppPreviewCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			AppPreviewSet struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"appPreviewSet"`
 		} `json:"relationships"`
 		Type string `json:"type"`

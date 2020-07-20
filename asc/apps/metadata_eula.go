@@ -16,25 +16,13 @@ type EndUserLicenseAgreement struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		Territories *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"territories,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -48,16 +36,10 @@ type EndUserLicenseAgreementCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			App struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"app"`
 			Territories struct {
-				Data []struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data []common.RelationshipsData `json:"data"`
 			} `json:"territories"`
 		} `json:"relationships"`
 		Type string `json:"type"`
@@ -73,10 +55,7 @@ type EndUserLicenseAgreementUpdateRequest struct {
 		ID            string `json:"id"`
 		Relationships *struct {
 			Territories *struct {
-				Data *[]struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data,omitempty"`
+				Data *[]common.RelationshipsData `json:"data,omitempty"`
 			} `json:"territories,omitempty"`
 		} `json:"relationships,omitempty"`
 		Type string `json:"type"`

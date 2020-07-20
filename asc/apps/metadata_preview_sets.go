@@ -15,25 +15,13 @@ type AppPreviewSet struct {
 	Links         common.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviews *struct {
-			Data *[]struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
-			Meta *common.PagingInformation `json:"meta,omitempty"`
+			Data  *[]common.RelationshipsData `json:"data,omitempty"`
+			Links *common.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *common.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appPreviews,omitempty"`
 		AppStoreVersionLocalization *struct {
-			Data *struct {
-				ID   string `json:"id"`
-				Type string `json:"type"`
-			} `json:"data,omitempty"`
-			Links *struct {
-				Related *string `json:"related,omitempty"`
-				Self    *string `json:"self,omitempty"`
-			} `json:"links,omitempty"`
+			Data  *common.RelationshipsData  `json:"data,omitempty"`
+			Links *common.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -47,10 +35,7 @@ type AppPreviewSetCreateRequest struct {
 		} `json:"attributes"`
 		Relationships struct {
 			AppStoreVersionLocalization struct {
-				Data struct {
-					ID   string `json:"id"`
-					Type string `json:"type"`
-				} `json:"data"`
+				Data common.RelationshipsData `json:"data"`
 			} `json:"appStoreVersionLocalization"`
 		} `json:"relationships"`
 		Type string `json:"type"`
@@ -74,20 +59,14 @@ type AppPreviewSetsResponse struct {
 
 // AppPreviewSetAppPreviewsLinkagesRequest defines model for AppPreviewSetAppPreviewsLinkagesRequest.
 type AppPreviewSetAppPreviewsLinkagesRequest struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Data []common.RelationshipsData `json:"data"`
 }
 
 // AppPreviewSetAppPreviewsLinkagesResponse defines model for AppPreviewSetAppPreviewsLinkagesResponse.
 type AppPreviewSetAppPreviewsLinkagesResponse struct {
-	Data []struct {
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
-	Links common.PagedDocumentLinks `json:"links"`
-	Meta  *common.PagingInformation `json:"meta,omitempty"`
+	Data  []common.RelationshipsData `json:"data"`
+	Links common.PagedDocumentLinks  `json:"links"`
+	Meta  *common.PagingInformation  `json:"meta,omitempty"`
 }
 
 type GetAppPreviewSetQuery struct {
