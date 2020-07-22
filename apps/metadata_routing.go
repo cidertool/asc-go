@@ -73,6 +73,7 @@ type AppMediaStateError struct {
 	Description *string `json:"description,omitempty"`
 }
 
+// GetRoutingAppCoverageQuery are query options for GetRoutingAppCoverage
 type GetRoutingAppCoverageQuery struct {
 	FieldsRoutingAppCoverages *[]string `url:"fields[routingAppCoverages],omitempty"`
 	Include                   *[]string `url:"include,omitempty"`

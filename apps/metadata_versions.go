@@ -181,6 +181,7 @@ type AppStoreVersionBuildLinkageResponse struct {
 	Links internal.DocumentLinks     `json:"links"`
 }
 
+// ListAppStoreVersionsQuery are query options for ListAppStoreVersions
 type ListAppStoreVersionsQuery struct {
 	FieldsApps                          *[]string `url:"fields[apps],omitempty"`
 	FieldsAppStoreVersionSubmissions    *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`
@@ -200,6 +201,7 @@ type ListAppStoreVersionsQuery struct {
 	Cursor                              *string   `url:"cursor,omitempty"`
 }
 
+// GetAppStoreVersionQuery are query options for GetAppStoreVersion
 type GetAppStoreVersionQuery struct {
 	FieldsAppStoreVersions              *[]string `url:"fields[appStoreVersions],omitempty"`
 	FieldsAppStoreVersionSubmissions    *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`
@@ -214,10 +216,12 @@ type GetAppStoreVersionQuery struct {
 	LimitAppStoreVersionLocalizations   *int      `url:"limit[appStoreVersionLocalizations],omitempty"`
 }
 
+// GetAgeRatingDeclarationForAppStoreVersionQuery are query options for GetAgeRatingDeclarationForAppStoreVersion
 type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
 	FieldsAgeRatingDeclarations *[]string `url:"fields[ageRatingDeclarations],omitempty"`
 }
 
+// GetRoutingAppCoverageForVersionQuery are query options for GetRoutingAppCoverageForVersion
 type GetRoutingAppCoverageForVersionQuery struct {
 	FieldsRoutingAppCoverages *[]string `url:"fields[routingAppCoverages],omitempty"`
 }

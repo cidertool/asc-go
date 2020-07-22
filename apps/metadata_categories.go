@@ -42,6 +42,7 @@ type AppCategoryResponse struct {
 	Links    internal.DocumentLinks `json:"links"`
 }
 
+// ListAppCategoriesQuery are query options for ListAppCategories
 type ListAppCategoriesQuery struct {
 	ExistsParent        *[]string `url:"exists[parent],omitempty"`
 	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
@@ -52,18 +53,21 @@ type ListAppCategoriesQuery struct {
 	Cursor              *string   `url:"cursor,omitempty"`
 }
 
+// ListSubcategoriesForAppCategoryQuery are query options for ListSubcategoriesForAppCategory
 type ListSubcategoriesForAppCategoryQuery struct {
 	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
 	Limit               *int      `url:"limit,omitempty"`
 	Cursor              *string   `url:"cursor,omitempty"`
 }
 
+// GetAppCategoryQuery are query options for GetAppCategory
 type GetAppCategoryQuery struct {
 	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
 	Include             *[]string `url:"include,omitempty"`
 	LimitSubcategories  *[]string `url:"limit[subcategories],omitempty"`
 }
 
+// GetAppCategoryForAppInfoQuery are query options for GetAppCategoryForAppInfo
 type GetAppCategoryForAppInfoQuery struct {
 	FieldsAppCategories *[]string `url:"fields[appCategories],omitempty"`
 }

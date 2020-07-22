@@ -101,6 +101,7 @@ type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 	Meta  *internal.PagingInformation  `json:"meta,omitempty"`
 }
 
+// GetAppScreenshotSetQuery are query options for GetAppScreenshotSet
 type GetAppScreenshotSetQuery struct {
 	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
 	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
@@ -108,6 +109,7 @@ type GetAppScreenshotSetQuery struct {
 	LimitAppScreenshots     *int      `url:"limit[appScreenshots],omitempty"`
 }
 
+// ListAppScreenshotsForSetQuery are query options for ListAppScreenshotsForSet
 type ListAppScreenshotsForSetQuery struct {
 	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
 	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
@@ -116,6 +118,7 @@ type ListAppScreenshotsForSetQuery struct {
 	Cursor                  *string   `url:"cursor,omitempty"`
 }
 
+// ListAppScreenshotIDsForSetQuery are query options for ListAppScreenshotIDsForSet
 type ListAppScreenshotIDsForSetQuery struct {
 	Limit *int `url:"limit,omitempty"`
 }

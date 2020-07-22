@@ -90,12 +90,14 @@ type AppStoreVersionLocalizationUpdateRequest struct {
 	} `json:"data"`
 }
 
+// ListLocalizationsForAppStoreVersionQuery are query options for ListLocalizationsForAppStoreVersion
 type ListLocalizationsForAppStoreVersionQuery struct {
 	FieldsAppStoreVersionLocalizations *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
 	Limit                              *int      `url:"limit,omitempty"`
 	Cursor                             *string   `url:"cursor,omitempty"`
 }
 
+// GetAppStoreVersionLocalizationQuery are query options for GetAppStoreVersionLocalization
 type GetAppStoreVersionLocalizationQuery struct {
 	FieldsAppPreviewSets               *[]string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppScreenshotSets            *[]string `url:"fields[appScreenshotSets],omitempty"`
@@ -105,6 +107,7 @@ type GetAppStoreVersionLocalizationQuery struct {
 	LimitAppScreenshotSets             *int      `url:"limit[appScreenshotSets],omitempty"`
 }
 
+// ListAppScreenshotSetsForAppStoreVersionLocalizationQuery are query options for ListAppScreenshotSetsForAppStoreVersionLocalization
 type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
 	FieldsAppScreenshotSets            *[]string `url:"fields[appScreenshotSets],omitempty"`
 	FieldsAppScreenshots               *[]string `url:"fields[appScreenshots],omitempty"`
@@ -115,6 +118,7 @@ type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
 	Cursor                             *string   `url:"cursor,omitempty"`
 }
 
+// ListAppPreviewSetsForAppStoreVersionLocalizationQuery are query options for ListAppPreviewSetsForAppStoreVersionLocalization
 type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 	FieldsAppPreviewSets               *[]string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppPreviews                  *[]string `url:"fields[appPreviews],omitempty"`

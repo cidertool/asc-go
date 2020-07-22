@@ -175,6 +175,7 @@ type AppBetaTestersLinkagesRequest struct {
 	Data []internal.RelationshipsData `json:"data"`
 }
 
+// ListAppsQuery are query options for ListApps
 type ListAppsQuery struct {
 	FieldsApps                          *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements         *[]string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -216,6 +217,7 @@ type ListAppsQuery struct {
 	Cursor                              *string   `url:"cursor,omitempty"`
 }
 
+// GetAppQuery are query options for GetApp
 type GetAppQuery struct {
 	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements     *[]string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -246,6 +248,7 @@ type GetAppQuery struct {
 	LimitInAppPurchases             *int      `url:"limit[inAppPurchases],omitempty"`
 }
 
+// ListInAppPurchasesQuery are query options for ListInAppPurchases
 type ListInAppPurchasesQuery struct {
 	FieldsApps              *[]string `url:"fields[apps],omitempty"`
 	FieldsInAppPurchases    *[]string `url:"fields[inAppPurchases],omitempty"`
@@ -257,6 +260,7 @@ type ListInAppPurchasesQuery struct {
 	Cursor                  *string   `url:"cursor,omitempty"`
 }
 
+// GetInAppPurchaseQuery are query options for GetInAppPurchase
 type GetInAppPurchaseQuery struct {
 	FieldsInAppPurchases *[]string `url:"fields[inAppPurchases],omitempty"`
 	Include              *[]string `url:"include,omitempty"`

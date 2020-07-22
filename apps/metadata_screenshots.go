@@ -70,6 +70,7 @@ type AppScreenshotsResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// GetAppScreenshotQuery are query options for GetAppScreenshot
 type GetAppScreenshotQuery struct {
 	FieldsAppScreenshots *[]string `url:"fields[appScreenshots],omitempty"`
 	Include              *[]string `url:"include,omitempty"`

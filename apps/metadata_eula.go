@@ -69,6 +69,7 @@ type EndUserLicenseAgreementResponse struct {
 	Links    internal.DocumentLinks  `json:"links"`
 }
 
+// GetEULAQuery are query options for GetEULA
 type GetEULAQuery struct {
 	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
 	FieldsTerritories              *[]string `url:"fields[territories],omitempty"`
@@ -76,18 +77,19 @@ type GetEULAQuery struct {
 	LimitTerritories               *int      `url:"limit[territories],omitempty"`
 }
 
+// GetEULAForAppQuery are query options for GetEULAForApp
 type GetEULAForAppQuery struct {
 	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
 }
 
-// Add a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
+// CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 func (s *Service) CreateEULA(id string, body *EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *internal.Response, error) {
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.Post("endUserLicenseAgreements", body, res)
 	return res, resp, err
 }
 
-// Update the text or territories for your custom end user license agreement.
+// UpdateEULA updates the text or territories for your custom end user license agreement.
 func (s *Service) UpdateEULA(id string, body *EndUserLicenseAgreementUpdateRequest) (*EndUserLicenseAgreementResponse, *internal.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
@@ -95,13 +97,13 @@ func (s *Service) UpdateEULA(id string, body *EndUserLicenseAgreementUpdateReque
 	return res, resp, err
 }
 
-// Delete the custom end user license agreement that is associated with an app.
+// DeleteEULA deletes the custom end user license agreement that is associated with an app.
 func (s *Service) DeleteEULA(id string) (*internal.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	return s.Delete(url, nil)
 }
 
-// Get the custom end user license agreement associated with an app, and the territories it applies to.
+// GetEULA gets the custom end user license agreement associated with an app, and the territories it applies to.
 func (s *Service) GetEULA(id string, params *GetEULAQuery) (*EndUserLicenseAgreementResponse, *internal.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)

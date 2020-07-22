@@ -97,6 +97,7 @@ type AppInfoUpdateRequest struct {
 	} `json:"data"`
 }
 
+// GetAppInfoQuery are query options for GetAppInfo
 type GetAppInfoQuery struct {
 	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
 	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
@@ -105,6 +106,7 @@ type GetAppInfoQuery struct {
 	LimitAppInfoLocalizations  *int      `url:"limit[appInfoLocalizations],omitempty"`
 }
 
+// ListAppInfosForAppQuery are query options for ListAppInfosForApp
 type ListAppInfosForAppQuery struct {
 	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
 	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
@@ -115,7 +117,7 @@ type ListAppInfosForAppQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
-// Read App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
+// GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
 func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *internal.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
@@ -131,7 +133,7 @@ func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery)
 	return res, resp, err
 }
 
-// Update the App Store categories and sub-categories for your app.
+// UpdateAppInfo updates the App Store categories and sub-categories for your app.
 func (s *Service) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *internal.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)

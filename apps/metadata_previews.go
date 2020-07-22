@@ -118,6 +118,7 @@ type ImageAsset struct {
 	Width       *int    `json:"width,omitempty"`
 }
 
+// GetAppPreviewQuery are query options for GetAppPreview
 type GetAppPreviewQuery struct {
 	FieldsAppPreviews *[]string `url:"fields[appPreviews],omitempty"`
 	Include           *[]string `url:"include,omitempty"`

@@ -72,6 +72,7 @@ type AppInfoLocalizationsResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListAppInfoLocalizationsForAppInfoQuery are query options for ListAppInfoLocalizationsForAppInfo
 type ListAppInfoLocalizationsForAppInfoQuery struct {
 	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
 	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
@@ -81,6 +82,7 @@ type ListAppInfoLocalizationsForAppInfoQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
+// GetAppInfoLocalizationQuery are query options for GetAppInfoLocalization
 type GetAppInfoLocalizationQuery struct {
 	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
 	Include                    *[]string `url:"include,omitempty"`

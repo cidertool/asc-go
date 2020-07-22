@@ -69,6 +69,7 @@ type AppPreviewSetAppPreviewsLinkagesResponse struct {
 	Meta  *internal.PagingInformation  `json:"meta,omitempty"`
 }
 
+// GetAppPreviewSetQuery are query options for GetAppPreviewSet
 type GetAppPreviewSetQuery struct {
 	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
 	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
@@ -76,6 +77,7 @@ type GetAppPreviewSetQuery struct {
 	LimitAppPreviews     *int      `url:"limit[appPreviews],omitempty"`
 }
 
+// ListAppPreviewsForSetQuery are query options for ListAppPreviewsForSet
 type ListAppPreviewsForSetQuery struct {
 	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
@@ -84,6 +86,7 @@ type ListAppPreviewsForSetQuery struct {
 	Cursor               *string   `url:"cursor,omitempty"`
 }
 
+// ListAppPreviewIDsForSetQuery are query options for ListAppPreviewIDsForSet
 type ListAppPreviewIDsForSetQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`
