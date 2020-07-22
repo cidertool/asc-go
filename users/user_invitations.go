@@ -66,6 +66,7 @@ type UserInvitationsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListInvitationsQuery is the query params structure for ListInvitations
 type ListInvitationsQuery struct {
 	FieldsApps            *[]string `url:"fields[apps],omitempty"`
 	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`
@@ -79,6 +80,7 @@ type ListInvitationsQuery struct {
 	Cursor                *string   `url:"cursor,omitempty"`
 }
 
+// GetInvitationQuery is the query params structure for GetInvitation
 type GetInvitationQuery struct {
 	FieldsApps            *[]string `url:"fields[apps],omitempty"`
 	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`

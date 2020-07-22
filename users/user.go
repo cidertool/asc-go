@@ -103,6 +103,7 @@ type UserVisibleAppsLinkagesResponse struct {
 	Meta  *internal.PagingInformation  `json:"meta,omitempty"`
 }
 
+// ListUsersQuery is the query params structure for ListUsers
 type ListUsersQuery struct {
 	FieldsApps        *[]string `url:"fields[apps],omitempty"`
 	FieldsUsers       *[]string `url:"fields[users],omitempty"`
@@ -116,6 +117,7 @@ type ListUsersQuery struct {
 	Cursor            *string   `url:"cursor,omitempty"`
 }
 
+// GetUserQuery is the query params structure for GetUser
 type GetUserQuery struct {
 	FieldsApps       *[]string `url:"fields[apps],omitempty"`
 	FieldsUsers      *[]string `url:"fields[users],omitempty"`
@@ -124,12 +126,14 @@ type GetUserQuery struct {
 	LimitVisibleApps *int      `url:"limit[visibleApps],omitempty"`
 }
 
+// ListVisibleAppsQuery is the query params structure for ListVisibleAppsForUser
 type ListVisibleAppsQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 	Limit      *int      `url:"limit,omitempty"`
 	Cursor     *string   `url:"cursor,omitempty"`
 }
 
+// ListVisibleAppsByResourceIDQuery is the query params structure for ListVisibleAppsByResourceIDForUser
 type ListVisibleAppsByResourceIDQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`
