@@ -37,6 +37,7 @@ type AppStoreVersionSubmissionResponse struct {
 	Links internal.DocumentLinks    `json:"links"`
 }
 
+// GetAppStoreVersionSubmissionForAppStoreVersionQuery are query options for GetAppStoreVersionSubmissionForAppStoreVersion
 type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 	FieldsAppStoreVersions           *[]string `url:"fields[appStoreVersions],omitempty"`
 	FieldsAppStoreVersionSubmissions *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`

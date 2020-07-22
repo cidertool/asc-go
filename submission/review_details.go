@@ -89,6 +89,7 @@ type GetReviewDetailQuery struct {
 	LimitAppStoreReviewAttachments  *int      `url:"limit[appStoreReviewAttachments],omitempty"`
 }
 
+// GetAppStoreReviewDetailsForAppStoreVersionQuery are query options for GetAppStoreReviewDetailsForAppStoreVersion
 type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 	FieldsAppStoreReviewAttachments *[]string `url:"fields[appStoreReviewAttachments],omitempty"`
 	FieldsAppStoreReviewDetails     *[]string `url:"fields[appStoreReviewDetails],omitempty"`

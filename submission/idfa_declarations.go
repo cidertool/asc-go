@@ -63,6 +63,7 @@ type IDFADeclarationResponse struct {
 	Links internal.DocumentLinks `json:"links"`
 }
 
+// GetIDFADeclarationForAppStoreVersionQuery are query options for GetIDFADeclarationForAppStoreVersion
 type GetIDFADeclarationForAppStoreVersionQuery struct {
 	FieldsIDFADeclarations *[]string `url:"fields[idfaDeclarations],omitempty"`
 }
