@@ -6,6 +6,6 @@ A Go library and client for Apple's [App Store Connect API](https://developer.ap
 
 To get the package, run the usual command in a shell:
 
-```go get github.com/aaronsky/asc-go/v1```
+```go get github.com/aaronsky/asc-go```
 
 For more examples, check out the [examples](./examples) directory.

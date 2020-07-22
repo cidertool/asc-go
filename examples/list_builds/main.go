@@ -7,15 +7,15 @@ import (
 	"log"
 	"time"
 
-	"github.com/aaronsky/asc-go/v1/asc"
-	"github.com/aaronsky/asc-go/v1/asc/builds"
+	"github.com/aaronsky/asc-go"
+	"github.com/aaronsky/asc-go/builds"
 )
 
 var (
 	keyID          = flag.String("kid", "", "key ID")
 	issuerID       = flag.String("iss", "", "issuer ID")
 	privateKeyPath = flag.String("private_key", "", "private key used to sign authorization token")
-	appID          = flag.String("app", "", "App to list builds for")
+	appID          = flag.String("app", "", "App ID to list builds for")
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 		if cursor != "" {
 			params.Cursor = &cursor
 		}
-		b, _, err := client.Builds.ListBuildsForApp("com.wayfair.WayfairApp", &params)
+		b, _, err := client.Builds.ListBuildsForApp(*appID, &params)
 		if err != nil {
 			log.Fatal(err)
 			break

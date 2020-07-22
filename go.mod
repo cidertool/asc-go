@@ -1,4 +1,4 @@
-module github.com/aaronsky/asc-go/v1
+module github.com/aaronsky/asc-go
 
 go 1.14
 

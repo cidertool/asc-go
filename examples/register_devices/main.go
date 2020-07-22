@@ -7,8 +7,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/aaronsky/asc-go/v1/asc"
-	"github.com/aaronsky/asc-go/v1/asc/provisioning"
+	"github.com/aaronsky/asc-go"
+	"github.com/aaronsky/asc-go/provisioning"
 )
 
 var (
