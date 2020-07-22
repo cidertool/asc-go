@@ -10,16 +10,20 @@ import (
 	"github.com/dgrijalva/jwt-go/v4"
 )
 
+// AuthTransport is an http.RoundTripper implementation that stores the JWT created.
+// If the token expires, the Rotate function should be called to update the stored token.
 type AuthTransport struct {
-	Token     string
 	Transport http.RoundTripper
+	token     string
 }
 
+// RoundTrip implements the http.RoundTripper interface to set the Authorization header
 func (t AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", t.Token))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", t.token))
 	return t.transport().RoundTrip(req)
 }
 
+// Client returns a new http.Client instance for use with asc.Client.
 func (t *AuthTransport) Client() *http.Client {
 	return &http.Client{Transport: t}
 }
@@ -31,6 +35,8 @@ func (t *AuthTransport) transport() http.RoundTripper {
 	return http.DefaultTransport
 }
 
+// NewTokenConfig returns a new AuthTransport instance that customizes the Authentication header of the request during transport.
+// It can be customized further by supplying a custom http.RoundTripper instance to the Transport field.
 func NewTokenConfig(keyID string, issuerID string, expiry time.Time, privateKey []byte) (*AuthTransport, error) {
 	key, err := parsePrivateKey(privateKey)
 	if err != nil {
@@ -46,7 +52,7 @@ func NewTokenConfig(keyID string, issuerID string, expiry time.Time, privateKey 
 	if err != nil {
 		return nil, err
 	}
-	return &AuthTransport{Token: token}, nil
+	return &AuthTransport{token: token}, nil
 }
 
 func parsePrivateKey(blob []byte) (key interface{}, err error) {
