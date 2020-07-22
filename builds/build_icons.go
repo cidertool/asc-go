@@ -37,6 +37,7 @@ type BuildIconsResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListIconsQuery are query options for ListIcons
 type ListIconsQuery struct {
 	FieldsBuildIcons *[]string `url:"fields[buildIcons],omitempty"`
 	Limit            *int      `url:"limit,omitempty"`

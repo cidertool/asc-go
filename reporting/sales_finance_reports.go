@@ -6,6 +6,7 @@ import (
 	"github.com/aaronsky/asc-go/internal"
 )
 
+// DownloadFinanceReportsQuery are query options for DownloadFinanceReports
 type DownloadFinanceReportsQuery struct {
 	FilterRegionCode   []string `url:"filter[regionCode]"`
 	FilterReportDate   []string `url:"filter[reportDate]"`
@@ -13,6 +14,7 @@ type DownloadFinanceReportsQuery struct {
 	FilterVendorNumber []string `url:"filter[vendorNumber]"`
 }
 
+// DownloadSalesAndTrendsReportsQuery are query options for DownloadSalesAndTrendsReports
 type DownloadSalesAndTrendsReportsQuery struct {
 	FilterFrequency     []string  `url:"filter[frequency]"`
 	FilterReportDate    *[]string `url:"filter[reportDate],omitempty"`

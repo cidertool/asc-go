@@ -63,6 +63,7 @@ type CertificatesResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListCertificatesQuery are query options for ListCertificates
 type ListCertificatesQuery struct {
 	FieldsCertificates    *[]string `url:"fields[certificates],omitempty"`
 	Limit                 *int      `url:"limit,omitempty"`
@@ -75,6 +76,7 @@ type ListCertificatesQuery struct {
 	Cursor                *string   `url:"cursor,omitempty"`
 }
 
+// GetCertificateQuery are query options for GetCertificate
 type GetCertificateQuery struct {
 	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 }

@@ -60,6 +60,7 @@ type DevicesResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListDevicesQuery are query options for ListDevices
 type ListDevicesQuery struct {
 	FieldsDevices  *[]string `url:"fields[devices],omitempty"`
 	FilterID       *[]string `url:"filter[id],omitempty"`
@@ -72,6 +73,7 @@ type ListDevicesQuery struct {
 	Cursor         *string   `url:"cursor,omitempty"`
 }
 
+// GetDeviceQuery are query options for GetDevice
 type GetDeviceQuery struct {
 	FieldsDevices *[]string `url:"fields[devices],omitempty"`
 }

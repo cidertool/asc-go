@@ -126,6 +126,7 @@ type BuildBetaGroupsLinkagesRequest struct {
 	Data []internal.RelationshipsData `json:"data"`
 }
 
+// ListBuildsQuery are query options for ListBuilds
 type ListBuildsQuery struct {
 	FieldsAppEncryptionDeclarations          *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                               *[]string `url:"fields[apps],omitempty"`
@@ -160,12 +161,14 @@ type ListBuildsQuery struct {
 	Cursor                                   *string   `url:"cursor,omitempty"`
 }
 
+// ListBuildsForAppQuery are query options for ListBuildsForApp
 type ListBuildsForAppQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 	Limit        *int      `url:"limit,omitempty"`
 	Cursor       *string   `url:"cursor,omitempty"`
 }
 
+// GetBuildsQuery are query options for GetBuilds
 type GetBuildsQuery struct {
 	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
@@ -185,23 +188,28 @@ type GetBuildsQuery struct {
 	LimitIcons                      *int      `url:"limit[icons],omitempty"`
 }
 
+// GetAppForBuildQuery are query options for GetAppForBuild
 type GetAppForBuildQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// GetAppStoreVersionForBuildQuery are query options for GetAppStoreVersionForBuild
 type GetAppStoreVersionForBuildQuery struct {
 	FieldsAppStoreVersions *[]string `url:"fields[appStoreVersions],omitempty"`
 }
 
+// GetBuildForAppStoreVersionQuery are query options for GetBuildForAppStoreVersion
 type GetBuildForAppStoreVersionQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
+// ListResourceIDsForIndividualTestersForBuildQuery are query options for ListResourceIDsForIndividualTestersForBuild
 type ListResourceIDsForIndividualTestersForBuildQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`
 }
 
+// GetAppEncryptionDeclarationForBuildQuery are query options for GetAppEncryptionDeclarationForBuild
 type GetAppEncryptionDeclarationForBuildQuery struct {
 	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
 }

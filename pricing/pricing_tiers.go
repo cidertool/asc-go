@@ -71,6 +71,7 @@ type AppPricePointsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListAppPriceTiersQuery are query options for ListAppPriceTiers
 type ListAppPriceTiersQuery struct {
 	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
 	FieldsAppPriceTiers  *[]string `url:"fields[appPriceTiers],omitempty"`
@@ -81,6 +82,7 @@ type ListAppPriceTiersQuery struct {
 	Cursor               *string   `url:"cursor,omitempty"`
 }
 
+// GetAppPriceTierQuery are query options for GetAppPriceTier
 type GetAppPriceTierQuery struct {
 	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
 	FieldsAppPriceTiers  *[]string `url:"fields[appPriceTiers],omitempty"`
@@ -88,12 +90,14 @@ type GetAppPriceTierQuery struct {
 	LimitPricePoints     *int      `url:"limit[pricePoints],omitempty"`
 }
 
+// ListPricePointsForAppPriceTierQuery are query options for ListPricePointsForAppPriceTier
 type ListPricePointsForAppPriceTierQuery struct {
 	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
 	Limit                *int      `url:"limit,omitempty"`
 	Cursor               *string   `url:"cursor,omitempty"`
 }
 
+// ListAppPricePointsQuery are query options for ListAppPricePoints
 type ListAppPricePointsQuery struct {
 	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
 	FieldsTerritories    *[]string `url:"fields[territories],omitempty"`
@@ -104,10 +108,12 @@ type ListAppPricePointsQuery struct {
 	Cursor               *string   `url:"cursor,omitempty"`
 }
 
+// GetTerritoryForAppPricePointQuery are query options for GetTerritoryForAppPricePoint
 type GetTerritoryForAppPricePointQuery struct {
 	FieldsTerritories *[]string `url:"fields[territories],omitempty"`
 }
 
+// GetAppPricePointQuery are query options for GetAppPricePoint
 type GetAppPricePointQuery struct {
 	FieldsAppPricePoints *[]string `url:"fields[appPricePoints],omitempty"`
 	FieldsTerritories    *[]string `url:"fields[territories],omitempty"`

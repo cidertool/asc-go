@@ -29,6 +29,7 @@ type TerritoriesResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListTerritoriesQuery are query options for ListTerritories
 type ListTerritoriesQuery struct {
 	FieldsTerritories *[]string `url:"fields[territories],omitempty"`
 	Limit             *int      `url:"limit,omitempty"`

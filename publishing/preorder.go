@@ -61,6 +61,7 @@ type GetPreOrderQuery struct {
 	Include            *[]string `url:"include,omitempty"`
 }
 
+// GetPreOrderForAppQuery are query options for GetPreOrderForApp
 type GetPreOrderForAppQuery struct {
 	FieldsAppPreOrders *[]string `url:"fields[appPreOrders],omitempty"`
 }

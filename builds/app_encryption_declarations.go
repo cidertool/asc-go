@@ -67,6 +67,7 @@ type AppEncryptionDeclarationsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListAppEncryptionDeclarationsQuery are query options for ListAppEncryptionDeclarations
 type ListAppEncryptionDeclarationsQuery struct {
 	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
@@ -78,12 +79,14 @@ type ListAppEncryptionDeclarationsQuery struct {
 	Cursor                          *string   `url:"cursor,omitempty"`
 }
 
+// GetAppEncryptionDeclarationQuery are query options for GetAppEncryptionDeclaration
 type GetAppEncryptionDeclarationQuery struct {
 	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
 	Include                         *[]string `url:"include,omitempty"`
 }
 
+// GetAppForEncryptionDeclarationQuery are query options for GetAppForEncryptionDeclaration
 type GetAppForEncryptionDeclarationQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }

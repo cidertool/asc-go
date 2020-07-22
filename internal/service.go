@@ -14,6 +14,7 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
+// Service wraps the configured Client to be implemented by other packages
 type Service struct {
 	Client
 }
@@ -61,6 +62,7 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	return req, nil
 }
 
+// Response contains the HTTP response returned by the API
 type Response struct {
 	*http.Response
 }
@@ -113,6 +115,7 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	return response, err
 }
 
+// Get sends a GET request to the API as configured
 func (c *Client) Get(url string, v interface{}) (*Response, error) {
 	req, err := c.newRequest("GET", url, nil)
 	if err != nil {
@@ -125,6 +128,7 @@ func (c *Client) Get(url string, v interface{}) (*Response, error) {
 	return resp, err
 }
 
+// GetWithQuery sends a GET request with a query to the API as configured
 func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*Response, error) {
 	var err error
 	if query != nil {
@@ -136,6 +140,7 @@ func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*Re
 	return c.Get(url, v)
 }
 
+// Post sends a POST request to the API as configured
 func (c *Client) Post(url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("POST", url, body)
 	if err != nil {
@@ -148,6 +153,7 @@ func (c *Client) Post(url string, body interface{}, v interface{}) (*Response, e
 	return resp, err
 }
 
+// Patch sends a PATCH request to the API as configured
 func (c *Client) Patch(url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("PATCH", url, body)
 	if err != nil {
@@ -160,6 +166,7 @@ func (c *Client) Patch(url string, body interface{}, v interface{}) (*Response, 
 	return resp, err
 }
 
+// Delete sends a DELETE request to the API as configured
 func (c *Client) Delete(url string, body interface{}) (*Response, error) {
 	req, err := c.newRequest("DELETE", url, body)
 	if err != nil {

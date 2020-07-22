@@ -59,6 +59,7 @@ type PerfPowerMetricsResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// GetPerfPowerMetricsQuery are query options for GetPerfPowerMetrics
 type GetPerfPowerMetricsQuery struct {
 	FilterDeviceType *[]string `url:"filter[deviceType],omitempty"`
 	FilterMetricType *[]string `url:"filter[metricType],omitempty"`
@@ -66,6 +67,7 @@ type GetPerfPowerMetricsQuery struct {
 	Cursor           *string   `url:"cursor,omitempty"`
 }
 
+// ListDiagnosticsSignaturesQuery are query options for ListDiagnosticsSignatures
 type ListDiagnosticsSignaturesQuery struct {
 	FieldsDiagnosticSignatures *[]string `url:"fields[diagnosticSignatures],omitempty"`
 	FilterDiagnosticType       *[]string `url:"filter[diagnosticType],omitempty"`
@@ -73,6 +75,7 @@ type ListDiagnosticsSignaturesQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
+// GetLogsForDiagnosticSignatureQuery are query options for GetLogsForDiagnosticSignature
 type GetLogsForDiagnosticSignatureQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`

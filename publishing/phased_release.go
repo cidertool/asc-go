@@ -66,6 +66,7 @@ type AppStoreVersionPhasedReleaseUpdateRequest struct {
 	} `json:"data"`
 }
 
+// GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery are query options for GetAppStoreVersionPhasedReleaseForAppStoreVersion
 type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 	FieldsAppStoreVersionPhasedReleases *[]string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 }

@@ -77,6 +77,7 @@ type ProfilesResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListProfileQuery are query options for ListProfile
 type ListProfileQuery struct {
 	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
@@ -94,6 +95,7 @@ type ListProfileQuery struct {
 	Cursor             *string   `url:"cursor,omitempty"`
 }
 
+// GetProfileQuery are query options for GetProfile
 type GetProfileQuery struct {
 	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
@@ -104,16 +106,19 @@ type GetProfileQuery struct {
 	Include            *[]string `url:"include,omitempty"`
 }
 
+// GetBundleIDForProfileQuery are query options for GetBundleIDForProfile
 type GetBundleIDForProfileQuery struct {
 	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 }
 
+// ListCertificatesForProfileQuery are query options for ListCertificatesForProfile
 type ListCertificatesForProfileQuery struct {
 	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
 	Limit              *int      `url:"limit,omitempty"`
 	Cursor             *string   `url:"cursor,omitempty"`
 }
 
+// ListDevicesInProfileQuery are query options for ListDevicesInProfile
 type ListDevicesInProfileQuery struct {
 	FieldsDevices *[]string `url:"fields[devices],omitempty"`
 	Limit         *int      `url:"limit,omitempty"`

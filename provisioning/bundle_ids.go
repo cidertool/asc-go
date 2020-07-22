@@ -85,6 +85,7 @@ type BundleIDsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBundleIDsQuery are query options for ListBundleIDs
 type ListBundleIDsQuery struct {
 	FieldsBundleIds            *[]string `url:"fields[bundleIds],omitempty"`
 	FieldsProfiles             *[]string `url:"fields[profiles],omitempty"`
@@ -103,6 +104,7 @@ type ListBundleIDsQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
+// GetBundleIDQuery are query options for GetBundleID
 type GetBundleIDQuery struct {
 	FieldsBundleIds            *[]string `url:"fields[bundleIds],omitempty"`
 	FieldsProfiles             *[]string `url:"fields[profiles],omitempty"`
@@ -113,16 +115,19 @@ type GetBundleIDQuery struct {
 	Include                    *[]string `url:"include,omitempty"`
 }
 
+// GetAppForBundleIDQuery are query options for GetAppForBundleID
 type GetAppForBundleIDQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// ListProfilesForBundleIDQuery are query options for ListProfilesForBundleID
 type ListProfilesForBundleIDQuery struct {
 	FieldsProfiles *[]string `url:"fields[profiles],omitempty"`
 	Limit          *int      `url:"limit,omitempty"`
 	Cursor         *string   `url:"cursor,omitempty"`
 }
 
+// ListCapabilitiesForBundleIDQuery are query options for ListCapabilitiesForBundleID
 type ListCapabilitiesForBundleIDQuery struct {
 	FieldsBundleIDCapabilities *[]string `url:"fields[bundleIdCapabilities],omitempty"`
 	Limit                      *int      `url:"limit,omitempty"`

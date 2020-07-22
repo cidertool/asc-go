@@ -36,6 +36,7 @@ type AppPricesResponse struct {
 	Meta  *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListPricesQuery are query options for ListPrices
 type ListPricesQuery struct {
 	FieldsAppPrices     *[]string `url:"fields[appPrices],omitempty"`
 	FieldsApps          *[]string `url:"fields[apps],omitempty"`
@@ -45,6 +46,7 @@ type ListPricesQuery struct {
 	Cursor              *string   `url:"cursor,omitempty"`
 }
 
+// GetPriceQuery are query options for GetPrice
 type GetPriceQuery struct {
 	FieldsAppPrices *[]string `url:"fields[appPrices],omitempty"`
 	Include         *[]string `url:"include,omitempty"`
