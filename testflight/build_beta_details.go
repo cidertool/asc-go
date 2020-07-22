@@ -84,6 +84,7 @@ type BuildBetaDetailsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBuildBetaDetailsQuery defines model for ListBuildBetaDetails
 type ListBuildBetaDetailsQuery struct {
 	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
 	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
@@ -94,16 +95,19 @@ type ListBuildBetaDetailsQuery struct {
 	Cursor                 *string   `url:"cursor,omitempty"`
 }
 
+// GetBuildBetaDetailsQuery defines model for GetBuildBetaDetails
 type GetBuildBetaDetailsQuery struct {
 	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
 	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
 	Include                *[]string `url:"include,omitempty"`
 }
 
+// GetBuildForBuildBetaDetailQuery defines model for GetBuildForBuildBetaDetail
 type GetBuildForBuildBetaDetailQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
+// GetBuildBetaDetailForBuildQuery defines model for GetBuildBetaDetailForBuild
 type GetBuildBetaDetailForBuildQuery struct {
 	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
 }

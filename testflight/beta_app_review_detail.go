@@ -63,6 +63,7 @@ type BetaAppReviewDetailsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBetaAppReviewDetailsQuery defines model for ListBetaAppReviewDetails
 type ListBetaAppReviewDetailsQuery struct {
 	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
@@ -72,16 +73,19 @@ type ListBetaAppReviewDetailsQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
+// GetBetaAppReviewDetailQuery defines model for GetBetaAppReviewDetail
 type GetBetaAppReviewDetailQuery struct {
 	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
 	Include                    *[]string `url:"include,omitempty"`
 }
 
+// GetAppForBetaAppReviewDetailQuery defines model for GetAppForBetaAppReviewDetail
 type GetAppForBetaAppReviewDetailQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// GetBetaAppReviewDetailsForAppQuery defines model for GetBetaAppReviewDetailsForApp
 type GetBetaAppReviewDetailsForAppQuery struct {
 	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
 }

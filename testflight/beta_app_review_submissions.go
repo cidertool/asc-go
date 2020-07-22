@@ -61,6 +61,7 @@ type BetaAppReviewSubmissionsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBetaAppReviewSubmissionsQuery defines model for ListBetaAppReviewSubmissions
 type ListBetaAppReviewSubmissionsQuery struct {
 	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
 	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
@@ -71,16 +72,19 @@ type ListBetaAppReviewSubmissionsQuery struct {
 	Cursor                         *string   `url:"cursor,omitempty"`
 }
 
+// GetBetaAppReviewSubmissionQuery defines model for GetBetaAppReviewSubmission
 type GetBetaAppReviewSubmissionQuery struct {
 	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
 	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
 	Include                        *[]string `url:"include,omitempty"`
 }
 
+// GetBuildForBetaAppReviewSubmissionQuery defines model for GetBuildForBetaAppReviewSubmission
 type GetBuildForBetaAppReviewSubmissionQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
+// GetBetaAppReviewSubmissionForBuildQuery defines model for GetBetaAppReviewSubmissionForBuild
 type GetBetaAppReviewSubmissionForBuildQuery struct {
 	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
 }

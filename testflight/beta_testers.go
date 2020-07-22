@@ -118,6 +118,7 @@ type BetaTestersResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBetaTestersQuery defines model for ListBetaTesters
 type ListBetaTestersQuery struct {
 	FieldsApps        *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
@@ -139,6 +140,7 @@ type ListBetaTestersQuery struct {
 	Cursor            *string   `url:"cursor,omitempty"`
 }
 
+// GetBetaTesterQuery defines model for GetBetaTester
 type GetBetaTesterQuery struct {
 	FieldsApps        *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
@@ -150,40 +152,47 @@ type GetBetaTesterQuery struct {
 	LimitBuilds       *[]string `url:"limit[builds],omitempty"`
 }
 
+// ListAppsForBetaTesterQuery defines model for ListAppsForBetaTester
 type ListAppsForBetaTesterQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 	Limit      *int      `url:"limit,omitempty"`
 	Cursor     *string   `url:"cursor,omitempty"`
 }
 
+// ListAppIDsForBetaTesterQuery defines model for ListAppIDsForBetaTester
 type ListAppIDsForBetaTesterQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`
 }
 
+// ListBuildsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildsIndividuallyAssignedToBetaTester
 type ListBuildsIndividuallyAssignedToBetaTesterQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 	Limit        *int      `url:"limit,omitempty"`
 	Cursor       *string   `url:"cursor,omitempty"`
 }
 
+// ListBuildIDsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildIDsIndividuallyAssignedToBetaTester
 type ListBuildIDsIndividuallyAssignedToBetaTesterQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`
 }
 
+// ListIndividualTestersForBuildQuery defines model for ListIndividualTestersForBuild
 type ListIndividualTestersForBuildQuery struct {
 	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
 	Limit             *int      `url:"limit,omitempty"`
 	Cursor            *string   `url:"cursor,omitempty"`
 }
 
+// ListBetaGroupsForBetaTesterQuery defines model for ListBetaGroupsForBetaTester
 type ListBetaGroupsForBetaTesterQuery struct {
 	FieldsBetaGroups *[]string `url:"fields[betaGroups],omitempty"`
 	Limit            *int      `url:"limit,omitempty"`
 	Cursor           *string   `url:"cursor,omitempty"`
 }
 
+// ListBetaGroupIDsForBetaTesterQuery defines model for ListBetaGroupIDsForBetaTester
 type ListBetaGroupIDsForBetaTesterQuery struct {
 	Limit  *int    `url:"limit,omitempty"`
 	Cursor *string `url:"cursor,omitempty"`

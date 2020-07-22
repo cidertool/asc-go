@@ -78,6 +78,7 @@ type BetaAppLocalizationsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBetaAppLocalizationsQuery defines model for ListBetaAppLocalizations
 type ListBetaAppLocalizationsQuery struct {
 	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
@@ -88,16 +89,19 @@ type ListBetaAppLocalizationsQuery struct {
 	Cursor                     *string   `url:"cursor,omitempty"`
 }
 
+// GetBetaAppLocalizationQuery defines model for GetBetaAppLocalization
 type GetBetaAppLocalizationQuery struct {
 	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
 	Include                    *[]string `url:"include,omitempty"`
 }
 
+// GetAppForBetaAppLocalizationQuery defines model for GetAppForBetaAppLocalization
 type GetAppForBetaAppLocalizationQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// ListBetaAppLocalizationsForAppQuery defines model for ListBetaAppLocalizationsForApp
 type ListBetaAppLocalizationsForAppQuery struct {
 	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
 	Limit                      *int      `url:"limit,omitempty"`

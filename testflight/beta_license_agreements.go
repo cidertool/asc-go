@@ -49,6 +49,7 @@ type BetaLicenseAgreementResponse struct {
 	Links    internal.DocumentLinks `json:"links"`
 }
 
+// ListBetaLicenseAgreementsQuery defines model for ListBetaLicenseAgreements
 type ListBetaLicenseAgreementsQuery struct {
 	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -58,16 +59,19 @@ type ListBetaLicenseAgreementsQuery struct {
 	Cursor                      *string   `url:"cursor,omitempty"`
 }
 
+// GetBetaLicenseAgreementQuery defines model for GetBetaLicenseAgreement
 type GetBetaLicenseAgreementQuery struct {
 	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
 	Include                     *[]string `url:"include,omitempty"`
 }
 
+// GetAppForBetaLicenseAgreementQuery defines model for GetAppForBetaLicenseAgreement
 type GetAppForBetaLicenseAgreementQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// GetBetaLicenseAgreementForAppQuery defines model for GetBetaLicenseAgreementForApp
 type GetBetaLicenseAgreementForAppQuery struct {
 	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
 }

@@ -45,6 +45,7 @@ type PrereleaseVersionsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListPrereleaseVersionsQuery defines model for ListPrereleaseVersions
 type ListPrereleaseVersionsQuery struct {
 	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
 	FieldsBuilds                *[]string `url:"fields[builds],omitempty"`
@@ -62,6 +63,7 @@ type ListPrereleaseVersionsQuery struct {
 	Cursor                      *string   `url:"cursor,omitempty"`
 }
 
+// GetPrereleaseVersionQuery defines model for GetPrereleaseVersion
 type GetPrereleaseVersionQuery struct {
 	FieldsApps               *[]string `url:"fields[apps],omitempty"`
 	FieldsBuilds             *[]string `url:"fields[builds],omitempty"`
@@ -70,22 +72,26 @@ type GetPrereleaseVersionQuery struct {
 	LimitBuilds              *int      `url:"limit[builds],omitempty"`
 }
 
+// GetAppForPrereleaseVersionQuery defines model for GetAppForPrereleaseVersion
 type GetAppForPrereleaseVersionQuery struct {
 	FieldsApps *[]string `url:"fields[apps],omitempty"`
 }
 
+// ListPrereleaseVersionsForAppQuery defines model for ListPrereleaseVersionsForApp
 type ListPrereleaseVersionsForAppQuery struct {
 	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
 	Limit                    *int      `url:"limit,omitempty"`
 	Cursor                   *string   `url:"cursor,omitempty"`
 }
 
+// ListBuildsForPrereleaseVersionQuery defines model for ListBuildsForPrereleaseVersion
 type ListBuildsForPrereleaseVersionQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 	Limit        *int      `url:"limit,omitempty"`
 	Cursor       *string   `url:"cursor,omitempty"`
 }
 
+// GetPrereleaseVersionForBuildQuery defines model for GetPrereleaseVersionForBuild
 type GetPrereleaseVersionForBuildQuery struct {
 	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
 }

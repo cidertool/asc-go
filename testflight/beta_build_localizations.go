@@ -66,6 +66,7 @@ type BetaBuildLocalizationsResponse struct {
 	Meta     *internal.PagingInformation `json:"meta,omitempty"`
 }
 
+// ListBetaBuildLocalizationsQuery defines model for ListBetaBuildLocalizations
 type ListBetaBuildLocalizationsQuery struct {
 	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
 	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
@@ -75,16 +76,19 @@ type ListBetaBuildLocalizationsQuery struct {
 	FilterLocale                 *[]string `url:"filter[locale],omitempty"`
 }
 
+// GetBetaBuildLocalizationQuery defines model for GetBetaBuildLocalization
 type GetBetaBuildLocalizationQuery struct {
 	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
 	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
 	Include                      *[]string `url:"include,omitempty"`
 }
 
+// GetBuildForBetaBuildLocalizationQuery defines model for GetBuildForBetaBuildLocalization
 type GetBuildForBetaBuildLocalizationQuery struct {
 	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
 }
 
+// ListBetaBuildLocalizationsForBuildQuery defines model for ListBetaBuildLocalizationsForBuild
 type ListBetaBuildLocalizationsForBuildQuery struct {
 	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
 	Limit                        *int      `url:"limit,omitempty"`
