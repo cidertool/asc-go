@@ -2,6 +2,7 @@ package testflight
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -91,21 +92,21 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 }
 
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
-func (s *Service) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
+func (s *Service) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.Post("betaAppReviewSubmissions", body, res)
 	return res, resp, err
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
-func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *services.Response, error) {
+func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *http.Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
 	resp, err := s.GetWithQuery("betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmission gets a specific beta app review submission.
-func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
+func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -113,7 +114,7 @@ func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReview
 }
 
 // GetBuildForBetaAppReviewSubmission gets the build information for a specific beta app review submission.
-func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*builds.BuildResponse, *services.Response, error) {
+func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*builds.BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -121,7 +122,7 @@ func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuild
 }
 
 // GetBetaAppReviewSubmissionForBuild gets the beta app review submission status for a specific build.
-func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
+func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.GetWithQuery(url, params, res)

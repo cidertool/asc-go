@@ -2,6 +2,7 @@ package builds
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -45,7 +46,7 @@ type ListIconsQuery struct {
 }
 
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.
-func (s *Service) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *services.Response, error) {
+func (s *Service) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
 	resp, err := s.GetWithQuery(url, params, res)

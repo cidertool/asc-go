@@ -2,6 +2,7 @@ package publishing
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
@@ -77,14 +78,14 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 }
 
 // CreatePhasedRelease enables phased release for an App Store version.
-func (s *Service) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
+func (s *Service) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.Post("appStoreVersionPhasedReleases", body, res)
 	return res, resp, err
 }
 
 // UpdatePhasedRelease pauses or resumes a phased release, or immediately release an app.
-func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
+func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.Patch(url, body, res)
@@ -92,13 +93,13 @@ func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedRele
 }
 
 // DeletePhasedRelease cancels a planned phased release that has not been started.
-func (s *Service) DeletePhasedRelease(id string) (*services.Response, error) {
+func (s *Service) DeletePhasedRelease(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	return s.Delete(url, nil)
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersion reads the phased release status and configuration for a version with phased release enabled.
-func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
+func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.GetWithQuery(url, params, res)

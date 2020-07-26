@@ -2,6 +2,7 @@ package submission
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -74,14 +75,14 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
-func (s *Service) CreateIDFADeclaration(body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *services.Response, error) {
+func (s *Service) CreateIDFADeclaration(body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *http.Response, error) {
 	res := new(IDFADeclarationResponse)
 	resp, err := s.Post("idfaDeclarations", body, res)
 	return res, resp, err
 }
 
 // UpdateIDFADeclaration updates your declared IDFA usage.
-func (s *Service) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *services.Response, error) {
+func (s *Service) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -89,13 +90,13 @@ func (s *Service) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRe
 }
 
 // DeleteIDFADeclaration deletes the IDFA declaration that is associated with a version.
-func (s *Service) DeleteIDFADeclaration(id string) (*services.Response, error) {
+func (s *Service) DeleteIDFADeclaration(id string) (*http.Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	return s.Delete(url, nil)
 }
 
 // GetIDFADeclarationForAppStoreVersion reads your declared Advertising Identifier (IDFA) usage responses.
-func (s *Service) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *services.Response, error) {
+func (s *Service) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/idfaDeclaration", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.GetWithQuery(url, params, res)

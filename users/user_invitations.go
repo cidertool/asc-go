@@ -2,6 +2,7 @@ package users
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/apps"
@@ -94,14 +95,14 @@ type GetInvitationQuery struct {
 }
 
 // ListInvitations gets a list of pending invitations to join your team.
-func (s *Service) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *services.Response, error) {
+func (s *Service) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *http.Response, error) {
 	res := new(UserInvitationsResponse)
 	resp, err := s.GetWithQuery("userInvitations", params, res)
 	return res, resp, err
 }
 
 // GetInvitation gets information about a pending invitation to join your team.
-func (s *Service) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *services.Response, error) {
+func (s *Service) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -109,20 +110,20 @@ func (s *Service) GetInvitation(id string, params *GetInvitationQuery) (*UserInv
 }
 
 // CreateInvitation invites a user with assigned user roles to join your team.
-func (s *Service) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *services.Response, error) {
+func (s *Service) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *http.Response, error) {
 	res := new(UserInvitationResponse)
 	resp, err := s.Post("userInvitations", body, res)
 	return res, resp, err
 }
 
 // CancelInvitation cancels a pending invitation for a user to join your team.
-func (s *Service) CancelInvitation(id string) (*services.Response, error) {
+func (s *Service) CancelInvitation(id string) (*http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
-func (s *Service) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*apps.AppsResponse, *services.Response, error) {
+func (s *Service) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*apps.AppsResponse, *http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(apps.AppsResponse)
 	resp, err := s.GetWithQuery(url, params, res)

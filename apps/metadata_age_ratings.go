@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -72,7 +73,7 @@ type AgeRatingDeclarationResponse struct {
 }
 
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
-func (s *Service) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *services.Response, error) {
+func (s *Service) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.Patch(url, body, res)

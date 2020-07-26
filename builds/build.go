@@ -2,6 +2,7 @@ package builds
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/apps"
@@ -204,14 +205,14 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 }
 
 // ListBuilds finds and lists builds for all apps in App Store Connect.
-func (s *Service) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *services.Response, error) {
+func (s *Service) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *http.Response, error) {
 	res := new(BuildsResponse)
 	resp, err := s.GetWithQuery("builds", params, res)
 	return res, resp, err
 }
 
 // ListBuildsForApp gets a list of builds associated with a specific app.
-func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *services.Response, error) {
+func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -219,7 +220,7 @@ func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*B
 }
 
 // GetBuild gets information about a specific build.
-func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *services.Response, error) {
+func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -227,7 +228,7 @@ func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *
 }
 
 // GetAppForBuild gets the app information for a specific build.
-func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.AppResponse, *services.Response, error) {
+func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -235,7 +236,7 @@ func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.
 }
 
 // GetAppStoreVersionForBuild gets the App Store version of a specific build.
-func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*apps.AppStoreVersionResponse, *services.Response, error) {
+func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*apps.AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(apps.AppStoreVersionResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -243,7 +244,7 @@ func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersi
 }
 
 // GetBuildForAppStoreVersion gets the build that is attached to a specific App Store version.
-func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *services.Response, error) {
+func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -251,7 +252,7 @@ func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppSt
 }
 
 // UpdateBuild expires a build or changes its encryption exemption setting.
-func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *services.Response, error) {
+func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.Post(url, body, res)
@@ -259,37 +260,37 @@ func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildRespons
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
-func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or create a beta group to a build to enable testing.
-func (s *Service) CreateAccessForBetaGroupsToBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateAccessForBetaGroupsToBuild(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
-func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.Delete(url, linkages)
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
-func (s *Service) CreateAccessForIndividualTestersToBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateAccessForIndividualTestersToBuild(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
-func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.Delete(url, linkages)
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.
-func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *services.Response, error) {
+func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -297,7 +298,7 @@ func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params 
 }
 
 // GetAppEncryptionDeclarationForBuild reads an app encryption declaration associated with a specific build.
-func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *services.Response, error) {
+func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -305,7 +306,7 @@ func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppE
 }
 
 // GetAppEncryptionDeclarationIDForBuild gets the beta app encryption declaration resource ID associated with a build.
-func (s *Service) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *services.Response, error) {
+func (s *Service) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
 	resp, err := s.GetWithQuery(url, nil, res)

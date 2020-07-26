@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -119,7 +120,7 @@ type ListAppInfosForAppQuery struct {
 }
 
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
-func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *services.Response, error) {
+func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -127,7 +128,7 @@ func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoRespon
 }
 
 // ListAppInfosForApp gets information about an app that is currently live on App Store, or that goes live with the next version.
-func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *services.Response, error) {
+func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -135,7 +136,7 @@ func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery)
 }
 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
-func (s *Service) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *services.Response, error) {
+func (s *Service) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.Patch(url, body, res)

@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -130,7 +131,7 @@ type GetAppPreviewQuery struct {
 }
 
 // GetAppPreview gets information about an app preview and its upload and processing status.
-func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *services.Response, error) {
+func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -138,14 +139,14 @@ func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPrev
 }
 
 // CreateAppPreview adds a new preview to a preview set.
-func (s *Service) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *services.Response, error) {
+func (s *Service) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *http.Response, error) {
 	res := new(AppPreviewResponse)
 	resp, err := s.Post("appPreviews", body, res)
 	return res, resp, err
 }
 
 // UpdateAppPreview commits an app preview after uploading it.
-func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *services.Response, error) {
+func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.Patch(url, body, res)
@@ -153,7 +154,7 @@ func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*A
 }
 
 // DeleteAppPreview deletes an app preview that is associated with a preview set.
-func (s *Service) DeleteAppPreview(id string) (*services.Response, error) {
+func (s *Service) DeleteAppPreview(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	return s.Delete(url, nil)
 }

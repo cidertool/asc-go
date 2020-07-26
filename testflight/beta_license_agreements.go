@@ -2,6 +2,7 @@ package testflight
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -78,14 +79,14 @@ type GetBetaLicenseAgreementForAppQuery struct {
 }
 
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
-func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *services.Response, error) {
+func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *http.Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
 	resp, err := s.GetWithQuery("betaLicenseAgreements", params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreement gets a specific beta license agreement.
-func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *services.Response, error) {
+func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -93,7 +94,7 @@ func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgree
 }
 
 // GetAppForBetaLicenseAgreement gets the app information for a specific beta license agreement.
-func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*apps.AppResponse, *services.Response, error) {
+func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*apps.AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -101,7 +102,7 @@ func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBeta
 }
 
 // GetBetaLicenseAgreementForApp gets the beta license agreement for a specific app.
-func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *services.Response, error) {
+func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -109,7 +110,7 @@ func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicens
 }
 
 // UpdateBetaLicenseAgreement updates the text for your beta license agreement.
-func (s *Service) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *services.Response, error) {
+func (s *Service) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.Patch(url, body, res)

@@ -2,6 +2,7 @@ package submission
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -105,7 +106,7 @@ type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 // CreateReviewDetail adds App Store review details to an App Store version, including contact and demo account information.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail
-func (s *Service) CreateReviewDetail(body *AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *services.Response, error) {
+func (s *Service) CreateReviewDetail(body *AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.Post("appStoreReviewDetails", body, res)
 	return res, resp, err
@@ -114,7 +115,7 @@ func (s *Service) CreateReviewDetail(body *AppStoreReviewDetailCreateRequest) (*
 // GetReviewDetail gets App Review details you provided, including contact information, demo account, and notes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_detail_information
-func (s *Service) GetReviewDetail(id string, params *GetReviewDetailQuery) (*AppStoreReviewDetailResponse, *services.Response, error) {
+func (s *Service) GetReviewDetail(id string, params *GetReviewDetailQuery) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -122,7 +123,7 @@ func (s *Service) GetReviewDetail(id string, params *GetReviewDetailQuery) (*App
 }
 
 // GetReviewDetailsForAppStoreVersion gets the details you provide to App Review so they can test your app.
-func (s *Service) GetReviewDetailsForAppStoreVersion(id string, params *GetAppStoreReviewDetailsForAppStoreVersionQuery) (*AppStoreReviewDetailResponse, *services.Response, error) {
+func (s *Service) GetReviewDetailsForAppStoreVersion(id string, params *GetAppStoreReviewDetailsForAppStoreVersionQuery) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreReviewDetail", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -132,7 +133,7 @@ func (s *Service) GetReviewDetailsForAppStoreVersion(id string, params *GetAppSt
 // UpdateReviewDetail update the app store review details, including the contact information, demo account, and notes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_review_detail
-func (s *Service) UpdateReviewDetail(id string, body *AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *services.Response, error) {
+func (s *Service) UpdateReviewDetail(id string, body *AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.Patch(url, body, res)

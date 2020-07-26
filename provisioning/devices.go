@@ -2,6 +2,7 @@ package provisioning
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
@@ -81,21 +82,21 @@ type GetDeviceQuery struct {
 }
 
 // CreateDevice registers a new device for app development.
-func (s *Service) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *services.Response, error) {
+func (s *Service) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *http.Response, error) {
 	res := new(DeviceResponse)
 	resp, err := s.Post("devices", body, res)
 	return res, resp, err
 }
 
 // ListDevices finds and lists devices registered to your team.
-func (s *Service) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *services.Response, error) {
+func (s *Service) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *http.Response, error) {
 	res := new(DevicesResponse)
 	resp, err := s.GetWithQuery("devices", params, res)
 	return res, resp, err
 }
 
 // GetDevice gets information for a specific device registered to your team.
-func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *services.Response, error) {
+func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *http.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -103,7 +104,7 @@ func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse,
 }
 
 // UpdateDevice updates the name or status of a specific device.
-func (s *Service) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *services.Response, error) {
+func (s *Service) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *http.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.Patch(url, body, res)

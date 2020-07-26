@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -135,7 +136,7 @@ type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 }
 
 // ListLocalizationsForAppStoreVersion gets a list of localized, version-level information about an app, for all locales.
-func (s *Service) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionQuery) (*AppStoreVersionLocalizationsResponse, *services.Response, error) {
+func (s *Service) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionQuery) (*AppStoreVersionLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionLocalizations", id)
 	res := new(AppStoreVersionLocalizationsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -143,7 +144,7 @@ func (s *Service) ListLocalizationsForAppStoreVersion(id string, params *ListLoc
 }
 
 // GetAppStoreVersionLocalization reads localized version-level information.
-func (s *Service) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationQuery) (*AppStoreVersionLocalizationResponse, *services.Response, error) {
+func (s *Service) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationQuery) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -151,14 +152,14 @@ func (s *Service) GetAppStoreVersionLocalization(id string, params *GetAppStoreV
 }
 
 // CreateAppStoreVersionLocalization adds localized version-level information for a new locale.
-func (s *Service) CreateAppStoreVersionLocalization(body *AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *services.Response, error) {
+func (s *Service) CreateAppStoreVersionLocalization(body *AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.Post("appStoreVersionLocalizations", body, res)
 	return res, resp, err
 }
 
 // UpdateAppStoreVersionLocalization modifies localized version-level information for a particular language.
-func (s *Service) UpdateAppStoreVersionLocalization(id string, body *AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *services.Response, error) {
+func (s *Service) UpdateAppStoreVersionLocalization(id string, body *AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -166,13 +167,13 @@ func (s *Service) UpdateAppStoreVersionLocalization(id string, body *AppStoreVer
 }
 
 // DeleteAppStoreVersionLocalization deletes a language from your version metadata.
-func (s *Service) DeleteAppStoreVersionLocalization(id string) (*services.Response, error) {
+func (s *Service) DeleteAppStoreVersionLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListAppScreenshotSetsForAppStoreVersionLocalization lists all screenshot sets for a specific localization.
-func (s *Service) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationQuery) (*AppScreenshotSetsResponse, *services.Response, error) {
+func (s *Service) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationQuery) (*AppScreenshotSetsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appScreenshotSets", id)
 	res := new(AppScreenshotSetsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -180,7 +181,7 @@ func (s *Service) ListAppScreenshotSetsForAppStoreVersionLocalization(id string,
 }
 
 // ListAppPreviewSetsForAppStoreVersionLocalization lists all app preview sets for a specific localization.
-func (s *Service) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationQuery) (*AppPreviewSetsResponse, *services.Response, error) {
+func (s *Service) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationQuery) (*AppPreviewSetsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appPreviewSets", id)
 	res := new(AppPreviewSetsResponse)
 	resp, err := s.GetWithQuery(url, params, res)

@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
@@ -230,7 +231,7 @@ type GetRoutingAppCoverageForVersionQuery struct {
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
-func (s *Service) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *services.Response, error) {
+func (s *Service) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -238,7 +239,7 @@ func (s *Service) ListAppStoreVersionsForApp(id string, params *ListAppStoreVers
 }
 
 // GetAppStoreVersion gets information for a specific app store version.
-func (s *Service) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *services.Response, error) {
+func (s *Service) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -246,7 +247,7 @@ func (s *Service) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery)
 }
 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
-func (s *Service) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *services.Response, error) {
+func (s *Service) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
 	resp, err := s.Post(url, body, res)
@@ -254,7 +255,7 @@ func (s *Service) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*Ap
 }
 
 // UpdateAppStoreVersion updates the app store version for a specific app.
-func (s *Service) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *services.Response, error) {
+func (s *Service) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.Patch(url, body, res)
@@ -262,13 +263,13 @@ func (s *Service) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRe
 }
 
 // DeleteAppStoreVersion deletes an app store version that is associated with an app.
-func (s *Service) DeleteAppStoreVersion(id string) (*services.Response, error) {
+func (s *Service) DeleteAppStoreVersion(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	return s.Delete(url, nil)
 }
 
 // GetBuildIDForAppStoreVersion gets the ID of the build that is attached to a specific App Store version.
-func (s *Service) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *services.Response, error) {
+func (s *Service) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.GetWithQuery(url, nil, res)
@@ -276,7 +277,7 @@ func (s *Service) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuild
 }
 
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
-func (s *Service) UpdateBuildForAppStoreVersion(id string, linkages *[]services.RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *services.Response, error) {
+func (s *Service) UpdateBuildForAppStoreVersion(id string, linkages *[]services.RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.Patch(url, linkages, res)
@@ -284,7 +285,7 @@ func (s *Service) UpdateBuildForAppStoreVersion(id string, linkages *[]services.
 }
 
 // GetAgeRatingDeclarationForAppStoreVersion gets the age-related information declared for your app.
-func (s *Service) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *services.Response, error) {
+func (s *Service) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -292,7 +293,7 @@ func (s *Service) GetAgeRatingDeclarationForAppStoreVersion(id string, params *G
 }
 
 // GetRoutingAppCoverageForAppStoreVersion gets the routing app coverage file that is associated with a specific App Store version
-func (s *Service) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *services.Response, error) {
+func (s *Service) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.GetWithQuery(url, params, res)

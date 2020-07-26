@@ -2,6 +2,7 @@ package pricing
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -37,14 +38,14 @@ type ListTerritoriesQuery struct {
 }
 
 // ListTerritories lists all territories where the App Store operates.
-func (s *Service) ListTerritories(params *ListTerritoriesQuery) (*TerritoriesResponse, *services.Response, error) {
+func (s *Service) ListTerritories(params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	res := new(TerritoriesResponse)
 	resp, err := s.GetWithQuery("territories", params, res)
 	return res, resp, err
 }
 
 // ListTerritoriesForApp gets a list of App Store territories where an app is or will be available.
-func (s *Service) ListTerritoriesForApp(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *services.Response, error) {
+func (s *Service) ListTerritoriesForApp(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/availableTerritories", id)
 	res := new(TerritoriesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -52,7 +53,7 @@ func (s *Service) ListTerritoriesForApp(id string, params *ListTerritoriesQuery)
 }
 
 // ListTerritoriesForEULA lists all the App Store territories to which a specific custom app license agreement applies.
-func (s *Service) ListTerritoriesForEULA(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *services.Response, error) {
+func (s *Service) ListTerritoriesForEULA(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s/territories", id)
 	res := new(TerritoriesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -60,7 +61,7 @@ func (s *Service) ListTerritoriesForEULA(id string, params *ListTerritoriesQuery
 }
 
 // GetTerritoryForAppPrice gets the territory in which a specific price point applies.
-func (s *Service) GetTerritoryForAppPrice(id string, params *ListTerritoriesQuery) (*TerritoryResponse, *services.Response, error) {
+func (s *Service) GetTerritoryForAppPrice(id string, params *ListTerritoriesQuery) (*TerritoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)

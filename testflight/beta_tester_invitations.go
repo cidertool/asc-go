@@ -1,6 +1,8 @@
 package testflight
 
 import (
+	"net/http"
+
 	"github.com/aaronsky/asc-go/internal/services"
 )
 
@@ -34,7 +36,7 @@ type BetaTesterInvitationResponse struct {
 }
 
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
-func (s *Service) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *services.Response, error) {
+func (s *Service) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *http.Response, error) {
 	res := new(BetaTesterInvitationResponse)
 	resp, err := s.Post("betaTesterInvitations", body, res)
 	return res, resp, err

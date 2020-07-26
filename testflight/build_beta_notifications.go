@@ -1,6 +1,8 @@
 package testflight
 
 import (
+	"net/http"
+
 	"github.com/aaronsky/asc-go/internal/services"
 )
 
@@ -31,7 +33,7 @@ type BuildBetaNotificationResponse struct {
 }
 
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
-func (s *Service) CreateAvailableBuildNotification(body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *services.Response, error) {
+func (s *Service) CreateAvailableBuildNotification(body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *http.Response, error) {
 	res := new(BuildBetaNotificationResponse)
 	resp, err := s.Post("buildBetaNotifications", body, res)
 	return res, resp, err

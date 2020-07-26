@@ -14,6 +14,11 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
+// Service wraps the configured Client to be implemented by other packages
+type Service struct {
+	Client
+}
+
 // Client is the root instance of the App Store Connect API
 type Client struct {
 	Client    *http.Client
@@ -21,8 +26,18 @@ type Client struct {
 	UserAgent string
 }
 
+// request is a common structure for a request body sent to the API
+type request struct {
+	Data interface{} `json:"data"`
+}
+
+func newRequest(v interface{}) *request {
+	req := &request{Data: v}
+	return req
+}
+
 // Get sends a GET request to the API as configured
-func (c *Client) Get(url string, v interface{}) (*Response, error) {
+func (c *Client) Get(url string, v interface{}) (*http.Response, error) {
 	req, err := c.newRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -35,7 +50,7 @@ func (c *Client) Get(url string, v interface{}) (*Response, error) {
 }
 
 // GetWithQuery sends a GET request with a query to the API as configured
-func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*Response, error) {
+func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*http.Response, error) {
 	var err error
 	if query != nil {
 		url, err = c.addOptions(url, query)
@@ -47,7 +62,7 @@ func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*Re
 }
 
 // Post sends a POST request to the API as configured
-func (c *Client) Post(url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) Post(url string, body interface{}, v interface{}) (*http.Response, error) {
 	req, err := c.newRequest("POST", url, body)
 	if err != nil {
 		return nil, err
@@ -60,7 +75,7 @@ func (c *Client) Post(url string, body interface{}, v interface{}) (*Response, e
 }
 
 // Patch sends a PATCH request to the API as configured
-func (c *Client) Patch(url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) Patch(url string, body interface{}, v interface{}) (*http.Response, error) {
 	req, err := c.newRequest("PATCH", url, body)
 	if err != nil {
 		return nil, err
@@ -73,7 +88,7 @@ func (c *Client) Patch(url string, body interface{}, v interface{}) (*Response, 
 }
 
 // Delete sends a DELETE request to the API as configured
-func (c *Client) Delete(url string, body interface{}) (*Response, error) {
+func (c *Client) Delete(url string, body interface{}) (*http.Response, error) {
 	req, err := c.newRequest("DELETE", url, body)
 	if err != nil {
 		return nil, err
@@ -139,7 +154,7 @@ func (c *Client) addOptions(s string, opt interface{}) (string, error) {
 	return u.String(), nil
 }
 
-func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
+func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
 		resp, err := c.Client.Do(req)
@@ -161,10 +176,8 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	defer resp.Body.Close()
 	defer io.Copy(ioutil.Discard, resp.Body)
 
-	response := newResponse(resp)
-
 	if err := checkResponse(resp); err != nil {
-		return response, err
+		return resp, err
 	}
 
 	var err error
@@ -177,5 +190,5 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 		}
 	}
 
-	return response, err
+	return resp, err
 }

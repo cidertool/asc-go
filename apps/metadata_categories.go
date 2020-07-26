@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -73,14 +74,14 @@ type GetAppCategoryForAppInfoQuery struct {
 }
 
 // ListAppCategories lists all categories on the App Store, including the category and subcategory hierarchy.
-func (s *Service) ListAppCategories(params *ListAppCategoriesQuery) (*AppCategoriesResponse, *services.Response, error) {
+func (s *Service) ListAppCategories(params *ListAppCategoriesQuery) (*AppCategoriesResponse, *http.Response, error) {
 	res := new(AppCategoriesResponse)
 	resp, err := s.GetWithQuery("appCategories", params, res)
 	return res, resp, err
 }
 
 // ListSubcategoriesForAppCategory lists all App Store subcategories that belong to a specific category.
-func (s *Service) ListSubcategoriesForAppCategory(id string, params *ListSubcategoriesForAppCategoryQuery) (*AppCategoriesResponse, *services.Response, error) {
+func (s *Service) ListSubcategoriesForAppCategory(id string, params *ListSubcategoriesForAppCategoryQuery) (*AppCategoriesResponse, *http.Response, error) {
 	url := fmt.Sprintf("appCategories/%s/subcategories", id)
 	res := new(AppCategoriesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -88,7 +89,7 @@ func (s *Service) ListSubcategoriesForAppCategory(id string, params *ListSubcate
 }
 
 // GetAppCategory gets a specific app category.
-func (s *Service) GetAppCategory(id string, params *GetAppCategoryQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetAppCategory(id string, params *GetAppCategoryQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appCategories/%s", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -96,7 +97,7 @@ func (s *Service) GetAppCategory(id string, params *GetAppCategoryQuery) (*AppCa
 }
 
 // GetParentCategoryForAppCategory gets the App Store category to which a specific subcategory belongs.
-func (s *Service) GetParentCategoryForAppCategory(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetParentCategoryForAppCategory(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appCategories/%s/parent", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -104,7 +105,7 @@ func (s *Service) GetParentCategoryForAppCategory(id string, params *GetAppCateg
 }
 
 // GetPrimaryCategoryForAppInfo gets an app’s primary App Store category.
-func (s *Service) GetPrimaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetPrimaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -112,7 +113,7 @@ func (s *Service) GetPrimaryCategoryForAppInfo(id string, params *GetAppCategory
 }
 
 // GetSecondaryCategoryForAppInfo gets an app’s secondary App Store category.
-func (s *Service) GetSecondaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetSecondaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -120,7 +121,7 @@ func (s *Service) GetSecondaryCategoryForAppInfo(id string, params *GetAppCatego
 }
 
 // GetPrimarySubcategoryOneForAppInfo gets the first App Store subcategory within an app’s primary category.
-func (s *Service) GetPrimarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetPrimarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -128,7 +129,7 @@ func (s *Service) GetPrimarySubcategoryOneForAppInfo(id string, params *GetAppCa
 }
 
 // GetPrimarySubcategoryTwoForAppInfo gets the second App Store subcategory within an app’s primary category.
-func (s *Service) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -136,7 +137,7 @@ func (s *Service) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetAppCa
 }
 
 // GetSecondarySubcategoryOneForAppInfo gets the first App Store subcategory within an app’s secondary category.
-func (s *Service) GetSecondarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetSecondarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -144,7 +145,7 @@ func (s *Service) GetSecondarySubcategoryOneForAppInfo(id string, params *GetApp
 }
 
 // GetSecondarySubcategoryTwoForAppInfo gets the second App Store subcategory within an app’s secondary category.
-func (s *Service) GetSecondarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *services.Response, error) {
+func (s *Service) GetSecondarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)

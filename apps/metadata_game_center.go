@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -78,7 +79,7 @@ type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
 }
 
 // ListGameCenterEnabledVersionsForApp lists the versions for a given app that are enabled for Game Center
-func (s *Service) ListGameCenterEnabledVersionsForApp(id string, params *ListGameCenterEnabledVersionsForAppQuery) (*GameCenterEnabledVersionsResponse, *services.Response, error) {
+func (s *Service) ListGameCenterEnabledVersionsForApp(id string, params *ListGameCenterEnabledVersionsForAppQuery) (*GameCenterEnabledVersionsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/gameCenterEnabledVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -86,7 +87,7 @@ func (s *Service) ListGameCenterEnabledVersionsForApp(id string, params *ListGam
 }
 
 // ListCompatibleVersionsForGameCenterEnabledVersion lists the versions that are compatible with a given Game Center version
-func (s *Service) ListCompatibleVersionsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionsResponse, *services.Response, error) {
+func (s *Service) ListCompatibleVersionsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionsResponse, *http.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -94,7 +95,7 @@ func (s *Service) ListCompatibleVersionsForGameCenterEnabledVersion(id string, p
 }
 
 // ListCompatibleVersionIDsForGameCenterEnabledVersion lists the version IDs that are compatible with a given Game Center version
-func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionIDsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionCompatibleVersionsLinkagesResponse, *services.Response, error) {
+func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string, params *ListCompatibleVersionIDsForGameCenterEnabledVersionQuery) (*GameCenterEnabledVersionCompatibleVersionsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionCompatibleVersionsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -102,19 +103,19 @@ func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string,
 }
 
 // CreateCompatibleVersionsForGameCenterEnabledVersion adds a relationship between a given version and a Game Center enabled version
-func (s *Service) CreateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Post(url, linkages, nil)
 }
 
 // UpdateCompatibleVersionsForGameCenterEnabledVersion updates the relationship between a given version and a Game Center enabled version
-func (s *Service) UpdateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // RemoveCompatibleVersionsForGameCenterEnabledVersion deletes the relationship between a given version and a Game Center enabled version
-func (s *Service) RemoveCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Delete(url, linkages)
 }

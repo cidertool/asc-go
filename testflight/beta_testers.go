@@ -2,6 +2,7 @@ package testflight
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/builds"
@@ -189,27 +190,27 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 }
 
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
-func (s *Service) CreateBetaTester(body *BetaTesterCreateRequest) (*BetaTesterResponse, *services.Response, error) {
+func (s *Service) CreateBetaTester(body *BetaTesterCreateRequest) (*BetaTesterResponse, *http.Response, error) {
 	res := new(BetaTesterResponse)
 	resp, err := s.Post("betaTesters", body, res)
 	return res, resp, err
 }
 
 // DeleteBetaTester removes a beta tester's ability to test all apps.
-func (s *Service) DeleteBetaTester(id string) (*services.Response, error) {
+func (s *Service) DeleteBetaTester(id string) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListBetaTesters finds and lists beta testers for all apps, builds, and beta groups.
-func (s *Service) ListBetaTesters(id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *services.Response, error) {
+func (s *Service) ListBetaTesters(id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *http.Response, error) {
 	res := new(BetaTestersResponse)
 	resp, err := s.GetWithQuery("betaTesters", params, res)
 	return res, resp, err
 }
 
 // GetBetaTester gets a specific beta tester.
-func (s *Service) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTesterResponse, *services.Response, error) {
+func (s *Service) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTesterResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
 	res := new(BetaTesterResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -217,37 +218,37 @@ func (s *Service) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTes
 }
 
 // AddBetaTesterToBetaGroups adds one or more beta testers to a specific beta group.
-func (s *Service) AddBetaTesterToBetaGroups(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddBetaTesterToBetaGroups(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
-func (s *Service) RemoveBetaTesterFromBetaGroups(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveBetaTesterFromBetaGroups(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.Delete(url, linkages)
 }
 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
-func (s *Service) AssignSingleBetaTesterToBuilds(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) AssignSingleBetaTesterToBuilds(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.Post(url, linkages, nil)
 }
 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
-func (s *Service) UnassignSingleBetaTesterFromBuilds(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) UnassignSingleBetaTesterFromBuilds(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.Delete(url, linkages)
 }
 
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
-func (s *Service) RemoveSingleBetaTesterAccessApps(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveSingleBetaTesterAccessApps(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	return s.Delete(url, linkages)
 }
 
 // ListAppsForBetaTester gets a list of apps that a beta tester can test.
-func (s *Service) ListAppsForBetaTester(id string, params *ListAppsForBetaTesterQuery) (*apps.AppsResponse, *services.Response, error) {
+func (s *Service) ListAppsForBetaTester(id string, params *ListAppsForBetaTesterQuery) (*apps.AppsResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/apps", id)
 	res := new(apps.AppsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -255,7 +256,7 @@ func (s *Service) ListAppsForBetaTester(id string, params *ListAppsForBetaTester
 }
 
 // ListAppIDsForBetaTester gets a list of app resource IDs associated with a beta tester.
-func (s *Service) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTesterQuery) (*BetaTesterAppsLinkagesResponse, *services.Response, error) {
+func (s *Service) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTesterQuery) (*BetaTesterAppsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	res := new(BetaTesterAppsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -263,7 +264,7 @@ func (s *Service) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTe
 }
 
 // ListBuildsIndividuallyAssignedToBetaTester gets a list of builds individually assigned to a specific beta tester.
-func (s *Service) ListBuildsIndividuallyAssignedToBetaTester(id string, params *ListBuildsIndividuallyAssignedToBetaTesterQuery) (*builds.BuildsResponse, *services.Response, error) {
+func (s *Service) ListBuildsIndividuallyAssignedToBetaTester(id string, params *ListBuildsIndividuallyAssignedToBetaTesterQuery) (*builds.BuildsResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/builds", id)
 	res := new(builds.BuildsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -271,7 +272,7 @@ func (s *Service) ListBuildsIndividuallyAssignedToBetaTester(id string, params *
 }
 
 // ListBuildIDsIndividuallyAssignedToBetaTester gets a list of build resource IDs individually assigned to a specific beta tester.
-func (s *Service) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterQuery) (*BetaTesterBuildsLinkagesResponse, *services.Response, error) {
+func (s *Service) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterQuery) (*BetaTesterBuildsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	res := new(BetaTesterBuildsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -279,7 +280,7 @@ func (s *Service) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params
 }
 
 // ListIndividualTestersForBuild gets a list of beta testers individually assigned to a build.
-func (s *Service) ListIndividualTestersForBuild(id string, params *ListIndividualTestersForBuildQuery) (*BetaTestersResponse, *services.Response, error) {
+func (s *Service) ListIndividualTestersForBuild(id string, params *ListIndividualTestersForBuildQuery) (*BetaTestersResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/individualTesters", id)
 	res := new(BetaTestersResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -287,7 +288,7 @@ func (s *Service) ListIndividualTestersForBuild(id string, params *ListIndividua
 }
 
 // ListBetaGroupsForBetaTester gets a list of beta groups that contain a specific beta tester.
-func (s *Service) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsForBetaTesterQuery) (*BetaGroupsResponse, *services.Response, error) {
+func (s *Service) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsForBetaTesterQuery) (*BetaGroupsResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -295,7 +296,7 @@ func (s *Service) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsF
 }
 
 // ListBetaGroupIDsForBetaTester gets a list of group resource IDs associated with a beta tester.
-func (s *Service) ListBetaGroupIDsForBetaTester(id string, params *ListBetaGroupIDsForBetaTesterQuery) (*BetaTesterBetaGroupsLinkagesResponse, *services.Response, error) {
+func (s *Service) ListBetaGroupIDsForBetaTester(id string, params *ListBetaGroupIDsForBetaTesterQuery) (*BetaTesterBetaGroupsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	res := new(BetaTesterBetaGroupsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)

@@ -2,6 +2,7 @@ package users
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -139,14 +140,14 @@ type ListVisibleAppsByResourceIDQuery struct {
 }
 
 // ListUsers gets a list of the users on your team.
-func (s *Service) ListUsers(params *ListUsersQuery) (*UsersResponse, *services.Response, error) {
+func (s *Service) ListUsers(params *ListUsersQuery) (*UsersResponse, *http.Response, error) {
 	res := new(UsersResponse)
 	resp, err := s.GetWithQuery("users", params, res)
 	return res, resp, err
 }
 
 // GetUser gets information about a user on your team, such as name, roles, and app visibility.
-func (s *Service) GetUser(id string, params *GetUserQuery) (*UserResponse, *services.Response, error) {
+func (s *Service) GetUser(id string, params *GetUserQuery) (*UserResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -154,7 +155,7 @@ func (s *Service) GetUser(id string, params *GetUserQuery) (*UserResponse, *serv
 }
 
 // UpdateUser changes a user's role, app visibility information, or other account details.
-func (s *Service) UpdateUser(id string, body *UserUpdateRequest) (*UserResponse, *services.Response, error) {
+func (s *Service) UpdateUser(id string, body *UserUpdateRequest) (*UserResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
 	resp, err := s.Patch(url, body, res)
@@ -162,13 +163,13 @@ func (s *Service) UpdateUser(id string, body *UserUpdateRequest) (*UserResponse,
 }
 
 // RemoveUser removes a user from your team.
-func (s *Service) RemoveUser(id string) (*services.Response, error) {
+func (s *Service) RemoveUser(id string) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListVisibleAppsForUser gets a list of apps that a user on your team can view.
-func (s *Service) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery) (*apps.AppsResponse, *services.Response, error) {
+func (s *Service) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery) (*apps.AppsResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s/visibleApps", id)
 	res := new(apps.AppsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -176,7 +177,7 @@ func (s *Service) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery
 }
 
 // ListVisibleAppsByResourceIDForUser gets a list of app resource IDs to which a user on your team has access.
-func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *services.Response, error) {
+func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	res := new(UserVisibleAppsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -184,18 +185,18 @@ func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisi
 }
 
 // AddVisibleAppsForUser gives a user on your team access to one or more apps.
-func (s *Service) AddVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	return s.Post("appStoreReviewDetails", linkages, nil)
 }
 
 // UpdateVisibleAppsForUser replaces the list of apps a user on your team can see.
-func (s *Service) UpdateVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // RemoveVisibleAppsFromUser removes a user on your team’s access to one or more apps.
-func (s *Service) RemoveVisibleAppsFromUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveVisibleAppsFromUser(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.Delete(url, linkages)
 }

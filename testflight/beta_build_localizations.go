@@ -2,6 +2,7 @@ package testflight
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -100,14 +101,14 @@ type ListBetaBuildLocalizationsForBuildQuery struct {
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
-func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *services.Response, error) {
+func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *http.Response, error) {
 	res := new(BetaBuildLocalizationsResponse)
 	resp, err := s.GetWithQuery("betaBuildLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaBuildLocalization gets localized beta build information for a specific build and locale.
-func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *services.Response, error) {
+func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -115,7 +116,7 @@ func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocali
 }
 
 // GetBuildForBetaBuildLocalization gets the build information associated with a specific beta build localization.
-func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*builds.BuildResponse, *services.Response, error) {
+func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*builds.BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -123,7 +124,7 @@ func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildFo
 }
 
 // ListBetaBuildLocalizationsForBuild gets a list of localized beta test information for a specific build.
-func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *services.Response, error) {
+func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaBuildLocalizations", id)
 	res := new(BetaBuildLocalizationsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -131,7 +132,7 @@ func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBeta
 }
 
 // CreateBetaBuildLocalization creates localized descriptive information for an build.
-func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *services.Response, error) {
+func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.Post(url, body, res)
@@ -139,7 +140,7 @@ func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateR
 }
 
 // UpdateBetaBuildLocalization updates the localized What’s New text for a specific build and locale.
-func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *services.Response, error) {
+func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -147,7 +148,7 @@ func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocaliza
 }
 
 // DeleteBetaBuildLocalization deletes a beta build localization associated with an build.
-func (s *Service) DeleteBetaBuildLocalization(id string) (*services.Response, error) {
+func (s *Service) DeleteBetaBuildLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	return s.Delete(url, nil)
 }

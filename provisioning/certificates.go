@@ -2,6 +2,7 @@ package provisioning
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
@@ -83,21 +84,21 @@ type GetCertificateQuery struct {
 }
 
 // CreateCertificate creates a new certificate using a certificate signing request.
-func (s *Service) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *services.Response, error) {
+func (s *Service) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *http.Response, error) {
 	res := new(CertificateResponse)
 	resp, err := s.Post("certificates", body, res)
 	return res, resp, err
 }
 
 // ListCertificates finds and lists certificates and download their data.
-func (s *Service) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *services.Response, error) {
+func (s *Service) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *http.Response, error) {
 	res := new(CertificatesResponse)
 	resp, err := s.GetWithQuery("certificates", params, res)
 	return res, resp, err
 }
 
 // GetCertificate gets information about a certificate and download the certificate data.
-func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *services.Response, error) {
+func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *http.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -105,7 +106,7 @@ func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*Certi
 }
 
 // RevokeCertificate revokes a lost, stolen, compromised, or expiring signing certificate.
-func (s *Service) RevokeCertificate(id string) (*services.Response, error) {
+func (s *Service) RevokeCertificate(id string) (*http.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	return s.Delete(url, nil)
 }

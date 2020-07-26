@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -94,7 +95,7 @@ type GetAppInfoLocalizationQuery struct {
 }
 
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.
-func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *services.Response, error) {
+func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/appInfoLocalizations", id)
 	res := new(AppInfoLocalizationsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -102,7 +103,7 @@ func (s *Service) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppI
 }
 
 // GetAppInfoLocalization reads localized app-level information.
-func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *services.Response, error) {
+func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -110,14 +111,14 @@ func (s *Service) GetAppInfoLocalization(id string, params *GetAppInfoLocalizati
 }
 
 // CreateAppInfoLocalization adds app-level localized information for a new locale.
-func (s *Service) CreateAppInfoLocalization(body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *services.Response, error) {
+func (s *Service) CreateAppInfoLocalization(body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.Post("appInfoLocalizations", body, res)
 	return res, resp, err
 }
 
 // UpdateAppInfoLocalization modifies localized app-level information for a particular language.
-func (s *Service) UpdateAppInfoLocalization(id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *services.Response, error) {
+func (s *Service) UpdateAppInfoLocalization(id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -125,7 +126,7 @@ func (s *Service) UpdateAppInfoLocalization(id string, body *AppInfoLocalization
 }
 
 // DeleteAppInfoLocalization deletes an app information localization that is associated with an app.
-func (s *Service) DeleteAppInfoLocalization(id string) (*services.Response, error) {
+func (s *Service) DeleteAppInfoLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	return s.Delete(url, nil)
 }

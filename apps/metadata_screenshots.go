@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -82,7 +83,7 @@ type GetAppScreenshotQuery struct {
 }
 
 // GetAppScreenshot gets information about an app screenshot and its upload and processing status.
-func (s *Service) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *services.Response, error) {
+func (s *Service) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -90,14 +91,14 @@ func (s *Service) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*A
 }
 
 // CreateAppScreenshot adds a new screenshot to a screenshot set.
-func (s *Service) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *services.Response, error) {
+func (s *Service) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *http.Response, error) {
 	res := new(AppScreenshotResponse)
 	resp, err := s.Post("appScreenshots", body, res)
 	return res, resp, err
 }
 
 // UpdateAppScreenshot commits an app screenshot after uploading it.
-func (s *Service) UpdateAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *services.Response, error) {
+func (s *Service) UpdateAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.Patch(url, body, res)
@@ -105,7 +106,7 @@ func (s *Service) UpdateAppScreenshot(id string, body *AppScreenshotUpdateReques
 }
 
 // DeleteAppScreenshot deletes an app screenshot that is associated with a screenshot set.
-func (s *Service) DeleteAppScreenshot(id string) (*services.Response, error) {
+func (s *Service) DeleteAppScreenshot(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	return s.Delete(url, nil)
 }

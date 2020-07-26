@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -85,7 +86,7 @@ type GetRoutingAppCoverageQuery struct {
 }
 
 // GetRoutingAppCoverage gets information about the routing app coverage file and its upload and processing status.
-func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *services.Response, error) {
+func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -93,14 +94,14 @@ func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverage
 }
 
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
-func (s *Service) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *services.Response, error) {
+func (s *Service) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.Post("routingAppCoverages", body, res)
 	return res, resp, err
 }
 
 // UpdateRoutingAppCoverage commits a routing app coverage file after uploading it.
-func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *services.Response, error) {
+func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.Patch(url, body, res)
@@ -108,7 +109,7 @@ func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUp
 }
 
 // DeleteRoutingAppCoverage deletes the routing app coverage file that is associated with a version.
-func (s *Service) DeleteRoutingAppCoverage(id string) (*services.Response, error) {
+func (s *Service) DeleteRoutingAppCoverage(id string) (*http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	return s.Delete(url, nil)
 }

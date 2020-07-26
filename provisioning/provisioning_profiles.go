@@ -2,6 +2,7 @@ package provisioning
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
@@ -130,27 +131,27 @@ type ListDevicesInProfileQuery struct {
 }
 
 // CreateProfile creates a new provisioning profile.
-func (s *Service) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *services.Response, error) {
+func (s *Service) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *http.Response, error) {
 	res := new(ProfileResponse)
 	resp, err := s.Post("profiles", body, res)
 	return res, resp, err
 }
 
 // DeleteProfile deletes a provisioning profile that is used for app development or distribution.
-func (s *Service) DeleteProfile(id string) (*services.Response, error) {
+func (s *Service) DeleteProfile(id string) (*http.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListProfiles finds and list provisioning profiles and download their data.
-func (s *Service) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *services.Response, error) {
+func (s *Service) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *http.Response, error) {
 	res := new(ProfilesResponse)
 	resp, err := s.GetWithQuery("profiles", params, res)
 	return res, resp, err
 }
 
 // GetProfile gets information for a specific provisioning profile and download its data.
-func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *services.Response, error) {
+func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -158,7 +159,7 @@ func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileRespon
 }
 
 // GetBundleIDForProfile gets the bundle ID information for a specific provisioning profile.
-func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *services.Response, error) {
+func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -166,7 +167,7 @@ func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfile
 }
 
 // ListCertificatesInProfile gets a list of all certificates and their data for a specific provisioning profile.
-func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *services.Response, error) {
+func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -174,7 +175,7 @@ func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesF
 }
 
 // ListDevicesInProfile gets a list of all devices for a specific provisioning profile.
-func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *services.Response, error) {
+func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
 	resp, err := s.GetWithQuery(url, params, res)

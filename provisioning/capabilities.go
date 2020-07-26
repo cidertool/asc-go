@@ -2,6 +2,7 @@ package provisioning
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -121,20 +122,20 @@ type CapabilitySetting struct {
 }
 
 // EnableCapability enables a capability for a bundle ID.
-func (s *Service) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *services.Response, error) {
+func (s *Service) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *http.Response, error) {
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.Patch("bundleIdCapabilities", body, res)
 	return res, resp, err
 }
 
 // DisableCapability disables a capability for a bundle ID.
-func (s *Service) DisableCapability(id string) (*services.Response, error) {
+func (s *Service) DisableCapability(id string) (*http.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	return s.Delete(url, nil)
 }
 
 // UpdateCapability updates the configuration of a specific capability.
-func (s *Service) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *services.Response, error) {
+func (s *Service) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.Patch(url, body, res)

@@ -2,6 +2,7 @@ package pricing
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -123,14 +124,14 @@ type GetAppPricePointQuery struct {
 }
 
 // ListAppPriceTiers lists all app price tiers available in App Store Connect, including related price points.
-func (s *Service) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *services.Response, error) {
+func (s *Service) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *http.Response, error) {
 	res := new(AppPriceTiersResponse)
 	resp, err := s.GetWithQuery("appPriceTiers", params, res)
 	return res, resp, err
 }
 
 // GetAppPriceTier reads available app price tiers.
-func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*AppPriceTierResponse, *services.Response, error) {
+func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*AppPriceTierResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s", id)
 	res := new(AppPriceTierResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -138,7 +139,7 @@ func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*App
 }
 
 // ListPricePointsForAppPriceTier lists price points across all App Store territories for a specific price tier.
-func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePointsForAppPriceTierQuery) (*AppPricePointsResponse, *services.Response, error) {
+func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePointsForAppPriceTierQuery) (*AppPricePointsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s/pricePoints", id)
 	res := new(AppPricePointsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -146,14 +147,14 @@ func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePoi
 }
 
 // ListAppPricePoints lists all app price points available in App Store Connect, including related price tier, developer proceeds, and territory.
-func (s *Service) ListAppPricePoints(params *ListAppPricePointsQuery) (*AppPricePointsResponse, *services.Response, error) {
+func (s *Service) ListAppPricePoints(params *ListAppPricePointsQuery) (*AppPricePointsResponse, *http.Response, error) {
 	res := new(AppPricePointsResponse)
 	resp, err := s.GetWithQuery("appPricePoints", params, res)
 	return res, resp, err
 }
 
 // GetTerritoryForAppPricePoint gets the territory in which a specific price point applies.
-func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryForAppPricePointQuery) (*TerritoryResponse, *services.Response, error) {
+func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryForAppPricePointQuery) (*TerritoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -161,7 +162,7 @@ func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryFo
 }
 
 // GetAppPricePoint reads the customer prices and your proceeds for a price tier.
-func (s *Service) GetAppPricePoint(id string, params *GetAppPricePointQuery) (*AppPricePointResponse, *services.Response, error) {
+func (s *Service) GetAppPricePoint(id string, params *GetAppPricePointQuery) (*AppPricePointResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s", id)
 	res := new(AppPricePointResponse)
 	resp, err := s.GetWithQuery(url, params, res)

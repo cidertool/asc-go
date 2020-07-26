@@ -2,6 +2,7 @@ package apps
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -267,14 +268,14 @@ type GetInAppPurchaseQuery struct {
 }
 
 // ListApps finds and lists apps added in App Store Connect.
-func (s *Service) ListApps(params *ListAppsQuery) (*AppsResponse, *services.Response, error) {
+func (s *Service) ListApps(params *ListAppsQuery) (*AppsResponse, *http.Response, error) {
 	res := new(AppsResponse)
 	resp, err := s.GetWithQuery("apps", params, res)
 	return res, resp, err
 }
 
 // GetApp gets information about a specific app.
-func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *services.Response, error) {
+func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -282,7 +283,7 @@ func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *service
 }
 
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
-func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *services.Response, error) {
+func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.Patch(url, body, res)
@@ -290,13 +291,13 @@ func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *s
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
-func (s *Service) RemoveBetaTestersFromApp(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveBetaTestersFromApp(id string, linkages *[]services.RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.Delete(url, linkages)
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
-func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *services.Response, error) {
+func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -304,7 +305,7 @@ func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchases
 }
 
 // GetInAppPurchase gets information about an in-app purchase.
-func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *services.Response, error) {
+func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
 	resp, err := s.GetWithQuery(url, params, res)

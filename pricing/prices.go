@@ -2,6 +2,7 @@ package pricing
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/internal/services"
 )
@@ -53,7 +54,7 @@ type GetPriceQuery struct {
 }
 
 // ListPricesForApp gets current price tier of an app and any future planned price changes.
-func (s *Service) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *services.Response, error) {
+func (s *Service) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -61,7 +62,7 @@ func (s *Service) ListPricesForApp(id string, params *ListPricesQuery) (*AppPric
 }
 
 // GetPrice reads current price and scheduled price changes for an app, including price tier and start date.
-func (s *Service) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *services.Response, error) {
+func (s *Service) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
 	resp, err := s.GetWithQuery(url, params, res)

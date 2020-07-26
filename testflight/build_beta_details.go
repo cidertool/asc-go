@@ -2,6 +2,7 @@ package testflight
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
@@ -114,14 +115,14 @@ type GetBuildBetaDetailForBuildQuery struct {
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.
-func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *services.Response, error) {
+func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *http.Response, error) {
 	res := new(BuildBetaDetailsResponse)
 	resp, err := s.GetWithQuery("buildBetaDetails", params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetail gets a specific build beta details resource.
-func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *services.Response, error) {
+func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -129,7 +130,7 @@ func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery
 }
 
 // GetBuildForBuildBetaDetail gets the build information for a specific build beta details resource.
-func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*builds.BuildResponse, *services.Response, error) {
+func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*builds.BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -137,7 +138,7 @@ func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuild
 }
 
 // GetBuildBetaDetailForBuild gets the beta test details for a specific build.
-func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *services.Response, error) {
+func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -145,7 +146,7 @@ func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDeta
 }
 
 // UpdateBuildBetaDetail updates beta test details for a specific build.
-func (s *Service) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *services.Response, error) {
+func (s *Service) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.Patch(url, body, res)
