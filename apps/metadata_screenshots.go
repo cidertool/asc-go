@@ -32,26 +32,32 @@ type AppScreenshot struct {
 
 // AppScreenshotCreateRequest defines model for AppScreenshotCreateRequest.
 type AppScreenshotCreateRequest struct {
-	Attributes struct {
-		FileName string `json:"fileName"`
-		FileSize int    `json:"fileSize"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppScreenshotSet struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appScreenshotSet"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppScreenshotCreateRequestAttributes    `json:"attributes"`
+	Relationships AppScreenshotCreateRequestRelationships `json:"relationships"`
+	Type          string                                  `json:"type"`
+}
+
+type AppScreenshotCreateRequestAttributes struct {
+	FileName string `json:"fileName"`
+	FileSize int    `json:"fileSize"`
+}
+
+type AppScreenshotCreateRequestRelationships struct {
+	AppScreenshotSet struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appScreenshotSet"`
 }
 
 // AppScreenshotUpdateRequest defines model for AppScreenshotUpdateRequest.
 type AppScreenshotUpdateRequest struct {
-	Attributes *struct {
-		SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
-		Uploaded           *bool   `json:"uploaded,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                `json:"id"`
+	Type       string                                `json:"type"`
+}
+
+type AppScreenshotUpdateRequestAttributes struct {
+	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
+	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppScreenshotResponse defines model for AppScreenshotResponse.

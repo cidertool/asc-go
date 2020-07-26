@@ -103,22 +103,26 @@ type App struct {
 
 // AppUpdateRequest defines model for AppUpdateRequest.
 type AppUpdateRequest struct {
-	Attributes *struct {
-		AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
-		BundleID                  *string `json:"bundleId,omitempty"`
-		ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
-		PrimaryLocale             *string `json:"primaryLocale,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string `json:"id"`
-	Relationships *struct {
-		AvailableTerritories *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"availableTerritories,omitempty"`
-		Prices *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"prices,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppUpdateRequestAttributes    `json:"attributes,omitempty"`
+	ID            string                         `json:"id"`
+	Relationships *AppUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                         `json:"type"`
+}
+
+type AppUpdateRequestAttributes struct {
+	AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
+	BundleID                  *string `json:"bundleId,omitempty"`
+	ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
+	PrimaryLocale             *string `json:"primaryLocale,omitempty"`
+}
+
+type AppUpdateRequestRelationships struct {
+	AvailableTerritories *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"availableTerritories,omitempty"`
+	Prices *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"prices,omitempty"`
 }
 
 // AppResponse defines model for AppResponse.

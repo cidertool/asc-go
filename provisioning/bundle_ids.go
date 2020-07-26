@@ -49,22 +49,26 @@ type BundleID struct {
 
 // BundleIDCreateRequest defines model for BundleIdCreateRequest.
 type BundleIDCreateRequest struct {
-	Attributes struct {
-		Identifier string           `json:"identifier"`
-		Name       string           `json:"name"`
-		Platform   BundleIDPlatform `json:"platform"`
-		SeedID     *string          `json:"seedId,omitempty"`
-	} `json:"attributes"`
-	Type string `json:"type"`
+	Attributes BundleIDCreateRequestAttributes `json:"attributes"`
+	Type       string                          `json:"type"`
+}
+
+type BundleIDCreateRequestAttributes struct {
+	Identifier string           `json:"identifier"`
+	Name       string           `json:"name"`
+	Platform   BundleIDPlatform `json:"platform"`
+	SeedID     *string          `json:"seedId,omitempty"`
 }
 
 // BundleIDUpdateRequest defines model for BundleIdUpdateRequest.
 type BundleIDUpdateRequest struct {
-	Attributes *struct {
-		Name *string `json:"name,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BundleIDUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                           `json:"id"`
+	Type       string                           `json:"type"`
+}
+
+type BundleIDUpdateRequestAttributes struct {
+	Name *string `json:"name,omitempty"`
 }
 
 // BundleIDResponse defines model for BundleIdResponse.

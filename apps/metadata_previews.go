@@ -55,29 +55,35 @@ type AppPreview struct {
 
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.
 type AppPreviewCreateRequest struct {
-	Attributes struct {
-		FileName             string  `json:"fileName"`
-		FileSize             int     `json:"fileSize"`
-		MimeType             *string `json:"mimeType,omitempty"`
-		PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppPreviewSet struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appPreviewSet"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppPreviewCreateRequestAttributes    `json:"attributes"`
+	Relationships AppPreviewCreateRequestRelationships `json:"relationships"`
+	Type          string                               `json:"type"`
+}
+
+type AppPreviewCreateRequestAttributes struct {
+	FileName             string  `json:"fileName"`
+	FileSize             int     `json:"fileSize"`
+	MimeType             *string `json:"mimeType,omitempty"`
+	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
+}
+
+type AppPreviewCreateRequestRelationships struct {
+	AppPreviewSet struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appPreviewSet"`
 }
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.
 type AppPreviewUpdateRequest struct {
-	Attributes *struct {
-		PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
-		SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
-		Uploaded             *bool   `json:"uploaded,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                             `json:"id"`
+	Type       string                             `json:"type"`
+}
+
+type AppPreviewUpdateRequestAttributes struct {
+	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
+	SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
+	Uploaded             *bool   `json:"uploaded,omitempty"`
 }
 
 // AppPreviewResponse defines model for AppPreviewResponse.

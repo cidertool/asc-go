@@ -37,38 +37,44 @@ type AppStoreReviewDetail struct {
 
 // AppStoreReviewDetailCreateRequest defines model for AppStoreReviewDetailCreateRequest.
 type AppStoreReviewDetailCreateRequest struct {
-	Attributes *struct {
-		ContactEmail        *string `json:"contactEmail,omitempty"`
-		ContactFirstName    *string `json:"contactFirstName,omitempty"`
-		ContactLastName     *string `json:"contactLastName,omitempty"`
-		ContactPhone        *string `json:"contactPhone,omitempty"`
-		DemoAccountName     *string `json:"demoAccountName,omitempty"`
-		DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
-		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
-		Notes               *string `json:"notes,omitempty"`
-	} `json:"attributes,omitempty"`
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    *AppStoreReviewDetailCreateRequestAttributes   `json:"attributes,omitempty"`
+	Relationships AppStoreReviewDetailCreateRequestRelationships `json:"relationships"`
+	Type          string                                         `json:"type"`
+}
+
+type AppStoreReviewDetailCreateRequestAttributes struct {
+	ContactEmail        *string `json:"contactEmail,omitempty"`
+	ContactFirstName    *string `json:"contactFirstName,omitempty"`
+	ContactLastName     *string `json:"contactLastName,omitempty"`
+	ContactPhone        *string `json:"contactPhone,omitempty"`
+	DemoAccountName     *string `json:"demoAccountName,omitempty"`
+	DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
+	DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
+	Notes               *string `json:"notes,omitempty"`
+}
+
+type AppStoreReviewDetailCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // AppStoreReviewDetailUpdateRequest defines model for AppStoreReviewDetailUpdateRequest.
 type AppStoreReviewDetailUpdateRequest struct {
-	Attributes *struct {
-		ContactEmail        *string `json:"contactEmail,omitempty"`
-		ContactFirstName    *string `json:"contactFirstName,omitempty"`
-		ContactLastName     *string `json:"contactLastName,omitempty"`
-		ContactPhone        *string `json:"contactPhone,omitempty"`
-		DemoAccountName     *string `json:"demoAccountName,omitempty"`
-		DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
-		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
-		Notes               *string `json:"notes,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppStoreReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                       `json:"id"`
+	Type       string                                       `json:"type"`
+}
+
+type AppStoreReviewDetailUpdateRequestAttributes struct {
+	ContactEmail        *string `json:"contactEmail,omitempty"`
+	ContactFirstName    *string `json:"contactFirstName,omitempty"`
+	ContactLastName     *string `json:"contactLastName,omitempty"`
+	ContactPhone        *string `json:"contactPhone,omitempty"`
+	DemoAccountName     *string `json:"demoAccountName,omitempty"`
+	DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
+	DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
+	Notes               *string `json:"notes,omitempty"`
 }
 
 // AppStoreReviewDetailResponse defines model for AppStoreReviewDetailResponse.

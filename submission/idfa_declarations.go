@@ -28,30 +28,36 @@ type IDFADeclaration struct {
 
 // IDFADeclarationCreateRequest defines model for IDFADeclarationCreateRequest.
 type IDFADeclarationCreateRequest struct {
-	Attributes struct {
-		AttributesActionWithPreviousAd        bool `json:"attributesActionWithPreviousAd"`
-		AttributesAppInstallationToPreviousAd bool `json:"attributesAppInstallationToPreviousAd"`
-		HonorsLimitedAdTracking               bool `json:"honorsLimitedAdTracking"`
-		ServesAds                             bool `json:"servesAds"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    IDFADeclarationCreateRequestAttributes    `json:"attributes"`
+	Relationships IDFADeclarationCreateRequestRelationships `json:"relationships"`
+	Type          string                                    `json:"type"`
+}
+
+type IDFADeclarationCreateRequestAttributes struct {
+	AttributesActionWithPreviousAd        bool `json:"attributesActionWithPreviousAd"`
+	AttributesAppInstallationToPreviousAd bool `json:"attributesAppInstallationToPreviousAd"`
+	HonorsLimitedAdTracking               bool `json:"honorsLimitedAdTracking"`
+	ServesAds                             bool `json:"servesAds"`
+}
+
+type IDFADeclarationCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.
 type IDFADeclarationUpdateRequest struct {
-	Attributes *struct {
-		AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
-		AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`
-		HonorsLimitedAdTracking               *bool `json:"honorsLimitedAdTracking,omitempty"`
-		ServesAds                             *bool `json:"servesAds,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *IDFADeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                  `json:"id"`
+	Type       string                                  `json:"type"`
+}
+
+type IDFADeclarationUpdateRequestAttributes struct {
+	AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
+	AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`
+	HonorsLimitedAdTracking               *bool `json:"honorsLimitedAdTracking,omitempty"`
+	ServesAds                             *bool `json:"servesAds,omitempty"`
 }
 
 // IDFADeclarationResponse defines model for IDFADeclarationResponse.

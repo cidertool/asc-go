@@ -62,15 +62,19 @@ type AppScreenshotSet struct {
 
 // AppScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
 type AppScreenshotSetCreateRequest struct {
-	Attributes struct {
-		ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreVersionLocalization struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersionLocalization"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppScreenshotSetCreateRequestAttributes    `json:"attributes"`
+	Relationships AppScreenshotSetCreateRequestRelationships `json:"relationships"`
+	Type          string                                     `json:"type"`
+}
+
+type AppScreenshotSetCreateRequestAttributes struct {
+	ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
+}
+
+type AppScreenshotSetCreateRequestRelationships struct {
+	AppStoreVersionLocalization struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersionLocalization"`
 }
 
 // AppScreenshotSetResponse defines model for AppScreenshotSetResponse.

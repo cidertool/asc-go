@@ -34,25 +34,31 @@ type BetaBuildLocalizationResponse struct {
 
 // BetaBuildLocalizationCreateRequest defines model for BetaBuildLocalizationCreateRequest.
 type BetaBuildLocalizationCreateRequest struct {
-	Attributes struct {
-		Locale   string  `json:"locale"`
-		WhatsNew *string `json:"whatsNew,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		Build struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"build"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    BetaBuildLocalizationCreateRequestAttributes    `json:"attributes"`
+	Relationships BetaBuildLocalizationCreateRequestRelationships `json:"relationships"`
+	Type          string                                          `json:"type"`
+}
+
+type BetaBuildLocalizationCreateRequestAttributes struct {
+	Locale   string  `json:"locale"`
+	WhatsNew *string `json:"whatsNew,omitempty"`
+}
+
+type BetaBuildLocalizationCreateRequestRelationships struct {
+	Build struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"build"`
 }
 
 // BetaBuildLocalizationUpdateRequest defines model for BetaBuildLocalizationUpdateRequest.
 type BetaBuildLocalizationUpdateRequest struct {
-	Attributes *struct {
-		WhatsNew *string `json:"whatsNew,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BetaBuildLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                        `json:"id"`
+	Type       string                                        `json:"type"`
+}
+
+type BetaBuildLocalizationUpdateRequestAttributes struct {
+	WhatsNew *string `json:"whatsNew,omitempty"`
 }
 
 // BetaBuildLocalizationsResponse defines model for BetaBuildLocalizationsResponse.

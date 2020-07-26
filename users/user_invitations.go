@@ -34,20 +34,24 @@ type UserInvitation struct {
 
 // UserInvitationCreateRequest defines model for UserInvitationCreateRequest.
 type UserInvitationCreateRequest struct {
-	Attributes struct {
-		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-		Email               types.Email `json:"email"`
-		FirstName           string      `json:"firstName"`
-		LastName            string      `json:"lastName"`
-		ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-		Roles               []UserRole  `json:"roles"`
-	} `json:"attributes"`
-	Relationships *struct {
-		VisibleApps *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    UserInvitationCreateRequestAttributes     `json:"attributes"`
+	Relationships *UserInvitationCreateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                                    `json:"type"`
+}
+
+type UserInvitationCreateRequestAttributes struct {
+	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
+	Email               types.Email `json:"email"`
+	FirstName           string      `json:"firstName"`
+	LastName            string      `json:"lastName"`
+	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole  `json:"roles"`
+}
+
+type UserInvitationCreateRequestRelationships struct {
+	VisibleApps *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationResponse defines model for UserInvitationResponse.

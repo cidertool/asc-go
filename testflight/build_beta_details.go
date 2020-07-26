@@ -61,11 +61,13 @@ type BuildBetaDetail struct {
 
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.
 type BuildBetaDetailUpdateRequest struct {
-	Attributes *struct {
-		AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BuildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                  `json:"id"`
+	Type       string                                  `json:"type"`
+}
+
+type BuildBetaDetailUpdateRequestAttributes struct {
+	AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
 }
 
 // BuildBetaDetailResponse defines model for BuildBetaDetailResponse.

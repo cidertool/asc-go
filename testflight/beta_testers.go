@@ -71,20 +71,24 @@ type BetaTesterBuildsLinkagesResponse struct {
 
 // BetaTesterCreateRequest defines model for BetaTesterCreateRequest.
 type BetaTesterCreateRequest struct {
-	Attributes struct {
-		Email     types.Email `json:"email"`
-		FirstName *string     `json:"firstName,omitempty"`
-		LastName  *string     `json:"lastName,omitempty"`
-	} `json:"attributes"`
-	Relationships *struct {
-		BetaGroups *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"betaGroups,omitempty"`
-		Builds *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"builds,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    BetaTesterCreateRequestAttributes     `json:"attributes"`
+	Relationships *BetaTesterCreateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                                `json:"type"`
+}
+
+type BetaTesterCreateRequestAttributes struct {
+	Email     types.Email `json:"email"`
+	FirstName *string     `json:"firstName,omitempty"`
+	LastName  *string     `json:"lastName,omitempty"`
+}
+
+type BetaTesterCreateRequestRelationships struct {
+	BetaGroups *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"betaGroups,omitempty"`
+	Builds *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"builds,omitempty"`
 }
 
 // BetaTesterResponse defines model for BetaTesterResponse.

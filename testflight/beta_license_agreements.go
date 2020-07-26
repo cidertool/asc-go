@@ -26,11 +26,13 @@ type BetaLicenseAgreement struct {
 
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.
 type BetaLicenseAgreementUpdateRequest struct {
-	Attributes *struct {
-		AgreementText *string `json:"agreementText,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BetaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                       `json:"id"`
+	Type       string                                       `json:"type"`
+}
+
+type BetaLicenseAgreementUpdateRequestAttributes struct {
+	AgreementText *string `json:"agreementText,omitempty"`
 }
 
 // BetaLicenseAgreementsResponse defines model for BetaLicenseAgreementsResponse.

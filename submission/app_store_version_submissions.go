@@ -22,12 +22,14 @@ type AppStoreVersionSubmission struct {
 
 // AppStoreVersionSubmissionCreateRequest defines model for AppStoreVersionSubmissionCreateRequest.
 type AppStoreVersionSubmissionCreateRequest struct {
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Relationships AppStoreVersionSubmissionCreateRequestRelationships `json:"relationships"`
+	Type          string                                              `json:"type"`
+}
+
+type AppStoreVersionSubmissionCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // AppStoreVersionSubmissionResponse defines model for AppStoreVersionSubmissionResponse.

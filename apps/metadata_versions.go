@@ -34,21 +34,25 @@ const (
 
 // AppStoreVersionUpdateRequest defines model for AppStoreVersionUpdateRequest.
 type AppStoreVersionUpdateRequest struct {
-	Attributes *struct {
-		Copyright           *string    `json:"copyright,omitempty"`
-		Downloadable        *bool      `json:"downloadable,omitempty"`
-		EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
-		ReleaseType         *string    `json:"releaseType,omitempty"`
-		UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
-		VersionString       *string    `json:"versionString,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string `json:"id"`
-	Relationships *struct {
-		Build *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"build,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppStoreVersionUpdateRequestAttributes    `json:"attributes,omitempty"`
+	ID            string                                     `json:"id"`
+	Relationships *AppStoreVersionUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                                     `json:"type"`
+}
+
+type AppStoreVersionUpdateRequestAttributes struct {
+	Copyright           *string    `json:"copyright,omitempty"`
+	Downloadable        *bool      `json:"downloadable,omitempty"`
+	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
+	ReleaseType         *string    `json:"releaseType,omitempty"`
+	UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
+	VersionString       *string    `json:"versionString,omitempty"`
+}
+
+type AppStoreVersionUpdateRequestRelationships struct {
+	Build *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"build,omitempty"`
 }
 
 // AgeRatingDeclaration defines model for AgeRatingDeclaration.
@@ -148,23 +152,27 @@ type AppStoreVersionsResponse struct {
 
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
 type AppStoreVersionCreateRequest struct {
-	Attributes struct {
-		Copyright           *string    `json:"copyright,omitempty"`
-		EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
-		Platform            Platform   `json:"platform"`
-		ReleaseType         *string    `json:"releaseType,omitempty"`
-		UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
-		VersionString       string     `json:"versionString"`
-	} `json:"attributes"`
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-		Build *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"build,omitempty"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppStoreVersionCreateRequestAttributes    `json:"attributes"`
+	Relationships AppStoreVersionCreateRequestRelationships `json:"relationships"`
+	Type          string                                    `json:"type"`
+}
+
+type AppStoreVersionCreateRequestAttributes struct {
+	Copyright           *string    `json:"copyright,omitempty"`
+	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
+	Platform            Platform   `json:"platform"`
+	ReleaseType         *string    `json:"releaseType,omitempty"`
+	UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
+	VersionString       string     `json:"versionString"`
+}
+
+type AppStoreVersionCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
+	Build *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"build,omitempty"`
 }
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.

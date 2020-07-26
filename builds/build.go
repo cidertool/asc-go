@@ -84,17 +84,21 @@ type BuildsResponse struct {
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
 type BuildUpdateRequest struct {
-	Attributes *struct {
-		Expired                 *bool `json:"expired,omitempty"`
-		UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string `json:"id"`
-	Relationships *struct {
-		AppEncryptionDeclaration *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"appEncryptionDeclaration,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BuildUpdateRequestAttributes    `json:"attributes,omitempty"`
+	ID            string                           `json:"id"`
+	Relationships *BuildUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                           `json:"type"`
+}
+
+type BuildUpdateRequestAttributes struct {
+	Expired                 *bool `json:"expired,omitempty"`
+	UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
+}
+
+type BuildUpdateRequestRelationships struct {
+	AppEncryptionDeclaration *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"appEncryptionDeclaration,omitempty"`
 }
 
 // BuildAppEncryptionDeclarationLinkageResponse defines model for BuildAppEncryptionDeclarationLinkageResponse.

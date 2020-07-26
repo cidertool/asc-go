@@ -26,24 +26,30 @@ type AppPreOrder struct {
 
 // AppPreOrderCreateRequest defines model for AppPreOrderCreateRequest.
 type AppPreOrderCreateRequest struct {
-	Attributes *struct {
-		AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
-	} `json:"attributes,omitempty"`
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    *AppPreOrderCreateRequestAttributes   `json:"attributes,omitempty"`
+	Relationships AppPreOrderCreateRequestRelationships `json:"relationships"`
+	Type          string                                `json:"type"`
+}
+
+type AppPreOrderCreateRequestAttributes struct {
+	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
+}
+
+type AppPreOrderCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
 }
 
 // AppPreOrderUpdateRequest defines model for AppPreOrderUpdateRequest.
 type AppPreOrderUpdateRequest struct {
-	Attributes *struct {
-		AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppPreOrderUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                              `json:"id"`
+	Type       string                              `json:"type"`
+}
+
+type AppPreOrderUpdateRequestAttributes struct {
+	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
 }
 
 // AppPreOrderResponse defines model for AppPreOrderResponse.

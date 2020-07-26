@@ -30,15 +30,19 @@ type AppPreviewSet struct {
 
 // AppPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.
 type AppPreviewSetCreateRequest struct {
-	Attributes struct {
-		PreviewType PreviewType `json:"previewType"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreVersionLocalization struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersionLocalization"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppPreviewSetCreateRequestAttributes    `json:"attributes"`
+	Relationships AppPreviewSetCreateRequestRelationships `json:"relationships"`
+	Type          string                                  `json:"type"`
+}
+
+type AppPreviewSetCreateRequestAttributes struct {
+	PreviewType PreviewType `json:"previewType"`
+}
+
+type AppPreviewSetCreateRequestRelationships struct {
+	AppStoreVersionLocalization struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersionLocalization"`
 }
 
 // AppPreviewSetResponse defines model for AppPreviewSetResponse.

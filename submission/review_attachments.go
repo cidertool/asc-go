@@ -30,16 +30,20 @@ type AppStoreReviewAttachment struct {
 
 // AppStoreReviewAttachmentCreateRequest defines model for AppStoreReviewAttachmentCreateRequest.
 type AppStoreReviewAttachmentCreateRequest struct {
-	Attributes struct {
-		FileName string `json:"fileName"`
-		FileSize int    `json:"fileSize"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreReviewDetail struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreReviewDetail"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppStoreReviewAttachmentCreateRequestAttributes    `json:"attributes"`
+	Relationships AppStoreReviewAttachmentCreateRequestRelationships `json:"relationships"`
+	Type          string                                             `json:"type"`
+}
+
+type AppStoreReviewAttachmentCreateRequestAttributes struct {
+	FileName string `json:"fileName"`
+	FileSize int    `json:"fileSize"`
+}
+
+type AppStoreReviewAttachmentCreateRequestRelationships struct {
+	AppStoreReviewDetail struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreReviewDetail"`
 }
 
 // AppStoreReviewAttachmentResponse defines model for AppStoreReviewAttachmentResponse.
@@ -50,12 +54,14 @@ type AppStoreReviewAttachmentResponse struct {
 
 // AppStoreReviewAttachmentUpdateRequest defines model for AppStoreReviewAttachmentUpdateRequest.
 type AppStoreReviewAttachmentUpdateRequest struct {
-	Attributes *struct {
-		SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
-		Uploaded           *bool   `json:"uploaded,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppStoreReviewAttachmentUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                           `json:"id"`
+	Type       string                                           `json:"type"`
+}
+
+type AppStoreReviewAttachmentUpdateRequestAttributes struct {
+	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
+	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppStoreReviewAttachmentsResponse defines model for AppStoreReviewAttachmentsResponse.

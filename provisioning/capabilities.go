@@ -55,26 +55,32 @@ type BundleIDCapability struct {
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
 type BundleIDCapabilityCreateRequest struct {
-	Attributes struct {
-		CapabilityType CapabilityType       `json:"capabilityType"`
-		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		BundleID struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"bundleId"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    BundleIDCapabilityCreateRequestAttributes    `json:"attributes"`
+	Relationships BundleIDCapabilityCreateRequestRelationships `json:"relationships"`
+	Type          string                                       `json:"type"`
+}
+
+type BundleIDCapabilityCreateRequestAttributes struct {
+	CapabilityType CapabilityType       `json:"capabilityType"`
+	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+}
+
+type BundleIDCapabilityCreateRequestRelationships struct {
+	BundleID struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"bundleId"`
 }
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.
 type BundleIDCapabilityUpdateRequest struct {
-	Attributes *struct {
-		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
-		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                     `json:"id"`
+	Type       string                                     `json:"type"`
+}
+
+type BundleIDCapabilityUpdateRequestAttributes struct {
+	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
+	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityResponse defines model for BundleIdCapabilityResponse.

@@ -42,11 +42,13 @@ type Certificate struct {
 
 // CertificateCreateRequest defines model for CertificateCreateRequest.
 type CertificateCreateRequest struct {
-	Attributes struct {
-		CertificateType CertificateType `json:"certificateType"`
-		CsrContent      string          `json:"csrContent"`
-	} `json:"attributes"`
-	Type string `json:"type"`
+	Attributes CertificateCreateRequestAttributes `json:"attributes"`
+	Type       string                             `json:"type"`
+}
+
+type CertificateCreateRequestAttributes struct {
+	CertificateType CertificateType `json:"certificateType"`
+	CsrContent      string          `json:"csrContent"`
 }
 
 // CertificateResponse defines model for CertificateResponse.

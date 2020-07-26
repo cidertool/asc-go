@@ -61,18 +61,22 @@ type User struct {
 
 // UserUpdateRequest defines model for UserUpdateRequest.
 type UserUpdateRequest struct {
-	Attributes *struct {
-		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-		ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-		Roles               *[]UserRole `json:"roles,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string `json:"id"`
-	Relationships *struct {
-		VisibleApps *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *UserUpdateRequestAttributes    `json:"attributes,omitempty"`
+	ID            string                          `json:"id"`
+	Relationships *UserUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                          `json:"type"`
+}
+
+type UserUpdateRequestAttributes struct {
+	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
+	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
+	Roles               *[]UserRole `json:"roles,omitempty"`
+}
+
+type UserUpdateRequestRelationships struct {
+	VisibleApps *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"visibleApps,omitempty"`
 }
 
 // UserResponse defines model for UserResponse.

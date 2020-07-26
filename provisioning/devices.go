@@ -26,22 +26,26 @@ type Device struct {
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.
 type DeviceCreateRequest struct {
-	Attributes struct {
-		Name     string           `json:"name"`
-		Platform BundleIDPlatform `json:"platform"`
-		UDID     string           `json:"udid"`
-	} `json:"attributes"`
-	Type string `json:"type"`
+	Attributes DeviceCreateRequestAttributes `json:"attributes"`
+	Type       string                        `json:"type"`
+}
+
+type DeviceCreateRequestAttributes struct {
+	Name     string           `json:"name"`
+	Platform BundleIDPlatform `json:"platform"`
+	UDID     string           `json:"udid"`
 }
 
 // DeviceUpdateRequest defines model for DeviceUpdateRequest.
 type DeviceUpdateRequest struct {
-	Attributes *struct {
-		Name   *string `json:"name,omitempty"`
-		Status *string `json:"status,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *DeviceUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                         `json:"id"`
+	Type       string                         `json:"type"`
+}
+
+type DeviceUpdateRequestAttributes struct {
+	Name   *string `json:"name,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // DeviceResponse defines model for DeviceResponse.

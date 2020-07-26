@@ -29,19 +29,23 @@ type AppInfoLocalization struct {
 
 // AppInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.
 type AppInfoLocalizationCreateRequest struct {
-	Attributes struct {
-		Locale            string  `json:"locale"`
-		Name              *string `json:"name,omitempty"`
-		PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		Subtitle          *string `json:"subtitle,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppInfo struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appInfo"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppInfoLocalizationCreateRequestAttributes    `json:"attributes"`
+	Relationships AppInfoLocalizationCreateRequestRelationships `json:"relationships"`
+	Type          string                                        `json:"type"`
+}
+
+type AppInfoLocalizationCreateRequestAttributes struct {
+	Locale            string  `json:"locale"`
+	Name              *string `json:"name,omitempty"`
+	PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	Subtitle          *string `json:"subtitle,omitempty"`
+}
+
+type AppInfoLocalizationCreateRequestRelationships struct {
+	AppInfo struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appInfo"`
 }
 
 // AppInfoLocalizationResponse defines model for AppInfoLocalizationResponse.
@@ -52,14 +56,16 @@ type AppInfoLocalizationResponse struct {
 
 // AppInfoLocalizationUpdateRequest defines model for AppInfoLocalizationUpdateRequest.
 type AppInfoLocalizationUpdateRequest struct {
-	Attributes *struct {
-		Name              *string `json:"name,omitempty"`
-		PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		Subtitle          *string `json:"subtitle,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppInfoLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                      `json:"id"`
+	Type       string                                      `json:"type"`
+}
+
+type AppInfoLocalizationUpdateRequestAttributes struct {
+	Name              *string `json:"name,omitempty"`
+	PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	Subtitle          *string `json:"subtitle,omitempty"`
 }
 
 // AppInfoLocalizationsResponse defines model for AppInfoLocalizationsResponse.

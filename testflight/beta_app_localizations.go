@@ -31,20 +31,24 @@ type BetaAppLocalization struct {
 
 // BetaAppLocalizationCreateRequest defines model for BetaAppLocalizationCreateRequest.
 type BetaAppLocalizationCreateRequest struct {
-	Attributes struct {
-		Description       *string `json:"description,omitempty"`
-		FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
-		Locale            string  `json:"locale"`
-		MarketingURL      *string `json:"marketingUrl,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    BetaAppLocalizationCreateRequestAttributes    `json:"attributes"`
+	Relationships BetaAppLocalizationCreateRequestRelationships `json:"relationships"`
+	Type          string                                        `json:"type"`
+}
+
+type BetaAppLocalizationCreateRequestAttributes struct {
+	Description       *string `json:"description,omitempty"`
+	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
+	Locale            string  `json:"locale"`
+	MarketingURL      *string `json:"marketingUrl,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
+}
+
+type BetaAppLocalizationCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
 }
 
 // BetaAppLocalizationResponse defines model for BetaAppLocalizationResponse.
@@ -56,15 +60,17 @@ type BetaAppLocalizationResponse struct {
 
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
 type BetaAppLocalizationUpdateRequest struct {
-	Attributes *struct {
-		Description       *string `json:"description,omitempty"`
-		FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
-		MarketingURL      *string `json:"marketingUrl,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BetaAppLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                      `json:"id"`
+	Type       string                                      `json:"type"`
+}
+
+type BetaAppLocalizationUpdateRequestAttributes struct {
+	Description       *string `json:"description,omitempty"`
+	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
+	MarketingURL      *string `json:"marketingUrl,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
 }
 
 // BetaAppLocalizationsResponse defines model for BetaAppLocalizationsResponse.

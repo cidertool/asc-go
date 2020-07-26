@@ -29,16 +29,20 @@ type RoutingAppCoverage struct {
 
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.
 type RoutingAppCoverageCreateRequest struct {
-	Attributes struct {
-		FileName string `json:"fileName"`
-		FileSize int    `json:"fileSize"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    RoutingAppCoverageCreateRequestAttributes    `json:"attributes"`
+	Relationships RoutingAppCoverageCreateRequestRelationships `json:"relationships"`
+	Type          string                                       `json:"type"`
+}
+
+type RoutingAppCoverageCreateRequestAttributes struct {
+	FileName string `json:"fileName"`
+	FileSize int    `json:"fileSize"`
+}
+
+type RoutingAppCoverageCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.
@@ -49,12 +53,14 @@ type RoutingAppCoverageResponse struct {
 
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.
 type RoutingAppCoverageUpdateRequest struct {
-	Attributes *struct {
-		SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
-		Uploaded           *bool   `json:"uploaded,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *RoutingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                     `json:"id"`
+	Type       string                                     `json:"type"`
+}
+
+type RoutingAppCoverageUpdateRequestAttributes struct {
+	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
+	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppMediaAssetState defines model for AppMediaAssetState.

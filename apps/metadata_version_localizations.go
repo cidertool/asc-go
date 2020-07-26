@@ -41,21 +41,25 @@ type AppStoreVersionLocalization struct {
 
 // AppStoreVersionLocalizationCreateRequest defines model for AppStoreVersionLocalizationCreateRequest.
 type AppStoreVersionLocalizationCreateRequest struct {
-	Attributes struct {
-		Description     *string `json:"description,omitempty"`
-		Keywords        *string `json:"keywords,omitempty"`
-		Locale          string  `json:"locale"`
-		MarketingURL    *string `json:"marketingUrl,omitempty"`
-		PromotionalText *string `json:"promotionalText,omitempty"`
-		SupportURL      *string `json:"supportUrl,omitempty"`
-		WhatsNew        *string `json:"whatsNew,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    AppStoreVersionLocalizationCreateRequestAttributes    `json:"attributes"`
+	Relationships AppStoreVersionLocalizationCreateRequestRelationships `json:"relationships"`
+	Type          string                                                `json:"type"`
+}
+
+type AppStoreVersionLocalizationCreateRequestAttributes struct {
+	Description     *string `json:"description,omitempty"`
+	Keywords        *string `json:"keywords,omitempty"`
+	Locale          string  `json:"locale"`
+	MarketingURL    *string `json:"marketingUrl,omitempty"`
+	PromotionalText *string `json:"promotionalText,omitempty"`
+	SupportURL      *string `json:"supportUrl,omitempty"`
+	WhatsNew        *string `json:"whatsNew,omitempty"`
+}
+
+type AppStoreVersionLocalizationCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // AppStoreVersionLocalizationResponse defines model for AppStoreVersionLocalizationResponse.
@@ -75,16 +79,18 @@ type AppStoreVersionLocalizationsResponse struct {
 
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.
 type AppStoreVersionLocalizationUpdateRequest struct {
-	Attributes *struct {
-		Description     *string `json:"description,omitempty"`
-		Keywords        *string `json:"keywords,omitempty"`
-		MarketingURL    *string `json:"marketingUrl,omitempty"`
-		PromotionalText *string `json:"promotionalText,omitempty"`
-		SupportURL      *string `json:"supportUrl,omitempty"`
-		WhatsNew        *string `json:"whatsNew,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppStoreVersionLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                              `json:"id"`
+	Type       string                                              `json:"type"`
+}
+
+type AppStoreVersionLocalizationUpdateRequestAttributes struct {
+	Description     *string `json:"description,omitempty"`
+	Keywords        *string `json:"keywords,omitempty"`
+	MarketingURL    *string `json:"marketingUrl,omitempty"`
+	PromotionalText *string `json:"promotionalText,omitempty"`
+	SupportURL      *string `json:"supportUrl,omitempty"`
+	WhatsNew        *string `json:"whatsNew,omitempty"`
 }
 
 // ListLocalizationsForAppStoreVersionQuery are query options for ListLocalizationsForAppStoreVersion

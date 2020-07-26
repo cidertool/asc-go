@@ -31,32 +31,40 @@ type EndUserLicenseAgreement struct {
 
 // EndUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
 type EndUserLicenseAgreementCreateRequest struct {
-	Attributes struct {
-		AgreementText string `json:"agreementText"`
-	} `json:"attributes"`
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-		Territories struct {
-			Data []types.RelationshipsData `json:"data"`
-		} `json:"territories"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    EndUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
+	Relationships EndUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
+	Type          string                                            `json:"type"`
+}
+
+type EndUserLicenseAgreementCreateRequestAttributes struct {
+	AgreementText string `json:"agreementText"`
+}
+
+type EndUserLicenseAgreementCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
+	Territories struct {
+		Data []types.RelationshipsData `json:"data"`
+	} `json:"territories"`
 }
 
 // EndUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
 type EndUserLicenseAgreementUpdateRequest struct {
-	Attributes *struct {
-		AgreementText *string `json:"agreementText,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string `json:"id"`
-	Relationships *struct {
-		Territories *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"territories,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *EndUserLicenseAgreementUpdateRequestAttributes    `json:"attributes,omitempty"`
+	ID            string                                             `json:"id"`
+	Relationships *EndUserLicenseAgreementUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                                             `json:"type"`
+}
+
+type EndUserLicenseAgreementUpdateRequestAttributes struct {
+	AgreementText *string `json:"agreementText,omitempty"`
+}
+
+type EndUserLicenseAgreementUpdateRequestRelationships struct {
+	Territories *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"territories,omitempty"`
 }
 
 // EndUserLicenseAgreementResponse defines model for EndUserLicenseAgreementResponse.

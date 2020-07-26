@@ -33,18 +33,20 @@ type BetaAppReviewDetail struct {
 
 // BetaAppReviewDetailUpdateRequest defines model for BetaAppReviewDetailUpdateRequest.
 type BetaAppReviewDetailUpdateRequest struct {
-	Attributes *struct {
-		ContactEmail        *string `json:"contactEmail,omitempty"`
-		ContactFirstName    *string `json:"contactFirstName,omitempty"`
-		ContactLastName     *string `json:"contactLastName,omitempty"`
-		ContactPhone        *string `json:"contactPhone,omitempty"`
-		DemoAccountName     *string `json:"demoAccountName,omitempty"`
-		DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
-		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
-		Notes               *string `json:"notes,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BetaAppReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                      `json:"id"`
+	Type       string                                      `json:"type"`
+}
+
+type BetaAppReviewDetailUpdateRequestAttributes struct {
+	ContactEmail        *string `json:"contactEmail,omitempty"`
+	ContactFirstName    *string `json:"contactFirstName,omitempty"`
+	ContactLastName     *string `json:"contactLastName,omitempty"`
+	ContactPhone        *string `json:"contactPhone,omitempty"`
+	DemoAccountName     *string `json:"demoAccountName,omitempty"`
+	DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
+	DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
+	Notes               *string `json:"notes,omitempty"`
 }
 
 // BetaAppReviewDetailResponse defines model for BetaAppReviewDetailResponse.

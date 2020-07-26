@@ -37,12 +37,14 @@ type BetaAppReviewSubmission struct {
 
 // BetaAppReviewSubmissionCreateRequest defines model for BetaAppReviewSubmissionCreateRequest.
 type BetaAppReviewSubmissionCreateRequest struct {
-	Relationships struct {
-		Build struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"build"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Relationships BetaAppReviewSubmissionCreateRequestRelationships `json:"relationships"`
+	Type          string                                            `json:"type"`
+}
+
+type BetaAppReviewSubmissionCreateRequestRelationships struct {
+	Build struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"build"`
 }
 
 // BetaAppReviewSubmissionResponse defines model for BetaAppReviewSubmissionResponse.

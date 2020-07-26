@@ -72,28 +72,30 @@ type AppInfosResponse struct {
 
 // AppInfoUpdateRequest defines model for AppInfoUpdateRequest.
 type AppInfoUpdateRequest struct {
-	ID            string `json:"id"`
-	Relationships *struct {
-		PrimaryCategory *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"primaryCategory,omitempty"`
-		PrimarySubcategoryOne *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"primarySubcategoryOne,omitempty"`
-		PrimarySubcategoryTwo *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"primarySubcategoryTwo,omitempty"`
-		SecondaryCategory *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"secondaryCategory,omitempty"`
-		SecondarySubcategoryOne *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"secondarySubcategoryOne,omitempty"`
-		SecondarySubcategoryTwo *struct {
-			Data *types.RelationshipsData `json:"data,omitempty"`
-		} `json:"secondarySubcategoryTwo,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	ID            string                             `json:"id"`
+	Relationships *AppInfoUpdateRequestRelationships `json:"relationships,omitempty"`
+	Type          string                             `json:"type"`
+}
+
+type AppInfoUpdateRequestRelationships struct {
+	PrimaryCategory *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"primaryCategory,omitempty"`
+	PrimarySubcategoryOne *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"primarySubcategoryOne,omitempty"`
+	PrimarySubcategoryTwo *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"primarySubcategoryTwo,omitempty"`
+	SecondaryCategory *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"secondaryCategory,omitempty"`
+	SecondarySubcategoryOne *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"secondarySubcategoryOne,omitempty"`
+	SecondarySubcategoryTwo *struct {
+		Data *types.RelationshipsData `json:"data,omitempty"`
+	} `json:"secondarySubcategoryTwo,omitempty"`
 }
 
 // GetAppInfoQuery are query options for GetAppInfo

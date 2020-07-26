@@ -37,15 +37,19 @@ type AppStoreVersionPhasedRelease struct {
 
 // AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
 type AppStoreVersionPhasedReleaseCreateRequest struct {
-	Attributes *struct {
-		PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-	} `json:"attributes,omitempty"`
-	Relationships struct {
-		AppStoreVersion struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"appStoreVersion"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    *AppStoreVersionPhasedReleaseCreateRequestAttributes   `json:"attributes,omitempty"`
+	Relationships AppStoreVersionPhasedReleaseCreateRequestRelationships `json:"relationships"`
+	Type          string                                                 `json:"type"`
+}
+
+type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
+	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
+}
+
+type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
+	AppStoreVersion struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"appStoreVersion"`
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.
@@ -56,11 +60,13 @@ type AppStoreVersionPhasedReleaseResponse struct {
 
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.
 type AppStoreVersionPhasedReleaseUpdateRequest struct {
-	Attributes *struct {
-		PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *AppStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                                               `json:"id"`
+	Type       string                                               `json:"type"`
+}
+
+type AppStoreVersionPhasedReleaseUpdateRequestAttributes struct {
+	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery are query options for GetAppStoreVersionPhasedReleaseForAppStoreVersion

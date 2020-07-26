@@ -43,22 +43,26 @@ type Profile struct {
 
 // ProfileCreateRequest defines model for ProfileCreateRequest.
 type ProfileCreateRequest struct {
-	Attributes struct {
-		Name        string `json:"name"`
-		ProfileType string `json:"profileType"`
-	} `json:"attributes"`
-	Relationships struct {
-		BundleID struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"bundleId"`
-		Certificates struct {
-			Data []types.RelationshipsData `json:"data"`
-		} `json:"certificates"`
-		Devices *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"devices,omitempty"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    ProfileCreateRequestAttributes    `json:"attributes"`
+	Relationships ProfileCreateRequestRelationships `json:"relationships"`
+	Type          string                            `json:"type"`
+}
+
+type ProfileCreateRequestAttributes struct {
+	Name        string `json:"name"`
+	ProfileType string `json:"profileType"`
+}
+
+type ProfileCreateRequestRelationships struct {
+	BundleID struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"bundleId"`
+	Certificates struct {
+		Data []types.RelationshipsData `json:"data"`
+	} `json:"certificates"`
+	Devices *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"devices,omitempty"`
 }
 
 // ProfileResponse defines model for ProfileResponse.

@@ -14,15 +14,17 @@ type BetaTesterInvitation struct {
 
 // BetaTesterInvitationCreateRequest defines model for BetaTesterInvitationCreateRequest.
 type BetaTesterInvitationCreateRequest struct {
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-		BetaTester struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"betaTester"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Relationships BetaTesterInvitationCreateRequestRelationships `json:"relationships"`
+	Type          string                                         `json:"type"`
+}
+
+type BetaTesterInvitationCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
+	BetaTester struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"betaTester"`
 }
 
 // BetaTesterInvitationResponse defines model for BetaTesterInvitationResponse.

@@ -53,38 +53,44 @@ type BetaGroupResponse struct {
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
 type BetaGroupCreateRequest struct {
-	Attributes struct {
-		FeedbackEnabled        *bool  `json:"feedbackEnabled,omitempty"`
-		Name                   string `json:"name"`
-		PublicLinkEnabled      *bool  `json:"publicLinkEnabled,omitempty"`
-		PublicLinkLimit        *int   `json:"publicLinkLimit,omitempty"`
-		PublicLinkLimitEnabled *bool  `json:"publicLinkLimitEnabled,omitempty"`
-	} `json:"attributes"`
-	Relationships struct {
-		App struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"app"`
-		BetaTesters *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"betaTesters,omitempty"`
-		Builds *struct {
-			Data *[]types.RelationshipsData `json:"data,omitempty"`
-		} `json:"builds,omitempty"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Attributes    BetaGroupCreateRequestAttributes    `json:"attributes"`
+	Relationships BetaGroupCreateRequestRelationships `json:"relationships"`
+	Type          string                              `json:"type"`
+}
+
+type BetaGroupCreateRequestAttributes struct {
+	FeedbackEnabled        *bool  `json:"feedbackEnabled,omitempty"`
+	Name                   string `json:"name"`
+	PublicLinkEnabled      *bool  `json:"publicLinkEnabled,omitempty"`
+	PublicLinkLimit        *int   `json:"publicLinkLimit,omitempty"`
+	PublicLinkLimitEnabled *bool  `json:"publicLinkLimitEnabled,omitempty"`
+}
+
+type BetaGroupCreateRequestRelationships struct {
+	App struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"app"`
+	BetaTesters *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"betaTesters,omitempty"`
+	Builds *struct {
+		Data *[]types.RelationshipsData `json:"data,omitempty"`
+	} `json:"builds,omitempty"`
 }
 
 // BetaGroupUpdateRequest defines model for BetaGroupUpdateRequest.
 type BetaGroupUpdateRequest struct {
-	Attributes *struct {
-		FeedbackEnabled        *bool   `json:"feedbackEnabled,omitempty"`
-		Name                   *string `json:"name,omitempty"`
-		PublicLinkEnabled      *bool   `json:"publicLinkEnabled,omitempty"`
-		PublicLinkLimit        *int    `json:"publicLinkLimit,omitempty"`
-		PublicLinkLimitEnabled *bool   `json:"publicLinkLimitEnabled,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID   string `json:"id"`
-	Type string `json:"type"`
+	Attributes *BetaGroupUpdateRequestAttributes `json:"attributes,omitempty"`
+	ID         string                            `json:"id"`
+	Type       string                            `json:"type"`
+}
+
+type BetaGroupUpdateRequestAttributes struct {
+	FeedbackEnabled        *bool   `json:"feedbackEnabled,omitempty"`
+	Name                   *string `json:"name,omitempty"`
+	PublicLinkEnabled      *bool   `json:"publicLinkEnabled,omitempty"`
+	PublicLinkLimit        *int    `json:"publicLinkLimit,omitempty"`
+	PublicLinkLimitEnabled *bool   `json:"publicLinkLimitEnabled,omitempty"`
 }
 
 // BetaGroupBetaTestersLinkagesResponse defines model for BetaGroupBetaTestersLinkagesResponse.

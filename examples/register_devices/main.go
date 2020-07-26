@@ -36,11 +36,7 @@ func main() {
 	client := asc.NewClient(auth.Client())
 
 	device, _, err := client.Provisioning.CreateDevice(&provisioning.DeviceCreateRequest{
-		Attributes: struct {
-			Name     string                        "json:\"name\""
-			Platform provisioning.BundleIDPlatform "json:\"platform\""
-			UDID     string                        "json:\"udid\""
-		}{
+		Attributes: provisioning.DeviceCreateRequestAttributes{
 			Name:     *deviceName,
 			Platform: provisioning.IOS,
 			UDID:     *deviceUDID,

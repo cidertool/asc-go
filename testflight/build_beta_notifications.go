@@ -14,12 +14,14 @@ type BuildBetaNotification struct {
 
 // BuildBetaNotificationCreateRequest defines model for BuildBetaNotificationCreateRequest.
 type BuildBetaNotificationCreateRequest struct {
-	Relationships struct {
-		Build struct {
-			Data types.RelationshipsData `json:"data"`
-		} `json:"build"`
-	} `json:"relationships"`
-	Type string `json:"type"`
+	Relationships BuildBetaNotificationCreateRequestRelationships `json:"relationships"`
+	Type          string                                          `json:"type"`
+}
+
+type BuildBetaNotificationCreateRequestRelationships struct {
+	Build struct {
+		Data types.RelationshipsData `json:"data"`
+	} `json:"build"`
 }
 
 // BuildBetaNotificationResponse defines model for BuildBetaNotificationResponse.
