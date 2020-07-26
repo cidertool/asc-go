@@ -36,26 +36,18 @@ func main() {
 	client := asc.NewClient(auth.Client())
 
 	device, _, err := client.Provisioning.CreateDevice(&provisioning.DeviceCreateRequest{
-		Data: struct {
-			Attributes struct {
-				Name     string                        "json:\"name\""
-				Platform provisioning.BundleIDPlatform "json:\"platform\""
-				UDID     string                        "json:\"udid\""
-			} "json:\"attributes\""
-			Type string "json:\"type\""
+		Attributes: struct {
+			Name     string                        "json:\"name\""
+			Platform provisioning.BundleIDPlatform "json:\"platform\""
+			UDID     string                        "json:\"udid\""
 		}{
-			Attributes: struct {
-				Name     string                        "json:\"name\""
-				Platform provisioning.BundleIDPlatform "json:\"platform\""
-				UDID     string                        "json:\"udid\""
-			}{
-				Name:     *deviceName,
-				Platform: provisioning.IOS,
-				UDID:     *deviceUDID,
-			},
-			Type: "devices",
+			Name:     *deviceName,
+			Platform: provisioning.IOS,
+			UDID:     *deviceUDID,
 		},
+		Type: "devices",
 	})
+
 	if err != nil {
 		log.Fatal(err)
 	}

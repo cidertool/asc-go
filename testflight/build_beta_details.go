@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/builds"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // ExternalBetaState defines model for ExternalBetaState.
@@ -47,12 +48,12 @@ type BuildBetaDetail struct {
 		ExternalBuildState *ExternalBetaState `json:"externalBuildState,omitempty"`
 		InternalBuildState *InternalBetaState `json:"internalBuildState,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -60,28 +61,26 @@ type BuildBetaDetail struct {
 
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.
 type BuildBetaDetailUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BuildBetaDetailResponse defines model for BuildBetaDetailResponse.
 type BuildBetaDetailResponse struct {
-	Data     BuildBetaDetail        `json:"data"`
-	Included *[]builds.Build        `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     BuildBetaDetail     `json:"data"`
+	Included *[]builds.Build     `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // BuildBetaDetailsResponse defines model for BuildBetaDetailsResponse.
 type BuildBetaDetailsResponse struct {
-	Data     []BuildBetaDetail           `json:"data"`
-	Included *[]builds.Build             `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BuildBetaDetail        `json:"data"`
+	Included *[]builds.Build          `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBuildBetaDetailsQuery defines model for ListBuildBetaDetails
@@ -113,14 +112,14 @@ type GetBuildBetaDetailForBuildQuery struct {
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.
-func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *internal.Response, error) {
+func (s *Service) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *services.Response, error) {
 	res := new(BuildBetaDetailsResponse)
 	resp, err := s.GetWithQuery("buildBetaDetails", params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetail gets a specific build beta details resource.
-func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *internal.Response, error) {
+func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *services.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -128,7 +127,7 @@ func (s *Service) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery
 }
 
 // GetBuildForBuildBetaDetail gets the build information for a specific build beta details resource.
-func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*builds.BuildResponse, *internal.Response, error) {
+func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*builds.BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -136,7 +135,7 @@ func (s *Service) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuild
 }
 
 // GetBuildBetaDetailForBuild gets the beta test details for a specific build.
-func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *internal.Response, error) {
+func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -144,7 +143,7 @@ func (s *Service) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDeta
 }
 
 // UpdateBuildBetaDetail updates beta test details for a specific build.
-func (s *Service) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *internal.Response, error) {
+func (s *Service) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *services.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.Patch(url, body, res)

@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/builds"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaBuildLocalization defines model for BetaBuildLocalization.
@@ -13,12 +14,12 @@ type BetaBuildLocalization struct {
 		Locale   *string `json:"locale,omitempty"`
 		WhatsNew *string `json:"whatsNew,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -26,44 +27,40 @@ type BetaBuildLocalization struct {
 
 // BetaBuildLocalizationResponse defines model for BetaBuildLocalizationResponse.
 type BetaBuildLocalizationResponse struct {
-	Data     BetaBuildLocalization  `json:"data"`
-	Included *[]builds.Build        `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     BetaBuildLocalization `json:"data"`
+	Included *[]builds.Build       `json:"included,omitempty"`
+	Links    types.DocumentLinks   `json:"links"`
 }
 
 // BetaBuildLocalizationCreateRequest defines model for BetaBuildLocalizationCreateRequest.
 type BetaBuildLocalizationCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			Locale   string  `json:"locale"`
-			WhatsNew *string `json:"whatsNew,omitempty"`
-		} `json:"attributes"`
-		Relationships struct {
-			Build struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"build"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		Locale   string  `json:"locale"`
+		WhatsNew *string `json:"whatsNew,omitempty"`
+	} `json:"attributes"`
+	Relationships struct {
+		Build struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"build"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // BetaBuildLocalizationUpdateRequest defines model for BetaBuildLocalizationUpdateRequest.
 type BetaBuildLocalizationUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			WhatsNew *string `json:"whatsNew,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		WhatsNew *string `json:"whatsNew,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BetaBuildLocalizationsResponse defines model for BetaBuildLocalizationsResponse.
 type BetaBuildLocalizationsResponse struct {
-	Data     []BetaBuildLocalization     `json:"data"`
-	Included *[]builds.Build             `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaBuildLocalization  `json:"data"`
+	Included *[]builds.Build          `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaBuildLocalizationsQuery defines model for ListBetaBuildLocalizations
@@ -95,14 +92,14 @@ type ListBetaBuildLocalizationsForBuildQuery struct {
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
-func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *internal.Response, error) {
+func (s *Service) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *services.Response, error) {
 	res := new(BetaBuildLocalizationsResponse)
 	resp, err := s.GetWithQuery("betaBuildLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaBuildLocalization gets localized beta build information for a specific build and locale.
-func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *internal.Response, error) {
+func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -110,7 +107,7 @@ func (s *Service) GetBetaBuildLocalization(id string, params *GetBetaBuildLocali
 }
 
 // GetBuildForBetaBuildLocalization gets the build information associated with a specific beta build localization.
-func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*builds.BuildResponse, *internal.Response, error) {
+func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*builds.BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -118,7 +115,7 @@ func (s *Service) GetBuildForBetaBuildLocalization(id string, params *GetBuildFo
 }
 
 // ListBetaBuildLocalizationsForBuild gets a list of localized beta test information for a specific build.
-func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *internal.Response, error) {
+func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaBuildLocalizations", id)
 	res := new(BetaBuildLocalizationsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -126,7 +123,7 @@ func (s *Service) ListBetaBuildLocalizationsForBuild(id string, params *ListBeta
 }
 
 // CreateBetaBuildLocalization creates localized descriptive information for an build.
-func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *internal.Response, error) {
+func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.Post(url, body, res)
@@ -134,7 +131,7 @@ func (s *Service) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateR
 }
 
 // UpdateBetaBuildLocalization updates the localized What’s New text for a specific build and locale.
-func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *internal.Response, error) {
+func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -142,7 +139,7 @@ func (s *Service) UpdateBetaBuildLocalization(id string, body *BetaBuildLocaliza
 }
 
 // DeleteBetaBuildLocalization deletes a beta build localization associated with an build.
-func (s *Service) DeleteBetaBuildLocalization(id string) (*internal.Response, error) {
+func (s *Service) DeleteBetaBuildLocalization(id string) (*services.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	return s.Delete(url, nil)
 }

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // PhasedReleaseState defines model for PhasedReleaseState.
@@ -29,41 +30,37 @@ type AppStoreVersionPhasedRelease struct {
 		StartDate          *time.Time          `json:"startDate,omitempty"`
 		TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
 type AppStoreVersionPhasedReleaseCreateRequest struct {
-	Data struct {
-		Attributes *struct {
-			PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-		} `json:"attributes,omitempty"`
-		Relationships struct {
-			AppStoreVersion struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"appStoreVersion"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
+	} `json:"attributes,omitempty"`
+	Relationships struct {
+		AppStoreVersion struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"appStoreVersion"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.
 type AppStoreVersionPhasedReleaseResponse struct {
 	Data  AppStoreVersionPhasedRelease `json:"data"`
-	Links internal.DocumentLinks       `json:"links"`
+	Links types.DocumentLinks          `json:"links"`
 }
 
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.
 type AppStoreVersionPhasedReleaseUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery are query options for GetAppStoreVersionPhasedReleaseForAppStoreVersion
@@ -72,14 +69,14 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 }
 
 // CreatePhasedRelease enables phased release for an App Store version.
-func (s *Service) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *internal.Response, error) {
+func (s *Service) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.Post("appStoreVersionPhasedReleases", body, res)
 	return res, resp, err
 }
 
 // UpdatePhasedRelease pauses or resumes a phased release, or immediately release an app.
-func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *internal.Response, error) {
+func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.Patch(url, body, res)
@@ -87,13 +84,13 @@ func (s *Service) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedRele
 }
 
 // DeletePhasedRelease cancels a planned phased release that has not been started.
-func (s *Service) DeletePhasedRelease(id string) (*internal.Response, error) {
+func (s *Service) DeletePhasedRelease(id string) (*services.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	return s.Delete(url, nil)
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersion reads the phased release status and configuration for a version with phased release enabled.
-func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *internal.Response, error) {
+func (s *Service) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *services.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.GetWithQuery(url, params, res)

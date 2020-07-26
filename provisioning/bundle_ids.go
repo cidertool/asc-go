@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/apps"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BundleIDPlatform defines model for BundleIdPlatform.
@@ -25,22 +26,22 @@ type BundleID struct {
 		Platform   *BundleIDPlatform `json:"platform,omitempty"`
 		SeedID     *string           `json:"seedId,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		BundleIDCapabilities *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"bundleIdCapabilities,omitempty"`
 		Profiles *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"profiles,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -48,41 +49,37 @@ type BundleID struct {
 
 // BundleIDCreateRequest defines model for BundleIdCreateRequest.
 type BundleIDCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			Identifier string           `json:"identifier"`
-			Name       string           `json:"name"`
-			Platform   BundleIDPlatform `json:"platform"`
-			SeedID     *string          `json:"seedId,omitempty"`
-		} `json:"attributes"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		Identifier string           `json:"identifier"`
+		Name       string           `json:"name"`
+		Platform   BundleIDPlatform `json:"platform"`
+		SeedID     *string          `json:"seedId,omitempty"`
+	} `json:"attributes"`
+	Type string `json:"type"`
 }
 
 // BundleIDUpdateRequest defines model for BundleIdUpdateRequest.
 type BundleIDUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			Name *string `json:"name,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		Name *string `json:"name,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BundleIDResponse defines model for BundleIdResponse.
 type BundleIDResponse struct {
-	Data     BundleID               `json:"data"`
-	Included *[]interface{}         `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     BundleID            `json:"data"`
+	Included *[]interface{}      `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // BundleIDsResponse defines model for BundleIdsResponse.
 type BundleIDsResponse struct {
-	Data     []BundleID                  `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BundleID               `json:"data"`
+	Included *[]interface{}           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBundleIDsQuery are query options for ListBundleIDs
@@ -135,14 +132,14 @@ type ListCapabilitiesForBundleIDQuery struct {
 }
 
 // CreateBundleID registers a new bundle ID for app development.
-func (s *Service) CreateBundleID(body *BundleIDCreateRequest) (*BundleIDResponse, *internal.Response, error) {
+func (s *Service) CreateBundleID(body *BundleIDCreateRequest) (*BundleIDResponse, *services.Response, error) {
 	res := new(BundleIDResponse)
 	resp, err := s.Post("bundleIds", body, res)
 	return res, resp, err
 }
 
 // UpdateBundleID updates a specific bundle ID’s name.
-func (s *Service) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *internal.Response, error) {
+func (s *Service) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.Patch(url, body, res)
@@ -150,20 +147,20 @@ func (s *Service) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*Bundl
 }
 
 // DeleteBundleID deletes a bundle ID that is used for app development.
-func (s *Service) DeleteBundleID(id string) (*internal.Response, error) {
+func (s *Service) DeleteBundleID(id string) (*services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListBundleIDs finds and lists bundle IDs that are registered to your team.
-func (s *Service) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *internal.Response, error) {
+func (s *Service) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *services.Response, error) {
 	res := new(BundleIDsResponse)
 	resp, err := s.GetWithQuery("bundleIds", params, res)
 	return res, resp, err
 }
 
 // GetBundleID gets information about a specific bundle ID.
-func (s *Service) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *internal.Response, error) {
+func (s *Service) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -171,7 +168,7 @@ func (s *Service) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDRes
 }
 
 // GetAppForBundleID gets app information for a specific bundle identifier.
-func (s *Service) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*apps.AppResponse, *internal.Response, error) {
+func (s *Service) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*apps.AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -179,7 +176,7 @@ func (s *Service) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (
 }
 
 // ListProfilesForBundleID gets a list of all profiles for a specific bundle ID.
-func (s *Service) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *internal.Response, error) {
+func (s *Service) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/profiles", id)
 	res := new(ProfilesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -187,7 +184,7 @@ func (s *Service) ListProfilesForBundleID(id string, params *ListProfilesForBund
 }
 
 // ListCapabilitiesForBundleID gets a list of all capabilities for a specific bundle ID.
-func (s *Service) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *internal.Response, error) {
+func (s *Service) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/bundleIdCapabilities", id)
 	res := new(BundleIDCapabilitiesResponse)
 	resp, err := s.GetWithQuery(url, params, res)

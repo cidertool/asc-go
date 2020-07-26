@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/apps"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // IconAssetType defines model for IconAssetType.
@@ -25,16 +26,16 @@ type BuildIcon struct {
 		IconAsset *apps.ImageAsset `json:"iconAsset,omitempty"`
 		IconType  *IconAssetType   `json:"iconType,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // BuildIconsResponse defines model for BuildIconsResponse.
 type BuildIconsResponse struct {
-	Data  []BuildIcon                 `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []BuildIcon              `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListIconsQuery are query options for ListIcons
@@ -45,7 +46,7 @@ type ListIconsQuery struct {
 }
 
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.
-func (s *Service) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *internal.Response, error) {
+func (s *Service) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
 	resp, err := s.GetWithQuery(url, params, res)

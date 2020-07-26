@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreAgeRating defines model for AppStoreAgeRating.
@@ -42,36 +43,34 @@ const (
 
 // AgeRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.
 type AgeRatingDeclarationUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
-			GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
-			GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
-			HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
-			KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
-			MatureOrSuggestiveThemes                    *string      `json:"matureOrSuggestiveThemes,omitempty"`
-			MedicalOrTreatmentInformation               *string      `json:"medicalOrTreatmentInformation,omitempty"`
-			ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
-			SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
-			SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
-			UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
-			ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
-			ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
-			ViolenceRealisticProlongedGraphicOrSadistic *string      `json:"violenceRealisticProlongedGraphicOrSadistic,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
+		GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
+		GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
+		HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
+		KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
+		MatureOrSuggestiveThemes                    *string      `json:"matureOrSuggestiveThemes,omitempty"`
+		MedicalOrTreatmentInformation               *string      `json:"medicalOrTreatmentInformation,omitempty"`
+		ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
+		SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
+		SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
+		UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
+		ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
+		ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
+		ViolenceRealisticProlongedGraphicOrSadistic *string      `json:"violenceRealisticProlongedGraphicOrSadistic,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // AgeRatingDeclarationResponse defines model for AgeRatingDeclarationResponse.
 type AgeRatingDeclarationResponse struct {
-	Data  AgeRatingDeclaration   `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  AgeRatingDeclaration `json:"data"`
+	Links types.DocumentLinks  `json:"links"`
 }
 
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
-func (s *Service) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *internal.Response, error) {
+func (s *Service) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *services.Response, error) {
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.Patch(url, body, res)

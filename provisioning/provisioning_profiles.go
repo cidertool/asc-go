@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Profile defines model for Profile.
@@ -19,22 +20,22 @@ type Profile struct {
 		ProfileType    *string           `json:"profileType,omitempty"`
 		UUID           *string           `json:"uuid,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		BundleID *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"bundleId,omitempty"`
 		Certificates *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"certificates,omitempty"`
 		Devices *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"devices,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -42,39 +43,37 @@ type Profile struct {
 
 // ProfileCreateRequest defines model for ProfileCreateRequest.
 type ProfileCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			Name        string `json:"name"`
-			ProfileType string `json:"profileType"`
-		} `json:"attributes"`
-		Relationships struct {
-			BundleID struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"bundleId"`
-			Certificates struct {
-				Data []internal.RelationshipsData `json:"data"`
-			} `json:"certificates"`
-			Devices *struct {
-				Data *[]internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"devices,omitempty"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		Name        string `json:"name"`
+		ProfileType string `json:"profileType"`
+	} `json:"attributes"`
+	Relationships struct {
+		BundleID struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"bundleId"`
+		Certificates struct {
+			Data []types.RelationshipsData `json:"data"`
+		} `json:"certificates"`
+		Devices *struct {
+			Data *[]types.RelationshipsData `json:"data,omitempty"`
+		} `json:"devices,omitempty"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // ProfileResponse defines model for ProfileResponse.
 type ProfileResponse struct {
-	Data     Profile                `json:"data"`
-	Included *[]interface{}         `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     Profile             `json:"data"`
+	Included *[]interface{}      `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // ProfilesResponse defines model for ProfilesResponse.
 type ProfilesResponse struct {
-	Data     []Profile                   `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []Profile                `json:"data"`
+	Included *[]interface{}           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListProfileQuery are query options for ListProfile
@@ -126,27 +125,27 @@ type ListDevicesInProfileQuery struct {
 }
 
 // CreateProfile creates a new provisioning profile.
-func (s *Service) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *internal.Response, error) {
+func (s *Service) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *services.Response, error) {
 	res := new(ProfileResponse)
 	resp, err := s.Post("profiles", body, res)
 	return res, resp, err
 }
 
 // DeleteProfile deletes a provisioning profile that is used for app development or distribution.
-func (s *Service) DeleteProfile(id string) (*internal.Response, error) {
+func (s *Service) DeleteProfile(id string) (*services.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListProfiles finds and list provisioning profiles and download their data.
-func (s *Service) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *internal.Response, error) {
+func (s *Service) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *services.Response, error) {
 	res := new(ProfilesResponse)
 	resp, err := s.GetWithQuery("profiles", params, res)
 	return res, resp, err
 }
 
 // GetProfile gets information for a specific provisioning profile and download its data.
-func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *internal.Response, error) {
+func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *services.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -154,7 +153,7 @@ func (s *Service) GetProfile(id string, params *GetProfileQuery) (*ProfileRespon
 }
 
 // GetBundleIDForProfile gets the bundle ID information for a specific provisioning profile.
-func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *internal.Response, error) {
+func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *services.Response, error) {
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -162,7 +161,7 @@ func (s *Service) GetBundleIDForProfile(id string, params *GetBundleIDForProfile
 }
 
 // ListCertificatesInProfile gets a list of all certificates and their data for a specific provisioning profile.
-func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *internal.Response, error) {
+func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *services.Response, error) {
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -170,7 +169,7 @@ func (s *Service) ListCertificatesInProfile(id string, params *ListCertificatesF
 }
 
 // ListDevicesInProfile gets a list of all devices for a specific provisioning profile.
-func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *internal.Response, error) {
+func (s *Service) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *services.Response, error) {
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
 	resp, err := s.GetWithQuery(url, params, res)

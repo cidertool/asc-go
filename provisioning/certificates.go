@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // CertificateType defines model for CertificateType.
@@ -34,33 +35,31 @@ type Certificate struct {
 		Platform           *BundleIDPlatform `json:"platform,omitempty"`
 		SerialNumber       *string           `json:"serialNumber,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // CertificateCreateRequest defines model for CertificateCreateRequest.
 type CertificateCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			CertificateType CertificateType `json:"certificateType"`
-			CsrContent      string          `json:"csrContent"`
-		} `json:"attributes"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		CertificateType CertificateType `json:"certificateType"`
+		CsrContent      string          `json:"csrContent"`
+	} `json:"attributes"`
+	Type string `json:"type"`
 }
 
 // CertificateResponse defines model for CertificateResponse.
 type CertificateResponse struct {
-	Data  Certificate            `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  Certificate         `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // CertificatesResponse defines model for CertificatesResponse.
 type CertificatesResponse struct {
-	Data  []Certificate               `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []Certificate            `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListCertificatesQuery are query options for ListCertificates
@@ -82,21 +81,21 @@ type GetCertificateQuery struct {
 }
 
 // CreateCertificate creates a new certificate using a certificate signing request.
-func (s *Service) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *internal.Response, error) {
+func (s *Service) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *services.Response, error) {
 	res := new(CertificateResponse)
 	resp, err := s.Post("certificates", body, res)
 	return res, resp, err
 }
 
 // ListCertificates finds and lists certificates and download their data.
-func (s *Service) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *internal.Response, error) {
+func (s *Service) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *services.Response, error) {
 	res := new(CertificatesResponse)
 	resp, err := s.GetWithQuery("certificates", params, res)
 	return res, resp, err
 }
 
 // GetCertificate gets information about a certificate and download the certificate data.
-func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *internal.Response, error) {
+func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *services.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -104,7 +103,7 @@ func (s *Service) GetCertificate(id string, params *GetCertificateQuery) (*Certi
 }
 
 // RevokeCertificate revokes a lost, stolen, compromised, or expiring signing certificate.
-func (s *Service) RevokeCertificate(id string) (*internal.Response, error) {
+func (s *Service) RevokeCertificate(id string) (*services.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	return s.Delete(url, nil)
 }

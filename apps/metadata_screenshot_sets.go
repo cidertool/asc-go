@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // ScreenshotDisplayType defines model for ScreenshotDisplayType.
@@ -43,17 +44,17 @@ type AppScreenshotSet struct {
 	Attributes *struct {
 		ScreenshotDisplayType *ScreenshotDisplayType `json:"screenshotDisplayType,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppScreenshots *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appScreenshots,omitempty"`
 		AppStoreVersionLocalization *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -61,44 +62,37 @@ type AppScreenshotSet struct {
 
 // AppScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
 type AppScreenshotSetCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
-		} `json:"attributes"`
-		Relationships struct {
-			AppStoreVersionLocalization struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"appStoreVersionLocalization"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
+	} `json:"attributes"`
+	Relationships struct {
+		AppStoreVersionLocalization struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"appStoreVersionLocalization"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // AppScreenshotSetResponse defines model for AppScreenshotSetResponse.
 type AppScreenshotSetResponse struct {
-	Data     AppScreenshotSet       `json:"data"`
-	Included *[]AppScreenshot       `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     AppScreenshotSet    `json:"data"`
+	Included *[]AppScreenshot    `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // AppScreenshotSetsResponse defines model for AppScreenshotSetsResponse.
 type AppScreenshotSetsResponse struct {
-	Data     []AppScreenshotSet          `json:"data"`
-	Included *[]AppScreenshot            `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
-}
-
-// AppScreenshotSetAppScreenshotsLinkagesRequest defines model for AppScreenshotSetAppScreenshotsLinkagesRequest.
-type AppScreenshotSetAppScreenshotsLinkagesRequest struct {
-	Data []internal.RelationshipsData `json:"data"`
+	Data     []AppScreenshotSet       `json:"data"`
+	Included *[]AppScreenshot         `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppScreenshotSetAppScreenshotsLinkagesResponse defines model for AppScreenshotSetAppScreenshotsLinkagesResponse.
 type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
-	Data  []internal.RelationshipsData `json:"data"`
-	Links internal.PagedDocumentLinks  `json:"links"`
-	Meta  *internal.PagingInformation  `json:"meta,omitempty"`
+	Data  []types.RelationshipsData `json:"data"`
+	Links types.PagedDocumentLinks  `json:"links"`
+	Meta  *types.PagingInformation  `json:"meta,omitempty"`
 }
 
 // GetAppScreenshotSetQuery are query options for GetAppScreenshotSet
@@ -124,7 +118,7 @@ type ListAppScreenshotIDsForSetQuery struct {
 }
 
 // GetAppScreenshotSet gets an app screenshot set including its display target, language, and the screenshot it contains.
-func (s *Service) GetAppScreenshotSet(id string, params *GetAppScreenshotSetQuery) (*AppScreenshotSetResponse, *internal.Response, error) {
+func (s *Service) GetAppScreenshotSet(id string, params *GetAppScreenshotSetQuery) (*AppScreenshotSetResponse, *services.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -132,20 +126,20 @@ func (s *Service) GetAppScreenshotSet(id string, params *GetAppScreenshotSetQuer
 }
 
 // CreateAppScreenshotSet adds a new screenshot set to an App Store version localization for a specific screenshot type and display size.
-func (s *Service) CreateAppScreenshotSet(id string, body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *internal.Response, error) {
+func (s *Service) CreateAppScreenshotSet(id string, body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *services.Response, error) {
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.Post("appScreenshotSets", body, res)
 	return res, resp, err
 }
 
 // DeleteAppScreenshotSet deletes an app screenshot set and all of its screenshots.
-func (s *Service) DeleteAppScreenshotSet(id string) (*internal.Response, error) {
+func (s *Service) DeleteAppScreenshotSet(id string) (*services.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
 	return s.Delete(url, nil)
 }
 
 // ListAppScreenshotsForSet lists all ordered screenshots in a screenshot set.
-func (s *Service) ListAppScreenshotsForSet(id string, params *ListAppScreenshotsForSetQuery) (*AppScreenshotsResponse, *internal.Response, error) {
+func (s *Service) ListAppScreenshotsForSet(id string, params *ListAppScreenshotsForSetQuery) (*AppScreenshotsResponse, *services.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/appScreenshots", id)
 	res := new(AppScreenshotsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -153,7 +147,7 @@ func (s *Service) ListAppScreenshotsForSet(id string, params *ListAppScreenshots
 }
 
 // ListAppScreenshotIDsForSet gets the ordered screenshot IDs in a screenshot set.
-func (s *Service) ListAppScreenshotIDsForSet(id string, params *ListAppScreenshotIDsForSetQuery) (*AppScreenshotSetAppScreenshotsLinkagesResponse, *internal.Response, error) {
+func (s *Service) ListAppScreenshotIDsForSet(id string, params *ListAppScreenshotIDsForSetQuery) (*AppScreenshotSetAppScreenshotsLinkagesResponse, *services.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	res := new(AppScreenshotSetAppScreenshotsLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -161,7 +155,7 @@ func (s *Service) ListAppScreenshotIDsForSet(id string, params *ListAppScreensho
 }
 
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
-func (s *Service) ReplaceAppScreenshotsForSet(id string, body *AppScreenshotSetAppScreenshotsLinkagesRequest) (*internal.Response, error) {
+func (s *Service) ReplaceAppScreenshotsForSet(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
-	return s.Patch(url, body, nil)
+	return s.Patch(url, linkages, nil)
 }

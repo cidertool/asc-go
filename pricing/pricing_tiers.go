@@ -3,18 +3,19 @@ package pricing
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppPriceTier defines model for AppPriceTier.
 type AppPriceTier struct {
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		PricePoints *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"pricePoints,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -22,17 +23,17 @@ type AppPriceTier struct {
 
 // AppPriceTierResponse defines model for AppPriceTierResponse.
 type AppPriceTierResponse struct {
-	Data     AppPriceTier           `json:"data"`
-	Included *[]AppPricePoint       `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     AppPriceTier        `json:"data"`
+	Included *[]AppPricePoint    `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // AppPriceTiersResponse defines model for AppPriceTiersResponse.
 type AppPriceTiersResponse struct {
-	Data     []AppPriceTier              `json:"data"`
-	Included *[]AppPricePoint            `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []AppPriceTier           `json:"data"`
+	Included *[]AppPricePoint         `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppPricePoint defines model for AppPricePoint.
@@ -41,16 +42,16 @@ type AppPricePoint struct {
 		CustomerPrice *string `json:"customerPrice,omitempty"`
 		Proceeds      *string `json:"proceeds,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		PriceTier *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"priceTier,omitempty"`
 		Territory *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"territory,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -58,17 +59,17 @@ type AppPricePoint struct {
 
 // AppPricePointResponse defines model for AppPricePointResponse.
 type AppPricePointResponse struct {
-	Data     AppPricePoint          `json:"data"`
-	Included *[]Territory           `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     AppPricePoint       `json:"data"`
+	Included *[]Territory        `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // AppPricePointsResponse defines model for AppPricePointsResponse.
 type AppPricePointsResponse struct {
-	Data     []AppPricePoint             `json:"data"`
-	Included *[]Territory                `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []AppPricePoint          `json:"data"`
+	Included *[]Territory             `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListAppPriceTiersQuery are query options for ListAppPriceTiers
@@ -123,14 +124,14 @@ type GetAppPricePointQuery struct {
 }
 
 // ListAppPriceTiers lists all app price tiers available in App Store Connect, including related price points.
-func (s *Service) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *internal.Response, error) {
+func (s *Service) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *services.Response, error) {
 	res := new(AppPriceTiersResponse)
 	resp, err := s.GetWithQuery("appPriceTiers", params, res)
 	return res, resp, err
 }
 
 // GetAppPriceTier reads available app price tiers.
-func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*AppPriceTierResponse, *internal.Response, error) {
+func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*AppPriceTierResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s", id)
 	res := new(AppPriceTierResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -138,7 +139,7 @@ func (s *Service) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*App
 }
 
 // ListPricePointsForAppPriceTier lists price points across all App Store territories for a specific price tier.
-func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePointsForAppPriceTierQuery) (*AppPricePointsResponse, *internal.Response, error) {
+func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePointsForAppPriceTierQuery) (*AppPricePointsResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s/pricePoints", id)
 	res := new(AppPricePointsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -146,14 +147,14 @@ func (s *Service) ListPricePointsForAppPriceTier(id string, params *ListPricePoi
 }
 
 // ListAppPricePoints lists all app price points available in App Store Connect, including related price tier, developer proceeds, and territory.
-func (s *Service) ListAppPricePoints(params *ListAppPricePointsQuery) (*AppPricePointsResponse, *internal.Response, error) {
+func (s *Service) ListAppPricePoints(params *ListAppPricePointsQuery) (*AppPricePointsResponse, *services.Response, error) {
 	res := new(AppPricePointsResponse)
 	resp, err := s.GetWithQuery("appPricePoints", params, res)
 	return res, resp, err
 }
 
 // GetTerritoryForAppPricePoint gets the territory in which a specific price point applies.
-func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryForAppPricePointQuery) (*TerritoryResponse, *internal.Response, error) {
+func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryForAppPricePointQuery) (*TerritoryResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -161,7 +162,7 @@ func (s *Service) GetTerritoryForAppPricePoint(id string, params *GetTerritoryFo
 }
 
 // GetAppPricePoint reads the customer prices and your proceeds for a price tier.
-func (s *Service) GetAppPricePoint(id string, params *GetAppPricePointQuery) (*AppPricePointResponse, *internal.Response, error) {
+func (s *Service) GetAppPricePoint(id string, params *GetAppPricePointQuery) (*AppPricePointResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s", id)
 	res := new(AppPricePointResponse)
 	resp, err := s.GetWithQuery(url, params, res)

@@ -5,7 +5,8 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/apps"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Build defines model for Build.
@@ -20,47 +21,47 @@ type Build struct {
 		UsesNonExemptEncryption *bool            `json:"usesNonExemptEncryption,omitempty"`
 		Version                 *string          `json:"version,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppEncryptionDeclaration *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appEncryptionDeclaration,omitempty"`
 		AppStoreVersion *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 		BetaAppReviewSubmission *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"betaAppReviewSubmission,omitempty"`
 		BetaBuildLocalizations *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaBuildLocalizations,omitempty"`
 		BuildBetaDetail *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"buildBetaDetail,omitempty"`
 		Icons *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"icons,omitempty"`
 		IndividualTesters *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"individualTesters,omitempty"`
 		PreReleaseVersion *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"preReleaseVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -68,62 +69,45 @@ type Build struct {
 
 // BuildResponse defines model for BuildResponse.
 type BuildResponse struct {
-	Data     Build                  `json:"data"`
-	Included *[]interface{}         `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     Build               `json:"data"`
+	Included *[]interface{}      `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // BuildsResponse defines model for BuildsResponse.
 type BuildsResponse struct {
-	Data     []Build                     `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []Build                  `json:"data"`
+	Included *[]interface{}           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
 type BuildUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			Expired                 *bool `json:"expired,omitempty"`
-			UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID            string `json:"id"`
-		Relationships *struct {
-			AppEncryptionDeclaration *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"appEncryptionDeclaration,omitempty"`
-		} `json:"relationships,omitempty"`
-		Type string `json:"type"`
-	} `json:"data"`
-}
-
-// BuildAppEncryptionDeclarationLinkageRequest defines model for BuildAppEncryptionDeclarationLinkageRequest.
-type BuildAppEncryptionDeclarationLinkageRequest struct {
-	Data internal.RelationshipsData `json:"data"`
+	Attributes *struct {
+		Expired                 *bool `json:"expired,omitempty"`
+		UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID            string `json:"id"`
+	Relationships *struct {
+		AppEncryptionDeclaration *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"appEncryptionDeclaration,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type string `json:"type"`
 }
 
 // BuildAppEncryptionDeclarationLinkageResponse defines model for BuildAppEncryptionDeclarationLinkageResponse.
 type BuildAppEncryptionDeclarationLinkageResponse struct {
-	Data  internal.RelationshipsData `json:"data"`
-	Links internal.DocumentLinks     `json:"links"`
-}
-
-// BuildIndividualTestersLinkagesRequest defines model for BuildIndividualTestersLinkagesRequest.
-type BuildIndividualTestersLinkagesRequest struct {
-	Data []internal.RelationshipsData `json:"data"`
+	Data  types.RelationshipsData `json:"data"`
+	Links types.DocumentLinks     `json:"links"`
 }
 
 // BuildIndividualTestersLinkagesResponse defines model for BuildIndividualTestersLinkagesResponse.
 type BuildIndividualTestersLinkagesResponse struct {
-	Data  []internal.RelationshipsData `json:"data"`
-	Links internal.PagedDocumentLinks  `json:"links"`
-	Meta  *internal.PagingInformation  `json:"meta,omitempty"`
-}
-
-// BuildBetaGroupsLinkagesRequest defines model for BuildBetaGroupsLinkagesRequest.
-type BuildBetaGroupsLinkagesRequest struct {
-	Data []internal.RelationshipsData `json:"data"`
+	Data  []types.RelationshipsData `json:"data"`
+	Links types.PagedDocumentLinks  `json:"links"`
+	Meta  *types.PagingInformation  `json:"meta,omitempty"`
 }
 
 // ListBuildsQuery are query options for ListBuilds
@@ -215,14 +199,14 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 }
 
 // ListBuilds finds and lists builds for all apps in App Store Connect.
-func (s *Service) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *internal.Response, error) {
+func (s *Service) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *services.Response, error) {
 	res := new(BuildsResponse)
 	resp, err := s.GetWithQuery("builds", params, res)
 	return res, resp, err
 }
 
 // ListBuildsForApp gets a list of builds associated with a specific app.
-func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *internal.Response, error) {
+func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -230,7 +214,7 @@ func (s *Service) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*B
 }
 
 // GetBuild gets information about a specific build.
-func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *internal.Response, error) {
+func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -238,7 +222,7 @@ func (s *Service) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *
 }
 
 // GetAppForBuild gets the app information for a specific build.
-func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.AppResponse, *internal.Response, error) {
+func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -246,7 +230,7 @@ func (s *Service) GetAppForBuild(id string, params *GetAppForBuildQuery) (*apps.
 }
 
 // GetAppStoreVersionForBuild gets the App Store version of a specific build.
-func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*apps.AppStoreVersionResponse, *internal.Response, error) {
+func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*apps.AppStoreVersionResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(apps.AppStoreVersionResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -254,7 +238,7 @@ func (s *Service) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersi
 }
 
 // GetBuildForAppStoreVersion gets the build that is attached to a specific App Store version.
-func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *internal.Response, error) {
+func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -262,7 +246,7 @@ func (s *Service) GetBuildForAppStoreVersion(id string, params *GetBuildForAppSt
 }
 
 // UpdateBuild expires a build or changes its encryption exemption setting.
-func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *internal.Response, error) {
+func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.Post(url, body, res)
@@ -270,37 +254,37 @@ func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildRespons
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
-func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, body *BuildAppEncryptionDeclarationLinkageRequest) (*internal.Response, error) {
+func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
-	return s.Patch(url, body, nil)
+	return s.Patch(url, linkages, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or create a beta group to a build to enable testing.
-func (s *Service) CreateAccessForBetaGroupsToBuild(id string, body *BuildBetaGroupsLinkagesRequest) (*internal.Response, error) {
+func (s *Service) CreateAccessForBetaGroupsToBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.Post(url, body, nil)
+	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
-func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, body *BuildBetaGroupsLinkagesRequest) (*internal.Response, error) {
+func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.Delete(url, body)
+	return s.Delete(url, linkages)
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
-func (s *Service) CreateAccessForIndividualTestersToBuild(id string, body *BuildIndividualTestersLinkagesRequest) (*internal.Response, error) {
+func (s *Service) CreateAccessForIndividualTestersToBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.Post(url, body, nil)
+	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
-func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, body *BuildIndividualTestersLinkagesRequest) (*internal.Response, error) {
+func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.Delete(url, body)
+	return s.Delete(url, linkages)
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.
-func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *internal.Response, error) {
+func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -308,7 +292,7 @@ func (s *Service) ListResourceIDsForIndividualTestersForBuild(id string, params 
 }
 
 // GetAppEncryptionDeclarationForBuild reads an app encryption declaration associated with a specific build.
-func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *internal.Response, error) {
+func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -316,7 +300,7 @@ func (s *Service) GetAppEncryptionDeclarationForBuild(id string, params *GetAppE
 }
 
 // GetAppEncryptionDeclarationIDForBuild gets the beta app encryption declaration resource ID associated with a build.
-func (s *Service) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *internal.Response, error) {
+func (s *Service) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
 	resp, err := s.GetWithQuery(url, nil, res)

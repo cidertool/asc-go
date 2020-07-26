@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppInfo defines model for AppInfo.
@@ -14,41 +15,41 @@ type AppInfo struct {
 		BrazilAgeRating   *BrazilAgeRating      `json:"brazilAgeRating,omitempty"`
 		KidsAgeBand       *KidsAgeBand          `json:"kidsAgeBand,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppInfoLocalizations *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appInfoLocalizations,omitempty"`
 		PrimaryCategory *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primaryCategory,omitempty"`
 		PrimarySubcategoryOne *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryOne,omitempty"`
 		PrimarySubcategoryTwo *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryTwo,omitempty"`
 		SecondaryCategory *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondaryCategory,omitempty"`
 		SecondarySubcategoryOne *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryOne,omitempty"`
 		SecondarySubcategoryTwo *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryTwo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -56,45 +57,43 @@ type AppInfo struct {
 
 // AppInfoResponse defines model for AppInfoResponse.
 type AppInfoResponse struct {
-	Data     AppInfo                `json:"data"`
-	Included *[]interface{}         `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     AppInfo             `json:"data"`
+	Included *[]interface{}      `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // AppInfosResponse defines model for AppInfosResponse.
 type AppInfosResponse struct {
-	Data     []AppInfo                   `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []AppInfo                `json:"data"`
+	Included *[]interface{}           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppInfoUpdateRequest defines model for AppInfoUpdateRequest.
 type AppInfoUpdateRequest struct {
-	Data struct {
-		ID            string `json:"id"`
-		Relationships *struct {
-			PrimaryCategory *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"primaryCategory,omitempty"`
-			PrimarySubcategoryOne *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"primarySubcategoryOne,omitempty"`
-			PrimarySubcategoryTwo *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"primarySubcategoryTwo,omitempty"`
-			SecondaryCategory *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"secondaryCategory,omitempty"`
-			SecondarySubcategoryOne *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"secondarySubcategoryOne,omitempty"`
-			SecondarySubcategoryTwo *struct {
-				Data *internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"secondarySubcategoryTwo,omitempty"`
-		} `json:"relationships,omitempty"`
-		Type string `json:"type"`
-	} `json:"data"`
+	ID            string `json:"id"`
+	Relationships *struct {
+		PrimaryCategory *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"primaryCategory,omitempty"`
+		PrimarySubcategoryOne *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"primarySubcategoryOne,omitempty"`
+		PrimarySubcategoryTwo *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"primarySubcategoryTwo,omitempty"`
+		SecondaryCategory *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"secondaryCategory,omitempty"`
+		SecondarySubcategoryOne *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"secondarySubcategoryOne,omitempty"`
+		SecondarySubcategoryTwo *struct {
+			Data *types.RelationshipsData `json:"data,omitempty"`
+		} `json:"secondarySubcategoryTwo,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type string `json:"type"`
 }
 
 // GetAppInfoQuery are query options for GetAppInfo
@@ -118,7 +117,7 @@ type ListAppInfosForAppQuery struct {
 }
 
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
-func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *internal.Response, error) {
+func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *services.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -126,7 +125,7 @@ func (s *Service) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoRespon
 }
 
 // ListAppInfosForApp gets information about an app that is currently live on App Store, or that goes live with the next version.
-func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *internal.Response, error) {
+func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -134,7 +133,7 @@ func (s *Service) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery)
 }
 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
-func (s *Service) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *internal.Response, error) {
+func (s *Service) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *services.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.Patch(url, body, res)

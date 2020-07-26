@@ -3,7 +3,7 @@ package reporting
 import (
 	"bytes"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
 )
 
 // DownloadFinanceReportsQuery are query options for DownloadFinanceReports
@@ -25,14 +25,14 @@ type DownloadSalesAndTrendsReportsQuery struct {
 }
 
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
-func (s *Service) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *internal.Response, error) {
+func (s *Service) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *services.Response, error) {
 	res := new(bytes.Buffer)
 	resp, err := s.GetWithQuery("financeReports", params, res)
 	return res, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
-func (s *Service) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *internal.Response, error) {
+func (s *Service) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *services.Response, error) {
 	res := new(bytes.Buffer)
 	resp, err := s.GetWithQuery("salesReports", params, res)
 	return res, resp, err

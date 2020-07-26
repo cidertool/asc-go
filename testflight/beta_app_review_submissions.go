@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/builds"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaReviewState defines model for BetaReviewState.
@@ -23,12 +24,12 @@ type BetaAppReviewSubmission struct {
 	Attributes *struct {
 		BetaReviewState *BetaReviewState `json:"betaReviewState,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -36,29 +37,27 @@ type BetaAppReviewSubmission struct {
 
 // BetaAppReviewSubmissionCreateRequest defines model for BetaAppReviewSubmissionCreateRequest.
 type BetaAppReviewSubmissionCreateRequest struct {
-	Data struct {
-		Relationships struct {
-			Build struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"build"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Relationships struct {
+		Build struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"build"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // BetaAppReviewSubmissionResponse defines model for BetaAppReviewSubmissionResponse.
 type BetaAppReviewSubmissionResponse struct {
 	Data     BetaAppReviewSubmission `json:"data"`
 	Included *[]builds.Build         `json:"included,omitempty"`
-	Links    internal.DocumentLinks  `json:"links"`
+	Links    types.DocumentLinks     `json:"links"`
 }
 
 // BetaAppReviewSubmissionsResponse defines model for BetaAppReviewSubmissionsResponse.
 type BetaAppReviewSubmissionsResponse struct {
-	Data     []BetaAppReviewSubmission   `json:"data"`
-	Included *[]builds.Build             `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaAppReviewSubmission `json:"data"`
+	Included *[]builds.Build           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks  `json:"links"`
+	Meta     *types.PagingInformation  `json:"meta,omitempty"`
 }
 
 // ListBetaAppReviewSubmissionsQuery defines model for ListBetaAppReviewSubmissions
@@ -90,21 +89,21 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 }
 
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
-func (s *Service) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *internal.Response, error) {
+func (s *Service) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.Post("betaAppReviewSubmissions", body, res)
 	return res, resp, err
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
-func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *internal.Response, error) {
+func (s *Service) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *services.Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
 	resp, err := s.GetWithQuery("betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmission gets a specific beta app review submission.
-func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *internal.Response, error) {
+func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -112,7 +111,7 @@ func (s *Service) GetBetaAppReviewSubmission(id string, params *GetBetaAppReview
 }
 
 // GetBuildForBetaAppReviewSubmission gets the build information for a specific beta app review submission.
-func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*builds.BuildResponse, *internal.Response, error) {
+func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*builds.BuildResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(builds.BuildResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -120,7 +119,7 @@ func (s *Service) GetBuildForBetaAppReviewSubmission(id string, params *GetBuild
 }
 
 // GetBetaAppReviewSubmissionForBuild gets the beta app review submission status for a specific build.
-func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *internal.Response, error) {
+func (s *Service) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.GetWithQuery(url, params, res)

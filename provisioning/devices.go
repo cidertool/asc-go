@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Device defines model for Device.
@@ -18,46 +19,42 @@ type Device struct {
 		Status      *string           `json:"status,omitempty"`
 		UDID        *string           `json:"udid,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.
 type DeviceCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			Name     string           `json:"name"`
-			Platform BundleIDPlatform `json:"platform"`
-			UDID     string           `json:"udid"`
-		} `json:"attributes"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		Name     string           `json:"name"`
+		Platform BundleIDPlatform `json:"platform"`
+		UDID     string           `json:"udid"`
+	} `json:"attributes"`
+	Type string `json:"type"`
 }
 
 // DeviceUpdateRequest defines model for DeviceUpdateRequest.
 type DeviceUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			Name   *string `json:"name,omitempty"`
-			Status *string `json:"status,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		Name   *string `json:"name,omitempty"`
+		Status *string `json:"status,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // DeviceResponse defines model for DeviceResponse.
 type DeviceResponse struct {
-	Data  Device                 `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  Device              `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // DevicesResponse defines model for DevicesResponse.
 type DevicesResponse struct {
-	Data  []Device                    `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []Device                 `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListDevicesQuery are query options for ListDevices
@@ -79,21 +76,21 @@ type GetDeviceQuery struct {
 }
 
 // CreateDevice registers a new device for app development.
-func (s *Service) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *internal.Response, error) {
+func (s *Service) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *services.Response, error) {
 	res := new(DeviceResponse)
 	resp, err := s.Post("devices", body, res)
 	return res, resp, err
 }
 
 // ListDevices finds and lists devices registered to your team.
-func (s *Service) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *internal.Response, error) {
+func (s *Service) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *services.Response, error) {
 	res := new(DevicesResponse)
 	resp, err := s.GetWithQuery("devices", params, res)
 	return res, resp, err
 }
 
 // GetDevice gets information for a specific device registered to your team.
-func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *internal.Response, error) {
+func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *services.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -101,7 +98,7 @@ func (s *Service) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse,
 }
 
 // UpdateDevice updates the name or status of a specific device.
-func (s *Service) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *internal.Response, error) {
+func (s *Service) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *services.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.Patch(url, body, res)

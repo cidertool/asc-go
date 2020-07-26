@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // PreviewType defines model for PreviewType.
@@ -41,12 +42,12 @@ type AppPreview struct {
 		UploadOperations     *[]UploadOperation  `json:"uploadOperations,omitempty"`
 		VideoURL             *string             `json:"videoUrl,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviewSet *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appPreviewSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -54,46 +55,42 @@ type AppPreview struct {
 
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.
 type AppPreviewCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			FileName             string  `json:"fileName"`
-			FileSize             int     `json:"fileSize"`
-			MimeType             *string `json:"mimeType,omitempty"`
-			PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
-		} `json:"attributes"`
-		Relationships struct {
-			AppPreviewSet struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"appPreviewSet"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		FileName             string  `json:"fileName"`
+		FileSize             int     `json:"fileSize"`
+		MimeType             *string `json:"mimeType,omitempty"`
+		PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
+	} `json:"attributes"`
+	Relationships struct {
+		AppPreviewSet struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"appPreviewSet"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.
 type AppPreviewUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
-			SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
-			Uploaded             *bool   `json:"uploaded,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
+		SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
+		Uploaded             *bool   `json:"uploaded,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // AppPreviewResponse defines model for AppPreviewResponse.
 type AppPreviewResponse struct {
-	Data  AppPreview             `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  AppPreview          `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // AppPreviewsResponse defines model for AppPreviewsResponse.
 type AppPreviewsResponse struct {
-	Data  []AppPreview                `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []AppPreview             `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // UploadOperation defines model for UploadOperation.
@@ -125,7 +122,7 @@ type GetAppPreviewQuery struct {
 }
 
 // GetAppPreview gets information about an app preview and its upload and processing status.
-func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *internal.Response, error) {
+func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -133,14 +130,14 @@ func (s *Service) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPrev
 }
 
 // CreateAppPreview adds a new preview to a preview set.
-func (s *Service) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *internal.Response, error) {
+func (s *Service) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *services.Response, error) {
 	res := new(AppPreviewResponse)
 	resp, err := s.Post("appPreviews", body, res)
 	return res, resp, err
 }
 
 // UpdateAppPreview commits an app preview after uploading it.
-func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *internal.Response, error) {
+func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *services.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.Patch(url, body, res)
@@ -148,7 +145,7 @@ func (s *Service) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*A
 }
 
 // DeleteAppPreview deletes an app preview that is associated with a preview set.
-func (s *Service) DeleteAppPreview(id string) (*internal.Response, error) {
+func (s *Service) DeleteAppPreview(id string) (*services.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	return s.Delete(url, nil)
 }

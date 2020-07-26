@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/apps"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaAppLocalization defines model for BetaAppLocalization.
@@ -17,12 +18,12 @@ type BetaAppLocalization struct {
 		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
 		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -30,52 +31,48 @@ type BetaAppLocalization struct {
 
 // BetaAppLocalizationCreateRequest defines model for BetaAppLocalizationCreateRequest.
 type BetaAppLocalizationCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			Description       *string `json:"description,omitempty"`
-			FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
-			Locale            string  `json:"locale"`
-			MarketingURL      *string `json:"marketingUrl,omitempty"`
-			PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-			TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
-		} `json:"attributes"`
-		Relationships struct {
-			App struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"app"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		Description       *string `json:"description,omitempty"`
+		FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
+		Locale            string  `json:"locale"`
+		MarketingURL      *string `json:"marketingUrl,omitempty"`
+		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
+	} `json:"attributes"`
+	Relationships struct {
+		App struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"app"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // BetaAppLocalizationResponse defines model for BetaAppLocalizationResponse.
 type BetaAppLocalizationResponse struct {
-	Data     BetaAppLocalization    `json:"data"`
-	Included *[]apps.App            `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     BetaAppLocalization `json:"data"`
+	Included *[]apps.App         `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
 type BetaAppLocalizationUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			Description       *string `json:"description,omitempty"`
-			FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
-			MarketingURL      *string `json:"marketingUrl,omitempty"`
-			PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-			TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		Description       *string `json:"description,omitempty"`
+		FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
+		MarketingURL      *string `json:"marketingUrl,omitempty"`
+		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BetaAppLocalizationsResponse defines model for BetaAppLocalizationsResponse.
 type BetaAppLocalizationsResponse struct {
-	Data     []BetaAppLocalization       `json:"data"`
-	Included *[]apps.App                 `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaAppLocalization    `json:"data"`
+	Included *[]apps.App              `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaAppLocalizationsQuery defines model for ListBetaAppLocalizations
@@ -109,14 +106,14 @@ type ListBetaAppLocalizationsForAppQuery struct {
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
-func (s *Service) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *internal.Response, error) {
+func (s *Service) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *services.Response, error) {
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.GetWithQuery("betaAppLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppLocalization gets localized beta app information for a specific app and locale.
-func (s *Service) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *internal.Response, error) {
+func (s *Service) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -124,7 +121,7 @@ func (s *Service) GetBetaAppLocalization(id string, params *GetBetaAppLocalizati
 }
 
 // GetAppForBetaAppLocalization gets the app information associated with a specific beta app localization.
-func (s *Service) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*apps.AppResponse, *internal.Response, error) {
+func (s *Service) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*apps.AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -132,7 +129,7 @@ func (s *Service) GetAppForBetaAppLocalization(id string, params *GetAppForBetaA
 }
 
 // ListBetaAppLocalizationsForApp gets a list of localized beta test information for a specific app.
-func (s *Service) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *internal.Response, error) {
+func (s *Service) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -140,7 +137,7 @@ func (s *Service) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppL
 }
 
 // CreateBetaAppLocalization creates localized descriptive information for an app.
-func (s *Service) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *internal.Response, error) {
+func (s *Service) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.Post(url, body, res)
@@ -148,7 +145,7 @@ func (s *Service) CreateBetaAppLocalization(body *BetaAppLocalizationCreateReque
 }
 
 // UpdateBetaAppLocalization updates the localized What’s New text for a specific app and locale.
-func (s *Service) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *internal.Response, error) {
+func (s *Service) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.Patch(url, body, res)
@@ -156,7 +153,7 @@ func (s *Service) UpdateBetaAppLocalization(id string, body *BetaAppLocalization
 }
 
 // DeleteBetaAppLocalization deletes a beta app localization associated with an app.
-func (s *Service) DeleteBetaAppLocalization(id string) (*internal.Response, error) {
+func (s *Service) DeleteBetaAppLocalization(id string) (*services.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	return s.Delete(url, nil)
 }

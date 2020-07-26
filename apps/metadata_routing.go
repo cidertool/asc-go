@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // RoutingAppCoverage defines model for RoutingAppCoverage.
@@ -15,12 +16,12 @@ type RoutingAppCoverage struct {
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *[]UploadOperation  `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreVersion *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -28,36 +29,32 @@ type RoutingAppCoverage struct {
 
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.
 type RoutingAppCoverageCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			FileName string `json:"fileName"`
-			FileSize int    `json:"fileSize"`
-		} `json:"attributes"`
-		Relationships struct {
-			AppStoreVersion struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"appStoreVersion"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		FileName string `json:"fileName"`
+		FileSize int    `json:"fileSize"`
+	} `json:"attributes"`
+	Relationships struct {
+		AppStoreVersion struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"appStoreVersion"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.
 type RoutingAppCoverageResponse struct {
-	Data  RoutingAppCoverage     `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  RoutingAppCoverage  `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.
 type RoutingAppCoverageUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
-			Uploaded           *bool   `json:"uploaded,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
+		Uploaded           *bool   `json:"uploaded,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // AppMediaAssetState defines model for AppMediaAssetState.
@@ -80,7 +77,7 @@ type GetRoutingAppCoverageQuery struct {
 }
 
 // GetRoutingAppCoverage gets information about the routing app coverage file and its upload and processing status.
-func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *internal.Response, error) {
+func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *services.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -88,14 +85,14 @@ func (s *Service) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverage
 }
 
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
-func (s *Service) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *internal.Response, error) {
+func (s *Service) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *services.Response, error) {
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.Post("routingAppCoverages", body, res)
 	return res, resp, err
 }
 
 // UpdateRoutingAppCoverage commits a routing app coverage file after uploading it.
-func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *internal.Response, error) {
+func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *services.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.Patch(url, body, res)
@@ -103,7 +100,7 @@ func (s *Service) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUp
 }
 
 // DeleteRoutingAppCoverage deletes the routing app coverage file that is associated with a version.
-func (s *Service) DeleteRoutingAppCoverage(id string) (*internal.Response, error) {
+func (s *Service) DeleteRoutingAppCoverage(id string) (*services.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	return s.Delete(url, nil)
 }

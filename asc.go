@@ -6,7 +6,7 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/builds"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
 	"github.com/aaronsky/asc-go/pricing"
 	"github.com/aaronsky/asc-go/provisioning"
 	"github.com/aaronsky/asc-go/publishing"
@@ -24,7 +24,7 @@ const (
 // Client is the root instance of the App Store Connect API
 type Client struct {
 	// internal.Client
-	common internal.Service
+	common services.Service
 
 	Apps         *apps.Service
 	Builds       *builds.Service
@@ -46,7 +46,7 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c := &Client{}
 
-	c.common.Client = internal.Client{
+	c.common.Client = services.Client{
 		Client:    httpClient,
 		BaseURL:   baseURL,
 		UserAgent: userAgent,

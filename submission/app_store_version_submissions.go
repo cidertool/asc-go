@@ -3,17 +3,18 @@ package submission
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreVersionSubmission defines model for AppStoreVersionSubmission.
 type AppStoreVersionSubmission struct {
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreVersion *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -21,20 +22,18 @@ type AppStoreVersionSubmission struct {
 
 // AppStoreVersionSubmissionCreateRequest defines model for AppStoreVersionSubmissionCreateRequest.
 type AppStoreVersionSubmissionCreateRequest struct {
-	Data struct {
-		Relationships struct {
-			AppStoreVersion struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"appStoreVersion"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Relationships struct {
+		AppStoreVersion struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"appStoreVersion"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // AppStoreVersionSubmissionResponse defines model for AppStoreVersionSubmissionResponse.
 type AppStoreVersionSubmissionResponse struct {
 	Data  AppStoreVersionSubmission `json:"data"`
-	Links internal.DocumentLinks    `json:"links"`
+	Links types.DocumentLinks       `json:"links"`
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersionQuery are query options for GetAppStoreVersionSubmissionForAppStoreVersion
@@ -47,7 +46,7 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
-func (s *Service) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *internal.Response, error) {
+func (s *Service) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *services.Response, error) {
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.Post("appStoreVersionSubmissions", body, res)
 	return res, resp, err
@@ -56,13 +55,13 @@ func (s *Service) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest)
 // DeleteSubmission removes a version from App Store review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_submission
-func (s *Service) DeleteSubmission(id string) (*internal.Response, error) {
+func (s *Service) DeleteSubmission(id string) (*services.Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.Delete(url, nil)
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
-func (s *Service) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *internal.Response, error) {
+func (s *Service) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *services.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.GetWithQuery(url, params, res)

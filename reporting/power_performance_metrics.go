@@ -3,21 +3,22 @@ package reporting
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // DiagnosticLog defines model for DiagnosticLog.
 type DiagnosticLog struct {
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // DiagnosticLogsResponse defines model for DiagnosticLogsResponse.
 type DiagnosticLogsResponse struct {
-	Data  []DiagnosticLog             `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []DiagnosticLog          `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // DiagnosticSignature defines model for DiagnosticSignature.
@@ -27,17 +28,17 @@ type DiagnosticSignature struct {
 		Signature      *string  `json:"signature,omitempty"`
 		Weight         *float32 `json:"weight,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // DiagnosticSignaturesResponse defines model for DiagnosticSignaturesResponse.
 type DiagnosticSignaturesResponse struct {
-	Data     []DiagnosticSignature       `json:"data"`
-	Included *[]DiagnosticLog            `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []DiagnosticSignature    `json:"data"`
+	Included *[]DiagnosticLog         `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // PerfPowerMetric defines model for PerfPowerMetric.
@@ -47,16 +48,16 @@ type PerfPowerMetric struct {
 		MetricType *string `json:"metricType,omitempty"`
 		Platform   *string `json:"platform,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // PerfPowerMetricsResponse defines model for PerfPowerMetricsResponse.
 type PerfPowerMetricsResponse struct {
-	Data  []PerfPowerMetric           `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []PerfPowerMetric        `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // GetPerfPowerMetricsQuery are query options for GetPerfPowerMetrics
@@ -82,7 +83,7 @@ type GetLogsForDiagnosticSignatureQuery struct {
 }
 
 // GetPerfPowerMetricsForApp gets the performance and power metrics data for the most recent versions of an app.
-func (s *Service) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *internal.Response, error) {
+func (s *Service) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -90,7 +91,7 @@ func (s *Service) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetri
 }
 
 // GetPerfPowerMetricsForBuild gets the performance and power metrics data for a specific build.
-func (s *Service) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *internal.Response, error) {
+func (s *Service) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -98,7 +99,7 @@ func (s *Service) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMet
 }
 
 // ListDiagnosticSignaturesForBuild lists the aggregate backtrace signatures captured for a specific build.
-func (s *Service) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *internal.Response, error) {
+func (s *Service) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *services.Response, error) {
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -106,7 +107,7 @@ func (s *Service) ListDiagnosticSignaturesForBuild(id string, params *ListDiagno
 }
 
 // GetLogsForDiagnosticSignature gets the anonymized backtrace logs associated with a specific diagnostic signature.
-func (s *Service) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *internal.Response, error) {
+func (s *Service) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *services.Response, error) {
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
 	resp, err := s.GetWithQuery(url, params, res)

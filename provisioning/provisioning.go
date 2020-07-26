@@ -1,6 +1,6 @@
 package provisioning
 
-import "github.com/aaronsky/asc-go/internal"
+import "github.com/aaronsky/asc-go/internal/services"
 
 // Service handles communication with provisioning-related methods of the App Store Connect API
 //
@@ -9,4 +9,4 @@ import "github.com/aaronsky/asc-go/internal"
 // https://developer.apple.com/documentation/appstoreconnectapi/certificates
 // https://developer.apple.com/documentation/appstoreconnectapi/devices
 // https://developer.apple.com/documentation/appstoreconnectapi/profiles
-type Service internal.Service
+type Service services.Service

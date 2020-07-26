@@ -3,7 +3,8 @@ package provisioning
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // CapabilityType defines model for CapabilityType.
@@ -47,50 +48,46 @@ type BundleIDCapability struct {
 		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
 		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string                 `json:"id"`
-	Links internal.ResourceLinks `json:"links"`
-	Type  string                 `json:"type"`
+	ID    string              `json:"id"`
+	Links types.ResourceLinks `json:"links"`
+	Type  string              `json:"type"`
 }
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
 type BundleIDCapabilityCreateRequest struct {
-	Data struct {
-		Attributes struct {
-			CapabilityType CapabilityType       `json:"capabilityType"`
-			Settings       *[]CapabilitySetting `json:"settings,omitempty"`
-		} `json:"attributes"`
-		Relationships struct {
-			BundleID struct {
-				Data internal.RelationshipsData `json:"data"`
-			} `json:"bundleId"`
-		} `json:"relationships"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes struct {
+		CapabilityType CapabilityType       `json:"capabilityType"`
+		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	} `json:"attributes"`
+	Relationships struct {
+		BundleID struct {
+			Data types.RelationshipsData `json:"data"`
+		} `json:"bundleId"`
+	} `json:"relationships"`
+	Type string `json:"type"`
 }
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.
 type BundleIDCapabilityUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
-			Settings       *[]CapabilitySetting `json:"settings,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
+		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BundleIDCapabilityResponse defines model for BundleIdCapabilityResponse.
 type BundleIDCapabilityResponse struct {
-	Data  BundleIDCapability     `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  BundleIDCapability  `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // BundleIDCapabilitiesResponse defines model for BundleIdCapabilitiesResponse.
 type BundleIDCapabilitiesResponse struct {
-	Data  []BundleIDCapability        `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
+	Data  []BundleIDCapability     `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // CapabilityOption defines model for CapabilityOption.
@@ -116,20 +113,20 @@ type CapabilitySetting struct {
 }
 
 // EnableCapability enables a capability for a bundle ID.
-func (s *Service) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *internal.Response, error) {
+func (s *Service) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *services.Response, error) {
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.Patch("bundleIdCapabilities", body, res)
 	return res, resp, err
 }
 
 // DisableCapability disables a capability for a bundle ID.
-func (s *Service) DisableCapability(id string) (*internal.Response, error) {
+func (s *Service) DisableCapability(id string) (*services.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	return s.Delete(url, nil)
 }
 
 // UpdateCapability updates the configuration of a specific capability.
-func (s *Service) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *internal.Response, error) {
+func (s *Service) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *services.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.Patch(url, body, res)

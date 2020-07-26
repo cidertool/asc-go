@@ -1,6 +1,6 @@
 package submission
 
-import "github.com/aaronsky/asc-go/internal"
+import "github.com/aaronsky/asc-go/internal/services"
 
 // Service handles communication with submission-related methods of the App Store Connect API
 //
@@ -8,4 +8,4 @@ import "github.com/aaronsky/asc-go/internal"
 // https://developer.apple.com/documentation/appstoreconnectapi/app_store_review_details
 // https://developer.apple.com/documentation/appstoreconnectapi/app_store_review_attachments
 // https://developer.apple.com/documentation/appstoreconnectapi/app_store_version_submissions
-type Service internal.Service
+type Service services.Service

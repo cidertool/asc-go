@@ -4,7 +4,8 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/apps"
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaLicenseAgreement defines model for BetaLicenseAgreement.
@@ -12,12 +13,12 @@ type BetaLicenseAgreement struct {
 	Attributes *struct {
 		AgreementText *string `json:"agreementText,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -25,28 +26,26 @@ type BetaLicenseAgreement struct {
 
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.
 type BetaLicenseAgreementUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			AgreementText *string `json:"agreementText,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID   string `json:"id"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		AgreementText *string `json:"agreementText,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID   string `json:"id"`
+	Type string `json:"type"`
 }
 
 // BetaLicenseAgreementsResponse defines model for BetaLicenseAgreementsResponse.
 type BetaLicenseAgreementsResponse struct {
-	Data     []BetaLicenseAgreement      `json:"data"`
-	Included *[]apps.App                 `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaLicenseAgreement   `json:"data"`
+	Included *[]apps.App              `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // BetaLicenseAgreementResponse defines model for BetaLicenseAgreementResponse.
 type BetaLicenseAgreementResponse struct {
-	Data     BetaLicenseAgreement   `json:"data"`
-	Included *[]apps.App            `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     BetaLicenseAgreement `json:"data"`
+	Included *[]apps.App          `json:"included,omitempty"`
+	Links    types.DocumentLinks  `json:"links"`
 }
 
 // ListBetaLicenseAgreementsQuery defines model for ListBetaLicenseAgreements
@@ -77,14 +76,14 @@ type GetBetaLicenseAgreementForAppQuery struct {
 }
 
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
-func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *internal.Response, error) {
+func (s *Service) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *services.Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
 	resp, err := s.GetWithQuery("betaLicenseAgreements", params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreement gets a specific beta license agreement.
-func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *internal.Response, error) {
+func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -92,7 +91,7 @@ func (s *Service) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgree
 }
 
 // GetAppForBetaLicenseAgreement gets the app information for a specific beta license agreement.
-func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*apps.AppResponse, *internal.Response, error) {
+func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*apps.AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(apps.AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -100,7 +99,7 @@ func (s *Service) GetAppForBetaLicenseAgreement(id string, params *GetAppForBeta
 }
 
 // GetBetaLicenseAgreementForApp gets the beta license agreement for a specific app.
-func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *internal.Response, error) {
+func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -108,7 +107,7 @@ func (s *Service) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicens
 }
 
 // UpdateBetaLicenseAgreement updates the text for your beta license agreement.
-func (s *Service) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *internal.Response, error) {
+func (s *Service) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *services.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.Patch(url, body, res)

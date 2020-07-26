@@ -1,4 +1,4 @@
-package internal
+package services
 
 import (
 	"bytes"
@@ -13,11 +13,6 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"github.com/google/go-querystring/query"
 )
-
-// Service wraps the configured Client to be implemented by other packages
-type Service struct {
-	Client
-}
 
 // Client is the root instance of the App Store Connect API
 type Client struct {
@@ -41,7 +36,7 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 
 	buf := new(bytes.Buffer)
 	if body != nil {
-		err := json.NewEncoder(buf).Encode(body)
+		err := json.NewEncoder(buf).Encode(newRequest(body))
 		if err != nil {
 			return nil, err
 		}
@@ -60,59 +55,6 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	}
 
 	return req, nil
-}
-
-// Response contains the HTTP response returned by the API
-type Response struct {
-	*http.Response
-}
-
-func newResponse(r *http.Response) *Response {
-	response := &Response{Response: r}
-	return response
-}
-
-func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
-	respCh := make(chan *http.Response, 1)
-	op := func() error {
-		resp, err := c.Client.Do(req)
-		if err != nil {
-			return backoff.Permanent(err)
-		}
-		respCh <- resp
-		return nil
-	}
-
-	notify := func(err error, delay time.Duration) {
-
-	}
-
-	if err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify); err != nil {
-		return nil, err
-	}
-
-	resp := <-respCh
-
-	defer resp.Body.Close()
-	defer io.Copy(ioutil.Discard, resp.Body)
-
-	response := newResponse(resp)
-
-	if err := checkResponse(resp); err != nil {
-		return response, err
-	}
-
-	var err error
-
-	if v != nil {
-		if w, ok := v.(io.Writer); ok {
-			_, err = io.Copy(w, resp.Body)
-		} else {
-			err = json.NewDecoder(resp.Body).Decode(v)
-		}
-	}
-
-	return response, err
 }
 
 // Get sends a GET request to the API as configured
@@ -195,4 +137,47 @@ func (c *Client) addOptions(s string, opt interface{}) (string, error) {
 
 	u.RawQuery = qs.Encode()
 	return u.String(), nil
+}
+
+func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
+	respCh := make(chan *http.Response, 1)
+	op := func() error {
+		resp, err := c.Client.Do(req)
+		if err != nil {
+			return backoff.Permanent(err)
+		}
+		respCh <- resp
+		return nil
+	}
+
+	notify := func(err error, delay time.Duration) {
+
+	}
+
+	if err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify); err != nil {
+		return nil, err
+	}
+
+	resp := <-respCh
+
+	defer resp.Body.Close()
+	defer io.Copy(ioutil.Discard, resp.Body)
+
+	response := newResponse(resp)
+
+	if err := checkResponse(resp); err != nil {
+		return response, err
+	}
+
+	var err error
+
+	if v != nil {
+		if w, ok := v.(io.Writer); ok {
+			_, err = io.Copy(w, resp.Body)
+		} else {
+			err = json.NewDecoder(resp.Body).Decode(v)
+		}
+	}
+
+	return response, err
 }

@@ -3,7 +3,8 @@ package apps
 import (
 	"fmt"
 
-	"github.com/aaronsky/asc-go/internal"
+	"github.com/aaronsky/asc-go/internal/services"
+	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Platform defines model for Platform.
@@ -27,74 +28,74 @@ type App struct {
 		PrimaryLocale             *string `json:"primaryLocale,omitempty"`
 		Sku                       *string `json:"sku,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppInfos *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appInfos,omitempty"`
 		AppStoreVersions *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appStoreVersions,omitempty"`
 		AvailableTerritories *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"availableTerritories,omitempty"`
 		BetaAppLocalizations *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaAppLocalizations,omitempty"`
 		BetaAppReviewDetail *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"betaAppReviewDetail,omitempty"`
 		BetaGroups *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaGroups,omitempty"`
 		BetaLicenseAgreement *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"betaLicenseAgreement,omitempty"`
 		Builds *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"builds,omitempty"`
 		EndUserLicenseAgreement *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"endUserLicenseAgreement,omitempty"`
 		GameCenterEnabledVersions *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"gameCenterEnabledVersions,omitempty"`
 		InAppPurchases *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"inAppPurchases,omitempty"`
 		PreOrder *struct {
-			Data  *internal.RelationshipsData  `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks `json:"links,omitempty"`
+			Data  *types.RelationshipsData  `json:"data,omitempty"`
+			Links *types.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"preOrder,omitempty"`
 		PreReleaseVersions *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"preReleaseVersions,omitempty"`
 		Prices *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"prices,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -102,39 +103,37 @@ type App struct {
 
 // AppUpdateRequest defines model for AppUpdateRequest.
 type AppUpdateRequest struct {
-	Data struct {
-		Attributes *struct {
-			AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
-			BundleID                  *string `json:"bundleId,omitempty"`
-			ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
-			PrimaryLocale             *string `json:"primaryLocale,omitempty"`
-		} `json:"attributes,omitempty"`
-		ID            string `json:"id"`
-		Relationships *struct {
-			AvailableTerritories *struct {
-				Data *[]internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"availableTerritories,omitempty"`
-			Prices *struct {
-				Data *[]internal.RelationshipsData `json:"data,omitempty"`
-			} `json:"prices,omitempty"`
-		} `json:"relationships,omitempty"`
-		Type string `json:"type"`
-	} `json:"data"`
+	Attributes *struct {
+		AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
+		BundleID                  *string `json:"bundleId,omitempty"`
+		ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
+		PrimaryLocale             *string `json:"primaryLocale,omitempty"`
+	} `json:"attributes,omitempty"`
+	ID            string `json:"id"`
+	Relationships *struct {
+		AvailableTerritories *struct {
+			Data *[]types.RelationshipsData `json:"data,omitempty"`
+		} `json:"availableTerritories,omitempty"`
+		Prices *struct {
+			Data *[]types.RelationshipsData `json:"data,omitempty"`
+		} `json:"prices,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type string `json:"type"`
 }
 
 // AppResponse defines model for AppResponse.
 type AppResponse struct {
-	Data     App                    `json:"data"`
-	Included *[]interface{}         `json:"included,omitempty"`
-	Links    internal.DocumentLinks `json:"links"`
+	Data     App                 `json:"data"`
+	Included *[]interface{}      `json:"included,omitempty"`
+	Links    types.DocumentLinks `json:"links"`
 }
 
 // AppsResponse defines model for AppsResponse.
 type AppsResponse struct {
-	Data     []App                       `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
-	Links    internal.PagedDocumentLinks `json:"links"`
-	Meta     *internal.PagingInformation `json:"meta,omitempty"`
+	Data     []App                    `json:"data"`
+	Included *[]interface{}           `json:"included,omitempty"`
+	Links    types.PagedDocumentLinks `json:"links"`
+	Meta     *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // InAppPurchase defines model for InAppPurchase.
@@ -145,13 +144,13 @@ type InAppPurchase struct {
 		ReferenceName     *string `json:"referenceName,omitempty"`
 		State             *string `json:"state,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string                 `json:"id"`
-	Links         internal.ResourceLinks `json:"links"`
+	ID            string              `json:"id"`
+	Links         types.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Apps *struct {
-			Data  *[]internal.RelationshipsData `json:"data,omitempty"`
-			Links *internal.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *internal.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]types.RelationshipsData `json:"data,omitempty"`
+			Links *types.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *types.PagingInformation   `json:"meta,omitempty"`
 		} `json:"apps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -159,20 +158,15 @@ type InAppPurchase struct {
 
 // InAppPurchaseResponse defines model for InAppPurchaseResponse.
 type InAppPurchaseResponse struct {
-	Data  InAppPurchase          `json:"data"`
-	Links internal.DocumentLinks `json:"links"`
+	Data  InAppPurchase       `json:"data"`
+	Links types.DocumentLinks `json:"links"`
 }
 
 // InAppPurchasesResponse defines model for InAppPurchasesResponse.
 type InAppPurchasesResponse struct {
-	Data  []InAppPurchase             `json:"data"`
-	Links internal.PagedDocumentLinks `json:"links"`
-	Meta  *internal.PagingInformation `json:"meta,omitempty"`
-}
-
-// AppBetaTestersLinkagesRequest defines model for AppBetaTestersLinkagesRequest.
-type AppBetaTestersLinkagesRequest struct {
-	Data []internal.RelationshipsData `json:"data"`
+	Data  []InAppPurchase          `json:"data"`
+	Links types.PagedDocumentLinks `json:"links"`
+	Meta  *types.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListAppsQuery are query options for ListApps
@@ -268,14 +262,14 @@ type GetInAppPurchaseQuery struct {
 }
 
 // ListApps finds and lists apps added in App Store Connect.
-func (s *Service) ListApps(params *ListAppsQuery) (*AppsResponse, *internal.Response, error) {
+func (s *Service) ListApps(params *ListAppsQuery) (*AppsResponse, *services.Response, error) {
 	res := new(AppsResponse)
 	resp, err := s.GetWithQuery("apps", params, res)
 	return res, resp, err
 }
 
 // GetApp gets information about a specific app.
-func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *internal.Response, error) {
+func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -283,7 +277,7 @@ func (s *Service) GetApp(id string, params *GetAppQuery) (*AppResponse, *interna
 }
 
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
-func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *internal.Response, error) {
+func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.Patch(url, body, res)
@@ -291,13 +285,13 @@ func (s *Service) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *i
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
-func (s *Service) RemoveBetaTestersFromApp(id string, body *AppBetaTestersLinkagesRequest) (*internal.Response, error) {
+func (s *Service) RemoveBetaTestersFromApp(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
-	return s.Delete(url, body)
+	return s.Delete(url, linkages)
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
-func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *internal.Response, error) {
+func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *services.Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
 	resp, err := s.GetWithQuery(url, params, res)
@@ -305,7 +299,7 @@ func (s *Service) ListInAppPurchasesForApp(id string, params *ListInAppPurchases
 }
 
 // GetInAppPurchase gets information about an in-app purchase.
-func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *internal.Response, error) {
+func (s *Service) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *services.Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
 	resp, err := s.GetWithQuery(url, params, res)
