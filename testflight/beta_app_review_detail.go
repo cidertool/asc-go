@@ -38,6 +38,7 @@ type BetaAppReviewDetailUpdateRequest struct {
 	Type       string                                      `json:"type"`
 }
 
+// BetaAppReviewDetailUpdateRequestAttributes are attributes for BetaAppReviewDetailUpdateRequest
 type BetaAppReviewDetailUpdateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`

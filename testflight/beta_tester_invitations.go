@@ -18,6 +18,7 @@ type BetaTesterInvitationCreateRequest struct {
 	Type          string                                         `json:"type"`
 }
 
+// BetaTesterInvitationCreateRequestRelationships are relationships for BetaTesterInvitationCreateRequest
 type BetaTesterInvitationCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`

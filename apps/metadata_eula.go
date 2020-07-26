@@ -36,10 +36,12 @@ type EndUserLicenseAgreementCreateRequest struct {
 	Type          string                                            `json:"type"`
 }
 
+// EndUserLicenseAgreementCreateRequestAttributes are attributes for EndUserLicenseAgreementCreateRequest
 type EndUserLicenseAgreementCreateRequestAttributes struct {
 	AgreementText string `json:"agreementText"`
 }
 
+// EndUserLicenseAgreementCreateRequestRelationships are relationships for EndUserLicenseAgreementCreateRequest
 type EndUserLicenseAgreementCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`
@@ -57,10 +59,12 @@ type EndUserLicenseAgreementUpdateRequest struct {
 	Type          string                                             `json:"type"`
 }
 
+// EndUserLicenseAgreementUpdateRequestAttributes are attributes for EndUserLicenseAgreementUpdateRequest
 type EndUserLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
+// EndUserLicenseAgreementUpdateRequestRelationships are relationships for EndUserLicenseAgreementUpdateRequest
 type EndUserLicenseAgreementUpdateRequestRelationships struct {
 	Territories *struct {
 		Data *[]types.RelationshipsData `json:"data,omitempty"`

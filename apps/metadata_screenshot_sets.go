@@ -67,10 +67,12 @@ type AppScreenshotSetCreateRequest struct {
 	Type          string                                     `json:"type"`
 }
 
+// AppScreenshotSetCreateRequestAttributes are attributes for AppScreenshotSetCreateRequest
 type AppScreenshotSetCreateRequestAttributes struct {
 	ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
 }
 
+// AppScreenshotSetCreateRequestRelationships are relationships for AppScreenshotSetCreateRequest
 type AppScreenshotSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization struct {
 		Data types.RelationshipsData `json:"data"`

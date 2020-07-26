@@ -60,6 +60,7 @@ type AppPreviewCreateRequest struct {
 	Type          string                               `json:"type"`
 }
 
+// AppPreviewCreateRequestAttributes are attributes for AppPreviewCreateRequest
 type AppPreviewCreateRequestAttributes struct {
 	FileName             string  `json:"fileName"`
 	FileSize             int     `json:"fileSize"`
@@ -67,6 +68,7 @@ type AppPreviewCreateRequestAttributes struct {
 	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
 }
 
+// AppPreviewCreateRequestRelationships are relationships for AppPreviewCreateRequest
 type AppPreviewCreateRequestRelationships struct {
 	AppPreviewSet struct {
 		Data types.RelationshipsData `json:"data"`
@@ -80,6 +82,7 @@ type AppPreviewUpdateRequest struct {
 	Type       string                             `json:"type"`
 }
 
+// AppPreviewUpdateRequestAttributes are attributes for AppPreviewCreateRequest
 type AppPreviewUpdateRequestAttributes struct {
 	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
 	SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`

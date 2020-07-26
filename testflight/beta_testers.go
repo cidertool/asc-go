@@ -76,12 +76,14 @@ type BetaTesterCreateRequest struct {
 	Type          string                                `json:"type"`
 }
 
+// BetaTesterCreateRequestAttributes are attributes for BetaTesterCreateRequest
 type BetaTesterCreateRequestAttributes struct {
 	Email     types.Email `json:"email"`
 	FirstName *string     `json:"firstName,omitempty"`
 	LastName  *string     `json:"lastName,omitempty"`
 }
 
+// BetaTesterCreateRequestRelationships are relationships for BetaTesterCreateRequest
 type BetaTesterCreateRequestRelationships struct {
 	BetaGroups *struct {
 		Data *[]types.RelationshipsData `json:"data,omitempty"`

@@ -58,6 +58,7 @@ type BetaGroupCreateRequest struct {
 	Type          string                              `json:"type"`
 }
 
+// BetaGroupCreateRequestAttributes are attributes for BetaGroupCreateRequest
 type BetaGroupCreateRequestAttributes struct {
 	FeedbackEnabled        *bool  `json:"feedbackEnabled,omitempty"`
 	Name                   string `json:"name"`
@@ -66,6 +67,7 @@ type BetaGroupCreateRequestAttributes struct {
 	PublicLinkLimitEnabled *bool  `json:"publicLinkLimitEnabled,omitempty"`
 }
 
+// BetaGroupCreateRequestRelationships are relationships for BetaGroupCreateRequest
 type BetaGroupCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`
@@ -85,6 +87,7 @@ type BetaGroupUpdateRequest struct {
 	Type       string                            `json:"type"`
 }
 
+// BetaGroupUpdateRequestAttributes are attributes for BetaGroupUpdateRequest
 type BetaGroupUpdateRequestAttributes struct {
 	FeedbackEnabled        *bool   `json:"feedbackEnabled,omitempty"`
 	Name                   *string `json:"name,omitempty"`

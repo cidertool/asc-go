@@ -37,11 +37,13 @@ type AppScreenshotCreateRequest struct {
 	Type          string                                  `json:"type"`
 }
 
+// AppScreenshotCreateRequestAttributes are attributes for AppScreenshotCreateRequest
 type AppScreenshotCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int    `json:"fileSize"`
 }
 
+// AppScreenshotCreateRequestRelationships are relationships for AppScreenshotCreateRequest
 type AppScreenshotCreateRequestRelationships struct {
 	AppScreenshotSet struct {
 		Data types.RelationshipsData `json:"data"`
@@ -55,6 +57,7 @@ type AppScreenshotUpdateRequest struct {
 	Type       string                                `json:"type"`
 }
 
+// AppScreenshotUpdateRequestAttributes are attributes for AppScreenshotUpdateRequest
 type AppScreenshotUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`

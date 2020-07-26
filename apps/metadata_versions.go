@@ -40,6 +40,7 @@ type AppStoreVersionUpdateRequest struct {
 	Type          string                                     `json:"type"`
 }
 
+// AppStoreVersionUpdateRequestAttributes are attributes for AppStoreVersionUpdateRequest
 type AppStoreVersionUpdateRequestAttributes struct {
 	Copyright           *string    `json:"copyright,omitempty"`
 	Downloadable        *bool      `json:"downloadable,omitempty"`
@@ -49,6 +50,7 @@ type AppStoreVersionUpdateRequestAttributes struct {
 	VersionString       *string    `json:"versionString,omitempty"`
 }
 
+// AppStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
 type AppStoreVersionUpdateRequestRelationships struct {
 	Build *struct {
 		Data *types.RelationshipsData `json:"data,omitempty"`
@@ -157,6 +159,7 @@ type AppStoreVersionCreateRequest struct {
 	Type          string                                    `json:"type"`
 }
 
+// AppStoreVersionCreateRequestAttributes are attributes for AppStoreVersionCreateRequest
 type AppStoreVersionCreateRequestAttributes struct {
 	Copyright           *string    `json:"copyright,omitempty"`
 	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
@@ -166,6 +169,7 @@ type AppStoreVersionCreateRequestAttributes struct {
 	VersionString       string     `json:"versionString"`
 }
 
+// AppStoreVersionCreateRequestRelationships are relationships for AppStoreVersionCreateRequest
 type AppStoreVersionCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`

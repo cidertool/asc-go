@@ -42,10 +42,12 @@ type AppStoreVersionPhasedReleaseCreateRequest struct {
 	Type          string                                                 `json:"type"`
 }
 
+// AppStoreVersionPhasedReleaseCreateRequestAttributes are attributes for AppStoreVersionPhasedReleaseCreateRequest
 type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
+// AppStoreVersionPhasedReleaseCreateRequestRelationships are relationships for AppStoreVersionPhasedReleaseCreateRequest
 type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`
@@ -65,6 +67,7 @@ type AppStoreVersionPhasedReleaseUpdateRequest struct {
 	Type       string                                               `json:"type"`
 }
 
+// AppStoreVersionPhasedReleaseUpdateRequestAttributes are attributes for AppStoreVersionPhasedReleaseUpdateRequest
 type AppStoreVersionPhasedReleaseUpdateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }

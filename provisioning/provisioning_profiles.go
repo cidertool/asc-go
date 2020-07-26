@@ -48,11 +48,13 @@ type ProfileCreateRequest struct {
 	Type          string                            `json:"type"`
 }
 
+// ProfileCreateRequestAttributes are attributes for ProfileCreateRequest
 type ProfileCreateRequestAttributes struct {
 	Name        string `json:"name"`
 	ProfileType string `json:"profileType"`
 }
 
+// ProfileCreateRequestRelationships are relationships for ProfileCreateRequest
 type ProfileCreateRequestRelationships struct {
 	BundleID struct {
 		Data types.RelationshipsData `json:"data"`

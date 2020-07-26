@@ -35,11 +35,13 @@ type AppStoreReviewAttachmentCreateRequest struct {
 	Type          string                                             `json:"type"`
 }
 
+// AppStoreReviewAttachmentCreateRequestAttributes are attributes for AppStoreReviewAttachmentCreateRequest
 type AppStoreReviewAttachmentCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int    `json:"fileSize"`
 }
 
+// AppStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest
 type AppStoreReviewAttachmentCreateRequestRelationships struct {
 	AppStoreReviewDetail struct {
 		Data types.RelationshipsData `json:"data"`
@@ -59,6 +61,7 @@ type AppStoreReviewAttachmentUpdateRequest struct {
 	Type       string                                           `json:"type"`
 }
 
+// AppStoreReviewAttachmentUpdateRequestAttributes are attributes for AppStoreReviewAttachmentUpdateRequest
 type AppStoreReviewAttachmentUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`

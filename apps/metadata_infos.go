@@ -77,6 +77,7 @@ type AppInfoUpdateRequest struct {
 	Type          string                             `json:"type"`
 }
 
+// AppInfoUpdateRequestRelationships are relationships for AppInfoUpdateRequest
 type AppInfoUpdateRequestRelationships struct {
 	PrimaryCategory *struct {
 		Data *types.RelationshipsData `json:"data,omitempty"`

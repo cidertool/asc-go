@@ -34,11 +34,13 @@ type RoutingAppCoverageCreateRequest struct {
 	Type          string                                       `json:"type"`
 }
 
+// RoutingAppCoverageCreateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
 type RoutingAppCoverageCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int    `json:"fileSize"`
 }
 
+// RoutingAppCoverageCreateRequestRelationships are relationships for RoutingAppCoverageCreateRequest
 type RoutingAppCoverageCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`
@@ -58,6 +60,7 @@ type RoutingAppCoverageUpdateRequest struct {
 	Type       string                                     `json:"type"`
 }
 
+// RoutingAppCoverageUpdateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
 type RoutingAppCoverageUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`

@@ -46,6 +46,7 @@ type AppStoreVersionLocalizationCreateRequest struct {
 	Type          string                                                `json:"type"`
 }
 
+// AppStoreVersionLocalizationCreateRequestAttributes are attributes for AppStoreVersionLocalizationCreateRequest
 type AppStoreVersionLocalizationCreateRequestAttributes struct {
 	Description     *string `json:"description,omitempty"`
 	Keywords        *string `json:"keywords,omitempty"`
@@ -56,6 +57,7 @@ type AppStoreVersionLocalizationCreateRequestAttributes struct {
 	WhatsNew        *string `json:"whatsNew,omitempty"`
 }
 
+// AppStoreVersionLocalizationCreateRequestRelationships are relationships for AppStoreVersionLocalizationCreateRequest
 type AppStoreVersionLocalizationCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`
@@ -84,6 +86,7 @@ type AppStoreVersionLocalizationUpdateRequest struct {
 	Type       string                                              `json:"type"`
 }
 
+// AppStoreVersionLocalizationUpdateRequestAttributes are attributes for AppStoreVersionLocalizationUpdateRequest
 type AppStoreVersionLocalizationUpdateRequestAttributes struct {
 	Description     *string `json:"description,omitempty"`
 	Keywords        *string `json:"keywords,omitempty"`

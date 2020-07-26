@@ -109,6 +109,7 @@ type AppUpdateRequest struct {
 	Type          string                         `json:"type"`
 }
 
+// AppUpdateRequestAttributes are attributes for AppUpdateRequest
 type AppUpdateRequestAttributes struct {
 	AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
 	BundleID                  *string `json:"bundleId,omitempty"`
@@ -116,6 +117,7 @@ type AppUpdateRequestAttributes struct {
 	PrimaryLocale             *string `json:"primaryLocale,omitempty"`
 }
 
+// AppUpdateRequestRelationships are relationships for AppUpdateRequest
 type AppUpdateRequestRelationships struct {
 	AvailableTerritories *struct {
 		Data *[]types.RelationshipsData `json:"data,omitempty"`

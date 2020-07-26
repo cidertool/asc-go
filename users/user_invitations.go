@@ -39,6 +39,7 @@ type UserInvitationCreateRequest struct {
 	Type          string                                    `json:"type"`
 }
 
+// UserInvitationCreateRequestAttributes are attributes for UserInvitationCreateRequest
 type UserInvitationCreateRequestAttributes struct {
 	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
 	Email               types.Email `json:"email"`
@@ -48,6 +49,7 @@ type UserInvitationCreateRequestAttributes struct {
 	Roles               []UserRole  `json:"roles"`
 }
 
+// UserInvitationCreateRequestRelationships are relationships for UserInvitationCreateRequest
 type UserInvitationCreateRequestRelationships struct {
 	VisibleApps *struct {
 		Data *[]types.RelationshipsData `json:"data,omitempty"`

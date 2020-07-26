@@ -39,11 +39,13 @@ type BetaBuildLocalizationCreateRequest struct {
 	Type          string                                          `json:"type"`
 }
 
+// BetaBuildLocalizationCreateRequestAttributes are attributes for BetaBuildLocalizationCreateRequest
 type BetaBuildLocalizationCreateRequestAttributes struct {
 	Locale   string  `json:"locale"`
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }
 
+// BetaBuildLocalizationCreateRequestRelationships are relationships for BetaBuildLocalizationCreateRequest
 type BetaBuildLocalizationCreateRequestRelationships struct {
 	Build struct {
 		Data types.RelationshipsData `json:"data"`
@@ -57,6 +59,7 @@ type BetaBuildLocalizationUpdateRequest struct {
 	Type       string                                        `json:"type"`
 }
 
+// BetaBuildLocalizationUpdateRequestAttributes are attributes for BetaBuildLocalizationUpdateRequest
 type BetaBuildLocalizationUpdateRequestAttributes struct {
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }

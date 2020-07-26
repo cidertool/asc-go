@@ -90,11 +90,13 @@ type BuildUpdateRequest struct {
 	Type          string                           `json:"type"`
 }
 
+// BuildUpdateRequestAttributes are attributes for BuildUpdateRequest
 type BuildUpdateRequestAttributes struct {
 	Expired                 *bool `json:"expired,omitempty"`
 	UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
 }
 
+// BuildUpdateRequestRelationships are relationships for BuildUpdateRequest
 type BuildUpdateRequestRelationships struct {
 	AppEncryptionDeclaration *struct {
 		Data *types.RelationshipsData `json:"data,omitempty"`

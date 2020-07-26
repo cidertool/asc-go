@@ -18,6 +18,7 @@ type BuildBetaNotificationCreateRequest struct {
 	Type          string                                          `json:"type"`
 }
 
+// BuildBetaNotificationCreateRequestRelationships are relationships for BuildBetaNotificationCreateRequest
 type BuildBetaNotificationCreateRequestRelationships struct {
 	Build struct {
 		Data types.RelationshipsData `json:"data"`

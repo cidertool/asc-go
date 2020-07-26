@@ -67,12 +67,14 @@ type UserUpdateRequest struct {
 	Type          string                          `json:"type"`
 }
 
+// UserUpdateRequestAttributes are attributes for UserUpdateRequest
 type UserUpdateRequestAttributes struct {
 	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
 	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
 	Roles               *[]UserRole `json:"roles,omitempty"`
 }
 
+// UserUpdateRequestRelationships are relationships for UserUpdateRequest
 type UserUpdateRequestRelationships struct {
 	VisibleApps *struct {
 		Data *[]types.RelationshipsData `json:"data,omitempty"`

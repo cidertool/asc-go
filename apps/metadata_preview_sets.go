@@ -35,10 +35,12 @@ type AppPreviewSetCreateRequest struct {
 	Type          string                                  `json:"type"`
 }
 
+// AppPreviewSetCreateRequestAttributes are attributes for AppPreviewSetCreateRequest
 type AppPreviewSetCreateRequestAttributes struct {
 	PreviewType PreviewType `json:"previewType"`
 }
 
+// AppPreviewSetCreateRequestRelationships are relationships for AppPreviewSetCreateRequest
 type AppPreviewSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization struct {
 		Data types.RelationshipsData `json:"data"`

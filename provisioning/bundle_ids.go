@@ -53,6 +53,7 @@ type BundleIDCreateRequest struct {
 	Type       string                          `json:"type"`
 }
 
+// BundleIDCreateRequestAttributes are attributes for BundleIDCreateRequest
 type BundleIDCreateRequestAttributes struct {
 	Identifier string           `json:"identifier"`
 	Name       string           `json:"name"`
@@ -67,6 +68,7 @@ type BundleIDUpdateRequest struct {
 	Type       string                           `json:"type"`
 }
 
+// BundleIDUpdateRequestAttributes are attributes for BundleIDUpdateRequest
 type BundleIDUpdateRequestAttributes struct {
 	Name *string `json:"name,omitempty"`
 }

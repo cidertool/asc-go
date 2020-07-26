@@ -41,6 +41,7 @@ type BetaAppReviewSubmissionCreateRequest struct {
 	Type          string                                            `json:"type"`
 }
 
+// BetaAppReviewSubmissionCreateRequestRelationships are relationships for BetaAppReviewSubmissionCreateRequest
 type BetaAppReviewSubmissionCreateRequestRelationships struct {
 	Build struct {
 		Data types.RelationshipsData `json:"data"`

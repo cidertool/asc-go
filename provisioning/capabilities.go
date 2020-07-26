@@ -60,11 +60,13 @@ type BundleIDCapabilityCreateRequest struct {
 	Type          string                                       `json:"type"`
 }
 
+// BundleIDCapabilityCreateRequestAttributes are attributes for BundleIDCapabilityCreateRequest
 type BundleIDCapabilityCreateRequestAttributes struct {
 	CapabilityType CapabilityType       `json:"capabilityType"`
 	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 }
 
+// BundleIDCapabilityCreateRequestRelationships are attributes for BundleIDCapabilityCreateRequest
 type BundleIDCapabilityCreateRequestRelationships struct {
 	BundleID struct {
 		Data types.RelationshipsData `json:"data"`
@@ -78,6 +80,7 @@ type BundleIDCapabilityUpdateRequest struct {
 	Type       string                                     `json:"type"`
 }
 
+// BundleIDCapabilityUpdateRequestAttributes are attributes for BundleIDCapabilityUpdateRequest
 type BundleIDCapabilityUpdateRequestAttributes struct {
 	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
 	Settings       *[]CapabilitySetting `json:"settings,omitempty"`

@@ -34,6 +34,7 @@ type AppInfoLocalizationCreateRequest struct {
 	Type          string                                        `json:"type"`
 }
 
+// AppInfoLocalizationCreateRequestAttributes are attributes for AppInfoLocalizationCreateRequest
 type AppInfoLocalizationCreateRequestAttributes struct {
 	Locale            string  `json:"locale"`
 	Name              *string `json:"name,omitempty"`
@@ -42,6 +43,7 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 	Subtitle          *string `json:"subtitle,omitempty"`
 }
 
+// AppInfoLocalizationCreateRequestRelationships are relationships for AppInfoLocalizationCreateRequest
 type AppInfoLocalizationCreateRequestRelationships struct {
 	AppInfo struct {
 		Data types.RelationshipsData `json:"data"`
@@ -61,6 +63,7 @@ type AppInfoLocalizationUpdateRequest struct {
 	Type       string                                      `json:"type"`
 }
 
+// AppInfoLocalizationUpdateRequestAttributes are attributes for AppInfoLocalizationUpdateRequest
 type AppInfoLocalizationUpdateRequestAttributes struct {
 	Name              *string `json:"name,omitempty"`
 	PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`

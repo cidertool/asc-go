@@ -33,6 +33,7 @@ type IDFADeclarationCreateRequest struct {
 	Type          string                                    `json:"type"`
 }
 
+// IDFADeclarationCreateRequestAttributes are attributes for IDFADeclarationCreateRequest
 type IDFADeclarationCreateRequestAttributes struct {
 	AttributesActionWithPreviousAd        bool `json:"attributesActionWithPreviousAd"`
 	AttributesAppInstallationToPreviousAd bool `json:"attributesAppInstallationToPreviousAd"`
@@ -40,6 +41,7 @@ type IDFADeclarationCreateRequestAttributes struct {
 	ServesAds                             bool `json:"servesAds"`
 }
 
+// IDFADeclarationCreateRequestRelationships are relationships for IDFADeclarationCreateRequest
 type IDFADeclarationCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`
@@ -53,6 +55,7 @@ type IDFADeclarationUpdateRequest struct {
 	Type       string                                  `json:"type"`
 }
 
+// IDFADeclarationUpdateRequestAttributes are attributes for IDFADeclarationUpdateRequest
 type IDFADeclarationUpdateRequestAttributes struct {
 	AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
 	AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`

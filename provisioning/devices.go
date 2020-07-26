@@ -30,6 +30,7 @@ type DeviceCreateRequest struct {
 	Type       string                        `json:"type"`
 }
 
+// DeviceCreateRequestAttributes are attributes for DeviceCreateRequest
 type DeviceCreateRequestAttributes struct {
 	Name     string           `json:"name"`
 	Platform BundleIDPlatform `json:"platform"`
@@ -43,6 +44,7 @@ type DeviceUpdateRequest struct {
 	Type       string                         `json:"type"`
 }
 
+// DeviceUpdateRequestAttributes are attributes for DeviceUpdateRequest
 type DeviceUpdateRequestAttributes struct {
 	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`

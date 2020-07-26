@@ -42,6 +42,7 @@ type AppStoreReviewDetailCreateRequest struct {
 	Type          string                                         `json:"type"`
 }
 
+// AppStoreReviewDetailCreateRequestAttributes are attributes for AppStoreReviewDetailCreateRequest
 type AppStoreReviewDetailCreateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`
@@ -53,6 +54,7 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 	Notes               *string `json:"notes,omitempty"`
 }
 
+// AppStoreReviewDetailCreateRequestRelationships are relationships for AppStoreReviewDetailCreateRequest
 type AppStoreReviewDetailCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`
@@ -66,6 +68,7 @@ type AppStoreReviewDetailUpdateRequest struct {
 	Type       string                                       `json:"type"`
 }
 
+// AppStoreReviewDetailUpdateRequestAttributes are attributes for AppStoreReviewDetailUpdateRequest
 type AppStoreReviewDetailUpdateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`

@@ -26,6 +26,7 @@ type AppStoreVersionSubmissionCreateRequest struct {
 	Type          string                                              `json:"type"`
 }
 
+// AppStoreVersionSubmissionCreateRequestRelationships are attributes for AppStoreVersionSubmissionCreateRequest
 type AppStoreVersionSubmissionCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data types.RelationshipsData `json:"data"`

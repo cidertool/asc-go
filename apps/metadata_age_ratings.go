@@ -48,6 +48,7 @@ type AgeRatingDeclarationUpdateRequest struct {
 	Type       string                                       `json:"type"`
 }
 
+// AgeRatingDeclarationUpdateRequestAttributes are attributes for AgeRatingDeclarationUpdateRequest
 type AgeRatingDeclarationUpdateRequestAttributes struct {
 	AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
 	GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`

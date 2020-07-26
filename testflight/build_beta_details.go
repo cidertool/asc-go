@@ -66,6 +66,7 @@ type BuildBetaDetailUpdateRequest struct {
 	Type       string                                  `json:"type"`
 }
 
+// BuildBetaDetailUpdateRequestAttributes are attributes for BuildBetaDetailUpdateRequest
 type BuildBetaDetailUpdateRequestAttributes struct {
 	AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
 }

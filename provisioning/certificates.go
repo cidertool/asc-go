@@ -46,6 +46,7 @@ type CertificateCreateRequest struct {
 	Type       string                             `json:"type"`
 }
 
+// CertificateCreateRequestAttributes are attributes for CertificateCreateRequest
 type CertificateCreateRequestAttributes struct {
 	CertificateType CertificateType `json:"certificateType"`
 	CsrContent      string          `json:"csrContent"`

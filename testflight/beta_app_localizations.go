@@ -36,6 +36,7 @@ type BetaAppLocalizationCreateRequest struct {
 	Type          string                                        `json:"type"`
 }
 
+// BetaAppLocalizationCreateRequestAttributes are attributes for BetaAppLocalizationCreateRequest
 type BetaAppLocalizationCreateRequestAttributes struct {
 	Description       *string `json:"description,omitempty"`
 	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
@@ -45,6 +46,7 @@ type BetaAppLocalizationCreateRequestAttributes struct {
 	TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
 }
 
+// BetaAppLocalizationCreateRequestRelationships are relationships for BetaAppLocalizationCreateRequest
 type BetaAppLocalizationCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`
@@ -65,6 +67,7 @@ type BetaAppLocalizationUpdateRequest struct {
 	Type       string                                      `json:"type"`
 }
 
+// BetaAppLocalizationUpdateRequestAttributes are attributes for BetaAppLocalizationUpdateRequest
 type BetaAppLocalizationUpdateRequestAttributes struct {
 	Description       *string `json:"description,omitempty"`
 	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`

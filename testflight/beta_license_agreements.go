@@ -31,6 +31,7 @@ type BetaLicenseAgreementUpdateRequest struct {
 	Type       string                                       `json:"type"`
 }
 
+// BetaLicenseAgreementUpdateRequestAttributes are attributes for BetaLicenseAgreementUpdateRequest
 type BetaLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }

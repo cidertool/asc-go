@@ -31,10 +31,12 @@ type AppPreOrderCreateRequest struct {
 	Type          string                                `json:"type"`
 }
 
+// AppPreOrderCreateRequestAttributes are attributes for AppPreOrderCreateRequest
 type AppPreOrderCreateRequestAttributes struct {
 	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
 }
 
+// AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest
 type AppPreOrderCreateRequestRelationships struct {
 	App struct {
 		Data types.RelationshipsData `json:"data"`
@@ -48,6 +50,7 @@ type AppPreOrderUpdateRequest struct {
 	Type       string                              `json:"type"`
 }
 
+// AppPreOrderUpdateRequestAttributes are attributes for AppPreOrderUpdateRequest
 type AppPreOrderUpdateRequestAttributes struct {
 	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
 }
