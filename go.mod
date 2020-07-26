@@ -1,6 +1,6 @@
 module github.com/aaronsky/asc-go
 
-go 1.14
+go 1.13
 
 require (
 	github.com/cenkalti/backoff/v4 v4.0.2
