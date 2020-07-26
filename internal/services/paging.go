@@ -12,13 +12,7 @@ type Reference struct {
 
 // Cursor returns the cursor parameter on the Reference's internal URL.
 func (r *Reference) Cursor() string {
-	var cursor string
-	if r == nil {
-		return cursor
-	}
-	values := r.Query()
-	cursor = values.Get("cursor")
-	return cursor
+	return r.Query().Get("cursor")
 }
 
 // MarshalJSON marshals the Reference into a JSON fragment

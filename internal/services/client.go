@@ -21,42 +21,6 @@ type Client struct {
 	UserAgent string
 }
 
-func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
-	rel, err := url.Parse(path)
-	if err != nil {
-		return nil, err
-	}
-
-	var u *url.URL
-	if rel.IsAbs() {
-		u = rel
-	} else {
-		u = c.BaseURL.ResolveReference(rel)
-	}
-
-	buf := new(bytes.Buffer)
-	if body != nil {
-		err := json.NewEncoder(buf).Encode(newRequest(body))
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	req, err := http.NewRequest(method, u.String(), buf)
-	if err != nil {
-		return nil, err
-	}
-
-	if body != nil {
-		req.Header.Set("Content-Type", "application/json")
-	}
-	if c.UserAgent != "" {
-		req.Header.Set("User-Agent", c.UserAgent)
-	}
-
-	return req, nil
-}
-
 // Get sends a GET request to the API as configured
 func (c *Client) Get(url string, v interface{}) (*Response, error) {
 	req, err := c.newRequest("GET", url, nil)
@@ -117,6 +81,42 @@ func (c *Client) Delete(url string, body interface{}) (*Response, error) {
 	return c.do(req, nil)
 }
 
+func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
+	rel, err := url.Parse(path)
+	if err != nil {
+		return nil, err
+	}
+
+	var u *url.URL
+	if rel.IsAbs() {
+		u = rel
+	} else {
+		u = c.BaseURL.ResolveReference(rel)
+	}
+
+	buf := new(bytes.Buffer)
+	if body != nil {
+		err := json.NewEncoder(buf).Encode(newRequest(body))
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	req, err := http.NewRequest(method, u.String(), buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
+	if c.UserAgent != "" {
+		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
+	return req, nil
+}
+
 // AddOptions adds the parameters in opt as URL query parameters to s.  opt
 // must be a struct whose fields may contain "url" tags.
 func (c *Client) addOptions(s string, opt interface{}) (string, error) {
@@ -150,9 +150,7 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 		return nil
 	}
 
-	notify := func(err error, delay time.Duration) {
-
-	}
+	notify := func(err error, delay time.Duration) {}
 
 	if err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify); err != nil {
 		return nil, err
