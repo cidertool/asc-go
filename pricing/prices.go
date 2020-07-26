@@ -4,21 +4,20 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppPrice defines model for AppPrice.
 type AppPrice struct {
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		PriceTier *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"priceTier,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -26,15 +25,15 @@ type AppPrice struct {
 
 // AppPriceResponse defines model for AppPriceResponse.
 type AppPriceResponse struct {
-	Data  AppPrice            `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  AppPrice               `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // AppPricesResponse defines model for AppPricesResponse.
 type AppPricesResponse struct {
-	Data  []AppPrice               `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []AppPrice                  `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListPricesQuery are query options for ListPrices

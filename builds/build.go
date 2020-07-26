@@ -6,7 +6,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Build defines model for Build.
@@ -21,47 +20,47 @@ type Build struct {
 		UsesNonExemptEncryption *bool            `json:"usesNonExemptEncryption,omitempty"`
 		Version                 *string          `json:"version,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppEncryptionDeclaration *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appEncryptionDeclaration,omitempty"`
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 		BetaAppReviewSubmission *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"betaAppReviewSubmission,omitempty"`
 		BetaBuildLocalizations *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaBuildLocalizations,omitempty"`
 		BuildBetaDetail *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"buildBetaDetail,omitempty"`
 		Icons *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"icons,omitempty"`
 		IndividualTesters *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"individualTesters,omitempty"`
 		PreReleaseVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"preReleaseVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -69,17 +68,17 @@ type Build struct {
 
 // BuildResponse defines model for BuildResponse.
 type BuildResponse struct {
-	Data     Build               `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     Build                  `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BuildsResponse defines model for BuildsResponse.
 type BuildsResponse struct {
-	Data     []Build                  `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []Build                     `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
@@ -99,21 +98,21 @@ type BuildUpdateRequestAttributes struct {
 // BuildUpdateRequestRelationships are relationships for BuildUpdateRequest
 type BuildUpdateRequestRelationships struct {
 	AppEncryptionDeclaration *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"appEncryptionDeclaration,omitempty"`
 }
 
 // BuildAppEncryptionDeclarationLinkageResponse defines model for BuildAppEncryptionDeclarationLinkageResponse.
 type BuildAppEncryptionDeclarationLinkageResponse struct {
-	Data  types.RelationshipsData `json:"data"`
-	Links types.DocumentLinks     `json:"links"`
+	Data  services.RelationshipsData `json:"data"`
+	Links services.DocumentLinks     `json:"links"`
 }
 
 // BuildIndividualTestersLinkagesResponse defines model for BuildIndividualTestersLinkagesResponse.
 type BuildIndividualTestersLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // ListBuildsQuery are query options for ListBuilds
@@ -260,31 +259,31 @@ func (s *Service) UpdateBuild(id string, body BuildUpdateRequest) (*BuildRespons
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
-func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or create a beta group to a build to enable testing.
-func (s *Service) CreateAccessForBetaGroupsToBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateAccessForBetaGroupsToBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
-func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.Delete(url, linkages)
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
-func (s *Service) CreateAccessForIndividualTestersToBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateAccessForIndividualTestersToBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
-func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.Delete(url, linkages)
 }

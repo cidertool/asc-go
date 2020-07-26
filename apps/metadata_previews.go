@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // PreviewType defines model for PreviewType.
@@ -42,12 +41,12 @@ type AppPreview struct {
 		UploadOperations     *[]UploadOperation  `json:"uploadOperations,omitempty"`
 		VideoURL             *string             `json:"videoUrl,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviewSet *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appPreviewSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -71,7 +70,7 @@ type AppPreviewCreateRequestAttributes struct {
 // AppPreviewCreateRequestRelationships are relationships for AppPreviewCreateRequest
 type AppPreviewCreateRequestRelationships struct {
 	AppPreviewSet struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appPreviewSet"`
 }
 
@@ -91,15 +90,15 @@ type AppPreviewUpdateRequestAttributes struct {
 
 // AppPreviewResponse defines model for AppPreviewResponse.
 type AppPreviewResponse struct {
-	Data  AppPreview          `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  AppPreview             `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // AppPreviewsResponse defines model for AppPreviewsResponse.
 type AppPreviewsResponse struct {
-	Data  []AppPreview             `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []AppPreview                `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // UploadOperation defines model for UploadOperation.

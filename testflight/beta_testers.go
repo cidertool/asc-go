@@ -5,8 +5,8 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/builds"
+	"github.com/aaronsky/asc-go/internal/schema"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaInviteType defines model for BetaInviteType.
@@ -21,28 +21,28 @@ const (
 // BetaTester defines model for BetaTester.
 type BetaTester struct {
 	Attributes *struct {
-		Email      *types.Email    `json:"email,omitempty"`
+		Email      *schema.Email   `json:"email,omitempty"`
 		FirstName  *string         `json:"firstName,omitempty"`
 		InviteType *BetaInviteType `json:"inviteType,omitempty"`
 		LastName   *string         `json:"lastName,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Apps *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"apps,omitempty"`
 		BetaGroups *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaGroups,omitempty"`
 		Builds *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"builds,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -50,23 +50,23 @@ type BetaTester struct {
 
 // BetaTesterAppsLinkagesResponse defines model for BetaTesterAppsLinkagesResponse.
 type BetaTesterAppsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaTesterBetaGroupsLinkagesResponse defines model for BetaTesterBetaGroupsLinkagesResponse.
 type BetaTesterBetaGroupsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaTesterBuildsLinkagesResponse defines model for BetaTesterBuildsLinkagesResponse.
 type BetaTesterBuildsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaTesterCreateRequest defines model for BetaTesterCreateRequest.
@@ -78,34 +78,34 @@ type BetaTesterCreateRequest struct {
 
 // BetaTesterCreateRequestAttributes are attributes for BetaTesterCreateRequest
 type BetaTesterCreateRequestAttributes struct {
-	Email     types.Email `json:"email"`
-	FirstName *string     `json:"firstName,omitempty"`
-	LastName  *string     `json:"lastName,omitempty"`
+	Email     schema.Email `json:"email"`
+	FirstName *string      `json:"firstName,omitempty"`
+	LastName  *string      `json:"lastName,omitempty"`
 }
 
 // BetaTesterCreateRequestRelationships are relationships for BetaTesterCreateRequest
 type BetaTesterCreateRequestRelationships struct {
 	BetaGroups *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"betaGroups,omitempty"`
 	Builds *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"builds,omitempty"`
 }
 
 // BetaTesterResponse defines model for BetaTesterResponse.
 type BetaTesterResponse struct {
-	Data     BetaTester          `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     BetaTester             `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BetaTestersResponse defines model for BetaTestersResponse.
 type BetaTestersResponse struct {
-	Data     []BetaTester             `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaTester                `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaTestersQuery defines model for ListBetaTesters
@@ -217,31 +217,31 @@ func (s *Service) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTes
 }
 
 // AddBetaTesterToBetaGroups adds one or more beta testers to a specific beta group.
-func (s *Service) AddBetaTesterToBetaGroups(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddBetaTesterToBetaGroups(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
-func (s *Service) RemoveBetaTesterFromBetaGroups(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveBetaTesterFromBetaGroups(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.Delete(url, linkages)
 }
 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
-func (s *Service) AssignSingleBetaTesterToBuilds(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AssignSingleBetaTesterToBuilds(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.Post(url, linkages, nil)
 }
 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
-func (s *Service) UnassignSingleBetaTesterFromBuilds(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) UnassignSingleBetaTesterFromBuilds(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.Delete(url, linkages)
 }
 
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
-func (s *Service) RemoveSingleBetaTesterAccessApps(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveSingleBetaTesterAccessApps(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	return s.Delete(url, linkages)
 }

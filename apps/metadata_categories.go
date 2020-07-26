@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppCategory defines model for AppCategory.
@@ -12,17 +11,17 @@ type AppCategory struct {
 	Attributes *struct {
 		Platforms *[]Platform `json:"platforms,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Parent *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"parent,omitempty"`
 		Subcategories *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"subcategories,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -30,17 +29,17 @@ type AppCategory struct {
 
 // AppCategoriesResponse defines model for AppCategoriesResponse.
 type AppCategoriesResponse struct {
-	Data     []AppCategory            `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppCategory               `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppCategoryResponse defines model for AppCategoryResponse.
 type AppCategoryResponse struct {
-	Data     AppCategory         `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppCategory            `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // ListAppCategoriesQuery are query options for ListAppCategories

@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaLicenseAgreement defines model for BetaLicenseAgreement.
@@ -13,12 +12,12 @@ type BetaLicenseAgreement struct {
 	Attributes *struct {
 		AgreementText *string `json:"agreementText,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -38,17 +37,17 @@ type BetaLicenseAgreementUpdateRequestAttributes struct {
 
 // BetaLicenseAgreementsResponse defines model for BetaLicenseAgreementsResponse.
 type BetaLicenseAgreementsResponse struct {
-	Data     []BetaLicenseAgreement   `json:"data"`
-	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaLicenseAgreement      `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // BetaLicenseAgreementResponse defines model for BetaLicenseAgreementResponse.
 type BetaLicenseAgreementResponse struct {
-	Data     BetaLicenseAgreement `json:"data"`
-	Included *[]apps.App          `json:"included,omitempty"`
-	Links    types.DocumentLinks  `json:"links"`
+	Data     BetaLicenseAgreement   `json:"data"`
+	Included *[]apps.App            `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // ListBetaLicenseAgreementsQuery defines model for ListBetaLicenseAgreements

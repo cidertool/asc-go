@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaReviewState defines model for BetaReviewState.
@@ -24,12 +23,12 @@ type BetaAppReviewSubmission struct {
 	Attributes *struct {
 		BetaReviewState *BetaReviewState `json:"betaReviewState,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -44,7 +43,7 @@ type BetaAppReviewSubmissionCreateRequest struct {
 // BetaAppReviewSubmissionCreateRequestRelationships are relationships for BetaAppReviewSubmissionCreateRequest
 type BetaAppReviewSubmissionCreateRequestRelationships struct {
 	Build struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"build"`
 }
 
@@ -52,15 +51,15 @@ type BetaAppReviewSubmissionCreateRequestRelationships struct {
 type BetaAppReviewSubmissionResponse struct {
 	Data     BetaAppReviewSubmission `json:"data"`
 	Included *[]builds.Build         `json:"included,omitempty"`
-	Links    types.DocumentLinks     `json:"links"`
+	Links    services.DocumentLinks  `json:"links"`
 }
 
 // BetaAppReviewSubmissionsResponse defines model for BetaAppReviewSubmissionsResponse.
 type BetaAppReviewSubmissionsResponse struct {
-	Data     []BetaAppReviewSubmission `json:"data"`
-	Included *[]builds.Build           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks  `json:"links"`
-	Meta     *types.PagingInformation  `json:"meta,omitempty"`
+	Data     []BetaAppReviewSubmission   `json:"data"`
+	Included *[]builds.Build             `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaAppReviewSubmissionsQuery defines model for ListBetaAppReviewSubmissions

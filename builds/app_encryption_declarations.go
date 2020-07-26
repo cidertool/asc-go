@@ -6,7 +6,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppEncryptionDeclarationState defines model for AppEncryptionDeclarationState.
@@ -37,12 +36,12 @@ type AppEncryptionDeclaration struct {
 		UploadedDate                    *time.Time                     `json:"uploadedDate,omitempty"`
 		UsesEncryption                  *bool                          `json:"usesEncryption,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -52,15 +51,15 @@ type AppEncryptionDeclaration struct {
 type AppEncryptionDeclarationResponse struct {
 	Data     AppEncryptionDeclaration `json:"data"`
 	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.DocumentLinks      `json:"links"`
+	Links    services.DocumentLinks   `json:"links"`
 }
 
 // AppEncryptionDeclarationsResponse defines model for AppEncryptionDeclarationsResponse.
 type AppEncryptionDeclarationsResponse struct {
-	Data     []AppEncryptionDeclaration `json:"data"`
-	Included *[]apps.App                `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks   `json:"links"`
-	Meta     *types.PagingInformation   `json:"meta,omitempty"`
+	Data     []AppEncryptionDeclaration  `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListAppEncryptionDeclarationsQuery are query options for ListAppEncryptionDeclarations
@@ -111,7 +110,7 @@ func (s *Service) GetAppForAppEncryptionDeclaration(id string, params *GetAppFor
 }
 
 // AssignBuildsToAppEncryptionDeclaration assigns one or more builds to an app encryption declaration.
-func (s *Service) AssignBuildsToAppEncryptionDeclaration(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AssignBuildsToAppEncryptionDeclaration(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.Post(url, linkages, nil)
 }

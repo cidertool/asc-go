@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppScreenshot defines model for AppScreenshot.
@@ -19,12 +18,12 @@ type AppScreenshot struct {
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *[]UploadOperation  `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppScreenshotSet *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appScreenshotSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -46,7 +45,7 @@ type AppScreenshotCreateRequestAttributes struct {
 // AppScreenshotCreateRequestRelationships are relationships for AppScreenshotCreateRequest
 type AppScreenshotCreateRequestRelationships struct {
 	AppScreenshotSet struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appScreenshotSet"`
 }
 
@@ -65,15 +64,15 @@ type AppScreenshotUpdateRequestAttributes struct {
 
 // AppScreenshotResponse defines model for AppScreenshotResponse.
 type AppScreenshotResponse struct {
-	Data  AppScreenshot       `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  AppScreenshot          `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // AppScreenshotsResponse defines model for AppScreenshotsResponse.
 type AppScreenshotsResponse struct {
-	Data  []AppScreenshot          `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []AppScreenshot             `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // GetAppScreenshotQuery are query options for GetAppScreenshot

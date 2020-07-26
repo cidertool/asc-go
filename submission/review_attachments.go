@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreReviewAttachment defines model for AppStoreReviewAttachment.
@@ -17,12 +16,12 @@ type AppStoreReviewAttachment struct {
 		SourceFileChecksum *string                  `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *[]apps.UploadOperation  `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreReviewDetail *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreReviewDetail,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -44,14 +43,14 @@ type AppStoreReviewAttachmentCreateRequestAttributes struct {
 // AppStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest
 type AppStoreReviewAttachmentCreateRequestRelationships struct {
 	AppStoreReviewDetail struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreReviewDetail"`
 }
 
 // AppStoreReviewAttachmentResponse defines model for AppStoreReviewAttachmentResponse.
 type AppStoreReviewAttachmentResponse struct {
 	Data  AppStoreReviewAttachment `json:"data"`
-	Links types.DocumentLinks      `json:"links"`
+	Links services.DocumentLinks   `json:"links"`
 }
 
 // AppStoreReviewAttachmentUpdateRequest defines model for AppStoreReviewAttachmentUpdateRequest.
@@ -69,9 +68,9 @@ type AppStoreReviewAttachmentUpdateRequestAttributes struct {
 
 // AppStoreReviewAttachmentsResponse defines model for AppStoreReviewAttachmentsResponse.
 type AppStoreReviewAttachmentsResponse struct {
-	Data  []AppStoreReviewAttachment `json:"data"`
-	Links types.PagedDocumentLinks   `json:"links"`
-	Meta  *types.PagingInformation   `json:"meta,omitempty"`
+	Data  []AppStoreReviewAttachment  `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ReadAttachmentQuery are query options forGetAttachment

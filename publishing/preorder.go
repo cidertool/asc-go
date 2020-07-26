@@ -3,22 +3,22 @@ package publishing
 import (
 	"fmt"
 
+	"github.com/aaronsky/asc-go/internal/schema"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppPreOrder defines model for AppPreOrder.
 type AppPreOrder struct {
 	Attributes *struct {
-		AppReleaseDate        *types.Date `json:"appReleaseDate,omitempty"`
-		PreOrderAvailableDate *types.Date `json:"preOrderAvailableDate,omitempty"`
+		AppReleaseDate        *schema.Date `json:"appReleaseDate,omitempty"`
+		PreOrderAvailableDate *schema.Date `json:"preOrderAvailableDate,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -33,13 +33,13 @@ type AppPreOrderCreateRequest struct {
 
 // AppPreOrderCreateRequestAttributes are attributes for AppPreOrderCreateRequest
 type AppPreOrderCreateRequestAttributes struct {
-	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
+	AppReleaseDate *schema.Date `json:"appReleaseDate,omitempty"`
 }
 
 // AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest
 type AppPreOrderCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 }
 
@@ -52,13 +52,13 @@ type AppPreOrderUpdateRequest struct {
 
 // AppPreOrderUpdateRequestAttributes are attributes for AppPreOrderUpdateRequest
 type AppPreOrderUpdateRequestAttributes struct {
-	AppReleaseDate *types.Date `json:"appReleaseDate,omitempty"`
+	AppReleaseDate *schema.Date `json:"appReleaseDate,omitempty"`
 }
 
 // AppPreOrderResponse defines model for AppPreOrderResponse.
 type AppPreOrderResponse struct {
-	Data  AppPreOrder         `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  AppPreOrder            `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // GetPreOrderQuery are query options for GetPreOrder

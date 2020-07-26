@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreReviewDetail defines model for AppStoreReviewDetail.
@@ -19,17 +18,17 @@ type AppStoreReviewDetail struct {
 		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
 		Notes               *string `json:"notes,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreReviewAttachments *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appStoreReviewAttachments,omitempty"`
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -57,7 +56,7 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 // AppStoreReviewDetailCreateRequestRelationships are relationships for AppStoreReviewDetailCreateRequest
 type AppStoreReviewDetailCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
@@ -84,7 +83,7 @@ type AppStoreReviewDetailUpdateRequestAttributes struct {
 type AppStoreReviewDetailResponse struct {
 	Data     AppStoreReviewDetail        `json:"data"`
 	Included *[]AppStoreReviewAttachment `json:"included,omitempty"`
-	Links    types.DocumentLinks         `json:"links"`
+	Links    services.DocumentLinks      `json:"links"`
 }
 
 // GetReviewDetailQuery are query options for GetReviewDetail

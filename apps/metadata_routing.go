@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // RoutingAppCoverage defines model for RoutingAppCoverage.
@@ -16,12 +15,12 @@ type RoutingAppCoverage struct {
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *[]UploadOperation  `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -43,14 +42,14 @@ type RoutingAppCoverageCreateRequestAttributes struct {
 // RoutingAppCoverageCreateRequestRelationships are relationships for RoutingAppCoverageCreateRequest
 type RoutingAppCoverageCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.
 type RoutingAppCoverageResponse struct {
-	Data  RoutingAppCoverage  `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  RoutingAppCoverage     `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.

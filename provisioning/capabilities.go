@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // CapabilityType defines model for CapabilityType.
@@ -48,9 +47,9 @@ type BundleIDCapability struct {
 		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
 		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
@@ -69,7 +68,7 @@ type BundleIDCapabilityCreateRequestAttributes struct {
 // BundleIDCapabilityCreateRequestRelationships are attributes for BundleIDCapabilityCreateRequest
 type BundleIDCapabilityCreateRequestRelationships struct {
 	BundleID struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"bundleId"`
 }
 
@@ -88,15 +87,15 @@ type BundleIDCapabilityUpdateRequestAttributes struct {
 
 // BundleIDCapabilityResponse defines model for BundleIdCapabilityResponse.
 type BundleIDCapabilityResponse struct {
-	Data  BundleIDCapability  `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  BundleIDCapability     `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // BundleIDCapabilitiesResponse defines model for BundleIdCapabilitiesResponse.
 type BundleIDCapabilitiesResponse struct {
-	Data  []BundleIDCapability     `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []BundleIDCapability        `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // CapabilityOption defines model for CapabilityOption.

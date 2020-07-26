@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreVersionLocalization defines model for AppStoreVersionLocalization.
@@ -18,22 +17,22 @@ type AppStoreVersionLocalization struct {
 		SupportURL      *string `json:"supportUrl,omitempty"`
 		WhatsNew        *string `json:"whatsNew,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviewSets *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appPreviewSets,omitempty"`
 		AppScreenshotSets *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appScreenshotSets,omitempty"`
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -60,7 +59,7 @@ type AppStoreVersionLocalizationCreateRequestAttributes struct {
 // AppStoreVersionLocalizationCreateRequestRelationships are relationships for AppStoreVersionLocalizationCreateRequest
 type AppStoreVersionLocalizationCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
@@ -68,15 +67,15 @@ type AppStoreVersionLocalizationCreateRequestRelationships struct {
 type AppStoreVersionLocalizationResponse struct {
 	Data     AppStoreVersionLocalization `json:"data"`
 	Included *[]interface{}              `json:"included,omitempty"`
-	Links    types.DocumentLinks         `json:"links"`
+	Links    services.DocumentLinks      `json:"links"`
 }
 
 // AppStoreVersionLocalizationsResponse defines model for AppStoreVersionLocalizationsResponse.
 type AppStoreVersionLocalizationsResponse struct {
 	Data     []AppStoreVersionLocalization `json:"data"`
 	Included *[]interface{}                `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks      `json:"links"`
-	Meta     *types.PagingInformation      `json:"meta,omitempty"`
+	Links    services.PagedDocumentLinks   `json:"links"`
+	Meta     *services.PagingInformation   `json:"meta,omitempty"`
 }
 
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.

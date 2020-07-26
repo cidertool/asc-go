@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Territory defines model for Territory.
@@ -12,22 +11,22 @@ type Territory struct {
 	Attributes *struct {
 		Currency *string `json:"currency,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // TerritoryResponse defines model for TerritoryResponse.
 type TerritoryResponse struct {
-	Data  Territory           `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  Territory              `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // TerritoriesResponse defines model for TerritoriesResponse.
 type TerritoriesResponse struct {
-	Data  []Territory              `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []Territory                 `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListTerritoriesQuery are query options for ListTerritories

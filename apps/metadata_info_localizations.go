@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppInfoLocalization defines model for AppInfoLocalization.
@@ -16,12 +15,12 @@ type AppInfoLocalization struct {
 		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
 		Subtitle          *string `json:"subtitle,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppInfo *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appInfo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -46,14 +45,14 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 // AppInfoLocalizationCreateRequestRelationships are relationships for AppInfoLocalizationCreateRequest
 type AppInfoLocalizationCreateRequestRelationships struct {
 	AppInfo struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appInfo"`
 }
 
 // AppInfoLocalizationResponse defines model for AppInfoLocalizationResponse.
 type AppInfoLocalizationResponse struct {
-	Data  AppInfoLocalization `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  AppInfoLocalization    `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // AppInfoLocalizationUpdateRequest defines model for AppInfoLocalizationUpdateRequest.
@@ -73,9 +72,9 @@ type AppInfoLocalizationUpdateRequestAttributes struct {
 
 // AppInfoLocalizationsResponse defines model for AppInfoLocalizationsResponse.
 type AppInfoLocalizationsResponse struct {
-	Data  []AppInfoLocalization    `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []AppInfoLocalization       `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListAppInfoLocalizationsForAppInfoQuery are query options for ListAppInfoLocalizationsForAppInfo

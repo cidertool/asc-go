@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Device defines model for Device.
@@ -19,9 +18,9 @@ type Device struct {
 		Status      *string           `json:"status,omitempty"`
 		UDID        *string           `json:"udid,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.
@@ -52,15 +51,15 @@ type DeviceUpdateRequestAttributes struct {
 
 // DeviceResponse defines model for DeviceResponse.
 type DeviceResponse struct {
-	Data  Device              `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  Device                 `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // DevicesResponse defines model for DevicesResponse.
 type DevicesResponse struct {
-	Data  []Device                 `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []Device                    `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListDevicesQuery are query options for ListDevices

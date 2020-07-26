@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppPreviewSet defines model for AppPreviewSet.
@@ -12,17 +11,17 @@ type AppPreviewSet struct {
 	Attributes *struct {
 		PreviewType *PreviewType `json:"previewType,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppPreviews *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appPreviews,omitempty"`
 		AppStoreVersionLocalization *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -43,30 +42,30 @@ type AppPreviewSetCreateRequestAttributes struct {
 // AppPreviewSetCreateRequestRelationships are relationships for AppPreviewSetCreateRequest
 type AppPreviewSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersionLocalization"`
 }
 
 // AppPreviewSetResponse defines model for AppPreviewSetResponse.
 type AppPreviewSetResponse struct {
-	Data     AppPreviewSet       `json:"data"`
-	Included *[]AppPreview       `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppPreviewSet          `json:"data"`
+	Included *[]AppPreview          `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // AppPreviewSetsResponse defines model for AppPreviewSetsResponse.
 type AppPreviewSetsResponse struct {
-	Data     []AppPreviewSet          `json:"data"`
-	Included *[]AppPreview            `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppPreviewSet             `json:"data"`
+	Included *[]AppPreview               `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppPreviewSetAppPreviewsLinkagesResponse defines model for AppPreviewSetAppPreviewsLinkagesResponse.
 type AppPreviewSetAppPreviewsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // GetAppPreviewSetQuery are query options for GetAppPreviewSet
@@ -130,7 +129,7 @@ func (s *Service) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsFo
 }
 
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
-func (s *Service) ReplaceAppPreviewsForSet(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) ReplaceAppPreviewsForSet(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.Patch(url, linkages, nil)
 }

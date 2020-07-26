@@ -4,18 +4,17 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppPriceTier defines model for AppPriceTier.
 type AppPriceTier struct {
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		PricePoints *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"pricePoints,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -23,17 +22,17 @@ type AppPriceTier struct {
 
 // AppPriceTierResponse defines model for AppPriceTierResponse.
 type AppPriceTierResponse struct {
-	Data     AppPriceTier        `json:"data"`
-	Included *[]AppPricePoint    `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppPriceTier           `json:"data"`
+	Included *[]AppPricePoint       `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // AppPriceTiersResponse defines model for AppPriceTiersResponse.
 type AppPriceTiersResponse struct {
-	Data     []AppPriceTier           `json:"data"`
-	Included *[]AppPricePoint         `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppPriceTier              `json:"data"`
+	Included *[]AppPricePoint            `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppPricePoint defines model for AppPricePoint.
@@ -42,16 +41,16 @@ type AppPricePoint struct {
 		CustomerPrice *string `json:"customerPrice,omitempty"`
 		Proceeds      *string `json:"proceeds,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		PriceTier *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"priceTier,omitempty"`
 		Territory *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"territory,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -59,17 +58,17 @@ type AppPricePoint struct {
 
 // AppPricePointResponse defines model for AppPricePointResponse.
 type AppPricePointResponse struct {
-	Data     AppPricePoint       `json:"data"`
-	Included *[]Territory        `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppPricePoint          `json:"data"`
+	Included *[]Territory           `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // AppPricePointsResponse defines model for AppPricePointsResponse.
 type AppPricePointsResponse struct {
-	Data     []AppPricePoint          `json:"data"`
-	Included *[]Territory             `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppPricePoint             `json:"data"`
+	Included *[]Territory                `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListAppPriceTiersQuery are query options for ListAppPriceTiers

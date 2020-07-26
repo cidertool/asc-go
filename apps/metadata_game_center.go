@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // GameCenterEnabledVersion defines model for GameCenterEnabledVersion.
@@ -14,17 +13,17 @@ type GameCenterEnabledVersion struct {
 		Platform      *Platform   `json:"platform,omitempty"`
 		VersionString *string     `json:"versionString,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		CompatibleVersions *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"compatibleVersions,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -32,17 +31,17 @@ type GameCenterEnabledVersion struct {
 
 // GameCenterEnabledVersionCompatibleVersionsLinkagesResponse defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesResponse.
 type GameCenterEnabledVersionCompatibleVersionsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // GameCenterEnabledVersionsResponse defines model for GameCenterEnabledVersionsResponse.
 type GameCenterEnabledVersionsResponse struct {
 	Data     []GameCenterEnabledVersion  `json:"data"`
 	Included *[]GameCenterEnabledVersion `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks    `json:"links"`
-	Meta     *types.PagingInformation    `json:"meta,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListGameCenterEnabledVersionsForAppQuery are query options for ListGameCenterEnabledVersionsForApp
@@ -103,19 +102,19 @@ func (s *Service) ListCompatibleVersionIDsForGameCenterEnabledVersion(id string,
 }
 
 // CreateCompatibleVersionsForGameCenterEnabledVersion adds a relationship between a given version and a Game Center enabled version
-func (s *Service) CreateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) CreateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Post(url, linkages, nil)
 }
 
 // UpdateCompatibleVersionsForGameCenterEnabledVersion updates the relationship between a given version and a Game Center enabled version
-func (s *Service) UpdateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // RemoveCompatibleVersionsForGameCenterEnabledVersion deletes the relationship between a given version and a Game Center enabled version
-func (s *Service) RemoveCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveCompatibleVersionsForGameCenterEnabledVersion(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.Delete(url, linkages)
 }

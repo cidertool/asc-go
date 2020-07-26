@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreVersionState defines model for AppStoreVersionState.
@@ -53,7 +52,7 @@ type AppStoreVersionUpdateRequestAttributes struct {
 // AppStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
 type AppStoreVersionUpdateRequestRelationships struct {
 	Build *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"build,omitempty"`
 }
 
@@ -75,9 +74,9 @@ type AgeRatingDeclaration struct {
 		ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
 		ViolenceRealisticProlongedGraphicOrSadistic *string      `json:"violenceRealisticProlongedGraphicOrSadistic,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // AppStoreVersion defines model for AppStoreVersion.
@@ -93,45 +92,45 @@ type AppStoreVersion struct {
 		UsesIDFA            *bool                 `json:"usesIdfa,omitempty"`
 		VersionString       *string               `json:"versionString,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AgeRatingDeclaration *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"ageRatingDeclaration,omitempty"`
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppStoreReviewDetail *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreReviewDetail,omitempty"`
 		AppStoreVersionLocalizations *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appStoreVersionLocalizations,omitempty"`
 		AppStoreVersionPhasedRelease *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionPhasedRelease,omitempty"`
 		AppStoreVersionSubmission *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersionSubmission,omitempty"`
 		Build *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 		IDFADeclaration *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"idfaDeclaration,omitempty"`
 		RoutingAppCoverage *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"routingAppCoverage,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -139,17 +138,17 @@ type AppStoreVersion struct {
 
 // AppStoreVersionResponse defines model for AppStoreVersionResponse.
 type AppStoreVersionResponse struct {
-	Data     AppStoreVersion     `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppStoreVersion        `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // AppStoreVersionsResponse defines model for AppStoreVersionsResponse.
 type AppStoreVersionsResponse struct {
-	Data     []AppStoreVersion        `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppStoreVersion           `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
@@ -172,17 +171,17 @@ type AppStoreVersionCreateRequestAttributes struct {
 // AppStoreVersionCreateRequestRelationships are relationships for AppStoreVersionCreateRequest
 type AppStoreVersionCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 	Build *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"build,omitempty"`
 }
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
 type AppStoreVersionBuildLinkageResponse struct {
-	Data  types.RelationshipsData `json:"data"`
-	Links types.DocumentLinks     `json:"links"`
+	Data  services.RelationshipsData `json:"data"`
+	Links services.DocumentLinks     `json:"links"`
 }
 
 // ListAppStoreVersionsQuery are query options for ListAppStoreVersions
@@ -277,7 +276,7 @@ func (s *Service) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuild
 }
 
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
-func (s *Service) UpdateBuildForAppStoreVersion(id string, linkages *[]types.RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *services.Response, error) {
+func (s *Service) UpdateBuildForAppStoreVersion(id string, linkages *[]services.RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *services.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.Patch(url, linkages, res)

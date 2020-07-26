@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaAppReviewDetail defines model for BetaAppReviewDetail.
@@ -20,12 +19,12 @@ type BetaAppReviewDetail struct {
 		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
 		Notes               *string `json:"notes,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -52,17 +51,17 @@ type BetaAppReviewDetailUpdateRequestAttributes struct {
 
 // BetaAppReviewDetailResponse defines model for BetaAppReviewDetailResponse.
 type BetaAppReviewDetailResponse struct {
-	Data     BetaAppReviewDetail `json:"data"`
-	Included *[]apps.App         `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     BetaAppReviewDetail    `json:"data"`
+	Included *[]apps.App            `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BetaAppReviewDetailsResponse defines model for BetaAppReviewDetailsResponse.
 type BetaAppReviewDetailsResponse struct {
-	Data     []BetaAppReviewDetail    `json:"data"`
-	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaAppReviewDetail       `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaAppReviewDetailsQuery defines model for ListBetaAppReviewDetails

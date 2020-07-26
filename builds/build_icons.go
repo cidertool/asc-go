@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // IconAssetType defines model for IconAssetType.
@@ -26,16 +25,16 @@ type BuildIcon struct {
 		IconAsset *apps.ImageAsset `json:"iconAsset,omitempty"`
 		IconType  *IconAssetType   `json:"iconType,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // BuildIconsResponse defines model for BuildIconsResponse.
 type BuildIconsResponse struct {
-	Data  []BuildIcon              `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []BuildIcon                 `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListIconsQuery are query options for ListIcons

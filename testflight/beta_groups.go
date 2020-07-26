@@ -7,7 +7,6 @@ import (
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaGroup defines model for BetaGroup.
@@ -23,22 +22,22 @@ type BetaGroup struct {
 		PublicLinkLimit        *int       `json:"publicLinkLimit,omitempty"`
 		PublicLinkLimitEnabled *bool      `json:"publicLinkLimitEnabled,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		BetaTesters *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"betaTesters,omitempty"`
 		Builds *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"builds,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -46,9 +45,9 @@ type BetaGroup struct {
 
 // BetaGroupResponse defines model for BetaGroupResponse.
 type BetaGroupResponse struct {
-	Data     BetaGroup           `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     BetaGroup              `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
@@ -70,13 +69,13 @@ type BetaGroupCreateRequestAttributes struct {
 // BetaGroupCreateRequestRelationships are relationships for BetaGroupCreateRequest
 type BetaGroupCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 	BetaTesters *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"betaTesters,omitempty"`
 	Builds *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"builds,omitempty"`
 }
 
@@ -98,24 +97,24 @@ type BetaGroupUpdateRequestAttributes struct {
 
 // BetaGroupBetaTestersLinkagesResponse defines model for BetaGroupBetaTestersLinkagesResponse.
 type BetaGroupBetaTestersLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaGroupBuildsLinkagesResponse defines model for BetaGroupBuildsLinkagesResponse.
 type BetaGroupBuildsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // BetaGroupsResponse defines model for BetaGroupsResponse.
 type BetaGroupsResponse struct {
-	Data     []BetaGroup              `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaGroup                 `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaGroupsQuery defines model for ListBetaGroups
@@ -242,25 +241,25 @@ func (s *Service) ListBetaGroupsForApp(id string, params *ListBetaGroupsForAppQu
 }
 
 // AddBetaTestersToBetaGroup adds a specific beta tester to one or more beta groups for beta testing.
-func (s *Service) AddBetaTestersToBetaGroup(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddBetaTestersToBetaGroup(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveBetaTestersFromBetaGroup removes a specific beta tester from a one or more beta groups, revoking their access to test builds associated with those groups.
-func (s *Service) RemoveBetaTestersFromBetaGroup(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveBetaTestersFromBetaGroup(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.Delete(url, linkages)
 }
 
 // AddBuildsToBetaGroup associates builds with a beta group to enable the group to test the builds.
-func (s *Service) AddBuildsToBetaGroup(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddBuildsToBetaGroup(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.Post(url, linkages, nil)
 }
 
 // RemoveBuildsFromBetaGroup removes access to test one or more builds from beta testers in a specific beta group.
-func (s *Service) RemoveBuildsFromBetaGroup(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveBuildsFromBetaGroup(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.Delete(url, linkages)
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppInfo defines model for AppInfo.
@@ -15,41 +14,41 @@ type AppInfo struct {
 		BrazilAgeRating   *BrazilAgeRating      `json:"brazilAgeRating,omitempty"`
 		KidsAgeBand       *KidsAgeBand          `json:"kidsAgeBand,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		AppInfoLocalizations *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"appInfoLocalizations,omitempty"`
 		PrimaryCategory *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primaryCategory,omitempty"`
 		PrimarySubcategoryOne *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryOne,omitempty"`
 		PrimarySubcategoryTwo *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"primarySubcategoryTwo,omitempty"`
 		SecondaryCategory *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondaryCategory,omitempty"`
 		SecondarySubcategoryOne *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryOne,omitempty"`
 		SecondarySubcategoryTwo *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"secondarySubcategoryTwo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -57,17 +56,17 @@ type AppInfo struct {
 
 // AppInfoResponse defines model for AppInfoResponse.
 type AppInfoResponse struct {
-	Data     AppInfo             `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     AppInfo                `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // AppInfosResponse defines model for AppInfosResponse.
 type AppInfosResponse struct {
-	Data     []AppInfo                `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []AppInfo                   `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // AppInfoUpdateRequest defines model for AppInfoUpdateRequest.
@@ -80,22 +79,22 @@ type AppInfoUpdateRequest struct {
 // AppInfoUpdateRequestRelationships are relationships for AppInfoUpdateRequest
 type AppInfoUpdateRequestRelationships struct {
 	PrimaryCategory *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"primaryCategory,omitempty"`
 	PrimarySubcategoryOne *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"primarySubcategoryOne,omitempty"`
 	PrimarySubcategoryTwo *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"primarySubcategoryTwo,omitempty"`
 	SecondaryCategory *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"secondaryCategory,omitempty"`
 	SecondarySubcategoryOne *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"secondarySubcategoryOne,omitempty"`
 	SecondarySubcategoryTwo *struct {
-		Data *types.RelationshipsData `json:"data,omitempty"`
+		Data *services.RelationshipsData `json:"data,omitempty"`
 	} `json:"secondarySubcategoryTwo,omitempty"`
 }
 

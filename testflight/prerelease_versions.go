@@ -6,7 +6,6 @@ import (
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // PrereleaseVersion defines model for PrereleaseVersion.
@@ -15,17 +14,17 @@ type PrereleaseVersion struct {
 		Platform *apps.Platform `json:"platform,omitempty"`
 		Version  *string        `json:"version,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		Builds *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"builds,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -33,17 +32,17 @@ type PrereleaseVersion struct {
 
 // PrereleaseVersionResponse defines model for PrereleaseVersionResponse.
 type PrereleaseVersionResponse struct {
-	Data     PrereleaseVersion   `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     PrereleaseVersion      `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // PrereleaseVersionsResponse defines model for PreReleaseVersionsResponse.
 type PrereleaseVersionsResponse struct {
-	Data     []PrereleaseVersion      `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []PrereleaseVersion         `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListPrereleaseVersionsQuery defines model for ListPrereleaseVersions

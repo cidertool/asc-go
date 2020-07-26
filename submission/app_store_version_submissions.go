@@ -4,17 +4,16 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreVersionSubmission defines model for AppStoreVersionSubmission.
 type AppStoreVersionSubmission struct {
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -29,14 +28,14 @@ type AppStoreVersionSubmissionCreateRequest struct {
 // AppStoreVersionSubmissionCreateRequestRelationships are attributes for AppStoreVersionSubmissionCreateRequest
 type AppStoreVersionSubmissionCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
 // AppStoreVersionSubmissionResponse defines model for AppStoreVersionSubmissionResponse.
 type AppStoreVersionSubmissionResponse struct {
 	Data  AppStoreVersionSubmission `json:"data"`
-	Links types.DocumentLinks       `json:"links"`
+	Links services.DocumentLinks    `json:"links"`
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersionQuery are query options for GetAppStoreVersionSubmissionForAppStoreVersion

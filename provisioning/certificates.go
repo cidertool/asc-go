@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // CertificateType defines model for CertificateType.
@@ -35,9 +34,9 @@ type Certificate struct {
 		Platform           *BundleIDPlatform `json:"platform,omitempty"`
 		SerialNumber       *string           `json:"serialNumber,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // CertificateCreateRequest defines model for CertificateCreateRequest.
@@ -54,15 +53,15 @@ type CertificateCreateRequestAttributes struct {
 
 // CertificateResponse defines model for CertificateResponse.
 type CertificateResponse struct {
-	Data  Certificate         `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  Certificate            `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // CertificatesResponse defines model for CertificatesResponse.
 type CertificatesResponse struct {
-	Data  []Certificate            `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []Certificate               `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListCertificatesQuery are query options for ListCertificates

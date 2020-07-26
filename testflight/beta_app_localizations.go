@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaAppLocalization defines model for BetaAppLocalization.
@@ -18,12 +17,12 @@ type BetaAppLocalization struct {
 		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
 		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -49,15 +48,15 @@ type BetaAppLocalizationCreateRequestAttributes struct {
 // BetaAppLocalizationCreateRequestRelationships are relationships for BetaAppLocalizationCreateRequest
 type BetaAppLocalizationCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 }
 
 // BetaAppLocalizationResponse defines model for BetaAppLocalizationResponse.
 type BetaAppLocalizationResponse struct {
-	Data     BetaAppLocalization `json:"data"`
-	Included *[]apps.App         `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     BetaAppLocalization    `json:"data"`
+	Included *[]apps.App            `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
@@ -78,10 +77,10 @@ type BetaAppLocalizationUpdateRequestAttributes struct {
 
 // BetaAppLocalizationsResponse defines model for BetaAppLocalizationsResponse.
 type BetaAppLocalizationsResponse struct {
-	Data     []BetaAppLocalization    `json:"data"`
-	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaAppLocalization       `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaAppLocalizationsQuery defines model for ListBetaAppLocalizations

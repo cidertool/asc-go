@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // Profile defines model for Profile.
@@ -20,22 +19,22 @@ type Profile struct {
 		ProfileType    *string           `json:"profileType,omitempty"`
 		UUID           *string           `json:"uuid,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		BundleID *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"bundleId,omitempty"`
 		Certificates *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"certificates,omitempty"`
 		Devices *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"devices,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -57,29 +56,29 @@ type ProfileCreateRequestAttributes struct {
 // ProfileCreateRequestRelationships are relationships for ProfileCreateRequest
 type ProfileCreateRequestRelationships struct {
 	BundleID struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"bundleId"`
 	Certificates struct {
-		Data []types.RelationshipsData `json:"data"`
+		Data []services.RelationshipsData `json:"data"`
 	} `json:"certificates"`
 	Devices *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"devices,omitempty"`
 }
 
 // ProfileResponse defines model for ProfileResponse.
 type ProfileResponse struct {
-	Data     Profile             `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     Profile                `json:"data"`
+	Included *[]interface{}         `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // ProfilesResponse defines model for ProfilesResponse.
 type ProfilesResponse struct {
-	Data     []Profile                `json:"data"`
-	Included *[]interface{}           `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []Profile                   `json:"data"`
+	Included *[]interface{}              `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListProfileQuery are query options for ListProfile

@@ -4,21 +4,20 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // DiagnosticLog defines model for DiagnosticLog.
 type DiagnosticLog struct {
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // DiagnosticLogsResponse defines model for DiagnosticLogsResponse.
 type DiagnosticLogsResponse struct {
-	Data  []DiagnosticLog          `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []DiagnosticLog             `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // DiagnosticSignature defines model for DiagnosticSignature.
@@ -28,17 +27,17 @@ type DiagnosticSignature struct {
 		Signature      *string  `json:"signature,omitempty"`
 		Weight         *float32 `json:"weight,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // DiagnosticSignaturesResponse defines model for DiagnosticSignaturesResponse.
 type DiagnosticSignaturesResponse struct {
-	Data     []DiagnosticSignature    `json:"data"`
-	Included *[]DiagnosticLog         `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []DiagnosticSignature       `json:"data"`
+	Included *[]DiagnosticLog            `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // PerfPowerMetric defines model for PerfPowerMetric.
@@ -48,16 +47,16 @@ type PerfPowerMetric struct {
 		MetricType *string `json:"metricType,omitempty"`
 		Platform   *string `json:"platform,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // PerfPowerMetricsResponse defines model for PerfPowerMetricsResponse.
 type PerfPowerMetricsResponse struct {
-	Data  []PerfPowerMetric        `json:"data"`
-	Links types.PagedDocumentLinks `json:"links"`
-	Meta  *types.PagingInformation `json:"meta,omitempty"`
+	Data  []PerfPowerMetric           `json:"data"`
+	Links services.PagedDocumentLinks `json:"links"`
+	Meta  *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // GetPerfPowerMetricsQuery are query options for GetPerfPowerMetrics

@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/apps"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // UserRole defines model for UserRole.
@@ -47,13 +46,13 @@ type User struct {
 		Roles               *[]UserRole `json:"roles,omitempty"`
 		Username            *string     `json:"username,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		VisibleApps *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"visibleApps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -77,30 +76,30 @@ type UserUpdateRequestAttributes struct {
 // UserUpdateRequestRelationships are relationships for UserUpdateRequest
 type UserUpdateRequestRelationships struct {
 	VisibleApps *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"visibleApps,omitempty"`
 }
 
 // UserResponse defines model for UserResponse.
 type UserResponse struct {
-	Data     User                `json:"data"`
-	Included *[]apps.App         `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     User                   `json:"data"`
+	Included *[]apps.App            `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // UsersResponse defines model for UsersResponse.
 type UsersResponse struct {
-	Data     []User                   `json:"data"`
-	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []User                      `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // UserVisibleAppsLinkagesResponse defines model for UserVisibleAppsLinkagesResponse.
 type UserVisibleAppsLinkagesResponse struct {
-	Data  []types.RelationshipsData `json:"data"`
-	Links types.PagedDocumentLinks  `json:"links"`
-	Meta  *types.PagingInformation  `json:"meta,omitempty"`
+	Data  []services.RelationshipsData `json:"data"`
+	Links services.PagedDocumentLinks  `json:"links"`
+	Meta  *services.PagingInformation  `json:"meta,omitempty"`
 }
 
 // ListUsersQuery is the query params structure for ListUsers
@@ -185,18 +184,18 @@ func (s *Service) ListVisibleAppsByResourceIDForUser(id string, params *ListVisi
 }
 
 // AddVisibleAppsForUser gives a user on your team access to one or more apps.
-func (s *Service) AddVisibleAppsForUser(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) AddVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	return s.Post("appStoreReviewDetails", linkages, nil)
 }
 
 // UpdateVisibleAppsForUser replaces the list of apps a user on your team can see.
-func (s *Service) UpdateVisibleAppsForUser(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) UpdateVisibleAppsForUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.Patch(url, linkages, nil)
 }
 
 // RemoveVisibleAppsFromUser removes a user on your team’s access to one or more apps.
-func (s *Service) RemoveVisibleAppsFromUser(id string, linkages *[]types.RelationshipsData) (*services.Response, error) {
+func (s *Service) RemoveVisibleAppsFromUser(id string, linkages *[]services.RelationshipsData) (*services.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.Delete(url, linkages)
 }

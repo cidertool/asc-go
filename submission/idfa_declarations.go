@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // IDFADeclaration defines model for IDFADeclaration.
@@ -15,12 +14,12 @@ type IDFADeclaration struct {
 		HonorsLimitedAdTracking               *bool `json:"honorsLimitedAdTracking,omitempty"`
 		ServesAds                             *bool `json:"servesAds,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		AppStoreVersion *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -44,7 +43,7 @@ type IDFADeclarationCreateRequestAttributes struct {
 // IDFADeclarationCreateRequestRelationships are relationships for IDFADeclarationCreateRequest
 type IDFADeclarationCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
@@ -65,8 +64,8 @@ type IDFADeclarationUpdateRequestAttributes struct {
 
 // IDFADeclarationResponse defines model for IDFADeclarationResponse.
 type IDFADeclarationResponse struct {
-	Data  IDFADeclaration     `json:"data"`
-	Links types.DocumentLinks `json:"links"`
+	Data  IDFADeclaration        `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // GetIDFADeclarationForAppStoreVersionQuery are query options for GetIDFADeclarationForAppStoreVersion

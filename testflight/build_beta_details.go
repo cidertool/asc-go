@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // ExternalBetaState defines model for ExternalBetaState.
@@ -48,12 +47,12 @@ type BuildBetaDetail struct {
 		ExternalBuildState *ExternalBetaState `json:"externalBuildState,omitempty"`
 		InternalBuildState *InternalBetaState `json:"internalBuildState,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -73,17 +72,17 @@ type BuildBetaDetailUpdateRequestAttributes struct {
 
 // BuildBetaDetailResponse defines model for BuildBetaDetailResponse.
 type BuildBetaDetailResponse struct {
-	Data     BuildBetaDetail     `json:"data"`
-	Included *[]builds.Build     `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     BuildBetaDetail        `json:"data"`
+	Included *[]builds.Build        `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BuildBetaDetailsResponse defines model for BuildBetaDetailsResponse.
 type BuildBetaDetailsResponse struct {
-	Data     []BuildBetaDetail        `json:"data"`
-	Included *[]builds.Build          `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BuildBetaDetail           `json:"data"`
+	Included *[]builds.Build             `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBuildBetaDetailsQuery defines model for ListBuildBetaDetails

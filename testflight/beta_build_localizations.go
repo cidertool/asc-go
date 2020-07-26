@@ -5,7 +5,6 @@ import (
 
 	"github.com/aaronsky/asc-go/builds"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaBuildLocalization defines model for BetaBuildLocalization.
@@ -14,12 +13,12 @@ type BetaBuildLocalization struct {
 		Locale   *string `json:"locale,omitempty"`
 		WhatsNew *string `json:"whatsNew,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		Build *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -27,9 +26,9 @@ type BetaBuildLocalization struct {
 
 // BetaBuildLocalizationResponse defines model for BetaBuildLocalizationResponse.
 type BetaBuildLocalizationResponse struct {
-	Data     BetaBuildLocalization `json:"data"`
-	Included *[]builds.Build       `json:"included,omitempty"`
-	Links    types.DocumentLinks   `json:"links"`
+	Data     BetaBuildLocalization  `json:"data"`
+	Included *[]builds.Build        `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // BetaBuildLocalizationCreateRequest defines model for BetaBuildLocalizationCreateRequest.
@@ -48,7 +47,7 @@ type BetaBuildLocalizationCreateRequestAttributes struct {
 // BetaBuildLocalizationCreateRequestRelationships are relationships for BetaBuildLocalizationCreateRequest
 type BetaBuildLocalizationCreateRequestRelationships struct {
 	Build struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"build"`
 }
 
@@ -66,10 +65,10 @@ type BetaBuildLocalizationUpdateRequestAttributes struct {
 
 // BetaBuildLocalizationsResponse defines model for BetaBuildLocalizationsResponse.
 type BetaBuildLocalizationsResponse struct {
-	Data     []BetaBuildLocalization  `json:"data"`
-	Included *[]builds.Build          `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []BetaBuildLocalization     `json:"data"`
+	Included *[]builds.Build             `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListBetaBuildLocalizationsQuery defines model for ListBetaBuildLocalizations

@@ -2,14 +2,13 @@ package testflight
 
 import (
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // BetaTesterInvitation defines model for BetaTesterInvitation.
 type BetaTesterInvitation struct {
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // BetaTesterInvitationCreateRequest defines model for BetaTesterInvitationCreateRequest.
@@ -21,17 +20,17 @@ type BetaTesterInvitationCreateRequest struct {
 // BetaTesterInvitationCreateRequestRelationships are relationships for BetaTesterInvitationCreateRequest
 type BetaTesterInvitationCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 	BetaTester struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"betaTester"`
 }
 
 // BetaTesterInvitationResponse defines model for BetaTesterInvitationResponse.
 type BetaTesterInvitationResponse struct {
-	Data  BetaTesterInvitation `json:"data"`
-	Links types.DocumentLinks  `json:"links"`
+	Data  BetaTesterInvitation   `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.

@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 	"github.com/aaronsky/asc-go/pricing"
 )
 
@@ -13,17 +12,17 @@ type EndUserLicenseAgreement struct {
 	Attributes *struct {
 		AgreementText *string `json:"agreementText,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		App *struct {
-			Data  *types.RelationshipsData  `json:"data,omitempty"`
-			Links *types.RelationshipsLinks `json:"links,omitempty"`
+			Data  *services.RelationshipsData  `json:"data,omitempty"`
+			Links *services.RelationshipsLinks `json:"links,omitempty"`
 		} `json:"app,omitempty"`
 		Territories *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"territories,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -44,10 +43,10 @@ type EndUserLicenseAgreementCreateRequestAttributes struct {
 // EndUserLicenseAgreementCreateRequestRelationships are relationships for EndUserLicenseAgreementCreateRequest
 type EndUserLicenseAgreementCreateRequestRelationships struct {
 	App struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"app"`
 	Territories struct {
-		Data []types.RelationshipsData `json:"data"`
+		Data []services.RelationshipsData `json:"data"`
 	} `json:"territories"`
 }
 
@@ -67,7 +66,7 @@ type EndUserLicenseAgreementUpdateRequestAttributes struct {
 // EndUserLicenseAgreementUpdateRequestRelationships are relationships for EndUserLicenseAgreementUpdateRequest
 type EndUserLicenseAgreementUpdateRequestRelationships struct {
 	Territories *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"territories,omitempty"`
 }
 
@@ -75,7 +74,7 @@ type EndUserLicenseAgreementUpdateRequestRelationships struct {
 type EndUserLicenseAgreementResponse struct {
 	Data     EndUserLicenseAgreement `json:"data"`
 	Included *[]pricing.Territory    `json:"included,omitempty"`
-	Links    types.DocumentLinks     `json:"links"`
+	Links    services.DocumentLinks  `json:"links"`
 }
 
 // GetEULAQuery are query options for GetEULA

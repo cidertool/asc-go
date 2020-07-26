@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // PhasedReleaseState defines model for PhasedReleaseState.
@@ -30,9 +29,9 @@ type AppStoreVersionPhasedRelease struct {
 		StartDate          *time.Time          `json:"startDate,omitempty"`
 		TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID    string              `json:"id"`
-	Links types.ResourceLinks `json:"links"`
-	Type  string              `json:"type"`
+	ID    string                 `json:"id"`
+	Links services.ResourceLinks `json:"links"`
+	Type  string                 `json:"type"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
@@ -50,14 +49,14 @@ type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
 // AppStoreVersionPhasedReleaseCreateRequestRelationships are relationships for AppStoreVersionPhasedReleaseCreateRequest
 type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
 	AppStoreVersion struct {
-		Data types.RelationshipsData `json:"data"`
+		Data services.RelationshipsData `json:"data"`
 	} `json:"appStoreVersion"`
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.
 type AppStoreVersionPhasedReleaseResponse struct {
 	Data  AppStoreVersionPhasedRelease `json:"data"`
-	Links types.DocumentLinks          `json:"links"`
+	Links services.DocumentLinks       `json:"links"`
 }
 
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.

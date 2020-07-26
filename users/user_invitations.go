@@ -5,28 +5,28 @@ import (
 	"time"
 
 	"github.com/aaronsky/asc-go/apps"
+	"github.com/aaronsky/asc-go/internal/schema"
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // UserInvitation defines model for UserInvitation.
 type UserInvitation struct {
 	Attributes *struct {
-		AllAppsVisible      *bool        `json:"allAppsVisible,omitempty"`
-		Email               *types.Email `json:"email,omitempty"`
-		ExpirationDate      *time.Time   `json:"expirationDate,omitempty"`
-		FirstName           *string      `json:"firstName,omitempty"`
-		LastName            *string      `json:"lastName,omitempty"`
-		ProvisioningAllowed *bool        `json:"provisioningAllowed,omitempty"`
-		Roles               *[]UserRole  `json:"roles,omitempty"`
+		AllAppsVisible      *bool         `json:"allAppsVisible,omitempty"`
+		Email               *schema.Email `json:"email,omitempty"`
+		ExpirationDate      *time.Time    `json:"expirationDate,omitempty"`
+		FirstName           *string       `json:"firstName,omitempty"`
+		LastName            *string       `json:"lastName,omitempty"`
+		ProvisioningAllowed *bool         `json:"provisioningAllowed,omitempty"`
+		Roles               *[]UserRole   `json:"roles,omitempty"`
 	} `json:"attributes,omitempty"`
-	ID            string              `json:"id"`
-	Links         types.ResourceLinks `json:"links"`
+	ID            string                 `json:"id"`
+	Links         services.ResourceLinks `json:"links"`
 	Relationships *struct {
 		VisibleApps *struct {
-			Data  *[]types.RelationshipsData `json:"data,omitempty"`
-			Links *types.RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *types.PagingInformation   `json:"meta,omitempty"`
+			Data  *[]services.RelationshipsData `json:"data,omitempty"`
+			Links *services.RelationshipsLinks  `json:"links,omitempty"`
+			Meta  *services.PagingInformation   `json:"meta,omitempty"`
 		} `json:"visibleApps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
@@ -41,34 +41,34 @@ type UserInvitationCreateRequest struct {
 
 // UserInvitationCreateRequestAttributes are attributes for UserInvitationCreateRequest
 type UserInvitationCreateRequestAttributes struct {
-	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-	Email               types.Email `json:"email"`
-	FirstName           string      `json:"firstName"`
-	LastName            string      `json:"lastName"`
-	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-	Roles               []UserRole  `json:"roles"`
+	AllAppsVisible      *bool        `json:"allAppsVisible,omitempty"`
+	Email               schema.Email `json:"email"`
+	FirstName           string       `json:"firstName"`
+	LastName            string       `json:"lastName"`
+	ProvisioningAllowed *bool        `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole   `json:"roles"`
 }
 
 // UserInvitationCreateRequestRelationships are relationships for UserInvitationCreateRequest
 type UserInvitationCreateRequestRelationships struct {
 	VisibleApps *struct {
-		Data *[]types.RelationshipsData `json:"data,omitempty"`
+		Data *[]services.RelationshipsData `json:"data,omitempty"`
 	} `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationResponse defines model for UserInvitationResponse.
 type UserInvitationResponse struct {
-	Data     UserInvitation      `json:"data"`
-	Included *[]apps.App         `json:"included,omitempty"`
-	Links    types.DocumentLinks `json:"links"`
+	Data     UserInvitation         `json:"data"`
+	Included *[]apps.App            `json:"included,omitempty"`
+	Links    services.DocumentLinks `json:"links"`
 }
 
 // UserInvitationsResponse defines model for UserInvitationsResponse.
 type UserInvitationsResponse struct {
-	Data     []UserInvitation         `json:"data"`
-	Included *[]apps.App              `json:"included,omitempty"`
-	Links    types.PagedDocumentLinks `json:"links"`
-	Meta     *types.PagingInformation `json:"meta,omitempty"`
+	Data     []UserInvitation            `json:"data"`
+	Included *[]apps.App                 `json:"included,omitempty"`
+	Links    services.PagedDocumentLinks `json:"links"`
+	Meta     *services.PagingInformation `json:"meta,omitempty"`
 }
 
 // ListInvitationsQuery is the query params structure for ListInvitations

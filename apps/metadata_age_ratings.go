@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/aaronsky/asc-go/internal/services"
-	"github.com/aaronsky/asc-go/internal/types"
 )
 
 // AppStoreAgeRating defines model for AppStoreAgeRating.
@@ -68,8 +67,8 @@ type AgeRatingDeclarationUpdateRequestAttributes struct {
 
 // AgeRatingDeclarationResponse defines model for AgeRatingDeclarationResponse.
 type AgeRatingDeclarationResponse struct {
-	Data  AgeRatingDeclaration `json:"data"`
-	Links types.DocumentLinks  `json:"links"`
+	Data  AgeRatingDeclaration   `json:"data"`
+	Links services.DocumentLinks `json:"links"`
 }
 
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
