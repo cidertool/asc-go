@@ -7,8 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/aaronsky/asc-go"
-	"github.com/aaronsky/asc-go/provisioning"
+	"github.com/aaronsky/asc-go/asc"
 )
 
 var (
@@ -35,10 +34,10 @@ func main() {
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
 
-	device, _, err := client.Provisioning.CreateDevice(&provisioning.DeviceCreateRequest{
-		Attributes: provisioning.DeviceCreateRequestAttributes{
+	device, _, err := client.Provisioning.CreateDevice(&asc.DeviceCreateRequest{
+		Attributes: asc.DeviceCreateRequestAttributes{
 			Name:     *deviceName,
-			Platform: provisioning.IOS,
+			Platform: asc.BundleIDPlatformiOS,
 			UDID:     *deviceUDID,
 		},
 		Type: "devices",

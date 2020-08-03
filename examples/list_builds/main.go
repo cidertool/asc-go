@@ -7,8 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/aaronsky/asc-go"
-	"github.com/aaronsky/asc-go/builds"
+	"github.com/aaronsky/asc-go/asc"
 )
 
 var (
@@ -35,7 +34,7 @@ func main() {
 	client := asc.NewClient(auth.Client())
 
 	var cursor string
-	params := builds.ListBuildsForAppQuery{}
+	params := asc.ListBuildsForAppQuery{}
 	for {
 		if cursor != "" {
 			params.Cursor = &cursor
