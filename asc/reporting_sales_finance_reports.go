@@ -26,13 +26,13 @@ type DownloadSalesAndTrendsReportsQuery struct {
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
 func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *http.Response, error) {
 	res := new(bytes.Buffer)
-	resp, err := s.client.GetWithQuery("financeReports", params, res)
+	resp, err := s.client.get("financeReports", params, res)
 	return res, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
 func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *http.Response, error) {
 	res := new(bytes.Buffer)
-	resp, err := s.client.GetWithQuery("salesReports", params, res)
+	resp, err := s.client.get("salesReports", params, res)
 	return res, resp, err
 }

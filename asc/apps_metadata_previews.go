@@ -132,14 +132,14 @@ type GetAppPreviewQuery struct {
 func (s *AppsService) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateAppPreview adds a new preview to a preview set.
 func (s *AppsService) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *http.Response, error) {
 	res := new(AppPreviewResponse)
-	resp, err := s.client.Post("appPreviews", body, res)
+	resp, err := s.client.post("appPreviews", body, res)
 	return res, resp, err
 }
 
@@ -147,12 +147,12 @@ func (s *AppsService) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPrevi
 func (s *AppsService) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppPreview deletes an app preview that is associated with a preview set.
 func (s *AppsService) DeleteAppPreview(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

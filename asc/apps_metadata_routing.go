@@ -87,14 +87,14 @@ type GetRoutingAppCoverageQuery struct {
 func (s *AppsService) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
 func (s *AppsService) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.Post("routingAppCoverages", body, res)
+	resp, err := s.client.post("routingAppCoverages", body, res)
 	return res, resp, err
 }
 
@@ -102,12 +102,12 @@ func (s *AppsService) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateReq
 func (s *AppsService) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteRoutingAppCoverage deletes the routing app coverage file that is associated with a version.
 func (s *AppsService) DeleteRoutingAppCoverage(id string) (*http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

@@ -33,6 +33,6 @@ type BuildBetaNotificationResponse struct {
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
 func (s *TestflightService) CreateAvailableBuildNotification(body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *http.Response, error) {
 	res := new(BuildBetaNotificationResponse)
-	resp, err := s.client.Post("buildBetaNotifications", body, res)
+	resp, err := s.client.post("buildBetaNotifications", body, res)
 	return res, resp, err
 }

@@ -84,7 +84,7 @@ type GetLogsForDiagnosticSignatureQuery struct {
 func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -92,7 +92,7 @@ func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfP
 func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -100,7 +100,7 @@ func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPer
 func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -108,6 +108,6 @@ func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *L
 func (s *ReportingService) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *http.Response, error) {
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

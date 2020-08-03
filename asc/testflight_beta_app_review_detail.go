@@ -92,7 +92,7 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
 func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *http.Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
-	resp, err := s.client.GetWithQuery("betaAppReviewDetails", params, res)
+	resp, err := s.client.get("betaAppReviewDetails", params, res)
 	return res, resp, err
 }
 
@@ -100,7 +100,7 @@ func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDe
 func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -108,7 +108,7 @@ func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaApp
 func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -116,7 +116,7 @@ func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetA
 func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -124,6 +124,6 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *Get
 func (s *TestflightService) UpdateBetaAppReviewDetail(id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

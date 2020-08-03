@@ -232,7 +232,7 @@ type GetRoutingAppCoverageForVersionQuery struct {
 func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -240,7 +240,7 @@ func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStore
 func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -248,7 +248,7 @@ func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQu
 func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.Post(url, body, res)
+	resp, err := s.client.post(url, body, res)
 	return res, resp, err
 }
 
@@ -256,21 +256,21 @@ func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) 
 func (s *AppsService) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppStoreVersion deletes an app store version that is associated with an app.
 func (s *AppsService) DeleteAppStoreVersion(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // GetBuildIDForAppStoreVersion gets the ID of the build that is attached to a specific App Store version.
 func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.GetWithQuery(url, nil, res)
+	resp, err := s.client.get(url, nil, res)
 	return res, resp, err
 }
 
@@ -278,7 +278,7 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionB
 func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.Patch(url, linkages, res)
+	resp, err := s.client.patch(url, linkages, res)
 	return res, resp, err
 }
 
@@ -286,7 +286,7 @@ func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]Relat
 func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -294,6 +294,6 @@ func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(id string, param
 func (s *AppsService) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

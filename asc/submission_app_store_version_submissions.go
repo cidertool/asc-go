@@ -49,7 +49,7 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
 func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *http.Response, error) {
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.Post("appStoreVersionSubmissions", body, res)
+	resp, err := s.client.post("appStoreVersionSubmissions", body, res)
 	return res, resp, err
 }
 
@@ -58,13 +58,13 @@ func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCrea
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_submission
 func (s *SubmissionService) DeleteSubmission(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
 func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

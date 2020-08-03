@@ -84,14 +84,14 @@ type GetCertificateQuery struct {
 // CreateCertificate creates a new certificate using a certificate signing request.
 func (s *ProvisioningService) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *http.Response, error) {
 	res := new(CertificateResponse)
-	resp, err := s.client.Post("certificates", body, res)
+	resp, err := s.client.post("certificates", body, res)
 	return res, resp, err
 }
 
 // ListCertificates finds and lists certificates and download their data.
 func (s *ProvisioningService) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *http.Response, error) {
 	res := new(CertificatesResponse)
-	resp, err := s.client.GetWithQuery("certificates", params, res)
+	resp, err := s.client.get("certificates", params, res)
 	return res, resp, err
 }
 
@@ -99,12 +99,12 @@ func (s *ProvisioningService) ListCertificates(params *ListCertificatesQuery) (*
 func (s *ProvisioningService) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *http.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // RevokeCertificate revokes a lost, stolen, compromised, or expiring signing certificate.
 func (s *ProvisioningService) RevokeCertificate(id string) (*http.Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

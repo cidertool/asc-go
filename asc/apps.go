@@ -274,7 +274,7 @@ type GetInAppPurchaseQuery struct {
 // ListApps finds and lists apps added in App Store Connect.
 func (s *AppsService) ListApps(params *ListAppsQuery) (*AppsResponse, *http.Response, error) {
 	res := new(AppsResponse)
-	resp, err := s.client.GetWithQuery("apps", params, res)
+	resp, err := s.client.get("apps", params, res)
 	return res, resp, err
 }
 
@@ -282,7 +282,7 @@ func (s *AppsService) ListApps(params *ListAppsQuery) (*AppsResponse, *http.Resp
 func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -290,21 +290,21 @@ func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *htt
 func (s *AppsService) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 func (s *AppsService) RemoveBetaTestersFromApp(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
 func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -312,6 +312,6 @@ func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurch
 func (s *AppsService) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

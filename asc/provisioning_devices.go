@@ -82,14 +82,14 @@ type GetDeviceQuery struct {
 // CreateDevice registers a new device for app development.
 func (s *ProvisioningService) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *http.Response, error) {
 	res := new(DeviceResponse)
-	resp, err := s.client.Post("devices", body, res)
+	resp, err := s.client.post("devices", body, res)
 	return res, resp, err
 }
 
 // ListDevices finds and lists devices registered to your team.
 func (s *ProvisioningService) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *http.Response, error) {
 	res := new(DevicesResponse)
-	resp, err := s.client.GetWithQuery("devices", params, res)
+	resp, err := s.client.get("devices", params, res)
 	return res, resp, err
 }
 
@@ -97,7 +97,7 @@ func (s *ProvisioningService) ListDevices(params *ListDevicesQuery) (*DevicesRes
 func (s *ProvisioningService) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *http.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -105,6 +105,6 @@ func (s *ProvisioningService) GetDevice(id string, params *GetDeviceQuery) (*Dev
 func (s *ProvisioningService) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *http.Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

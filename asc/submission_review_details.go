@@ -106,7 +106,7 @@ type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail
 func (s *SubmissionService) CreateReviewDetail(body *AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.Post("appStoreReviewDetails", body, res)
+	resp, err := s.client.post("appStoreReviewDetails", body, res)
 	return res, resp, err
 }
 
@@ -116,7 +116,7 @@ func (s *SubmissionService) CreateReviewDetail(body *AppStoreReviewDetailCreateR
 func (s *SubmissionService) GetReviewDetail(id string, params *GetReviewDetailQuery) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -124,7 +124,7 @@ func (s *SubmissionService) GetReviewDetail(id string, params *GetReviewDetailQu
 func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(id string, params *GetAppStoreReviewDetailsForAppStoreVersionQuery) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreReviewDetail", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -134,6 +134,6 @@ func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(id string, params
 func (s *SubmissionService) UpdateReviewDetail(id string, body *AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

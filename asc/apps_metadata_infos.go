@@ -121,7 +121,7 @@ type ListAppInfosForAppQuery struct {
 func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -129,7 +129,7 @@ func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoRe
 func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -137,6 +137,6 @@ func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQu
 func (s *AppsService) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

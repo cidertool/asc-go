@@ -74,7 +74,7 @@ type GetPreOrderForAppQuery struct {
 func (s *PublishingService) GetPreOrder(id string, params *GetPreOrderQuery) (*AppPreOrderResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -82,14 +82,14 @@ func (s *PublishingService) GetPreOrder(id string, params *GetPreOrderQuery) (*A
 func (s *PublishingService) GetPreOrderForApp(id string, params *GetPreOrderForAppQuery) (*AppPreOrderResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/preOrder", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreatePreOrder turns on pre-order and set the expected app release date.
 func (s *PublishingService) CreatePreOrder(body *AppPreOrderCreateRequest) (*AppPreOrderResponse, *http.Response, error) {
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.Post("appPreOrders", body, res)
+	resp, err := s.client.post("appPreOrders", body, res)
 	return res, resp, err
 }
 
@@ -97,12 +97,12 @@ func (s *PublishingService) CreatePreOrder(body *AppPreOrderCreateRequest) (*App
 func (s *PublishingService) UpdatePreOrder(id string, body *AppPreOrderUpdateRequest) (*AppPreOrderResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeletePreOrder cancels a planned app pre-order that has not begun.
 func (s *PublishingService) DeletePreOrder(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

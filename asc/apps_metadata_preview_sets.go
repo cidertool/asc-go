@@ -94,28 +94,28 @@ type ListAppPreviewIDsForSetQuery struct {
 func (s *AppsService) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery) (*AppPreviewSetResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
 	res := new(AppPreviewSetResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateAppPreviewSet adds a new preview set to an App Store version localization for a specific preview type and display size.
 func (s *AppsService) CreateAppPreviewSet(id string, body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *http.Response, error) {
 	res := new(AppPreviewSetResponse)
-	resp, err := s.client.Post("appPreviewSets", body, res)
+	resp, err := s.client.post("appPreviewSets", body, res)
 	return res, resp, err
 }
 
 // DeleteAppPreviewSet deletes an app preview set and all of its previews.
 func (s *AppsService) DeleteAppPreviewSet(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListAppPreviewsForSet lists all ordered previews in a preview set.
 func (s *AppsService) ListAppPreviewsForSet(id string, params *ListAppPreviewsForSetQuery) (*AppPreviewsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/appPreviews", id)
 	res := new(AppPreviewsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -123,12 +123,12 @@ func (s *AppsService) ListAppPreviewsForSet(id string, params *ListAppPreviewsFo
 func (s *AppsService) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsForSetQuery) (*AppPreviewSetAppPreviewsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	res := new(AppPreviewSetAppPreviewsLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
 func (s *AppsService) ReplaceAppPreviewsForSet(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
-	return s.client.Patch(url, linkages, nil)
+	return s.client.patch(url, linkages, nil)
 }

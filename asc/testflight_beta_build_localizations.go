@@ -100,7 +100,7 @@ type ListBetaBuildLocalizationsForBuildQuery struct {
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
 func (s *TestflightService) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *http.Response, error) {
 	res := new(BetaBuildLocalizationsResponse)
-	resp, err := s.client.GetWithQuery("betaBuildLocalizations", params, res)
+	resp, err := s.client.get("betaBuildLocalizations", params, res)
 	return res, resp, err
 }
 
@@ -108,7 +108,7 @@ func (s *TestflightService) ListBetaBuildLocalizations(params *ListBetaBuildLoca
 func (s *TestflightService) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -116,7 +116,7 @@ func (s *TestflightService) GetBetaBuildLocalization(id string, params *GetBetaB
 func (s *TestflightService) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -124,7 +124,7 @@ func (s *TestflightService) GetBuildForBetaBuildLocalization(id string, params *
 func (s *TestflightService) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaBuildLocalizations", id)
 	res := new(BetaBuildLocalizationsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -132,7 +132,7 @@ func (s *TestflightService) ListBetaBuildLocalizationsForBuild(id string, params
 func (s *TestflightService) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.Post(url, body, res)
+	resp, err := s.client.post(url, body, res)
 	return res, resp, err
 }
 
@@ -140,12 +140,12 @@ func (s *TestflightService) CreateBetaBuildLocalization(body *BetaBuildLocalizat
 func (s *TestflightService) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteBetaBuildLocalization deletes a beta build localization associated with an build.
 func (s *TestflightService) DeleteBetaBuildLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

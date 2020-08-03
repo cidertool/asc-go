@@ -46,6 +46,6 @@ type ListIconsQuery struct {
 func (s *BuildsService) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

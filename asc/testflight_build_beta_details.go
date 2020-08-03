@@ -114,7 +114,7 @@ type GetBuildBetaDetailForBuildQuery struct {
 // ListBuildBetaDetails finds and lists build beta details for all builds.
 func (s *TestflightService) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *http.Response, error) {
 	res := new(BuildBetaDetailsResponse)
-	resp, err := s.client.GetWithQuery("buildBetaDetails", params, res)
+	resp, err := s.client.get("buildBetaDetails", params, res)
 	return res, resp, err
 }
 
@@ -122,7 +122,7 @@ func (s *TestflightService) ListBuildBetaDetails(params *ListBuildBetaDetailsQue
 func (s *TestflightService) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -130,7 +130,7 @@ func (s *TestflightService) GetBuildBetaDetail(id string, params *GetBuildBetaDe
 func (s *TestflightService) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -138,7 +138,7 @@ func (s *TestflightService) GetBuildForBuildBetaDetail(id string, params *GetBui
 func (s *TestflightService) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -146,6 +146,6 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(id string, params *GetBui
 func (s *TestflightService) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *http.Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

@@ -38,7 +38,7 @@ type ListTerritoriesQuery struct {
 // ListTerritories lists all territories where the App Store operates.
 func (s *PricingService) ListTerritories(params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	res := new(TerritoriesResponse)
-	resp, err := s.client.GetWithQuery("territories", params, res)
+	resp, err := s.client.get("territories", params, res)
 	return res, resp, err
 }
 
@@ -46,7 +46,7 @@ func (s *PricingService) ListTerritories(params *ListTerritoriesQuery) (*Territo
 func (s *PricingService) ListTerritoriesForApp(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/availableTerritories", id)
 	res := new(TerritoriesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -54,7 +54,7 @@ func (s *PricingService) ListTerritoriesForApp(id string, params *ListTerritorie
 func (s *PricingService) ListTerritoriesForEULA(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *http.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s/territories", id)
 	res := new(TerritoriesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -62,6 +62,6 @@ func (s *PricingService) ListTerritoriesForEULA(id string, params *ListTerritori
 func (s *PricingService) GetTerritoryForAppPrice(id string, params *ListTerritoriesQuery) (*TerritoryResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

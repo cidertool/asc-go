@@ -74,6 +74,6 @@ type AgeRatingDeclarationResponse struct {
 func (s *AppsService) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

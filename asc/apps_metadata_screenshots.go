@@ -84,14 +84,14 @@ type GetAppScreenshotQuery struct {
 func (s *AppsService) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateAppScreenshot adds a new screenshot to a screenshot set.
 func (s *AppsService) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *http.Response, error) {
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.Post("appScreenshots", body, res)
+	resp, err := s.client.post("appScreenshots", body, res)
 	return res, resp, err
 }
 
@@ -99,12 +99,12 @@ func (s *AppsService) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*Ap
 func (s *AppsService) UpdateAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppScreenshot deletes an app screenshot that is associated with a screenshot set.
 func (s *AppsService) DeleteAppScreenshot(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

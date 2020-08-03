@@ -114,7 +114,7 @@ type ListBetaAppLocalizationsForAppQuery struct {
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
 func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *http.Response, error) {
 	res := new(BetaAppLocalizationsResponse)
-	resp, err := s.client.GetWithQuery("betaAppLocalizations", params, res)
+	resp, err := s.client.get("betaAppLocalizations", params, res)
 	return res, resp, err
 }
 
@@ -122,7 +122,7 @@ func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocaliza
 func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -130,7 +130,7 @@ func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaApp
 func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -138,7 +138,7 @@ func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetA
 func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -146,7 +146,7 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *Li
 func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.client.Post(url, body, res)
+	resp, err := s.client.post(url, body, res)
 	return res, resp, err
 }
 
@@ -154,12 +154,12 @@ func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationC
 func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteBetaAppLocalization deletes a beta app localization associated with an app.
 func (s *TestflightService) DeleteBetaAppLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

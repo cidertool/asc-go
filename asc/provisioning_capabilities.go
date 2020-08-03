@@ -122,20 +122,20 @@ type CapabilitySetting struct {
 // EnableCapability enables a capability for a bundle ID.
 func (s *ProvisioningService) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *http.Response, error) {
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.Patch("bundleIdCapabilities", body, res)
+	resp, err := s.client.patch("bundleIdCapabilities", body, res)
 	return res, resp, err
 }
 
 // DisableCapability disables a capability for a bundle ID.
 func (s *ProvisioningService) DisableCapability(id string) (*http.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // UpdateCapability updates the configuration of a specific capability.
 func (s *ProvisioningService) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

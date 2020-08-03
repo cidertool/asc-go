@@ -96,7 +96,7 @@ type GetAppInfoLocalizationQuery struct {
 func (s *AppsService) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfos/%s/appInfoLocalizations", id)
 	res := new(AppInfoLocalizationsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -104,14 +104,14 @@ func (s *AppsService) ListAppInfoLocalizationsForAppInfo(id string, params *List
 func (s *AppsService) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateAppInfoLocalization adds app-level localized information for a new locale.
 func (s *AppsService) CreateAppInfoLocalization(body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.Post("appInfoLocalizations", body, res)
+	resp, err := s.client.post("appInfoLocalizations", body, res)
 	return res, resp, err
 }
 
@@ -119,12 +119,12 @@ func (s *AppsService) CreateAppInfoLocalization(body *AppInfoLocalizationCreateR
 func (s *AppsService) UpdateAppInfoLocalization(id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppInfoLocalization deletes an app information localization that is associated with an app.
 func (s *AppsService) DeleteAppInfoLocalization(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

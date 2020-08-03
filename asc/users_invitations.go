@@ -93,7 +93,7 @@ type GetInvitationQuery struct {
 // ListInvitations gets a list of pending invitations to join your team.
 func (s *UsersService) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *http.Response, error) {
 	res := new(UserInvitationsResponse)
-	resp, err := s.client.GetWithQuery("userInvitations", params, res)
+	resp, err := s.client.get("userInvitations", params, res)
 	return res, resp, err
 }
 
@@ -101,27 +101,27 @@ func (s *UsersService) ListInvitations(params *ListInvitationsQuery) (*UserInvit
 func (s *UsersService) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateInvitation invites a user with assigned user roles to join your team.
 func (s *UsersService) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *http.Response, error) {
 	res := new(UserInvitationResponse)
-	resp, err := s.client.Post("userInvitations", body, res)
+	resp, err := s.client.post("userInvitations", body, res)
 	return res, resp, err
 }
 
 // CancelInvitation cancels a pending invitation for a user to join your team.
 func (s *UsersService) CancelInvitation(id string) (*http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
 func (s *UsersService) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*AppsResponse, *http.Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(AppsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

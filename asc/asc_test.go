@@ -48,7 +48,7 @@ func TestGet(t *testing.T) {
 	defer server.Close()
 
 	var unmarshaled mockPayload
-	resp, err := client.Get("test", &unmarshaled)
+	resp, err := client.get("test", nil, &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -64,7 +64,7 @@ func TestGetWithQuery(t *testing.T) {
 
 	var unmarshaled mockPayload
 	// Testing absolute URL path
-	resp, err := client.GetWithQuery(server.URL+"/test", &params, &unmarshaled)
+	resp, err := client.get(server.URL+"/test", &params, &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -77,7 +77,7 @@ func TestGetError(t *testing.T) {
 	defer server.Close()
 
 	var unmarshaled mockPayload
-	resp, err := client.Get("test", &unmarshaled)
+	resp, err := client.get("test", nil, &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -95,7 +95,7 @@ func TestPost(t *testing.T) {
 	body := mockBody{"TEST"}
 
 	var unmarshaled mockPayload
-	resp, err := client.Post("test", &body, &unmarshaled)
+	resp, err := client.post("test", &body, &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -113,7 +113,7 @@ func TestPatch(t *testing.T) {
 	body := mockBody{"TEST"}
 
 	var unmarshaled mockPayload
-	resp, err := client.Patch("test", &body, &unmarshaled)
+	resp, err := client.patch("test", &body, &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -130,7 +130,7 @@ func TestDelete(t *testing.T) {
 
 	body := mockBody{"TEST"}
 
-	resp, err := client.Delete("test", &body)
+	resp, err := client.delete("test", &body)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)

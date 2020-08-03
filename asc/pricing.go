@@ -62,7 +62,7 @@ type GetPriceQuery struct {
 func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -70,6 +70,6 @@ func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*
 func (s *PricingService) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

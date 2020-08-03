@@ -96,7 +96,7 @@ type GetPrereleaseVersionForBuildQuery struct {
 // ListPrereleaseVersions gets a list of prerelease versions for all apps.
 func (s *TestflightService) ListPrereleaseVersions(params *ListPrereleaseVersionsQuery) (*PrereleaseVersionsResponse, *http.Response, error) {
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.client.GetWithQuery("preReleaseVersions", params, res)
+	resp, err := s.client.get("preReleaseVersions", params, res)
 	return res, resp, err
 }
 
@@ -104,7 +104,7 @@ func (s *TestflightService) ListPrereleaseVersions(params *ListPrereleaseVersion
 func (s *TestflightService) GetPrereleaseVersion(id string, params *GetPrereleaseVersionQuery) (*PrereleaseVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -112,7 +112,7 @@ func (s *TestflightService) GetPrereleaseVersion(id string, params *GetPrereleas
 func (s *TestflightService) GetAppForPrereleaseVersion(id string, params *GetAppForPrereleaseVersionQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -120,7 +120,7 @@ func (s *TestflightService) GetAppForPrereleaseVersion(id string, params *GetApp
 func (s *TestflightService) ListPrereleaseVersionsForApp(id string, params *ListPrereleaseVersionsForAppQuery) (*PrereleaseVersionsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/preReleaseVersions", id)
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -128,7 +128,7 @@ func (s *TestflightService) ListPrereleaseVersionsForApp(id string, params *List
 func (s *TestflightService) ListBuildsForPrereleaseVersion(id string, params *ListBuildsForPrereleaseVersionQuery) (*BuildsResponse, *http.Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -136,6 +136,6 @@ func (s *TestflightService) ListBuildsForPrereleaseVersion(id string, params *Li
 func (s *TestflightService) GetPrereleaseVersionForBuild(id string, params *GetPrereleaseVersionForBuildQuery) (*PrereleaseVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/preReleaseVersion", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

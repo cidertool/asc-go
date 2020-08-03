@@ -137,7 +137,7 @@ type ListCapabilitiesForBundleIDQuery struct {
 // CreateBundleID registers a new bundle ID for app development.
 func (s *ProvisioningService) CreateBundleID(body *BundleIDCreateRequest) (*BundleIDResponse, *http.Response, error) {
 	res := new(BundleIDResponse)
-	resp, err := s.client.Post("bundleIds", body, res)
+	resp, err := s.client.post("bundleIds", body, res)
 	return res, resp, err
 }
 
@@ -145,20 +145,20 @@ func (s *ProvisioningService) CreateBundleID(body *BundleIDCreateRequest) (*Bund
 func (s *ProvisioningService) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteBundleID deletes a bundle ID that is used for app development.
 func (s *ProvisioningService) DeleteBundleID(id string) (*http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListBundleIDs finds and lists bundle IDs that are registered to your team.
 func (s *ProvisioningService) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *http.Response, error) {
 	res := new(BundleIDsResponse)
-	resp, err := s.client.GetWithQuery("bundleIds", params, res)
+	resp, err := s.client.get("bundleIds", params, res)
 	return res, resp, err
 }
 
@@ -166,7 +166,7 @@ func (s *ProvisioningService) ListBundleIDs(params *ListBundleIDsQuery) (*Bundle
 func (s *ProvisioningService) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -174,7 +174,7 @@ func (s *ProvisioningService) GetBundleID(id string, params *GetBundleIDQuery) (
 func (s *ProvisioningService) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -182,7 +182,7 @@ func (s *ProvisioningService) GetAppForBundleID(id string, params *GetAppForBund
 func (s *ProvisioningService) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/profiles", id)
 	res := new(ProfilesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -190,6 +190,6 @@ func (s *ProvisioningService) ListProfilesForBundleID(id string, params *ListPro
 func (s *ProvisioningService) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *http.Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/bundleIdCapabilities", id)
 	res := new(BundleIDCapabilitiesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

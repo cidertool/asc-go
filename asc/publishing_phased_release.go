@@ -78,7 +78,7 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 // CreatePhasedRelease enables phased release for an App Store version.
 func (s *PublishingService) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.Post("appStoreVersionPhasedReleases", body, res)
+	resp, err := s.client.post("appStoreVersionPhasedReleases", body, res)
 	return res, resp, err
 }
 
@@ -86,20 +86,20 @@ func (s *PublishingService) CreatePhasedRelease(body *AppStoreVersionPhasedRelea
 func (s *PublishingService) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeletePhasedRelease cancels a planned phased release that has not been started.
 func (s *PublishingService) DeletePhasedRelease(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersion reads the phased release status and configuration for a version with phased release enabled.
 func (s *PublishingService) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

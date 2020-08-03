@@ -125,28 +125,28 @@ type ListAppScreenshotIDsForSetQuery struct {
 func (s *AppsService) GetAppScreenshotSet(id string, params *GetAppScreenshotSetQuery) (*AppScreenshotSetResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
 	res := new(AppScreenshotSetResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // CreateAppScreenshotSet adds a new screenshot set to an App Store version localization for a specific screenshot type and display size.
 func (s *AppsService) CreateAppScreenshotSet(id string, body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *http.Response, error) {
 	res := new(AppScreenshotSetResponse)
-	resp, err := s.client.Post("appScreenshotSets", body, res)
+	resp, err := s.client.post("appScreenshotSets", body, res)
 	return res, resp, err
 }
 
 // DeleteAppScreenshotSet deletes an app screenshot set and all of its screenshots.
 func (s *AppsService) DeleteAppScreenshotSet(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListAppScreenshotsForSet lists all ordered screenshots in a screenshot set.
 func (s *AppsService) ListAppScreenshotsForSet(id string, params *ListAppScreenshotsForSetQuery) (*AppScreenshotsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/appScreenshots", id)
 	res := new(AppScreenshotsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -154,12 +154,12 @@ func (s *AppsService) ListAppScreenshotsForSet(id string, params *ListAppScreens
 func (s *AppsService) ListAppScreenshotIDsForSet(id string, params *ListAppScreenshotIDsForSetQuery) (*AppScreenshotSetAppScreenshotsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	res := new(AppScreenshotSetAppScreenshotsLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
 func (s *AppsService) ReplaceAppScreenshotsForSet(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
-	return s.client.Patch(url, linkages, nil)
+	return s.client.patch(url, linkages, nil)
 }

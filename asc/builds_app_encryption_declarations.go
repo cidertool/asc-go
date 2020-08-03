@@ -87,7 +87,7 @@ type GetAppForEncryptionDeclarationQuery struct {
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.
 func (s *BuildsService) ListAppEncryptionDeclarations(params *ListAppEncryptionDeclarationsQuery) (*AppEncryptionDeclarationsResponse, *http.Response, error) {
 	res := new(AppEncryptionDeclarationsResponse)
-	resp, err := s.client.GetWithQuery("appEncryptionDeclarations", params, res)
+	resp, err := s.client.get("appEncryptionDeclarations", params, res)
 	return res, resp, err
 }
 
@@ -95,7 +95,7 @@ func (s *BuildsService) ListAppEncryptionDeclarations(params *ListAppEncryptionD
 func (s *BuildsService) GetAppEncryptionDeclaration(id string, params *GetAppEncryptionDeclarationQuery) (*AppEncryptionDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -103,12 +103,12 @@ func (s *BuildsService) GetAppEncryptionDeclaration(id string, params *GetAppEnc
 func (s *BuildsService) GetAppForAppEncryptionDeclaration(id string, params *GetAppForEncryptionDeclarationQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // AssignBuildsToAppEncryptionDeclaration assigns one or more builds to an app encryption declaration.
 func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
-	return s.client.Post(url, linkages, nil)
+	return s.client.post(url, linkages, nil)
 }

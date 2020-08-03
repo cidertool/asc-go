@@ -92,8 +92,16 @@ func newRequest(v interface{}) *request {
 	return req
 }
 
-// Get sends a GET request to the API as configured
-func (c *Client) Get(url string, v interface{}) (*http.Response, error) {
+// get sends a GET request to the API as configured
+func (c *Client) get(url string, query interface{}, v interface{}) (*http.Response, error) {
+	var err error
+	if query != nil {
+		url, err = c.addOptions(url, query)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	req, err := c.newRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -105,20 +113,8 @@ func (c *Client) Get(url string, v interface{}) (*http.Response, error) {
 	return resp, err
 }
 
-// GetWithQuery sends a GET request with a query to the API as configured
-func (c *Client) GetWithQuery(url string, query interface{}, v interface{}) (*http.Response, error) {
-	var err error
-	if query != nil {
-		url, err = c.addOptions(url, query)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return c.Get(url, v)
-}
-
-// Post sends a POST request to the API as configured
-func (c *Client) Post(url string, body interface{}, v interface{}) (*http.Response, error) {
+// post sends a POST request to the API as configured
+func (c *Client) post(url string, body interface{}, v interface{}) (*http.Response, error) {
 	req, err := c.newRequest("POST", url, body)
 	if err != nil {
 		return nil, err
@@ -130,8 +126,8 @@ func (c *Client) Post(url string, body interface{}, v interface{}) (*http.Respon
 	return resp, err
 }
 
-// Patch sends a PATCH request to the API as configured
-func (c *Client) Patch(url string, body interface{}, v interface{}) (*http.Response, error) {
+// patch sends a PATCH request to the API as configured
+func (c *Client) patch(url string, body interface{}, v interface{}) (*http.Response, error) {
 	req, err := c.newRequest("PATCH", url, body)
 	if err != nil {
 		return nil, err
@@ -143,8 +139,8 @@ func (c *Client) Patch(url string, body interface{}, v interface{}) (*http.Respo
 	return resp, err
 }
 
-// Delete sends a DELETE request to the API as configured
-func (c *Client) Delete(url string, body interface{}) (*http.Response, error) {
+// delete sends a DELETE request to the API as configured
+func (c *Client) delete(url string, body interface{}) (*http.Response, error) {
 	req, err := c.newRequest("DELETE", url, body)
 	if err != nil {
 		return nil, err

@@ -91,14 +91,14 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
 func (s *TestflightService) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.Post("betaAppReviewSubmissions", body, res)
+	resp, err := s.client.post("betaAppReviewSubmissions", body, res)
 	return res, resp, err
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
 func (s *TestflightService) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *http.Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
-	resp, err := s.client.GetWithQuery("betaAppReviewSubmissions", params, res)
+	resp, err := s.client.get("betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
@@ -106,7 +106,7 @@ func (s *TestflightService) ListBetaAppReviewSubmissions(params *ListBetaAppRevi
 func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -114,7 +114,7 @@ func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBet
 func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -122,6 +122,6 @@ func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params
 func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

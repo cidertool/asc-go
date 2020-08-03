@@ -36,6 +36,6 @@ type BetaTesterInvitationResponse struct {
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
 func (s *TestflightService) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *http.Response, error) {
 	res := new(BetaTesterInvitationResponse)
-	resp, err := s.client.Post("betaTesterInvitations", body, res)
+	resp, err := s.client.post("betaTesterInvitations", body, res)
 	return res, resp, err
 }

@@ -145,7 +145,7 @@ type ListVisibleAppsByResourceIDQuery struct {
 // ListUsers gets a list of the users on your team.
 func (s *UsersService) ListUsers(params *ListUsersQuery) (*UsersResponse, *http.Response, error) {
 	res := new(UsersResponse)
-	resp, err := s.client.GetWithQuery("users", params, res)
+	resp, err := s.client.get("users", params, res)
 	return res, resp, err
 }
 
@@ -153,7 +153,7 @@ func (s *UsersService) ListUsers(params *ListUsersQuery) (*UsersResponse, *http.
 func (s *UsersService) GetUser(id string, params *GetUserQuery) (*UserResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -161,21 +161,21 @@ func (s *UsersService) GetUser(id string, params *GetUserQuery) (*UserResponse, 
 func (s *UsersService) UpdateUser(id string, body *UserUpdateRequest) (*UserResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // RemoveUser removes a user from your team.
 func (s *UsersService) RemoveUser(id string) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListVisibleAppsForUser gets a list of apps that a user on your team can view.
 func (s *UsersService) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery) (*AppsResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s/visibleApps", id)
 	res := new(AppsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -183,23 +183,23 @@ func (s *UsersService) ListVisibleAppsForUser(id string, params *ListVisibleApps
 func (s *UsersService) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	res := new(UserVisibleAppsLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // AddVisibleAppsForUser gives a user on your team access to one or more apps.
 func (s *UsersService) AddVisibleAppsForUser(id string, linkages *[]RelationshipsData) (*http.Response, error) {
-	return s.client.Post("appStoreReviewDetails", linkages, nil)
+	return s.client.post("appStoreReviewDetails", linkages, nil)
 }
 
 // UpdateVisibleAppsForUser replaces the list of apps a user on your team can see.
 func (s *UsersService) UpdateVisibleAppsForUser(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
-	return s.client.Patch(url, linkages, nil)
+	return s.client.patch(url, linkages, nil)
 }
 
 // RemoveVisibleAppsFromUser removes a user on your team’s access to one or more apps.
 func (s *UsersService) RemoveVisibleAppsFromUser(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }

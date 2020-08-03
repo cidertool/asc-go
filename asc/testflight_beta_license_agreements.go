@@ -78,7 +78,7 @@ type GetBetaLicenseAgreementForAppQuery struct {
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
 func (s *TestflightService) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *http.Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
-	resp, err := s.client.GetWithQuery("betaLicenseAgreements", params, res)
+	resp, err := s.client.get("betaLicenseAgreements", params, res)
 	return res, resp, err
 }
 
@@ -86,7 +86,7 @@ func (s *TestflightService) ListBetaLicenseAgreements(params *ListBetaLicenseAgr
 func (s *TestflightService) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -94,7 +94,7 @@ func (s *TestflightService) GetBetaLicenseAgreement(id string, params *GetBetaLi
 func (s *TestflightService) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -102,7 +102,7 @@ func (s *TestflightService) GetAppForBetaLicenseAgreement(id string, params *Get
 func (s *TestflightService) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -110,6 +110,6 @@ func (s *TestflightService) GetBetaLicenseAgreementForApp(id string, params *Get
 func (s *TestflightService) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }

@@ -188,7 +188,7 @@ type ListBetaTesterIDsForBetaGroupQuery struct {
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.
 func (s *TestflightService) CreateBetaGroup(body *BetaGroupCreateRequest) (*BetaGroupResponse, *http.Response, error) {
 	res := new(BetaGroupResponse)
-	resp, err := s.client.Post("betaGroups", body, res)
+	resp, err := s.client.post("betaGroups", body, res)
 	return res, resp, err
 }
 
@@ -196,20 +196,20 @@ func (s *TestflightService) CreateBetaGroup(body *BetaGroupCreateRequest) (*Beta
 func (s *TestflightService) UpdateBetaGroup(id string, body *BetaGroupUpdateRequest) (*BetaGroupResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteBetaGroup deletes a beta group and remove beta tester access to associated builds.
 func (s *TestflightService) DeleteBetaGroup(id string) (*http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListBetaGroups finds and lists beta groups for all apps.
 func (s *TestflightService) ListBetaGroups(params *ListBetaGroupsQuery) (*BetaGroupsResponse, *http.Response, error) {
 	res := new(BetaGroupsResponse)
-	resp, err := s.client.GetWithQuery("betaGroups", params, res)
+	resp, err := s.client.get("betaGroups", params, res)
 	return res, resp, err
 }
 
@@ -217,7 +217,7 @@ func (s *TestflightService) ListBetaGroups(params *ListBetaGroupsQuery) (*BetaGr
 func (s *TestflightService) GetBetaGroup(id string, params *GetBetaGroupQuery) (*BetaGroupResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -225,7 +225,7 @@ func (s *TestflightService) GetBetaGroup(id string, params *GetBetaGroupQuery) (
 func (s *TestflightService) GetAppForBetaGroup(id string, params *GetAppForBetaGroupQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -233,39 +233,39 @@ func (s *TestflightService) GetAppForBetaGroup(id string, params *GetAppForBetaG
 func (s *TestflightService) ListBetaGroupsForApp(id string, params *ListBetaGroupsForAppQuery) (*BetaGroupsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
 // AddBetaTestersToBetaGroup adds a specific beta tester to one or more beta groups for beta testing.
 func (s *TestflightService) AddBetaTestersToBetaGroup(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
-	return s.client.Post(url, linkages, nil)
+	return s.client.post(url, linkages, nil)
 }
 
 // RemoveBetaTestersFromBetaGroup removes a specific beta tester from a one or more beta groups, revoking their access to test builds associated with those groups.
 func (s *TestflightService) RemoveBetaTestersFromBetaGroup(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }
 
 // AddBuildsToBetaGroup associates builds with a beta group to enable the group to test the builds.
 func (s *TestflightService) AddBuildsToBetaGroup(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
-	return s.client.Post(url, linkages, nil)
+	return s.client.post(url, linkages, nil)
 }
 
 // RemoveBuildsFromBetaGroup removes access to test one or more builds from beta testers in a specific beta group.
 func (s *TestflightService) RemoveBuildsFromBetaGroup(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }
 
 // ListBuildsForBetaGroup gets a list of builds associated with a specific beta group.
 func (s *TestflightService) ListBuildsForBetaGroup(id string, params *ListBuildsForBetaGroupQuery) (*BuildsResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -273,7 +273,7 @@ func (s *TestflightService) ListBuildsForBetaGroup(id string, params *ListBuilds
 func (s *TestflightService) ListBuildIDsForBetaGroup(id string, params *ListBuildIDsForBetaGroupQuery) (*BetaGroupBuildsLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	res := new(BetaGroupBuildsLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -281,7 +281,7 @@ func (s *TestflightService) ListBuildIDsForBetaGroup(id string, params *ListBuil
 func (s *TestflightService) ListBetaTestersForBetaGroup(id string, params *ListBetaTestersForBetaGroupQuery) (*BetaTestersResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/betaTesters", id)
 	res := new(BetaTestersResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -289,6 +289,6 @@ func (s *TestflightService) ListBetaTestersForBetaGroup(id string, params *ListB
 func (s *TestflightService) ListBetaTesterIDsForBetaGroup(id string, params *ListBetaTesterIDsForBetaGroupQuery) (*BetaGroupBetaTestersLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	res := new(BetaGroupBetaTestersLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

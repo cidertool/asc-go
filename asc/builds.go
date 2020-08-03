@@ -211,7 +211,7 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 // ListBuilds finds and lists builds for all apps in App Store Connect.
 func (s *BuildsService) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *http.Response, error) {
 	res := new(BuildsResponse)
-	resp, err := s.client.GetWithQuery("builds", params, res)
+	resp, err := s.client.get("builds", params, res)
 	return res, resp, err
 }
 
@@ -219,7 +219,7 @@ func (s *BuildsService) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *h
 func (s *BuildsService) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -227,7 +227,7 @@ func (s *BuildsService) ListBuildsForApp(id string, params *ListBuildsForAppQuer
 func (s *BuildsService) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -235,7 +235,7 @@ func (s *BuildsService) GetBuild(id string, params *GetBuildsQuery) (*BuildRespo
 func (s *BuildsService) GetAppForBuild(id string, params *GetAppForBuildQuery) (*AppResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -243,7 +243,7 @@ func (s *BuildsService) GetAppForBuild(id string, params *GetAppForBuildQuery) (
 func (s *BuildsService) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*AppStoreVersionResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -251,7 +251,7 @@ func (s *BuildsService) GetAppStoreVersionForBuild(id string, params *GetAppStor
 func (s *BuildsService) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -259,45 +259,45 @@ func (s *BuildsService) GetBuildForAppStoreVersion(id string, params *GetBuildFo
 func (s *BuildsService) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.Post(url, body, res)
+	resp, err := s.client.post(url, body, res)
 	return res, resp, err
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
 func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
-	return s.client.Patch(url, linkages, nil)
+	return s.client.patch(url, linkages, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or create a beta group to a build to enable testing.
 func (s *BuildsService) CreateAccessForBetaGroupsToBuild(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.Post(url, linkages, nil)
+	return s.client.post(url, linkages, nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
 func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
 func (s *BuildsService) CreateAccessForIndividualTestersToBuild(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.Post(url, linkages, nil)
+	return s.client.post(url, linkages, nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
 func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]RelationshipsData) (*http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.Delete(url, linkages)
+	return s.client.delete(url, linkages)
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.
 func (s *BuildsService) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -305,7 +305,7 @@ func (s *BuildsService) ListResourceIDsForIndividualTestersForBuild(id string, p
 func (s *BuildsService) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -313,6 +313,6 @@ func (s *BuildsService) GetAppEncryptionDeclarationForBuild(id string, params *G
 func (s *BuildsService) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *http.Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
-	resp, err := s.client.GetWithQuery(url, nil, res)
+	resp, err := s.client.get(url, nil, res)
 	return res, resp, err
 }

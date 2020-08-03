@@ -92,7 +92,7 @@ type ListAttachmentQuery struct {
 func (s *SubmissionService) GetAttachment(id string, params *ReadAttachmentQuery) (*AppStoreReviewAttachmentResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -102,7 +102,7 @@ func (s *SubmissionService) GetAttachment(id string, params *ReadAttachmentQuery
 func (s *SubmissionService) ListAttachmentsForReviewDetail(id string, params *ListAttachmentQuery) (*AppStoreReviewAttachmentsResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s/appStoreReviewAttachments", id)
 	res := new(AppStoreReviewAttachmentsResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -111,7 +111,7 @@ func (s *SubmissionService) ListAttachmentsForReviewDetail(id string, params *Li
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_attachment
 func (s *SubmissionService) CreateAttachment(body *AppStoreReviewAttachmentCreateRequest) (*AppStoreReviewAttachmentResponse, *http.Response, error) {
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.Post("appStoreReviewAttachments", body, res)
+	resp, err := s.client.post("appStoreReviewAttachments", body, res)
 	return res, resp, err
 }
 
@@ -121,7 +121,7 @@ func (s *SubmissionService) CreateAttachment(body *AppStoreReviewAttachmentCreat
 func (s *SubmissionService) CommitAttachment(id string, body *AppStoreReviewAttachmentUpdateRequest) (*AppStoreReviewAttachmentResponse, *http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
@@ -130,5 +130,5 @@ func (s *SubmissionService) CommitAttachment(id string, body *AppStoreReviewAtta
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_review_attachment
 func (s *SubmissionService) DeleteAttachment(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }

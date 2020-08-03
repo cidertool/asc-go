@@ -131,20 +131,20 @@ type ListDevicesInProfileQuery struct {
 // CreateProfile creates a new provisioning profile.
 func (s *ProvisioningService) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *http.Response, error) {
 	res := new(ProfileResponse)
-	resp, err := s.client.Post("profiles", body, res)
+	resp, err := s.client.post("profiles", body, res)
 	return res, resp, err
 }
 
 // DeleteProfile deletes a provisioning profile that is used for app development or distribution.
 func (s *ProvisioningService) DeleteProfile(id string) (*http.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // ListProfiles finds and list provisioning profiles and download their data.
 func (s *ProvisioningService) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *http.Response, error) {
 	res := new(ProfilesResponse)
-	resp, err := s.client.GetWithQuery("profiles", params, res)
+	resp, err := s.client.get("profiles", params, res)
 	return res, resp, err
 }
 
@@ -152,7 +152,7 @@ func (s *ProvisioningService) ListProfiles(params *ListProfileQuery) (*ProfilesR
 func (s *ProvisioningService) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -160,7 +160,7 @@ func (s *ProvisioningService) GetProfile(id string, params *GetProfileQuery) (*P
 func (s *ProvisioningService) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -168,7 +168,7 @@ func (s *ProvisioningService) GetBundleIDForProfile(id string, params *GetBundle
 func (s *ProvisioningService) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -176,6 +176,6 @@ func (s *ProvisioningService) ListCertificatesInProfile(id string, params *ListC
 func (s *ProvisioningService) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *http.Response, error) {
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

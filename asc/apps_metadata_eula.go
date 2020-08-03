@@ -91,7 +91,7 @@ type GetEULAForAppQuery struct {
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 func (s *AppsService) CreateEULA(id string, body *EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *http.Response, error) {
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.Post("endUserLicenseAgreements", body, res)
+	resp, err := s.client.post("endUserLicenseAgreements", body, res)
 	return res, resp, err
 }
 
@@ -99,21 +99,21 @@ func (s *AppsService) CreateEULA(id string, body *EndUserLicenseAgreementCreateR
 func (s *AppsService) UpdateEULA(id string, body *EndUserLicenseAgreementUpdateRequest) (*EndUserLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.Patch(url, body, res)
+	resp, err := s.client.patch(url, body, res)
 	return res, resp, err
 }
 
 // DeleteEULA deletes the custom end user license agreement that is associated with an app.
 func (s *AppsService) DeleteEULA(id string) (*http.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
-	return s.client.Delete(url, nil)
+	return s.client.delete(url, nil)
 }
 
 // GetEULA gets the custom end user license agreement associated with an app, and the territories it applies to.
 func (s *AppsService) GetEULA(id string, params *GetEULAQuery) (*EndUserLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
 
@@ -121,6 +121,6 @@ func (s *AppsService) GetEULA(id string, params *GetEULAQuery) (*EndUserLicenseA
 func (s *AppsService) GetEULAForApp(id string, params *GetEULAForAppQuery) (*EndUserLicenseAgreementResponse, *http.Response, error) {
 	url := fmt.Sprintf("apps/%s/endUserLicenseAgreement", id)
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.GetWithQuery(url, params, res)
+	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }
