@@ -185,47 +185,47 @@ type AppStoreVersionBuildLinkageResponse struct {
 
 // ListAppStoreVersionsQuery are query options for ListAppStoreVersions
 type ListAppStoreVersionsQuery struct {
-	FieldsApps                          *[]string `url:"fields[apps],omitempty"`
-	FieldsAppStoreVersionSubmissions    *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`
-	FieldsBuilds                        *[]string `url:"fields[builds],omitempty"`
-	FieldsAppStoreVersions              *[]string `url:"fields[appStoreVersions],omitempty"`
-	FieldsAppStoreReviewDetails         *[]string `url:"fields[appStoreReviewDetails],omitempty"`
-	FieldsAgeRatingDeclarations         *[]string `url:"fields[ageRatingDeclarations],omitempty"`
-	FieldsAppStoreVersionPhasedReleases *[]string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
-	FieldsRoutingAppCoverages           *[]string `url:"fields[routingAppCoverages],omitempty"`
-	FieldsIDFADeclarations              *[]string `url:"fields[idfaDeclarations],omitempty"`
-	Limit                               *int      `url:"limit,omitempty"`
-	Include                             *[]string `url:"include,omitempty"`
-	FilterID                            *[]string `url:"filter[id],omitempty"`
-	FilterVersionString                 *[]string `url:"filter[versionString],omitempty"`
-	FilterPlatform                      *[]string `url:"filter[platform],omitempty"`
-	FilterAppStoreState                 *[]string `url:"filter[appStoreState],omitempty"`
-	Cursor                              *string   `url:"cursor,omitempty"`
+	FieldsApps                          []string `url:"fields[apps],omitempty"`
+	FieldsAppStoreVersionSubmissions    []string `url:"fields[appStoreVersionSubmissions],omitempty"`
+	FieldsBuilds                        []string `url:"fields[builds],omitempty"`
+	FieldsAppStoreVersions              []string `url:"fields[appStoreVersions],omitempty"`
+	FieldsAppStoreReviewDetails         []string `url:"fields[appStoreReviewDetails],omitempty"`
+	FieldsAgeRatingDeclarations         []string `url:"fields[ageRatingDeclarations],omitempty"`
+	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
+	FieldsRoutingAppCoverages           []string `url:"fields[routingAppCoverages],omitempty"`
+	FieldsIDFADeclarations              []string `url:"fields[idfaDeclarations],omitempty"`
+	Limit                               int      `url:"limit,omitempty"`
+	Include                             []string `url:"include,omitempty"`
+	FilterID                            []string `url:"filter[id],omitempty"`
+	FilterVersionString                 []string `url:"filter[versionString],omitempty"`
+	FilterPlatform                      []string `url:"filter[platform],omitempty"`
+	FilterAppStoreState                 []string `url:"filter[appStoreState],omitempty"`
+	Cursor                              string   `url:"cursor,omitempty"`
 }
 
 // GetAppStoreVersionQuery are query options for GetAppStoreVersion
 type GetAppStoreVersionQuery struct {
-	FieldsAppStoreVersions              *[]string `url:"fields[appStoreVersions],omitempty"`
-	FieldsAppStoreVersionSubmissions    *[]string `url:"fields[appStoreVersionSubmissions],omitempty"`
-	FieldsBuilds                        *[]string `url:"fields[builds],omitempty"`
-	FieldsAppStoreReviewDetails         *[]string `url:"fields[appStoreReviewDetails],omitempty"`
-	FieldsAgeRatingDeclarations         *[]string `url:"fields[ageRatingDeclarations],omitempty"`
-	FieldsAppStoreVersionPhasedReleases *[]string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
-	FieldsRoutingAppCoverages           *[]string `url:"fields[routingAppCoverages],omitempty"`
-	FieldsIDFADeclarations              *[]string `url:"fields[idfaDeclarations],omitempty"`
-	FieldsAppStoreVersionLocalizations  *[]string `url:"fields[appStoreVersionLocalizations],omitempty"`
-	Include                             *[]string `url:"include,omitempty"`
-	LimitAppStoreVersionLocalizations   *int      `url:"limit[appStoreVersionLocalizations],omitempty"`
+	FieldsAppStoreVersions              []string `url:"fields[appStoreVersions],omitempty"`
+	FieldsAppStoreVersionSubmissions    []string `url:"fields[appStoreVersionSubmissions],omitempty"`
+	FieldsBuilds                        []string `url:"fields[builds],omitempty"`
+	FieldsAppStoreReviewDetails         []string `url:"fields[appStoreReviewDetails],omitempty"`
+	FieldsAgeRatingDeclarations         []string `url:"fields[ageRatingDeclarations],omitempty"`
+	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
+	FieldsRoutingAppCoverages           []string `url:"fields[routingAppCoverages],omitempty"`
+	FieldsIDFADeclarations              []string `url:"fields[idfaDeclarations],omitempty"`
+	FieldsAppStoreVersionLocalizations  []string `url:"fields[appStoreVersionLocalizations],omitempty"`
+	Include                             []string `url:"include,omitempty"`
+	LimitAppStoreVersionLocalizations   int      `url:"limit[appStoreVersionLocalizations],omitempty"`
 }
 
 // GetAgeRatingDeclarationForAppStoreVersionQuery are query options for GetAgeRatingDeclarationForAppStoreVersion
 type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
-	FieldsAgeRatingDeclarations *[]string `url:"fields[ageRatingDeclarations],omitempty"`
+	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
 }
 
 // GetRoutingAppCoverageForVersionQuery are query options for GetRoutingAppCoverageForVersion
 type GetRoutingAppCoverageForVersionQuery struct {
-	FieldsRoutingAppCoverages *[]string `url:"fields[routingAppCoverages],omitempty"`
+	FieldsRoutingAppCoverages []string `url:"fields[routingAppCoverages],omitempty"`
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.

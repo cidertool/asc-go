@@ -78,18 +78,18 @@ type AppInfoLocalizationsResponse struct {
 
 // ListAppInfoLocalizationsForAppInfoQuery are query options for ListAppInfoLocalizationsForAppInfo
 type ListAppInfoLocalizationsForAppInfoQuery struct {
-	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
-	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
-	FilterLocale               *[]string `url:"filter[locale],omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
+	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Include                    []string `url:"include,omitempty"`
+	FilterLocale               []string `url:"filter[locale],omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // GetAppInfoLocalizationQuery are query options for GetAppInfoLocalization
 type GetAppInfoLocalizationQuery struct {
-	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
+	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
+	Include                    []string `url:"include,omitempty"`
 }
 
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.

@@ -87,18 +87,18 @@ type AppStoreReviewDetailResponse struct {
 
 // GetReviewDetailQuery are query options for GetReviewDetail
 type GetReviewDetailQuery struct {
-	FieldsAppStoreReviewDetails     *[]string `url:"fields[appStoreReviewDetails],omitempty"`
-	FieldsAppStoreReviewAttachments *[]string `url:"fields[appStoreReviewAttachments],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	LimitAppStoreReviewAttachments  *int      `url:"limit[appStoreReviewAttachments],omitempty"`
+	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
+	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	LimitAppStoreReviewAttachments  int      `url:"limit[appStoreReviewAttachments],omitempty"`
 }
 
 // GetAppStoreReviewDetailsForAppStoreVersionQuery are query options for GetAppStoreReviewDetailsForAppStoreVersion
 type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
-	FieldsAppStoreReviewAttachments *[]string `url:"fields[appStoreReviewAttachments],omitempty"`
-	FieldsAppStoreReviewDetails     *[]string `url:"fields[appStoreReviewDetails],omitempty"`
-	FieldsAppStoreVersions          *[]string `url:"fields[appStoreVersions],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
+	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
+	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
+	FieldsAppStoreVersions          []string `url:"fields[appStoreVersions],omitempty"`
+	Include                         []string `url:"include,omitempty"`
 }
 
 // CreateReviewDetail adds App Store review details to an App Store version, including contact and demo account information.

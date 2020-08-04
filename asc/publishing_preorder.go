@@ -61,13 +61,13 @@ type AppPreOrderResponse struct {
 
 // GetPreOrderQuery are query options for GetPreOrder
 type GetPreOrderQuery struct {
-	FieldsAppPreOrders *[]string `url:"fields[appPreOrders],omitempty"`
-	Include            *[]string `url:"include,omitempty"`
+	FieldsAppPreOrders []string `url:"fields[appPreOrders],omitempty"`
+	Include            []string `url:"include,omitempty"`
 }
 
 // GetPreOrderForAppQuery are query options for GetPreOrderForApp
 type GetPreOrderForAppQuery struct {
-	FieldsAppPreOrders *[]string `url:"fields[appPreOrders],omitempty"`
+	FieldsAppPreOrders []string `url:"fields[appPreOrders],omitempty"`
 }
 
 // GetPreOrder gets information about your app's pre-order configuration.

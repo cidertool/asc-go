@@ -50,29 +50,29 @@ type BetaLicenseAgreementResponse struct {
 
 // ListBetaLicenseAgreementsQuery defines model for ListBetaLicenseAgreements
 type ListBetaLicenseAgreementsQuery struct {
-	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
-	FilterApp                   *[]string `url:"filter[app],omitempty"`
-	Include                     *[]string `url:"include,omitempty"`
-	Limit                       *int      `url:"limit,omitempty"`
-	Cursor                      *string   `url:"cursor,omitempty"`
+	FieldsApps                  []string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
+	FilterApp                   []string `url:"filter[app],omitempty"`
+	Include                     []string `url:"include,omitempty"`
+	Limit                       int      `url:"limit,omitempty"`
+	Cursor                      string   `url:"cursor,omitempty"`
 }
 
 // GetBetaLicenseAgreementQuery defines model for GetBetaLicenseAgreement
 type GetBetaLicenseAgreementQuery struct {
-	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
-	Include                     *[]string `url:"include,omitempty"`
+	FieldsApps                  []string `url:"fields[apps],omitempty"`
+	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
+	Include                     []string `url:"include,omitempty"`
 }
 
 // GetAppForBetaLicenseAgreementQuery defines model for GetAppForBetaLicenseAgreement
 type GetAppForBetaLicenseAgreementQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetBetaLicenseAgreementForAppQuery defines model for GetBetaLicenseAgreementForApp
 type GetBetaLicenseAgreementForAppQuery struct {
-	FieldsBetaLicenseAgreements *[]string `url:"fields[betaLicenseAgreements],omitempty"`
+	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
 }
 
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.

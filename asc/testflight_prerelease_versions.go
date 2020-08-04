@@ -44,53 +44,53 @@ type PrereleaseVersionsResponse struct {
 
 // ListPrereleaseVersionsQuery defines model for ListPrereleaseVersions
 type ListPrereleaseVersionsQuery struct {
-	FieldsApps                  *[]string `url:"fields[apps],omitempty"`
-	FieldsBuilds                *[]string `url:"fields[builds],omitempty"`
-	FieldsPreReleaseVersions    *[]string `url:"fields[preReleaseVersions],omitempty"`
-	FilterApp                   *[]string `url:"filter[app],omitempty"`
-	FilterBuilds                *[]string `url:"filter[builds],omitempty"`
-	FilterBuildsExpired         *[]string `url:"filter[builds.expired],omitempty"`
-	FilterBuildsProcessingState *[]string `url:"filter[builds.processingState],omitempty"`
-	FilterPlatform              *[]string `url:"filter[platform],omitempty"`
-	FilterVersion               *[]string `url:"filter[version],omitempty"`
-	Include                     *[]string `url:"include,omitempty"`
-	Sort                        *[]string `url:"sort,omitempty"`
-	Limit                       *int      `url:"limit,omitempty"`
-	LimitBuilds                 *int      `url:"limit[builds],omitempty"`
-	Cursor                      *string   `url:"cursor,omitempty"`
+	FieldsApps                  []string `url:"fields[apps],omitempty"`
+	FieldsBuilds                []string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions    []string `url:"fields[preReleaseVersions],omitempty"`
+	FilterApp                   []string `url:"filter[app],omitempty"`
+	FilterBuilds                []string `url:"filter[builds],omitempty"`
+	FilterBuildsExpired         []string `url:"filter[builds.expired],omitempty"`
+	FilterBuildsProcessingState []string `url:"filter[builds.processingState],omitempty"`
+	FilterPlatform              []string `url:"filter[platform],omitempty"`
+	FilterVersion               []string `url:"filter[version],omitempty"`
+	Include                     []string `url:"include,omitempty"`
+	Sort                        []string `url:"sort,omitempty"`
+	Limit                       int      `url:"limit,omitempty"`
+	LimitBuilds                 int      `url:"limit[builds],omitempty"`
+	Cursor                      string   `url:"cursor,omitempty"`
 }
 
 // GetPrereleaseVersionQuery defines model for GetPrereleaseVersion
 type GetPrereleaseVersionQuery struct {
-	FieldsApps               *[]string `url:"fields[apps],omitempty"`
-	FieldsBuilds             *[]string `url:"fields[builds],omitempty"`
-	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
-	Include                  *[]string `url:"include,omitempty"`
-	LimitBuilds              *int      `url:"limit[builds],omitempty"`
+	FieldsApps               []string `url:"fields[apps],omitempty"`
+	FieldsBuilds             []string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions []string `url:"fields[preReleaseVersions],omitempty"`
+	Include                  []string `url:"include,omitempty"`
+	LimitBuilds              int      `url:"limit[builds],omitempty"`
 }
 
 // GetAppForPrereleaseVersionQuery defines model for GetAppForPrereleaseVersion
 type GetAppForPrereleaseVersionQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListPrereleaseVersionsForAppQuery defines model for ListPrereleaseVersionsForApp
 type ListPrereleaseVersionsForAppQuery struct {
-	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
-	Limit                    *int      `url:"limit,omitempty"`
-	Cursor                   *string   `url:"cursor,omitempty"`
+	FieldsPreReleaseVersions []string `url:"fields[preReleaseVersions],omitempty"`
+	Limit                    int      `url:"limit,omitempty"`
+	Cursor                   string   `url:"cursor,omitempty"`
 }
 
 // ListBuildsForPrereleaseVersionQuery defines model for ListBuildsForPrereleaseVersion
 type ListBuildsForPrereleaseVersionQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
-	Limit        *int      `url:"limit,omitempty"`
-	Cursor       *string   `url:"cursor,omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
+	Limit        int      `url:"limit,omitempty"`
+	Cursor       string   `url:"cursor,omitempty"`
 }
 
 // GetPrereleaseVersionForBuildQuery defines model for GetPrereleaseVersionForBuild
 type GetPrereleaseVersionForBuildQuery struct {
-	FieldsPreReleaseVersions *[]string `url:"fields[preReleaseVersions],omitempty"`
+	FieldsPreReleaseVersions []string `url:"fields[preReleaseVersions],omitempty"`
 }
 
 // ListPrereleaseVersions gets a list of prerelease versions for all apps.

@@ -76,8 +76,8 @@ type AppScreenshotsResponse struct {
 
 // GetAppScreenshotQuery are query options for GetAppScreenshot
 type GetAppScreenshotQuery struct {
-	FieldsAppScreenshots *[]string `url:"fields[appScreenshots],omitempty"`
-	Include              *[]string `url:"include,omitempty"`
+	FieldsAppScreenshots []string `url:"fields[appScreenshots],omitempty"`
+	Include              []string `url:"include,omitempty"`
 }
 
 // GetAppScreenshot gets information about an app screenshot and its upload and processing status.

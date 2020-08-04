@@ -83,32 +83,32 @@ type BetaAppLocalizationsResponse struct {
 
 // ListBetaAppLocalizationsQuery defines model for ListBetaAppLocalizations
 type ListBetaAppLocalizationsQuery struct {
-	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
-	FilterApp                  *[]string `url:"filter[app],omitempty"`
-	FilterLocale               *[]string `url:"filter[locale],omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsApps                 []string `url:"fields[apps],omitempty"`
+	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Include                    []string `url:"include,omitempty"`
+	FilterApp                  []string `url:"filter[app],omitempty"`
+	FilterLocale               []string `url:"filter[locale],omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // GetBetaAppLocalizationQuery defines model for GetBetaAppLocalization
 type GetBetaAppLocalizationQuery struct {
-	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
+	FieldsApps                 []string `url:"fields[apps],omitempty"`
+	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
+	Include                    []string `url:"include,omitempty"`
 }
 
 // GetAppForBetaAppLocalizationQuery defines model for GetAppForBetaAppLocalization
 type GetAppForBetaAppLocalizationQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListBetaAppLocalizationsForAppQuery defines model for ListBetaAppLocalizationsForApp
 type ListBetaAppLocalizationsForAppQuery struct {
-	FieldsBetaAppLocalizations *[]string `url:"fields[betaAppLocalizations],omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.

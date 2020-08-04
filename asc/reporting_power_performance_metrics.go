@@ -60,24 +60,24 @@ type PerfPowerMetricsResponse struct {
 
 // GetPerfPowerMetricsQuery are query options for GetPerfPowerMetrics
 type GetPerfPowerMetricsQuery struct {
-	FilterDeviceType *[]string `url:"filter[deviceType],omitempty"`
-	FilterMetricType *[]string `url:"filter[metricType],omitempty"`
-	FilterPlatform   *[]string `url:"filter[platform],omitempty"`
-	Cursor           *string   `url:"cursor,omitempty"`
+	FilterDeviceType []string `url:"filter[deviceType],omitempty"`
+	FilterMetricType []string `url:"filter[metricType],omitempty"`
+	FilterPlatform   []string `url:"filter[platform],omitempty"`
+	Cursor           string   `url:"cursor,omitempty"`
 }
 
 // ListDiagnosticsSignaturesQuery are query options for ListDiagnosticsSignatures
 type ListDiagnosticsSignaturesQuery struct {
-	FieldsDiagnosticSignatures *[]string `url:"fields[diagnosticSignatures],omitempty"`
-	FilterDiagnosticType       *[]string `url:"filter[diagnosticType],omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsDiagnosticSignatures []string `url:"fields[diagnosticSignatures],omitempty"`
+	FilterDiagnosticType       []string `url:"filter[diagnosticType],omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // GetLogsForDiagnosticSignatureQuery are query options for GetLogsForDiagnosticSignature
 type GetLogsForDiagnosticSignatureQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // GetPerfPowerMetricsForApp gets the performance and power metrics data for the most recent versions of an app.

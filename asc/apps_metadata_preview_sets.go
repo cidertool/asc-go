@@ -69,25 +69,25 @@ type AppPreviewSetAppPreviewsLinkagesResponse struct {
 
 // GetAppPreviewSetQuery are query options for GetAppPreviewSet
 type GetAppPreviewSetQuery struct {
-	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
-	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
-	Include              *[]string `url:"include,omitempty"`
-	LimitAppPreviews     *int      `url:"limit[appPreviews],omitempty"`
+	FieldsAppPreviews    []string `url:"fields[appPreviews],omitempty"`
+	FieldsAppPreviewSets []string `url:"fields[appPreviewSets],omitempty"`
+	Include              []string `url:"include,omitempty"`
+	LimitAppPreviews     int      `url:"limit[appPreviews],omitempty"`
 }
 
 // ListAppPreviewsForSetQuery are query options for ListAppPreviewsForSet
 type ListAppPreviewsForSetQuery struct {
-	FieldsAppPreviewSets *[]string `url:"fields[appPreviewSets],omitempty"`
-	FieldsAppPreviews    *[]string `url:"fields[appPreviews],omitempty"`
-	Limit                *int      `url:"limit,omitempty"`
-	Include              *[]string `url:"include,omitempty"`
-	Cursor               *string   `url:"cursor,omitempty"`
+	FieldsAppPreviewSets []string `url:"fields[appPreviewSets],omitempty"`
+	FieldsAppPreviews    []string `url:"fields[appPreviews],omitempty"`
+	Limit                int      `url:"limit,omitempty"`
+	Include              []string `url:"include,omitempty"`
+	Cursor               string   `url:"cursor,omitempty"`
 }
 
 // ListAppPreviewIDsForSetQuery are query options for ListAppPreviewIDsForSet
 type ListAppPreviewIDsForSetQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // GetAppPreviewSet gets an app preview set including its display target, language, and the preview it contains.
@@ -99,7 +99,7 @@ func (s *AppsService) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery)
 }
 
 // CreateAppPreviewSet adds a new preview set to an App Store version localization for a specific preview type and display size.
-func (s *AppsService) CreateAppPreviewSet(id string, body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *http.Response, error) {
+func (s *AppsService) CreateAppPreviewSet(body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *http.Response, error) {
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.post("appPreviewSets", body, res)
 	return res, resp, err

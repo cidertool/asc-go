@@ -122,90 +122,90 @@ type BuildIndividualTestersLinkagesResponse struct {
 
 // ListBuildsQuery are query options for ListBuilds
 type ListBuildsQuery struct {
-	FieldsAppEncryptionDeclarations          *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
-	FieldsApps                               *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaTesters                        *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds                             *[]string `url:"fields[builds],omitempty"`
-	FieldsPreReleaseVersions                 *[]string `url:"fields[preReleaseVersions],omitempty"`
-	FieldsBuildBetaDetails                   *[]string `url:"fields[buildBetaDetails],omitempty"`
-	FieldsBetaAppReviewSubmissions           *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
-	FieldsBetaBuildLocalizations             *[]string `url:"fields[betaBuildLocalizations],omitempty"`
-	FieldsDiagnosticSignatures               *[]string `url:"fields[diagnosticSignatures],omitempty"`
-	FieldsAppStoreVersions                   *[]string `url:"fields[appStoreVersions],omitempty"`
-	FieldsPerfPowerMetrics                   *[]string `url:"fields[perfPowerMetrics],omitempty"`
-	FieldsBuildIcons                         *[]string `url:"fields[buildIcons],omitempty"`
-	FilterApp                                *[]string `url:"filter[app],omitempty"`
-	FilterExpired                            *[]string `url:"filter[expired],omitempty"`
-	FilterID                                 *[]string `url:"filter[id],omitempty"`
-	FilterPreReleaseVersion                  *[]string `url:"filter[preReleaseVersion],omitempty"`
-	FilterProcessingState                    *[]string `url:"filter[processingState],omitempty"`
-	FilterVersion                            *[]string `url:"filter[version],omitempty"`
-	FilterUsesNonExemptEncryption            *[]string `url:"filter[usesNonExemptEncryption],omitempty"`
-	FilterPreReleaseVersionVersion           *[]string `url:"filter[preReleaseVersion.version],omitempty"`
-	FilterPreReleaseVersionPlatform          *[]string `url:"filter[preReleaseVersion.platform],omitempty"`
-	FilterBetaGroups                         *[]string `url:"filter[betaGroups],omitempty"`
-	FilterBetaAppReviewSubmissionReviewState *[]string `url:"filter[betaAppReviewSubmission.betaReviewState],omitempty"`
-	FilterAppStoreVersion                    *[]string `url:"filter[appStoreVersion],omitempty"`
-	Include                                  *[]string `url:"include,omitempty"`
-	Sort                                     *[]string `url:"sort,omitempty"`
-	Limit                                    *int      `url:"limit,omitempty"`
-	LimitIndividualTesters                   *int      `url:"limit[individualTesters],omitempty"`
-	LimitBetaBuildLocalizations              *int      `url:"limit[betaBuildLocalizations],omitempty"`
-	LimitIcons                               *int      `url:"limit[icons],omitempty"`
-	Cursor                                   *string   `url:"cursor,omitempty"`
+	FieldsAppEncryptionDeclarations          []string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                               []string `url:"fields[apps],omitempty"`
+	FieldsBetaTesters                        []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds                             []string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions                 []string `url:"fields[preReleaseVersions],omitempty"`
+	FieldsBuildBetaDetails                   []string `url:"fields[buildBetaDetails],omitempty"`
+	FieldsBetaAppReviewSubmissions           []string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	FieldsBetaBuildLocalizations             []string `url:"fields[betaBuildLocalizations],omitempty"`
+	FieldsDiagnosticSignatures               []string `url:"fields[diagnosticSignatures],omitempty"`
+	FieldsAppStoreVersions                   []string `url:"fields[appStoreVersions],omitempty"`
+	FieldsPerfPowerMetrics                   []string `url:"fields[perfPowerMetrics],omitempty"`
+	FieldsBuildIcons                         []string `url:"fields[buildIcons],omitempty"`
+	FilterApp                                []string `url:"filter[app],omitempty"`
+	FilterExpired                            []string `url:"filter[expired],omitempty"`
+	FilterID                                 []string `url:"filter[id],omitempty"`
+	FilterPreReleaseVersion                  []string `url:"filter[preReleaseVersion],omitempty"`
+	FilterProcessingState                    []string `url:"filter[processingState],omitempty"`
+	FilterVersion                            []string `url:"filter[version],omitempty"`
+	FilterUsesNonExemptEncryption            []string `url:"filter[usesNonExemptEncryption],omitempty"`
+	FilterPreReleaseVersionVersion           []string `url:"filter[preReleaseVersion.version],omitempty"`
+	FilterPreReleaseVersionPlatform          []string `url:"filter[preReleaseVersion.platform],omitempty"`
+	FilterBetaGroups                         []string `url:"filter[betaGroups],omitempty"`
+	FilterBetaAppReviewSubmissionReviewState []string `url:"filter[betaAppReviewSubmission.betaReviewState],omitempty"`
+	FilterAppStoreVersion                    []string `url:"filter[appStoreVersion],omitempty"`
+	Include                                  []string `url:"include,omitempty"`
+	Sort                                     []string `url:"sort,omitempty"`
+	Limit                                    int      `url:"limit,omitempty"`
+	LimitIndividualTesters                   int      `url:"limit[individualTesters],omitempty"`
+	LimitBetaBuildLocalizations              int      `url:"limit[betaBuildLocalizations],omitempty"`
+	LimitIcons                               int      `url:"limit[icons],omitempty"`
+	Cursor                                   string   `url:"cursor,omitempty"`
 }
 
 // ListBuildsForAppQuery are query options for ListBuildsForApp
 type ListBuildsForAppQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
-	Limit        *int      `url:"limit,omitempty"`
-	Cursor       *string   `url:"cursor,omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
+	Limit        int      `url:"limit,omitempty"`
+	Cursor       string   `url:"cursor,omitempty"`
 }
 
 // GetBuildsQuery are query options for GetBuilds
 type GetBuildsQuery struct {
-	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
-	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaTesters               *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds                    *[]string `url:"fields[builds],omitempty"`
-	FieldsPreReleaseVersions        *[]string `url:"fields[preReleaseVersions],omitempty"`
-	FieldsBuildBetaDetails          *[]string `url:"fields[buildBetaDetails],omitempty"`
-	FieldsBetaAppReviewSubmissions  *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
-	FieldsBetaBuildLocalizations    *[]string `url:"fields[betaBuildLocalizations],omitempty"`
-	FieldsDiagnosticSignatures      *[]string `url:"fields[diagnosticSignatures],omitempty"`
-	FieldsAppStoreVersions          *[]string `url:"fields[appStoreVersions],omitempty"`
-	FieldsPerfPowerMetrics          *[]string `url:"fields[perfPowerMetrics],omitempty"`
-	FieldsBuildIcons                *[]string `url:"fields[buildIcons],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	LimitIndividualTesters          *int      `url:"limit[individualTesters],omitempty"`
-	LimitBetaBuildLocalizations     *int      `url:"limit[betaBuildLocalizations],omitempty"`
-	LimitIcons                      *int      `url:"limit[icons],omitempty"`
+	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                      []string `url:"fields[apps],omitempty"`
+	FieldsBetaTesters               []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds                    []string `url:"fields[builds],omitempty"`
+	FieldsPreReleaseVersions        []string `url:"fields[preReleaseVersions],omitempty"`
+	FieldsBuildBetaDetails          []string `url:"fields[buildBetaDetails],omitempty"`
+	FieldsBetaAppReviewSubmissions  []string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	FieldsBetaBuildLocalizations    []string `url:"fields[betaBuildLocalizations],omitempty"`
+	FieldsDiagnosticSignatures      []string `url:"fields[diagnosticSignatures],omitempty"`
+	FieldsAppStoreVersions          []string `url:"fields[appStoreVersions],omitempty"`
+	FieldsPerfPowerMetrics          []string `url:"fields[perfPowerMetrics],omitempty"`
+	FieldsBuildIcons                []string `url:"fields[buildIcons],omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	LimitIndividualTesters          int      `url:"limit[individualTesters],omitempty"`
+	LimitBetaBuildLocalizations     int      `url:"limit[betaBuildLocalizations],omitempty"`
+	LimitIcons                      int      `url:"limit[icons],omitempty"`
 }
 
 // GetAppForBuildQuery are query options for GetAppForBuild
 type GetAppForBuildQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetAppStoreVersionForBuildQuery are query options for GetAppStoreVersionForBuild
 type GetAppStoreVersionForBuildQuery struct {
-	FieldsAppStoreVersions *[]string `url:"fields[appStoreVersions],omitempty"`
+	FieldsAppStoreVersions []string `url:"fields[appStoreVersions],omitempty"`
 }
 
 // GetBuildForAppStoreVersionQuery are query options for GetBuildForAppStoreVersion
 type GetBuildForAppStoreVersionQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // ListResourceIDsForIndividualTestersForBuildQuery are query options for ListResourceIDsForIndividualTestersForBuild
 type ListResourceIDsForIndividualTestersForBuildQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // GetAppEncryptionDeclarationForBuildQuery are query options for GetAppEncryptionDeclarationForBuild
 type GetAppEncryptionDeclarationForBuildQuery struct {
-	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 }
 
 // ListBuilds finds and lists builds for all apps in App Store Connect.

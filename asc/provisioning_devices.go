@@ -63,20 +63,20 @@ type DevicesResponse struct {
 
 // ListDevicesQuery are query options for ListDevices
 type ListDevicesQuery struct {
-	FieldsDevices  *[]string `url:"fields[devices],omitempty"`
-	FilterID       *[]string `url:"filter[id],omitempty"`
-	FilterName     *[]string `url:"filter[name],omitempty"`
-	FilterPlatform *[]string `url:"filter[platform],omitempty"`
-	FilterStatus   *[]string `url:"filter[status],omitempty"`
-	FilterUDID     *[]string `url:"filter[udid],omitempty"`
-	Limit          *int      `url:"limit,omitempty"`
-	Sort           *[]string `url:"sort,omitempty"`
-	Cursor         *string   `url:"cursor,omitempty"`
+	FieldsDevices  []string `url:"fields[devices],omitempty"`
+	FilterID       []string `url:"filter[id],omitempty"`
+	FilterName     []string `url:"filter[name],omitempty"`
+	FilterPlatform []string `url:"filter[platform],omitempty"`
+	FilterStatus   []string `url:"filter[status],omitempty"`
+	FilterUDID     []string `url:"filter[udid],omitempty"`
+	Limit          int      `url:"limit,omitempty"`
+	Sort           []string `url:"sort,omitempty"`
+	Cursor         string   `url:"cursor,omitempty"`
 }
 
 // GetDeviceQuery are query options for GetDevice
 type GetDeviceQuery struct {
-	FieldsDevices *[]string `url:"fields[devices],omitempty"`
+	FieldsDevices []string `url:"fields[devices],omitempty"`
 }
 
 // CreateDevice registers a new device for app development.

@@ -15,12 +15,12 @@ type DownloadFinanceReportsQuery struct {
 
 // DownloadSalesAndTrendsReportsQuery are query options for DownloadSalesAndTrendsReports
 type DownloadSalesAndTrendsReportsQuery struct {
-	FilterFrequency     []string  `url:"filter[frequency]"`
-	FilterReportDate    *[]string `url:"filter[reportDate],omitempty"`
-	FilterReportSubType []string  `url:"filter[reportSubType]"`
-	FilterReportType    []string  `url:"filter[reportType]"`
-	FilterVendorNumber  []string  `url:"filter[vendorNumber]"`
-	FilterVersion       *[]string `url:"filter[version],omitempty"`
+	FilterFrequency     []string `url:"filter[frequency]"`
+	FilterReportDate    []string `url:"filter[reportDate],omitempty"`
+	FilterReportSubType []string `url:"filter[reportSubType]"`
+	FilterReportType    []string `url:"filter[reportType]"`
+	FilterVendorNumber  []string `url:"filter[vendorNumber]"`
+	FilterVersion       []string `url:"filter[version],omitempty"`
 }
 
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.

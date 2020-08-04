@@ -73,17 +73,17 @@ type AppStoreReviewAttachmentsResponse struct {
 
 // ReadAttachmentQuery are query options forGetAttachment
 type ReadAttachmentQuery struct {
-	FieldsAppStoreReviewAttachments *[]string `url:"fields[appStoreReviewAttachments],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
+	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
+	Include                         []string `url:"include,omitempty"`
 }
 
 // ListAttachmentQuery are query options for ListAttachmentsForReviewDetail
 type ListAttachmentQuery struct {
-	FieldsAppStoreReviewAttachments *[]string `url:"fields[appStoreReviewAttachments],omitempty"`
-	FieldsAppStoreReviewDetails     *[]string `url:"fields[appStoreReviewDetails],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	Limit                           *int      `url:"limit,omitempty"`
-	Cursor                          *string   `url:"cursor,omitempty"`
+	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
+	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	Limit                           int      `url:"limit,omitempty"`
+	Cursor                          string   `url:"cursor,omitempty"`
 }
 
 // GetAttachment gets information about an App Store review attachment and its upload and processing status.

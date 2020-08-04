@@ -85,30 +85,30 @@ type BuildBetaDetailsResponse struct {
 
 // ListBuildBetaDetailsQuery defines model for ListBuildBetaDetails
 type ListBuildBetaDetailsQuery struct {
-	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
-	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
-	FilterID               *[]string `url:"filter[id],omitempty"`
-	FilterBuild            *[]string `url:"filter[build],omitempty"`
-	Include                *[]string `url:"include,omitempty"`
-	Limit                  *int      `url:"limit,omitempty"`
-	Cursor                 *string   `url:"cursor,omitempty"`
+	FieldsBuilds           []string `url:"fields[builds],omitempty"`
+	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
+	FilterID               []string `url:"filter[id],omitempty"`
+	FilterBuild            []string `url:"filter[build],omitempty"`
+	Include                []string `url:"include,omitempty"`
+	Limit                  int      `url:"limit,omitempty"`
+	Cursor                 string   `url:"cursor,omitempty"`
 }
 
 // GetBuildBetaDetailsQuery defines model for GetBuildBetaDetails
 type GetBuildBetaDetailsQuery struct {
-	FieldsBuilds           *[]string `url:"fields[builds],omitempty"`
-	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
-	Include                *[]string `url:"include,omitempty"`
+	FieldsBuilds           []string `url:"fields[builds],omitempty"`
+	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
+	Include                []string `url:"include,omitempty"`
 }
 
 // GetBuildForBuildBetaDetailQuery defines model for GetBuildForBuildBetaDetail
 type GetBuildForBuildBetaDetailQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // GetBuildBetaDetailForBuildQuery defines model for GetBuildBetaDetailForBuild
 type GetBuildBetaDetailForBuildQuery struct {
-	FieldsBuildBetaDetails *[]string `url:"fields[buildBetaDetails],omitempty"`
+	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.

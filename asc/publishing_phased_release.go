@@ -72,7 +72,7 @@ type AppStoreVersionPhasedReleaseUpdateRequestAttributes struct {
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery are query options for GetAppStoreVersionPhasedReleaseForAppStoreVersion
 type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
-	FieldsAppStoreVersionPhasedReleases *[]string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
+	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 }
 
 // CreatePhasedRelease enables phased release for an App Store version.

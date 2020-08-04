@@ -45,35 +45,35 @@ type GameCenterEnabledVersionsResponse struct {
 
 // ListGameCenterEnabledVersionsForAppQuery are query options for ListGameCenterEnabledVersionsForApp
 type ListGameCenterEnabledVersionsForAppQuery struct {
-	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
-	FieldsGameCenterEnabledVersions *[]string `url:"fields[gameCenterEnabledVersions],omitempty"`
-	Limit                           *int      `url:"limit,omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	Sort                            *[]string `url:"sort,omitempty"`
-	FilterID                        *[]string `url:"filter[id],omitempty"`
-	FilterPlatform                  *[]string `url:"filter[platform],omitempty"`
-	FilterVersionString             *[]string `url:"filter[versionString],omitempty"`
-	Cursor                          *string   `url:"cursor,omitempty"`
+	FieldsApps                      []string `url:"fields[apps],omitempty"`
+	FieldsGameCenterEnabledVersions []string `url:"fields[gameCenterEnabledVersions],omitempty"`
+	Limit                           int      `url:"limit,omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	Sort                            []string `url:"sort,omitempty"`
+	FilterID                        []string `url:"filter[id],omitempty"`
+	FilterPlatform                  []string `url:"filter[platform],omitempty"`
+	FilterVersionString             []string `url:"filter[versionString],omitempty"`
+	Cursor                          string   `url:"cursor,omitempty"`
 }
 
 // ListCompatibleVersionsForGameCenterEnabledVersionQuery are query options for ListCompatibleVersionsForGameCenterEnabledVersion
 type ListCompatibleVersionsForGameCenterEnabledVersionQuery struct {
-	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
-	FieldsGameCenterEnabledVersions *[]string `url:"fields[gameCenterEnabledVersions],omitempty"`
-	Limit                           *int      `url:"limit,omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	Sort                            *[]string `url:"sort,omitempty"`
-	FilterApp                       *[]string `url:"filter[app],omitempty"`
-	FilterID                        *[]string `url:"filter[id],omitempty"`
-	FilterPlatform                  *[]string `url:"filter[platform],omitempty"`
-	FilterVersionString             *[]string `url:"filter[versionString],omitempty"`
-	Cursor                          *string   `url:"cursor,omitempty"`
+	FieldsApps                      []string `url:"fields[apps],omitempty"`
+	FieldsGameCenterEnabledVersions []string `url:"fields[gameCenterEnabledVersions],omitempty"`
+	Limit                           int      `url:"limit,omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	Sort                            []string `url:"sort,omitempty"`
+	FilterApp                       []string `url:"filter[app],omitempty"`
+	FilterID                        []string `url:"filter[id],omitempty"`
+	FilterPlatform                  []string `url:"filter[platform],omitempty"`
+	FilterVersionString             []string `url:"filter[versionString],omitempty"`
+	Cursor                          string   `url:"cursor,omitempty"`
 }
 
 // ListCompatibleVersionIDsForGameCenterEnabledVersionQuery are query options for ListCompatibleVersionIDsForGameCenterEnabledVersion
 type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListGameCenterEnabledVersionsForApp lists the versions for a given app that are enabled for Game Center

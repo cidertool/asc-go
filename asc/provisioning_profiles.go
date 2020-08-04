@@ -82,50 +82,50 @@ type ProfilesResponse struct {
 
 // ListProfileQuery are query options for ListProfile
 type ListProfileQuery struct {
-	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
-	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
-	FieldsProfiles     *[]string `url:"fields[profiles],omitempty"`
-	FieldsID           *[]string `url:"fields[id],omitempty"`
-	FieldsName         *[]string `url:"fields[name],omitempty"`
-	FieldsBundleIDs    *[]string `url:"fields[bundleIds],omitempty"`
-	Include            *[]string `url:"include,omitempty"`
-	Limit              *int      `url:"limit,omitempty"`
-	LimitCertificates  *int      `url:"limit[certificates],omitempty"`
-	LimitDevices       *int      `url:"limit[devices],omitempty"`
-	Sort               *[]string `url:"sort,omitempty"`
-	FilterProfileState *[]string `url:"filter[profileState],omitempty"`
-	FilterProfileType  *[]string `url:"filter[profileType],omitempty"`
-	Cursor             *string   `url:"cursor,omitempty"`
+	FieldsCertificates []string `url:"fields[certificates],omitempty"`
+	FieldsDevices      []string `url:"fields[devices],omitempty"`
+	FieldsProfiles     []string `url:"fields[profiles],omitempty"`
+	FieldsID           []string `url:"fields[id],omitempty"`
+	FieldsName         []string `url:"fields[name],omitempty"`
+	FieldsBundleIDs    []string `url:"fields[bundleIds],omitempty"`
+	Include            []string `url:"include,omitempty"`
+	Limit              int      `url:"limit,omitempty"`
+	LimitCertificates  int      `url:"limit[certificates],omitempty"`
+	LimitDevices       int      `url:"limit[devices],omitempty"`
+	Sort               []string `url:"sort,omitempty"`
+	FilterProfileState []string `url:"filter[profileState],omitempty"`
+	FilterProfileType  []string `url:"filter[profileType],omitempty"`
+	Cursor             string   `url:"cursor,omitempty"`
 }
 
 // GetProfileQuery are query options for GetProfile
 type GetProfileQuery struct {
-	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
-	FieldsDevices      *[]string `url:"fields[devices],omitempty"`
-	FieldsProfiles     *[]string `url:"fields[profiles],omitempty"`
-	FieldsBundleIds    *[]string `url:"fields[bundleIds],omitempty"`
-	LimitCertificates  *int      `url:"limit[certificates],omitempty"`
-	LimitDevices       *int      `url:"limit[devices],omitempty"`
-	Include            *[]string `url:"include,omitempty"`
+	FieldsCertificates []string `url:"fields[certificates],omitempty"`
+	FieldsDevices      []string `url:"fields[devices],omitempty"`
+	FieldsProfiles     []string `url:"fields[profiles],omitempty"`
+	FieldsBundleIds    []string `url:"fields[bundleIds],omitempty"`
+	LimitCertificates  int      `url:"limit[certificates],omitempty"`
+	LimitDevices       int      `url:"limit[devices],omitempty"`
+	Include            []string `url:"include,omitempty"`
 }
 
 // GetBundleIDForProfileQuery are query options for GetBundleIDForProfile
 type GetBundleIDForProfileQuery struct {
-	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
+	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 }
 
 // ListCertificatesForProfileQuery are query options for ListCertificatesForProfile
 type ListCertificatesForProfileQuery struct {
-	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
-	Limit              *int      `url:"limit,omitempty"`
-	Cursor             *string   `url:"cursor,omitempty"`
+	FieldsCertificates []string `url:"fields[certificates],omitempty"`
+	Limit              int      `url:"limit,omitempty"`
+	Cursor             string   `url:"cursor,omitempty"`
 }
 
 // ListDevicesInProfileQuery are query options for ListDevicesInProfile
 type ListDevicesInProfileQuery struct {
-	FieldsDevices *[]string `url:"fields[devices],omitempty"`
-	Limit         *int      `url:"limit,omitempty"`
-	Cursor        *string   `url:"cursor,omitempty"`
+	FieldsDevices []string `url:"fields[devices],omitempty"`
+	Limit         int      `url:"limit,omitempty"`
+	Cursor        string   `url:"cursor,omitempty"`
 }
 
 // CreateProfile creates a new provisioning profile.

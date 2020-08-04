@@ -108,38 +108,38 @@ type UserVisibleAppsLinkagesResponse struct {
 
 // ListUsersQuery is the query params structure for ListUsers
 type ListUsersQuery struct {
-	FieldsApps        *[]string `url:"fields[apps],omitempty"`
-	FieldsUsers       *[]string `url:"fields[users],omitempty"`
-	FilterRoles       *[]string `url:"filter[roles],omitempty"`
-	FilterVisibleApps *[]string `url:"filter[visibleApps],omitempty"`
-	FilterUsername    *[]string `url:"filter[username],omitempty"`
-	Limit             *int      `url:"limit,omitempty"`
-	LimitVisibleApps  *int      `url:"limit[visibleApps],omitempty"`
-	Include           *[]string `url:"include,omitempty"`
-	Sort              *[]string `url:"sort,omitempty"`
-	Cursor            *string   `url:"cursor,omitempty"`
+	FieldsApps        []string `url:"fields[apps],omitempty"`
+	FieldsUsers       []string `url:"fields[users],omitempty"`
+	FilterRoles       []string `url:"filter[roles],omitempty"`
+	FilterVisibleApps []string `url:"filter[visibleApps],omitempty"`
+	FilterUsername    []string `url:"filter[username],omitempty"`
+	Limit             int      `url:"limit,omitempty"`
+	LimitVisibleApps  int      `url:"limit[visibleApps],omitempty"`
+	Include           []string `url:"include,omitempty"`
+	Sort              []string `url:"sort,omitempty"`
+	Cursor            string   `url:"cursor,omitempty"`
 }
 
 // GetUserQuery is the query params structure for GetUser
 type GetUserQuery struct {
-	FieldsApps       *[]string `url:"fields[apps],omitempty"`
-	FieldsUsers      *[]string `url:"fields[users],omitempty"`
-	Include          *[]string `url:"include,omitempty"`
-	Limit            *int      `url:"limit,omitempty"`
-	LimitVisibleApps *int      `url:"limit[visibleApps],omitempty"`
+	FieldsApps       []string `url:"fields[apps],omitempty"`
+	FieldsUsers      []string `url:"fields[users],omitempty"`
+	Include          []string `url:"include,omitempty"`
+	Limit            int      `url:"limit,omitempty"`
+	LimitVisibleApps int      `url:"limit[visibleApps],omitempty"`
 }
 
 // ListVisibleAppsQuery is the query params structure for ListVisibleAppsForUser
 type ListVisibleAppsQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
-	Limit      *int      `url:"limit,omitempty"`
-	Cursor     *string   `url:"cursor,omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
+	Limit      int      `url:"limit,omitempty"`
+	Cursor     string   `url:"cursor,omitempty"`
 }
 
 // ListVisibleAppsByResourceIDQuery is the query params structure for ListVisibleAppsByResourceIDForUser
 type ListVisibleAppsByResourceIDQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListUsers gets a list of the users on your team.

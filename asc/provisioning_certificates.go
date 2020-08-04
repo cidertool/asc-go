@@ -65,20 +65,20 @@ type CertificatesResponse struct {
 
 // ListCertificatesQuery are query options for ListCertificates
 type ListCertificatesQuery struct {
-	FieldsCertificates    *[]string `url:"fields[certificates],omitempty"`
-	Limit                 *int      `url:"limit,omitempty"`
-	Include               *[]string `url:"include,omitempty"`
-	Sort                  *[]string `url:"sort,omitempty"`
-	FilterID              *[]string `url:"filter[id],omitempty"`
-	FilterSerialNumber    *[]string `url:"filter[serialNumber],omitempty"`
-	FilterCertificateType *[]string `url:"filter[certificateType],omitempty"`
-	FilterDisplayName     *[]string `url:"filter[displayName],omitempty"`
-	Cursor                *string   `url:"cursor,omitempty"`
+	FieldsCertificates    []string `url:"fields[certificates],omitempty"`
+	Limit                 int      `url:"limit,omitempty"`
+	Include               []string `url:"include,omitempty"`
+	Sort                  []string `url:"sort,omitempty"`
+	FilterID              []string `url:"filter[id],omitempty"`
+	FilterSerialNumber    []string `url:"filter[serialNumber],omitempty"`
+	FilterCertificateType []string `url:"filter[certificateType],omitempty"`
+	FilterDisplayName     []string `url:"filter[displayName],omitempty"`
+	Cursor                string   `url:"cursor,omitempty"`
 }
 
 // GetCertificateQuery are query options for GetCertificate
 type GetCertificateQuery struct {
-	FieldsCertificates *[]string `url:"fields[certificates],omitempty"`
+	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 }
 
 // CreateCertificate creates a new certificate using a certificate signing request.

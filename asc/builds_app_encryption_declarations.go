@@ -62,26 +62,26 @@ type AppEncryptionDeclarationsResponse struct {
 
 // ListAppEncryptionDeclarationsQuery are query options for ListAppEncryptionDeclarations
 type ListAppEncryptionDeclarationsQuery struct {
-	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
-	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
-	FilterApp                       *[]string `url:"filter[app],omitempty"`
-	FilterBuilds                    *[]string `url:"filter[builds],omitempty"`
-	FilterPlatforms                 *[]string `url:"filter[platforms],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
-	Limit                           *int      `url:"limit,omitempty"`
-	Cursor                          *string   `url:"cursor,omitempty"`
+	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                      []string `url:"fields[apps],omitempty"`
+	FilterApp                       []string `url:"filter[app],omitempty"`
+	FilterBuilds                    []string `url:"filter[builds],omitempty"`
+	FilterPlatforms                 []string `url:"filter[platforms],omitempty"`
+	Include                         []string `url:"include,omitempty"`
+	Limit                           int      `url:"limit,omitempty"`
+	Cursor                          *string  `url:"cursor,omitempty"`
 }
 
 // GetAppEncryptionDeclarationQuery are query options for GetAppEncryptionDeclaration
 type GetAppEncryptionDeclarationQuery struct {
-	FieldsAppEncryptionDeclarations *[]string `url:"fields[appEncryptionDeclarations],omitempty"`
-	FieldsApps                      *[]string `url:"fields[apps],omitempty"`
-	Include                         *[]string `url:"include,omitempty"`
+	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
+	FieldsApps                      []string `url:"fields[apps],omitempty"`
+	Include                         []string `url:"include,omitempty"`
 }
 
 // GetAppForEncryptionDeclarationQuery are query options for GetAppForEncryptionDeclaration
 type GetAppForEncryptionDeclarationQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.

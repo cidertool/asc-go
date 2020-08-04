@@ -116,73 +116,73 @@ type BetaGroupsResponse struct {
 
 // ListBetaGroupsQuery defines model for ListBetaGroups
 type ListBetaGroupsQuery struct {
-	FieldsApps                   *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaGroups             *[]string `url:"fields[betaGroups],omitempty"`
-	FieldsBetaTesters            *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
-	FilterApp                    *[]string `url:"filter[app],omitempty"`
-	FilterBuilds                 *[]string `url:"filter[builds],omitempty"`
-	FilterID                     *[]string `url:"filter[id],omitempty"`
-	FilterIsInternalGroup        *[]string `url:"filter[isInternalGroup],omitempty"`
-	FilterName                   *[]string `url:"filter[name],omitempty"`
-	FilterPublicLinkEnabled      *[]string `url:"filter[publicLinkEnabled],omitempty"`
-	FilterPublicLinkLimitEnabled *[]string `url:"filter[publicLinkLimitEnabled],omitempty"`
-	FilterPublicLink             *[]string `url:"filter[publicLink],omitempty"`
-	Include                      *[]string `url:"include,omitempty"`
-	Sort                         *[]string `url:"sort,omitempty"`
-	Limit                        *int      `url:"limit,omitempty"`
-	LimitBuilds                  *int      `url:"limit[builds],omitempty"`
-	LimitBetaTesters             *int      `url:"limit[betaTesters],omitempty"`
-	Cursor                       *string   `url:"cursor,omitempty"`
+	FieldsApps                   []string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups             []string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters            []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds                 []string `url:"fields[builds],omitempty"`
+	FilterApp                    []string `url:"filter[app],omitempty"`
+	FilterBuilds                 []string `url:"filter[builds],omitempty"`
+	FilterID                     []string `url:"filter[id],omitempty"`
+	FilterIsInternalGroup        []string `url:"filter[isInternalGroup],omitempty"`
+	FilterName                   []string `url:"filter[name],omitempty"`
+	FilterPublicLinkEnabled      []string `url:"filter[publicLinkEnabled],omitempty"`
+	FilterPublicLinkLimitEnabled []string `url:"filter[publicLinkLimitEnabled],omitempty"`
+	FilterPublicLink             []string `url:"filter[publicLink],omitempty"`
+	Include                      []string `url:"include,omitempty"`
+	Sort                         []string `url:"sort,omitempty"`
+	Limit                        int      `url:"limit,omitempty"`
+	LimitBuilds                  int      `url:"limit[builds],omitempty"`
+	LimitBetaTesters             int      `url:"limit[betaTesters],omitempty"`
+	Cursor                       string   `url:"cursor,omitempty"`
 }
 
 // GetBetaGroupQuery defines model for GetBetaGroup
 type GetBetaGroupQuery struct {
-	FieldsApps        *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
-	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds      *[]string `url:"fields[builds],omitempty"`
-	Include           *[]string `url:"include,omitempty"`
-	LimitBuilds       *int      `url:"limit[builds],omitempty"`
-	LimitBetaTesters  *int      `url:"limit[betaTesters],omitempty"`
+	FieldsApps        []string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds      []string `url:"fields[builds],omitempty"`
+	Include           []string `url:"include,omitempty"`
+	LimitBuilds       int      `url:"limit[builds],omitempty"`
+	LimitBetaTesters  int      `url:"limit[betaTesters],omitempty"`
 }
 
 // GetAppForBetaGroupQuery defines model for GetAppForBetaGroup
 type GetAppForBetaGroupQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListBetaGroupsForAppQuery defines model for ListBetaGroupsForApp
 type ListBetaGroupsForAppQuery struct {
-	FieldsBetaGroups *[]string `url:"fields[betaGroups],omitempty"`
-	Limit            *int      `url:"limit,omitempty"`
-	Cursor           *string   `url:"cursor,omitempty"`
+	FieldsBetaGroups []string `url:"fields[betaGroups],omitempty"`
+	Limit            int      `url:"limit,omitempty"`
+	Cursor           string   `url:"cursor,omitempty"`
 }
 
 // ListBuildsForBetaGroupQuery defines model for ListBuildsForBetaGroup
 type ListBuildsForBetaGroupQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
-	Limit        *int      `url:"limit,omitempty"`
-	Cursor       *string   `url:"cursor,omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
+	Limit        int      `url:"limit,omitempty"`
+	Cursor       string   `url:"cursor,omitempty"`
 }
 
 // ListBuildIDsForBetaGroupQuery defines model for ListBuildIDsForBetaGroup
 type ListBuildIDsForBetaGroupQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListBetaTestersForBetaGroupQuery defines model for ListBetaTestersForBetaGroup
 type ListBetaTestersForBetaGroupQuery struct {
-	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
-	Limit             *int      `url:"limit,omitempty"`
-	Cursor            *string   `url:"cursor,omitempty"`
+	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
+	Limit             int      `url:"limit,omitempty"`
+	Cursor            string   `url:"cursor,omitempty"`
 }
 
 // ListBetaTesterIDsForBetaGroupQuery defines model for ListBetaTesterIDsForBetaGroup
 type ListBetaTesterIDsForBetaGroupQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.

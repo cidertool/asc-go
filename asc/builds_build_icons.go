@@ -37,9 +37,9 @@ type BuildIconsResponse struct {
 
 // ListIconsQuery are query options for ListIcons
 type ListIconsQuery struct {
-	FieldsBuildIcons *[]string `url:"fields[buildIcons],omitempty"`
-	Limit            *int      `url:"limit,omitempty"`
-	Cursor           *string   `url:"cursor,omitempty"`
+	FieldsBuildIcons []string `url:"fields[buildIcons],omitempty"`
+	Limit            int      `url:"limit,omitempty"`
+	Cursor           string   `url:"cursor,omitempty"`
 }
 
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.

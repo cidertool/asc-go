@@ -77,19 +77,19 @@ type EndUserLicenseAgreementResponse struct {
 
 // GetEULAQuery are query options for GetEULA
 type GetEULAQuery struct {
-	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
-	FieldsTerritories              *[]string `url:"fields[territories],omitempty"`
-	Include                        *[]string `url:"include,omitempty"`
-	LimitTerritories               *int      `url:"limit[territories],omitempty"`
+	FieldsEndUserLicenseAgreements []string `url:"fields[endUserLicenseAgreements],omitempty"`
+	FieldsTerritories              []string `url:"fields[territories],omitempty"`
+	Include                        []string `url:"include,omitempty"`
+	LimitTerritories               int      `url:"limit[territories],omitempty"`
 }
 
 // GetEULAForAppQuery are query options for GetEULAForApp
 type GetEULAForAppQuery struct {
-	FieldsEndUserLicenseAgreements *[]string `url:"fields[endUserLicenseAgreements],omitempty"`
+	FieldsEndUserLicenseAgreements []string `url:"fields[endUserLicenseAgreements],omitempty"`
 }
 
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
-func (s *AppsService) CreateEULA(id string, body *EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *http.Response, error) {
+func (s *AppsService) CreateEULA(body *EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *http.Response, error) {
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.post("endUserLicenseAgreements", body, res)
 	return res, resp, err

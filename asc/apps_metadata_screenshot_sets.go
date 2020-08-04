@@ -101,24 +101,24 @@ type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 
 // GetAppScreenshotSetQuery are query options for GetAppScreenshotSet
 type GetAppScreenshotSetQuery struct {
-	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
-	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
-	Include                 *[]string `url:"include,omitempty"`
-	LimitAppScreenshots     *int      `url:"limit[appScreenshots],omitempty"`
+	FieldsAppScreenshots    []string `url:"fields[appScreenshots],omitempty"`
+	FieldsAppScreenshotSets []string `url:"fields[appScreenshotSets],omitempty"`
+	Include                 []string `url:"include,omitempty"`
+	LimitAppScreenshots     int      `url:"limit[appScreenshots],omitempty"`
 }
 
 // ListAppScreenshotsForSetQuery are query options for ListAppScreenshotsForSet
 type ListAppScreenshotsForSetQuery struct {
-	FieldsAppScreenshotSets *[]string `url:"fields[appScreenshotSets],omitempty"`
-	FieldsAppScreenshots    *[]string `url:"fields[appScreenshots],omitempty"`
-	Limit                   *int      `url:"limit,omitempty"`
-	Include                 *[]string `url:"include,omitempty"`
-	Cursor                  *string   `url:"cursor,omitempty"`
+	FieldsAppScreenshotSets []string `url:"fields[appScreenshotSets],omitempty"`
+	FieldsAppScreenshots    []string `url:"fields[appScreenshots],omitempty"`
+	Limit                   int      `url:"limit,omitempty"`
+	Include                 []string `url:"include,omitempty"`
+	Cursor                  string   `url:"cursor,omitempty"`
 }
 
 // ListAppScreenshotIDsForSetQuery are query options for ListAppScreenshotIDsForSet
 type ListAppScreenshotIDsForSetQuery struct {
-	Limit *int `url:"limit,omitempty"`
+	Limit int `url:"limit,omitempty"`
 }
 
 // GetAppScreenshotSet gets an app screenshot set including its display target, language, and the screenshot it contains.
@@ -130,7 +130,7 @@ func (s *AppsService) GetAppScreenshotSet(id string, params *GetAppScreenshotSet
 }
 
 // CreateAppScreenshotSet adds a new screenshot set to an App Store version localization for a specific screenshot type and display size.
-func (s *AppsService) CreateAppScreenshotSet(id string, body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *http.Response, error) {
+func (s *AppsService) CreateAppScreenshotSet(body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *http.Response, error) {
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.client.post("appScreenshotSets", body, res)
 	return res, resp, err

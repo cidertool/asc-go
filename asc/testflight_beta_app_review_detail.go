@@ -64,29 +64,29 @@ type BetaAppReviewDetailsResponse struct {
 
 // ListBetaAppReviewDetailsQuery defines model for ListBetaAppReviewDetails
 type ListBetaAppReviewDetailsQuery struct {
-	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
-	FilterApp                  *[]string `url:"filter[app],omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsApps                 []string `url:"fields[apps],omitempty"`
+	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
+	FilterApp                  []string `url:"filter[app],omitempty"`
+	Include                    []string `url:"include,omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // GetBetaAppReviewDetailQuery defines model for GetBetaAppReviewDetail
 type GetBetaAppReviewDetailQuery struct {
-	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
+	FieldsApps                 []string `url:"fields[apps],omitempty"`
+	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
+	Include                    []string `url:"include,omitempty"`
 }
 
 // GetAppForBetaAppReviewDetailQuery defines model for GetAppForBetaAppReviewDetail
 type GetAppForBetaAppReviewDetailQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetBetaAppReviewDetailsForAppQuery defines model for GetBetaAppReviewDetailsForApp
 type GetBetaAppReviewDetailsForAppQuery struct {
-	FieldsBetaAppReviewDetails *[]string `url:"fields[betaAppReviewDetails],omitempty"`
+	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
 }
 
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.

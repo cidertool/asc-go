@@ -70,24 +70,24 @@ type UserInvitationsResponse struct {
 
 // ListInvitationsQuery is the query params structure for ListInvitations
 type ListInvitationsQuery struct {
-	FieldsApps            *[]string `url:"fields[apps],omitempty"`
-	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`
-	FilterRoles           *[]string `url:"filter[roles],omitempty"`
-	FilterEmail           *[]string `url:"filter[email],omitempty"`
-	FilterVisibleApps     *[]string `url:"filter[visibleApps],omitempty"`
-	Include               *[]string `url:"include,omitempty"`
-	Limit                 *int      `url:"limit,omitempty"`
-	LimitVisibleApps      *int      `url:"limit[visibleApps],omitempty"`
-	Sort                  *[]string `url:"sort,omitempty"`
-	Cursor                *string   `url:"cursor,omitempty"`
+	FieldsApps            []string `url:"fields[apps],omitempty"`
+	FieldsUserInvitations []string `url:"fields[userInvitations],omitempty"`
+	FilterRoles           []string `url:"filter[roles],omitempty"`
+	FilterEmail           []string `url:"filter[email],omitempty"`
+	FilterVisibleApps     []string `url:"filter[visibleApps],omitempty"`
+	Include               []string `url:"include,omitempty"`
+	Limit                 int      `url:"limit,omitempty"`
+	LimitVisibleApps      int      `url:"limit[visibleApps],omitempty"`
+	Sort                  []string `url:"sort,omitempty"`
+	Cursor                string   `url:"cursor,omitempty"`
 }
 
 // GetInvitationQuery is the query params structure for GetInvitation
 type GetInvitationQuery struct {
-	FieldsApps            *[]string `url:"fields[apps],omitempty"`
-	FieldsUserInvitations *[]string `url:"fields[userInvitations],omitempty"`
-	Include               *[]string `url:"include,omitempty"`
-	LimitVisibleApps      *int      `url:"limit[visibleApps],omitempty"`
+	FieldsApps            []string `url:"fields[apps],omitempty"`
+	FieldsUserInvitations []string `url:"fields[userInvitations],omitempty"`
+	Include               []string `url:"include,omitempty"`
+	LimitVisibleApps      int      `url:"limit[visibleApps],omitempty"`
 }
 
 // ListInvitations gets a list of pending invitations to join your team.

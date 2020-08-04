@@ -106,82 +106,82 @@ type BetaTestersResponse struct {
 
 // ListBetaTestersQuery defines model for ListBetaTesters
 type ListBetaTestersQuery struct {
-	FieldsApps        *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
-	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds      *[]string `url:"fields[builds],omitempty"`
-	FilterApps        *[]string `url:"filter[apps],omitempty"`
-	FilterBetaGroups  *[]string `url:"filter[betaGroups],omitempty"`
-	FilterBuilds      *[]string `url:"filter[builds],omitempty"`
-	FilterEmail       *[]string `url:"filter[email],omitempty"`
-	FilterFirstName   *[]string `url:"filter[firstName],omitempty"`
-	FilterInviteType  *[]string `url:"filter[inviteType],omitempty"`
-	FilterLastName    *[]string `url:"filter[lastName],omitempty"`
-	Include           *[]string `url:"include,omitempty"`
-	Sort              *[]string `url:"sort,omitempty"`
-	Limit             *int      `url:"limit,omitempty"`
-	LimitApps         *[]string `url:"limit[apps],omitempty"`
-	LimitBetaGroups   *[]string `url:"limit[betaGroups],omitempty"`
-	LimitBuilds       *[]string `url:"limit[builds],omitempty"`
-	Cursor            *string   `url:"cursor,omitempty"`
+	FieldsApps        []string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds      []string `url:"fields[builds],omitempty"`
+	FilterApps        []string `url:"filter[apps],omitempty"`
+	FilterBetaGroups  []string `url:"filter[betaGroups],omitempty"`
+	FilterBuilds      []string `url:"filter[builds],omitempty"`
+	FilterEmail       []string `url:"filter[email],omitempty"`
+	FilterFirstName   []string `url:"filter[firstName],omitempty"`
+	FilterInviteType  []string `url:"filter[inviteType],omitempty"`
+	FilterLastName    []string `url:"filter[lastName],omitempty"`
+	Include           []string `url:"include,omitempty"`
+	Sort              []string `url:"sort,omitempty"`
+	Limit             int      `url:"limit,omitempty"`
+	LimitApps         []string `url:"limit[apps],omitempty"`
+	LimitBetaGroups   []string `url:"limit[betaGroups],omitempty"`
+	LimitBuilds       []string `url:"limit[builds],omitempty"`
+	Cursor            string   `url:"cursor,omitempty"`
 }
 
 // GetBetaTesterQuery defines model for GetBetaTester
 type GetBetaTesterQuery struct {
-	FieldsApps        *[]string `url:"fields[apps],omitempty"`
-	FieldsBetaGroups  *[]string `url:"fields[betaGroups],omitempty"`
-	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
-	FieldsBuilds      *[]string `url:"fields[builds],omitempty"`
-	Include           *[]string `url:"include,omitempty"`
-	LimitApps         *[]string `url:"limit[apps],omitempty"`
-	LimitBetaGroups   *[]string `url:"limit[betaGroups],omitempty"`
-	LimitBuilds       *[]string `url:"limit[builds],omitempty"`
+	FieldsApps        []string `url:"fields[apps],omitempty"`
+	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
+	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
+	FieldsBuilds      []string `url:"fields[builds],omitempty"`
+	Include           []string `url:"include,omitempty"`
+	LimitApps         []string `url:"limit[apps],omitempty"`
+	LimitBetaGroups   []string `url:"limit[betaGroups],omitempty"`
+	LimitBuilds       []string `url:"limit[builds],omitempty"`
 }
 
 // ListAppsForBetaTesterQuery defines model for ListAppsForBetaTester
 type ListAppsForBetaTesterQuery struct {
-	FieldsApps *[]string `url:"fields[apps],omitempty"`
-	Limit      *int      `url:"limit,omitempty"`
-	Cursor     *string   `url:"cursor,omitempty"`
+	FieldsApps []string `url:"fields[apps],omitempty"`
+	Limit      int      `url:"limit,omitempty"`
+	Cursor     string   `url:"cursor,omitempty"`
 }
 
 // ListAppIDsForBetaTesterQuery defines model for ListAppIDsForBetaTester
 type ListAppIDsForBetaTesterQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListBuildsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildsIndividuallyAssignedToBetaTester
 type ListBuildsIndividuallyAssignedToBetaTesterQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
-	Limit        *int      `url:"limit,omitempty"`
-	Cursor       *string   `url:"cursor,omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
+	Limit        int      `url:"limit,omitempty"`
+	Cursor       string   `url:"cursor,omitempty"`
 }
 
 // ListBuildIDsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildIDsIndividuallyAssignedToBetaTester
 type ListBuildIDsIndividuallyAssignedToBetaTesterQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListIndividualTestersForBuildQuery defines model for ListIndividualTestersForBuild
 type ListIndividualTestersForBuildQuery struct {
-	FieldsBetaTesters *[]string `url:"fields[betaTesters],omitempty"`
-	Limit             *int      `url:"limit,omitempty"`
-	Cursor            *string   `url:"cursor,omitempty"`
+	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
+	Limit             int      `url:"limit,omitempty"`
+	Cursor            string   `url:"cursor,omitempty"`
 }
 
 // ListBetaGroupsForBetaTesterQuery defines model for ListBetaGroupsForBetaTester
 type ListBetaGroupsForBetaTesterQuery struct {
-	FieldsBetaGroups *[]string `url:"fields[betaGroups],omitempty"`
-	Limit            *int      `url:"limit,omitempty"`
-	Cursor           *string   `url:"cursor,omitempty"`
+	FieldsBetaGroups []string `url:"fields[betaGroups],omitempty"`
+	Limit            int      `url:"limit,omitempty"`
+	Cursor           string   `url:"cursor,omitempty"`
 }
 
 // ListBetaGroupIDsForBetaTesterQuery defines model for ListBetaGroupIDsForBetaTester
 type ListBetaGroupIDsForBetaTesterQuery struct {
-	Limit  *int    `url:"limit,omitempty"`
-	Cursor *string `url:"cursor,omitempty"`
+	Limit  int    `url:"limit,omitempty"`
+	Cursor string `url:"cursor,omitempty"`
 }
 
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.

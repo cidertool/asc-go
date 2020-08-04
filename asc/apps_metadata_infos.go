@@ -99,22 +99,22 @@ type AppInfoUpdateRequestRelationships struct {
 
 // GetAppInfoQuery are query options for GetAppInfo
 type GetAppInfoQuery struct {
-	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
-	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
-	FieldsAppCategories        *[]string `url:"fields[appCategories],omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
-	LimitAppInfoLocalizations  *int      `url:"limit[appInfoLocalizations],omitempty"`
+	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
+	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories        []string `url:"fields[appCategories],omitempty"`
+	Include                    []string `url:"include,omitempty"`
+	LimitAppInfoLocalizations  int      `url:"limit[appInfoLocalizations],omitempty"`
 }
 
 // ListAppInfosForAppQuery are query options for ListAppInfosForApp
 type ListAppInfosForAppQuery struct {
-	FieldsAppInfos             *[]string `url:"fields[appInfos],omitempty"`
-	FieldsApps                 *[]string `url:"fields[apps],omitempty"`
-	FieldsAppInfoLocalizations *[]string `url:"fields[appInfoLocalizations],omitempty"`
-	FieldsAppCategories        *[]string `url:"fields[appCategories],omitempty"`
-	Limit                      *int      `url:"limit,omitempty"`
-	Include                    *[]string `url:"include,omitempty"`
-	Cursor                     *string   `url:"cursor,omitempty"`
+	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
+	FieldsApps                 []string `url:"fields[apps],omitempty"`
+	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories        []string `url:"fields[appCategories],omitempty"`
+	Limit                      int      `url:"limit,omitempty"`
+	Include                    []string `url:"include,omitempty"`
+	Cursor                     string   `url:"cursor,omitempty"`
 }
 
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.

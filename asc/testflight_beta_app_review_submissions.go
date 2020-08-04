@@ -62,30 +62,30 @@ type BetaAppReviewSubmissionsResponse struct {
 
 // ListBetaAppReviewSubmissionsQuery defines model for ListBetaAppReviewSubmissions
 type ListBetaAppReviewSubmissionsQuery struct {
-	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
-	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
-	FilterBuild                    *[]string `url:"filter[build],omitempty"`
-	FilterBetaReviewState          *[]string `url:"filter[betaReviewState],omitempty"`
-	Include                        *[]string `url:"include,omitempty"`
-	Limit                          *int      `url:"limit,omitempty"`
-	Cursor                         *string   `url:"cursor,omitempty"`
+	FieldsBuilds                   []string `url:"fields[builds],omitempty"`
+	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	FilterBuild                    []string `url:"filter[build],omitempty"`
+	FilterBetaReviewState          []string `url:"filter[betaReviewState],omitempty"`
+	Include                        []string `url:"include,omitempty"`
+	Limit                          int      `url:"limit,omitempty"`
+	Cursor                         string   `url:"cursor,omitempty"`
 }
 
 // GetBetaAppReviewSubmissionQuery defines model for GetBetaAppReviewSubmission
 type GetBetaAppReviewSubmissionQuery struct {
-	FieldsBuilds                   *[]string `url:"fields[builds],omitempty"`
-	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
-	Include                        *[]string `url:"include,omitempty"`
+	FieldsBuilds                   []string `url:"fields[builds],omitempty"`
+	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	Include                        []string `url:"include,omitempty"`
 }
 
 // GetBuildForBetaAppReviewSubmissionQuery defines model for GetBuildForBetaAppReviewSubmission
 type GetBuildForBetaAppReviewSubmissionQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // GetBetaAppReviewSubmissionForBuildQuery defines model for GetBetaAppReviewSubmissionForBuild
 type GetBetaAppReviewSubmissionForBuildQuery struct {
-	FieldsBetaAppReviewSubmissions *[]string `url:"fields[betaAppReviewSubmissions],omitempty"`
+	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
 }
 
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.

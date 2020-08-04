@@ -71,30 +71,30 @@ type BetaBuildLocalizationsResponse struct {
 
 // ListBetaBuildLocalizationsQuery defines model for ListBetaBuildLocalizations
 type ListBetaBuildLocalizationsQuery struct {
-	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
-	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
-	Limit                        *int      `url:"limit,omitempty"`
-	Include                      *[]string `url:"include,omitempty"`
-	FilterBuild                  *[]string `url:"filter[build],omitempty"`
-	FilterLocale                 *[]string `url:"filter[locale],omitempty"`
+	FieldsBuilds                 []string `url:"fields[builds],omitempty"`
+	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
+	Limit                        int      `url:"limit,omitempty"`
+	Include                      []string `url:"include,omitempty"`
+	FilterBuild                  []string `url:"filter[build],omitempty"`
+	FilterLocale                 []string `url:"filter[locale],omitempty"`
 }
 
 // GetBetaBuildLocalizationQuery defines model for GetBetaBuildLocalization
 type GetBetaBuildLocalizationQuery struct {
-	FieldsBuilds                 *[]string `url:"fields[builds],omitempty"`
-	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
-	Include                      *[]string `url:"include,omitempty"`
+	FieldsBuilds                 []string `url:"fields[builds],omitempty"`
+	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
+	Include                      []string `url:"include,omitempty"`
 }
 
 // GetBuildForBetaBuildLocalizationQuery defines model for GetBuildForBetaBuildLocalization
 type GetBuildForBetaBuildLocalizationQuery struct {
-	FieldsBuilds *[]string `url:"fields[builds],omitempty"`
+	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // ListBetaBuildLocalizationsForBuildQuery defines model for ListBetaBuildLocalizationsForBuild
 type ListBetaBuildLocalizationsForBuildQuery struct {
-	FieldsBetaBuildLocalizations *[]string `url:"fields[betaBuildLocalizations],omitempty"`
-	Limit                        *int      `url:"limit,omitempty"`
+	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
+	Limit                        int      `url:"limit,omitempty"`
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.

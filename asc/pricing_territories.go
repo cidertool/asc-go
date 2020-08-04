@@ -30,9 +30,9 @@ type TerritoriesResponse struct {
 
 // ListTerritoriesQuery are query options for ListTerritories
 type ListTerritoriesQuery struct {
-	FieldsTerritories *[]string `url:"fields[territories],omitempty"`
-	Limit             *int      `url:"limit,omitempty"`
-	Cursor            *string   `url:"cursor,omitempty"`
+	FieldsTerritories []string `url:"fields[territories],omitempty"`
+	Limit             int      `url:"limit,omitempty"`
+	Cursor            string   `url:"cursor,omitempty"`
 }
 
 // ListTerritories lists all territories where the App Store operates.
