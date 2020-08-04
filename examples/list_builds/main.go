@@ -3,43 +3,38 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
-	"time"
 
 	"github.com/aaronsky/asc-go/asc"
+	"github.com/aaronsky/asc-go/examples/util"
 )
 
 var (
-	keyID          = flag.String("kid", "", "key ID")
-	issuerID       = flag.String("iss", "", "issuer ID")
-	privateKeyPath = flag.String("private_key", "", "private key used to sign authorization token")
-	appID          = flag.String("app", "", "App ID to list builds for")
+	appName = flag.String("app", "", "App to list builds for")
 )
 
 func main() {
 	flag.Parse()
 
-	// Read private key file as []byte
-	secret, err := ioutil.ReadFile(*privateKeyPath)
-	if err != nil {
-		log.Fatalf("secret key could not be loaded: %s", err)
-	}
-	// Create the token using the required information
-	auth, err := asc.NewTokenConfig(*keyID, *issuerID, time.Now().Add(20*time.Minute), secret)
+	auth, err := util.Token()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
 	}
+
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
+	app, err := util.GetAppByName(client, *appName)
+	if err != nil {
+		log.Fatalf("%s", err)
+	}
 
 	var cursor string
 	params := asc.ListBuildsForAppQuery{}
 	for {
 		if cursor != "" {
-			params.Cursor = &cursor
+			params.Cursor = cursor
 		}
-		b, _, err := client.Builds.ListBuildsForApp(*appID, &params)
+		b, _, err := client.Builds.ListBuildsForApp(app.ID, &params)
 		if err != nil {
 			log.Fatal(err)
 			break

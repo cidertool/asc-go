@@ -30,21 +30,18 @@ PURJWPQa24fI+wNPDi4OzjkB2g6fa5BHqam1gRlZHe8BU3+IjuC3AUFz
 -----END PRIVATE KEY-----		
 `)
 
-	token, err := NewTokenConfig("TEST", "TEST", time.Now().Add(20), privPEMData)
-	if err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-	if components := strings.Split(token.token, "."); len(components) != 3 {
-		t.Errorf("Expected token length to be 3, was %d", len(components))
-	}
+	token, err := NewTokenConfig("TEST", "TEST", 20*time.Minute, privPEMData)
+	assert.NoError(t, err)
+	tok, err := token.jwtGenerator.Token()
+	assert.NoError(t, err)
+
+	components := strings.Split(tok, ".")
+	assert.Equal(t, 3, len(components))
 }
 
 func TestNewTokenConfigBadPEM(t *testing.T) {
-	_, err := NewTokenConfig("TEST", "TEST", time.Now().Add(20), []byte("TEST"))
-	if err == nil {
-		t.Error("Expected error for invalid PEM, got nil")
-	}
+	_, err := NewTokenConfig("TEST", "TEST", 20*time.Minute, []byte("TEST"))
+	assert.Error(t, err, "Expected error for invalid PEM, got nil")
 }
 
 func TestNewTokenConfigPrivateKeyNotPKCS8(t *testing.T) {
@@ -56,47 +53,47 @@ oH1YGuY57H3BQ3zLPVPsN+A8xnInGDa8yQ==
 -----END EC PRIVATE KEY-----
 `)
 
-	_, err := NewTokenConfig("TEST", "TEST", time.Now().Add(20), badKey)
-	if err == nil {
-		t.Error("Expected error for non-PKCS8 PEM, got nil")
-	}
+	_, err := NewTokenConfig("TEST", "TEST", 20*time.Minute, badKey)
+	assert.Error(t, err, "Expected error for non-PKCS8 PEM, got nil")
 }
-
-// func TestNewTokenConfigFailsSigning(t *testing.T) {
-// 	var privPEMData = []byte(`
-// -----BEGIN PRIVATE KEY-----
-// MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgk865haucvLiNrbFE
-// Pi4TSaSvdUE0KdR5RhZGXnP9r4ihRANCAATJfqeCoJ9UEsNvCSgEf1/Nqjby2/xm
-// SZJ6C98MewyQAagP58pyy48r1jbnx7WLZOeQfaVZOoHyeV6Gbz01D/AJ
-// -----END PRIVATE KEY-----
-// `)
-
-// 	_, err := NewTokenConfig("", "", time.Now(), privPEMData)
-// 	if err == nil {
-// 		t.Error("Expected error for bad signing string, got nil")
-// 	}
-// }
 
 func TestAuthTransport(t *testing.T) {
 	token := "TEST.TEST.TEST"
-	transport := AuthTransport{token: token}
+	transport := AuthTransport{
+		jwtGenerator: &mockJWTGenerator{token: token},
+	}
 	client := transport.Client()
 
 	req, _ := http.NewRequest("GET", "", nil)
 	_, _ = client.Do(req)
 
 	got, want := req.Header.Get("Authorization"), fmt.Sprintf("Bearer %s", token)
-	assert.Equal(t, got, want)
+	assert.Equal(t, want, got)
 }
 
 func TestAuthTransportCustomTransport(t *testing.T) {
 	token := "TEST.TEST.TEST"
-	transport := AuthTransport{token: token, Transport: http.DefaultTransport}
+	transport := AuthTransport{
+		Transport:    http.DefaultTransport,
+		jwtGenerator: &mockJWTGenerator{token: token},
+	}
 	client := transport.Client()
 
 	req, _ := http.NewRequest("GET", "", nil)
 	_, _ = client.Do(req)
 
 	got, want := req.Header.Get("Authorization"), fmt.Sprintf("Bearer %s", token)
-	assert.Equal(t, got, want)
+	assert.Equal(t, want, got)
+}
+
+type mockJWTGenerator struct {
+	token string
+}
+
+func (g *mockJWTGenerator) Token() (string, error) {
+	return g.token, nil
+}
+
+func (g *mockJWTGenerator) IsExpired() bool {
+	return false
 }

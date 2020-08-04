@@ -17,17 +17,11 @@ import (
 func TestNewClient(t *testing.T) {
 	c := NewClient(nil)
 
-	if got, want := c.BaseURL.String(), defaultBaseURL; got != want {
-		t.Errorf("NewClient BaseURL is %v, want %v", got, want)
-	}
-	if got, want := c.UserAgent, userAgent; got != want {
-		t.Errorf("NewClient UserAgent is %v, want %v", got, want)
-	}
+	assert.Equal(t, defaultBaseURL, c.BaseURL.String())
+	assert.Equal(t, userAgent, c.UserAgent)
 
 	c2 := NewClient(nil)
-	if c.client == c2.client {
-		t.Error("NewClient returned same http.Clients, but they should differ")
-	}
+	assert.NotSame(t, c.client, c2.client, "NewClient returned same http.Clients, but they should differ")
 }
 
 type mockPayload struct {
@@ -52,7 +46,7 @@ func TestGet(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, unmarshaled, mockPayload{"TEST"})
+	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
 func TestGetWithQuery(t *testing.T) {
@@ -68,7 +62,7 @@ func TestGetWithQuery(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, unmarshaled, mockPayload{"TEST"})
+	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
 func TestGetError(t *testing.T) {
@@ -81,7 +75,7 @@ func TestGetError(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, unmarshaled, mockPayload{"TEST"})
+	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
 func TestGetBadRequest(t *testing.T) {
@@ -99,7 +93,7 @@ func TestPost(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, unmarshaled, mockPayload{"TEST"})
+	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
 func TestPostRespondingNoContent(t *testing.T) {
@@ -117,7 +111,7 @@ func TestPatch(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, unmarshaled, mockPayload{"TEST"})
+	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
 func TestPatchRespondingNoContent(t *testing.T) {
@@ -196,7 +190,7 @@ func TestCheckBadResponse(t *testing.T) {
 	err := checkResponse(resp)
 	assert.Error(t, err)
 	assert.IsType(t, new(ErrorResponse), err)
-	assert.Equal(t, err.(*ErrorResponse).Response, resp)
+	assert.Equal(t, resp, err.(*ErrorResponse).Response)
 	assert.NotZero(t, len(err.Error()))
 }
 
@@ -301,31 +295,23 @@ func TestEmailUnmarshalInvalidEmail(t *testing.T) {
 func TestBool(t *testing.T) {
 	got := true
 	want := Bool(got)
-	if &got == want {
-		t.Error("Bool returned same *bool, but they should differ")
-	}
+	assert.Equal(t, want, &got, "Bool returned same *bool, but they should differ")
 }
 
 func TestInt(t *testing.T) {
 	got := 100
 	want := Int(got)
-	if &got == want {
-		t.Error("Int returned same *int, but they should differ")
-	}
+	assert.Equal(t, want, &got, "Int returned same *int, but they should differ")
 }
 
 func TestFloat(t *testing.T) {
 	got := 100.5
 	want := Float(got)
-	if &got == want {
-		t.Error("Float returned same *float64, but they should differ")
-	}
+	assert.Equal(t, want, &got, "Float returned same *float64, but they should differ")
 }
 
 func TestString(t *testing.T) {
 	got := "App Store Connect"
 	want := String(got)
-	if &got == want {
-		t.Error("String returned same *string, but they should differ")
-	}
+	assert.Equal(t, want, &got, "String returned same *string, but they should differ")
 }
