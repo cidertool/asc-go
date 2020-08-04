@@ -95,8 +95,8 @@ func (s *AppsService) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*Ap
 	return res, resp, err
 }
 
-// UpdateAppScreenshot commits an app screenshot after uploading it.
-func (s *AppsService) UpdateAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *http.Response, error) {
+// CommitAppScreenshot commits an app screenshot after uploading it.
+func (s *AppsService) CommitAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *http.Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.patch(url, body, res)

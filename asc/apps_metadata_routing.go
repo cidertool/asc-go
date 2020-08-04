@@ -98,8 +98,8 @@ func (s *AppsService) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateReq
 	return res, resp, err
 }
 
-// UpdateRoutingAppCoverage commits a routing app coverage file after uploading it.
-func (s *AppsService) UpdateRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
+// CommitRoutingAppCoverage commits a routing app coverage file after uploading it.
+func (s *AppsService) CommitRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.patch(url, body, res)

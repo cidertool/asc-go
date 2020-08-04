@@ -2,6 +2,7 @@ package asc
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -143,8 +144,8 @@ func (s *AppsService) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPrevi
 	return res, resp, err
 }
 
-// UpdateAppPreview commits an app preview after uploading it.
-func (s *AppsService) UpdateAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *http.Response, error) {
+// CommitAppPreview commits an app preview after uploading it.
+func (s *AppsService) CommitAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -155,4 +156,16 @@ func (s *AppsService) UpdateAppPreview(id string, body *AppPreviewUpdateRequest)
 func (s *AppsService) DeleteAppPreview(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	return s.client.delete(url, nil)
+}
+
+// Request creates a new http.Request instance from the given UploadOperation and buffer
+func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(*op.Method, *op.URL, data)
+	if err != nil {
+		return nil, err
+	}
+	for _, h := range *op.RequestHeaders {
+		req.Header.Add(*h.Name, *h.Value)
+	}
+	return req, nil
 }
