@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -28,7 +29,7 @@ func Token() (auth *asc.AuthTransport, err error) {
 			return nil, err
 		}
 	} else {
-		return nil, fmt.Errorf("no private key provided to either the -privatekey or -privatekeypath flags")
+		return nil, errors.New("no private key provided to either the -privatekey or -privatekeypath flags")
 	}
 	// Create the token using the required information
 	auth, err = asc.NewTokenConfig(*keyID, *issuerID, 20*time.Minute, secret)

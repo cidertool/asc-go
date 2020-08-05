@@ -3,7 +3,6 @@ package asc
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -245,74 +244,6 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	return resp, err
 }
 
-// Reference is a wrapper type for a URL that contains a cursor parameter
-type Reference struct {
-	url.URL
-}
-
-// Cursor returns the cursor parameter on the Reference's internal URL.
-func (r *Reference) Cursor() string {
-	return r.Query().Get("cursor")
-}
-
-// MarshalJSON marshals the Reference into a JSON fragment
-func (r Reference) MarshalJSON() ([]byte, error) {
-	return json.Marshal(r.String())
-}
-
-// UnmarshalJSON unmarshals the JSON fragment into a Reference
-func (r *Reference) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	u, err := url.Parse(s)
-	if err != nil {
-		return err
-	}
-	if u != nil {
-		r.URL = *u
-	}
-	return nil
-}
-
-// PagedDocumentLinks defines model for PagedDocumentLinks.
-type PagedDocumentLinks struct {
-	First *Reference `json:"first,omitempty"`
-	Next  *Reference `json:"next,omitempty"`
-	Self  Reference  `json:"self"`
-}
-
-// PagingInformation defines model for PagingInformation.
-type PagingInformation struct {
-	Paging struct {
-		Limit int `json:"limit"`
-		Total int `json:"total"`
-	} `json:"paging"`
-}
-
-// ResourceLinks defines model for ResourceLinks.
-type ResourceLinks struct {
-	Self Reference `json:"self"`
-}
-
-// DocumentLinks defines model for DocumentLinks.
-type DocumentLinks struct {
-	Self Reference `json:"self"`
-}
-
-// RelationshipsData contains data on the given relationship
-type RelationshipsData struct {
-	ID   string `json:"id"`
-	Type string `json:"type"`
-}
-
-// RelationshipsLinks contains links on the given relationship
-type RelationshipsLinks struct {
-	Related *string `json:"related,omitempty"`
-	Self    *string `json:"self,omitempty"`
-}
-
 // ErrorResponse contains information with error details that an API returns in the response body whenever the API request is not successful.
 type ErrorResponse struct {
 	Response *http.Response `json:"-"`
@@ -353,77 +284,4 @@ func checkResponse(r *http.Response) error {
 	}
 	erro.Response = r
 	return erro
-}
-
-// Date represents a date with no time component
-type Date struct {
-	time.Time
-}
-
-// MarshalJSON is a custom marshaller for time-less dates
-func (d Date) MarshalJSON() ([]byte, error) {
-	return json.Marshal(d.Time.Format(dateFormat))
-}
-
-// UnmarshalJSON is a custom unmarshaller for time-less dates
-func (d *Date) UnmarshalJSON(data []byte) error {
-	var dateStr string
-	err := json.Unmarshal(data, &dateStr)
-	if err != nil {
-		return err
-	}
-	parsed, err := time.Parse(dateFormat, dateStr)
-	if err != nil {
-		return err
-	}
-	d.Time = parsed
-	return nil
-}
-
-// Email is a validated email address string
-type Email string
-
-// MarshalJSON is a custom marshaler for email addresses
-func (e Email) MarshalJSON() ([]byte, error) {
-	if !emailRegex.MatchString(string(e)) {
-		return nil, errors.New("email: failed to pass regex validation")
-	}
-	return json.Marshal(string(e))
-}
-
-// UnmarshalJSON is a custom unmarshaller for email addresses
-func (e *Email) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
-		return err
-	}
-	if !emailRegex.MatchString(s) {
-		return errors.New("email: failed to pass regex validation")
-	}
-	*e = Email(s)
-	return nil
-}
-
-// Bool is a helper routine that allocates a new bool value
-// to store v and returns a pointer to it.
-func Bool(v bool) *bool {
-	return &v
-}
-
-// Int is a helper routine that allocates a new int value
-// to store v and returns a pointer to it.
-func Int(v int) *int {
-	return &v
-}
-
-// Float is a helper routine that allocates a new float64 value
-// to store v and returns a pointer to it.
-func Float(v float64) *float64 {
-	return &v
-}
-
-// String is a helper routine that allocates a new string value
-// to store v and returns a pointer to it.
-func String(v string) *string {
-	return &v
 }

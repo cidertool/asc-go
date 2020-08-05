@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 )
 
@@ -101,21 +100,6 @@ type AppPreviewsResponse struct {
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
-// UploadOperation defines model for UploadOperation.
-type UploadOperation struct {
-	Length         *int                     `json:"length,omitempty"`
-	Method         *string                  `json:"method,omitempty"`
-	Offset         *int                     `json:"offset,omitempty"`
-	RequestHeaders *[]UploadOperationHeader `json:"requestHeaders,omitempty"`
-	URL            *string                  `json:"url,omitempty"`
-}
-
-// UploadOperationHeader defines model for UploadOperationHeader.
-type UploadOperationHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value *string `json:"value,omitempty"`
-}
-
 // ImageAsset defines model for ImageAsset.
 type ImageAsset struct {
 	Height      *int    `json:"height,omitempty"`
@@ -156,16 +140,4 @@ func (s *AppsService) CommitAppPreview(id string, body *AppPreviewUpdateRequest)
 func (s *AppsService) DeleteAppPreview(id string) (*http.Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	return s.client.delete(url, nil)
-}
-
-// Request creates a new http.Request instance from the given UploadOperation and buffer
-func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(*op.Method, *op.URL, data)
-	if err != nil {
-		return nil, err
-	}
-	for _, h := range *op.RequestHeaders {
-		req.Header.Add(*h.Name, *h.Value)
-	}
-	return req, nil
 }

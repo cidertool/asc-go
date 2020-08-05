@@ -3,6 +3,7 @@ package asc
 import (
 	"crypto/x509"
 	"encoding/pem"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -53,7 +54,7 @@ func NewTokenConfig(keyID string, issuerID string, expireDuration time.Duration,
 func parsePrivateKey(blob []byte) (key interface{}, err error) {
 	block, _ := pem.Decode(blob)
 	if block == nil {
-		return nil, fmt.Errorf("no PEM blob found")
+		return nil, errors.New("no PEM blob found")
 	}
 	key, err = x509.ParsePKCS8PrivateKey(block.Bytes)
 	if err != nil {
