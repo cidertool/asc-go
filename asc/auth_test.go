@@ -94,6 +94,6 @@ func (g *mockJWTGenerator) Token() (string, error) {
 	return g.token, nil
 }
 
-func (g *mockJWTGenerator) IsExpired() bool {
-	return false
+func (g *mockJWTGenerator) IsValid() bool {
+	return true
 }

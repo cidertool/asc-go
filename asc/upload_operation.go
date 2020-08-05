@@ -2,6 +2,8 @@ package asc
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -24,6 +26,33 @@ type UploadOperation struct {
 type UploadOperationHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
+}
+
+// UploadOperationErrors is a collection of failed operations and their associated errors
+// that can be used to retry later.
+type UploadOperationErrors []UploadOperationError
+
+func (e UploadOperationErrors) Error() string {
+	var bigErr error
+	for _, err := range e {
+		if bigErr == nil {
+			bigErr = errors.New(err.Error())
+		} else {
+			bigErr = fmt.Errorf("%w; %s", bigErr, err.Error())
+		}
+	}
+	return bigErr.Error()
+}
+
+// UploadOperationError pairs a failed operation and its associated error so it
+// can be retried later.
+type UploadOperationError struct {
+	Operation UploadOperation
+	Err       error
+}
+
+func (e UploadOperationError) Error() string {
+	return e.Err.Error()
 }
 
 // Chunk returns the bytes in the file from the given offset and with the given length
@@ -61,12 +90,15 @@ func (ops UploadOperations) Upload(name string, client *Client) error {
 	}
 
 	var wg sync.WaitGroup
-	errs := make(chan error)
+	errs := make(chan UploadOperationError)
 
 	for i, operation := range ops {
 		chunk, err := operation.Chunk(file)
 		if err != nil {
-			errs <- err
+			errs <- UploadOperationError{
+				Operation: operation,
+				Err:       err,
+			}
 			continue
 		}
 		wg.Add(1)
@@ -78,24 +110,33 @@ func (ops UploadOperations) Upload(name string, client *Client) error {
 		close(errs)
 	}()
 
-	// TODO: These errors ought to be concatenated in some way
+	allErrors := make(UploadOperationErrors, 0)
 	for err := range errs {
-		return err
+		allErrors = append(allErrors, err)
 	}
 
+	if len(allErrors) > 0 {
+		return allErrors
+	}
 	return nil
 }
 
-func (c *Client) sendChunk(op UploadOperation, chunk io.Reader, errs chan<- error, wg *sync.WaitGroup) {
+func (c *Client) sendChunk(op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
 	defer wg.Done()
 	req, err := op.Request(chunk)
 	if err != nil {
-		errs <- err
+		errs <- UploadOperationError{
+			Operation: op,
+			Err:       err,
+		}
 		return
 	}
 	_, err = c.do(req, nil)
 	if err != nil {
-		errs <- err
+		errs <- UploadOperationError{
+			Operation: op,
+			Err:       err,
+		}
 	}
 
 }

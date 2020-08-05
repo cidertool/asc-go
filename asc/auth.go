@@ -20,7 +20,7 @@ type AuthTransport struct {
 
 type jwtGenerator interface {
 	Token() (string, error)
-	IsExpired() bool
+	IsValid() bool
 }
 
 type standardJWTGenerator struct {
@@ -86,7 +86,7 @@ func (t *AuthTransport) transport() http.RoundTripper {
 }
 
 func (g *standardJWTGenerator) Token() (string, error) {
-	if !g.IsExpired() {
+	if g.IsValid() {
 		return g.token, nil
 	}
 	t := jwt.NewWithClaims(jwt.SigningMethodES256, g.claims())
@@ -99,12 +99,20 @@ func (g *standardJWTGenerator) Token() (string, error) {
 	return token, nil
 }
 
-func (g *standardJWTGenerator) IsExpired() bool {
+func (g *standardJWTGenerator) IsValid() bool {
 	if g.token == "" {
-		return true
+		return false
 	}
-	// TODO: Check if token is expired
-	return false
+	parsed, err := jwt.Parse(
+		g.token,
+		jwt.KnownKeyfunc(jwt.SigningMethodES256, g.privateKey),
+		jwt.WithAudience("appstoreconnect-v1"),
+		jwt.WithIssuer(g.issuerID),
+	)
+	if err != nil {
+		return false
+	}
+	return parsed.Valid
 }
 
 func (g *standardJWTGenerator) claims() jwt.Claims {
