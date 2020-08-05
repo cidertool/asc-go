@@ -91,6 +91,12 @@ func newRequest(v interface{}) *request {
 	return req
 }
 
+// FollowReference is a convenience method to perform a GET on a relationship link with
+// pre-established parameters that you know the response type of.
+func (c *Client) FollowReference(ref *Reference, v interface{}) (*http.Response, error) {
+	return c.get(ref.String(), nil, &v)
+}
+
 // get sends a GET request to the API as configured
 func (c *Client) get(url string, query interface{}, v interface{}) (*http.Response, error) {
 	var err error

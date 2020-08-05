@@ -12,7 +12,7 @@ type AppStoreReviewAttachment struct {
 		FileName           *string             `json:"fileName,omitempty"`
 		FileSize           *int                `json:"fileSize,omitempty"`
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations   *[]UploadOperation  `json:"uploadOperations,omitempty"`
+		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`

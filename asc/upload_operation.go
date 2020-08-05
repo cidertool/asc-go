@@ -8,6 +8,9 @@ import (
 	"sync"
 )
 
+// UploadOperations is a slice of UploadOperation instances
+type UploadOperations []UploadOperation
+
 // UploadOperation defines model for UploadOperation.
 type UploadOperation struct {
 	Length         *int                     `json:"length,omitempty"`
@@ -49,8 +52,8 @@ func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
 	return req, nil
 }
 
-// UploadMultipartFile takes a file path and some operations and concurrently uploads each part of the file to App Store Connect
-func (c *Client) UploadMultipartFile(name string, operations []UploadOperation) error {
+// Upload takes a file path and concurrently uploads each part of the file to App Store Connect
+func (ops UploadOperations) Upload(name string, client *Client) error {
 	// Open the file
 	file, err := os.Open(name)
 	if err != nil {
@@ -60,14 +63,14 @@ func (c *Client) UploadMultipartFile(name string, operations []UploadOperation) 
 	var wg sync.WaitGroup
 	errs := make(chan error)
 
-	for i, operation := range operations {
+	for i, operation := range ops {
 		chunk, err := operation.Chunk(file)
 		if err != nil {
 			errs <- err
 			continue
 		}
 		wg.Add(1)
-		go c.sendChunk(operations[i], chunk, errs, &wg)
+		go client.sendChunk(ops[i], chunk, errs, &wg)
 	}
 
 	go func() {

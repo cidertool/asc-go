@@ -15,7 +15,7 @@ type AppScreenshot struct {
 		FileSize           *int                `json:"fileSize,omitempty"`
 		ImageAsset         *ImageAsset         `json:"imageAsset,omitempty"`
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations   *[]UploadOperation  `json:"uploadOperations,omitempty"`
+		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`

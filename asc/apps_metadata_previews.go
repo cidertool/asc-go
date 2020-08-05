@@ -37,7 +37,7 @@ type AppPreview struct {
 		PreviewFrameTimeCode *string             `json:"previewFrameTimeCode,omitempty"`
 		PreviewImage         *ImageAsset         `json:"previewImage,omitempty"`
 		SourceFileChecksum   *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations     *[]UploadOperation  `json:"uploadOperations,omitempty"`
+		UploadOperations     *UploadOperations   `json:"uploadOperations,omitempty"`
 		VideoURL             *string             `json:"videoUrl,omitempty"`
 	} `json:"attributes,omitempty"`
 	ID            string        `json:"id"`
@@ -61,7 +61,7 @@ type AppPreviewCreateRequest struct {
 // AppPreviewCreateRequestAttributes are attributes for AppPreviewCreateRequest
 type AppPreviewCreateRequestAttributes struct {
 	FileName             string  `json:"fileName"`
-	FileSize             int     `json:"fileSize"`
+	FileSize             int64   `json:"fileSize"`
 	MimeType             *string `json:"mimeType,omitempty"`
 	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
 }

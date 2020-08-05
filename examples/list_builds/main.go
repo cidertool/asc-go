@@ -23,7 +23,9 @@ func main() {
 
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
-	app, err := util.GetAppByName(client, *appName)
+	app, err := util.GetApp(client, &asc.ListAppsQuery{
+		FilterName: []string{*appName},
+	})
 	if err != nil {
 		log.Fatalf("%s", err)
 	}

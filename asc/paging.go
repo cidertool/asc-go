@@ -69,6 +69,6 @@ type RelationshipsData struct {
 
 // RelationshipsLinks contains links on the given relationship
 type RelationshipsLinks struct {
-	Related *string `json:"related,omitempty"`
-	Self    *string `json:"self,omitempty"`
+	Related *Reference `json:"related,omitempty"`
+	Self    *Reference `json:"self,omitempty"`
 }

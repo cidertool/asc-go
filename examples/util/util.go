@@ -39,15 +39,13 @@ func Token() (auth *asc.AuthTransport, err error) {
 	return auth, nil
 }
 
-// GetAppByName returns a single asc.App by filtering by its full name on App Store Connect
-func GetAppByName(client *asc.Client, name string) (*asc.App, error) {
-	apps, _, err := client.Apps.ListApps(&asc.ListAppsQuery{
-		FilterName: []string{name},
-	})
+// GetApp returns a single asc.App by filtering by its full name on App Store Connect
+func GetApp(client *asc.Client, params *asc.ListAppsQuery) (*asc.App, error) {
+	apps, _, err := client.Apps.ListApps(params)
 	if err != nil {
 		return nil, err
 	} else if len(apps.Data) == 0 {
-		return nil, fmt.Errorf("query for app \"%s\" returned no data", name)
+		return nil, fmt.Errorf("query for app returned no data")
 	}
 	return &apps.Data[0], nil
 }

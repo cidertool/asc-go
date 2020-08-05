@@ -34,7 +34,7 @@ func TestMultipartUpload(t *testing.T) {
 	client, server := newMultipartServer()
 	defer server.Close()
 
-	operations := []UploadOperation{
+	operations := UploadOperations{
 		{
 			URL:            String(client.BaseURL.String()),
 			Offset:         Int(0),
@@ -72,7 +72,7 @@ func TestMultipartUpload(t *testing.T) {
 		},
 	}
 
-	err = client.UploadMultipartFile(file.Name(), operations)
+	err = operations.Upload(file.Name(), client)
 	assert.NoError(t, err)
 }
 
