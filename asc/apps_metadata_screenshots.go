@@ -12,7 +12,7 @@ type AppScreenshot struct {
 		AssetToken         *string             `json:"assetToken,omitempty"`
 		AssetType          *string             `json:"assetType,omitempty"`
 		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int                `json:"fileSize,omitempty"`
+		FileSize           *int64              `json:"fileSize,omitempty"`
 		ImageAsset         *ImageAsset         `json:"imageAsset,omitempty"`
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
@@ -38,7 +38,7 @@ type AppScreenshotCreateRequest struct {
 // AppScreenshotCreateRequestAttributes are attributes for AppScreenshotCreateRequest
 type AppScreenshotCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
-	FileSize int    `json:"fileSize"`
+	FileSize int64  `json:"fileSize"`
 }
 
 // AppScreenshotCreateRequestRelationships are relationships for AppScreenshotCreateRequest

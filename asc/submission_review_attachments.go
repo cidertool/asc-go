@@ -10,7 +10,7 @@ type AppStoreReviewAttachment struct {
 	Attributes *struct {
 		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
 		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int                `json:"fileSize,omitempty"`
+		FileSize           *int64              `json:"fileSize,omitempty"`
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
@@ -35,7 +35,7 @@ type AppStoreReviewAttachmentCreateRequest struct {
 // AppStoreReviewAttachmentCreateRequestAttributes are attributes for AppStoreReviewAttachmentCreateRequest
 type AppStoreReviewAttachmentCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
-	FileSize int    `json:"fileSize"`
+	FileSize int64  `json:"fileSize"`
 }
 
 // AppStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest

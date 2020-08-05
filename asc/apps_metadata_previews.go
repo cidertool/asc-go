@@ -32,7 +32,7 @@ type AppPreview struct {
 	Attributes *struct {
 		AssetDeliveryState   *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
 		FileName             *string             `json:"fileName,omitempty"`
-		FileSize             *int                `json:"fileSize,omitempty"`
+		FileSize             *int64              `json:"fileSize,omitempty"`
 		MimeType             *string             `json:"mimeType,omitempty"`
 		PreviewFrameTimeCode *string             `json:"previewFrameTimeCode,omitempty"`
 		PreviewImage         *ImageAsset         `json:"previewImage,omitempty"`

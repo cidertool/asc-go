@@ -10,7 +10,7 @@ type RoutingAppCoverage struct {
 	Attributes *struct {
 		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
 		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int                `json:"fileSize,omitempty"`
+		FileSize           *int64              `json:"fileSize,omitempty"`
 		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
 		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
 	} `json:"attributes,omitempty"`
@@ -35,7 +35,7 @@ type RoutingAppCoverageCreateRequest struct {
 // RoutingAppCoverageCreateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
 type RoutingAppCoverageCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
-	FileSize int    `json:"fileSize"`
+	FileSize int64  `json:"fileSize"`
 }
 
 // RoutingAppCoverageCreateRequestRelationships are relationships for RoutingAppCoverageCreateRequest
