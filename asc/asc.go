@@ -263,7 +263,7 @@ type ErrorResponse struct {
 	} `json:"errors,omitempty"`
 }
 
-func (e *ErrorResponse) Error() string {
+func (e ErrorResponse) Error() string {
 	report := strings.Builder{}
 	if e.Errors != nil {
 		for _, err := range *e.Errors {
