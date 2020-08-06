@@ -10,8 +10,9 @@ import (
 )
 
 var (
-	deviceName = flag.String("device_name", "", "Name of the iOS device being added")
-	deviceUDID = flag.String("device_udid", "", "UDID of the iOS device being added")
+	name     = flag.String("name", "", "Name of the device")
+	udid     = flag.String("udid", "", "UDID of the device")
+	platform = flag.String("platform", "IOS", "Platform (IOS or MAC_OS)")
 )
 
 func main() {
@@ -27,9 +28,9 @@ func main() {
 
 	device, _, err := client.Provisioning.CreateDevice(&asc.DeviceCreateRequest{
 		Attributes: asc.DeviceCreateRequestAttributes{
-			Name:     *deviceName,
-			Platform: asc.BundleIDPlatformiOS,
-			UDID:     *deviceUDID,
+			Name:     *name,
+			Platform: asc.BundleIDPlatform(*platform),
+			UDID:     *udid,
 		},
 		Type: "devices",
 	})
