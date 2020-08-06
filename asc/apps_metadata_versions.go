@@ -288,10 +288,10 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionB
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
-func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkage *RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.patch(url, linkages, res)
+	resp, err := s.client.patch(url, linkage, res)
 	return res, resp, err
 }
 

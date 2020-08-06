@@ -279,9 +279,9 @@ func (s *BuildsService) UpdateBuild(id string, body BuildUpdateRequest) (*BuildR
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_the_app_encryption_declaration_for_a_build
-func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(id string, linkage *RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
-	return s.client.patch(url, linkages, nil)
+	return s.client.patch(url, linkage, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or creates a beta group to a build to enable testing.
