@@ -1,7 +1,7 @@
 # asc-go
 
 [![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/aaronsky/asc-go/asc)
-[![Test Status](https://github.com/aaronsky/asc-go/workflows/main/badge.svg)](https://github.com/aaronsky/asc-go/actions?query=workflow%3Amain)
+[![Test Status](https://github.com/aaronsky/asc-go/workflows/Run%20Tests/badge.svg)](https://github.com/aaronsky/asc-go/actions?query=workflow%253A%2522Run+Tests%2522)
 
 asc-go is a Go client library for accessing Apple's [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi).
 
