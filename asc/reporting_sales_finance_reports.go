@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"bytes"
 	"io"
 )
 
@@ -25,15 +26,17 @@ type DownloadSalesAndTrendsReportsQuery struct {
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/download_finance_reports
-func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (io.ReadCloser, *Response, error) {
-	resp, err := s.client.get("financeReports", params, nil, withAccept("gzip"))
-	return resp.Body, resp, err
+func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (io.Reader, *Response, error) {
+	buffer := new(bytes.Buffer)
+	resp, err := s.client.get("financeReports", params, buffer, withAccept("application/a-gzip"))
+	return buffer, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/download_sales_and_trends_reports
-func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (io.ReadCloser, *Response, error) {
-	resp, err := s.client.get("salesReports", params, nil, withAccept("gzip"))
-	return resp.Body, resp, err
+func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (io.Reader, *Response, error) {
+	buffer := new(bytes.Buffer)
+	resp, err := s.client.get("salesReports", params, buffer, withAccept("application/a-gzip"))
+	return buffer, resp, err
 }
