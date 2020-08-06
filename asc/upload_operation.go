@@ -87,13 +87,7 @@ func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
 }
 
 // Upload takes a file path and concurrently uploads each part of the file to App Store Connect
-func (ops UploadOperations) Upload(name string, client *Client) error {
-	// Open the file
-	file, err := os.Open(name)
-	if err != nil {
-		return err
-	}
-
+func (ops UploadOperations) Upload(file *os.File, client *Client) error {
 	var wg sync.WaitGroup
 	errs := make(chan UploadOperationError)
 

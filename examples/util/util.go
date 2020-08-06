@@ -17,8 +17,8 @@ var (
 	privateKeyPath = flag.String("privatekeypath", "", "path to a private key used to sign authorization token")
 )
 
-// Token creates the auth transport using the required information
-func Token() (auth *asc.AuthTransport, err error) {
+// TokenConfig creates the auth transport using the required information
+func TokenConfig() (auth *asc.AuthTransport, err error) {
 	var secret []byte
 	if *privateKey != "" {
 		secret = []byte(*privateKey)

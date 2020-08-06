@@ -27,7 +27,7 @@ func main() {
 	// 1. Create an Authorization header value with bearer token (JWT).
 	//    The token is set to expire in 20 minutes, and is used for all App Store
 	//    Connect API calls.
-	auth, err := util.Token()
+	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
 	}
@@ -142,15 +142,19 @@ func main() {
 	// 8. Reserve an app preview in the selected app preview set.
 	//    Tell the API to create a preview before uploading the
 	//    preview data.
-	fInfo, err := os.Stat(*previewFile)
+	file, err := os.Open(*previewFile)
+	if err != nil {
+		log.Fatalf("file could not be read: %s", err)
+	}
+	stat, err := file.Stat()
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app preview.")
 	reservePreview, _, err := client.Apps.CreateAppPreview(&asc.AppPreviewCreateRequest{
 		Attributes: asc.AppPreviewCreateRequestAttributes{
-			FileName: fInfo.Name(),
-			FileSize: fInfo.Size(),
+			FileName: file.Name(),
+			FileSize: stat.Size(),
 		},
 		Relationships: asc.AppPreviewCreateRequestRelationships{
 			AppPreviewSet: struct {
@@ -173,7 +177,7 @@ func main() {
 	//     if you have the bandwidth.
 	uploadOperations := preview.Attributes.UploadOperations
 	fmt.Printf("Uploading %d preview components\n", len(*uploadOperations))
-	err = uploadOperations.Upload(*previewFile, client)
+	err = uploadOperations.Upload(file, client)
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}

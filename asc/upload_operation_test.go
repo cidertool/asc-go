@@ -72,7 +72,7 @@ func TestMultipartUpload(t *testing.T) {
 		},
 	}
 
-	err = operations.Upload(file.Name(), client)
+	err = operations.Upload(file, client)
 	assert.NoError(t, err)
 }
 

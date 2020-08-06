@@ -127,8 +127,22 @@ func (c *Client) FollowReference(ref *Reference, v interface{}) (*Response, erro
 	return c.get(ref.String(), nil, &v)
 }
 
+type requestOption func(*http.Request)
+
+func withAccept(typ string) requestOption {
+	return func(req *http.Request) {
+		req.Header.Set("Accept", typ)
+	}
+}
+
+func withContentType(typ string) requestOption {
+	return func(req *http.Request) {
+		req.Header.Set("Content-Type", typ)
+	}
+}
+
 // get sends a GET request to the API as configured
-func (c *Client) get(url string, query interface{}, v interface{}) (*Response, error) {
+func (c *Client) get(url string, query interface{}, v interface{}, options ...requestOption) (*Response, error) {
 	var err error
 	if query != nil {
 		url, err = c.addOptions(url, query)
@@ -137,10 +151,11 @@ func (c *Client) get(url string, query interface{}, v interface{}) (*Response, e
 		}
 	}
 
-	req, err := c.newRequest("GET", url, nil)
+	req, err := c.newRequest("GET", url, nil, options...)
 	if err != nil {
 		return nil, err
 	}
+
 	resp, err := c.do(req, v)
 	if err != nil {
 		return resp, err
@@ -150,7 +165,7 @@ func (c *Client) get(url string, query interface{}, v interface{}) (*Response, e
 
 // post sends a POST request to the API as configured
 func (c *Client) post(url string, body interface{}, v interface{}) (*Response, error) {
-	req, err := c.newRequest("POST", url, body)
+	req, err := c.newRequest("POST", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +178,7 @@ func (c *Client) post(url string, body interface{}, v interface{}) (*Response, e
 
 // patch sends a PATCH request to the API as configured
 func (c *Client) patch(url string, body interface{}, v interface{}) (*Response, error) {
-	req, err := c.newRequest("PATCH", url, body)
+	req, err := c.newRequest("PATCH", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
@@ -176,14 +191,14 @@ func (c *Client) patch(url string, body interface{}, v interface{}) (*Response, 
 
 // delete sends a DELETE request to the API as configured
 func (c *Client) delete(url string, body interface{}) (*Response, error) {
-	req, err := c.newRequest("DELETE", url, body)
+	req, err := c.newRequest("DELETE", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
 	return c.do(req, nil)
 }
 
-func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
+func (c *Client) newRequest(method, path string, body interface{}, options ...requestOption) (*http.Request, error) {
 	rel, err := url.Parse(path)
 	if err != nil {
 		return nil, err
@@ -209,11 +224,12 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 		return nil, err
 	}
 
-	if body != nil {
-		req.Header.Set("Content-Type", "application/json")
-	}
 	if c.UserAgent != "" {
 		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
+	for _, option := range options {
+		option(req)
 	}
 
 	return req, nil

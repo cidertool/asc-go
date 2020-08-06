@@ -23,7 +23,7 @@ var (
 func main() {
 	flag.Parse()
 
-	auth, err := util.Token()
+	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
 	}

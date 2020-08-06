@@ -27,7 +27,7 @@ func main() {
 	// 1. Create an Authorization header value with bearer token (JWT).
 	//    The token is set to expire in 20 minutes, and is used for all App Store
 	//    Connect API calls.
-	auth, err := util.Token()
+	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
 	}
@@ -142,15 +142,19 @@ func main() {
 	// 8. Reserve an app screenshot in the selected app screenshot set.
 	//    Tell the API to create a screenshot before uploading the
 	//    screenshot data.
-	fInfo, err := os.Stat(*screenshotFile)
+	file, err := os.Open(*screenshotFile)
+	if err != nil {
+		log.Fatalf("file could not be read: %s", err)
+	}
+	stat, err := file.Stat()
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
 	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(&asc.AppScreenshotCreateRequest{
 		Attributes: asc.AppScreenshotCreateRequestAttributes{
-			FileName: fInfo.Name(),
-			FileSize: fInfo.Size(),
+			FileName: file.Name(),
+			FileSize: stat.Size(),
 		},
 		Relationships: asc.AppScreenshotCreateRequestRelationships{
 			AppScreenshotSet: struct {
@@ -173,7 +177,7 @@ func main() {
 	//     if you have the bandwidth.
 	uploadOperations := screenshot.Attributes.UploadOperations
 	fmt.Printf("Uploading %d screenshot components\n", len(*uploadOperations))
-	err = uploadOperations.Upload(*screenshotFile, client)
+	err = uploadOperations.Upload(file, client)
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}

@@ -1,7 +1,7 @@
 package asc
 
 import (
-	"bytes"
+	"io"
 )
 
 // DownloadFinanceReportsQuery are query options for DownloadFinanceReports
@@ -25,17 +25,15 @@ type DownloadSalesAndTrendsReportsQuery struct {
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/download_finance_reports
-func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *Response, error) {
-	res := new(bytes.Buffer)
-	resp, err := s.client.get("financeReports", params, res)
-	return res, resp, err
+func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (io.ReadCloser, *Response, error) {
+	resp, err := s.client.get("financeReports", params, nil, withAccept("gzip"))
+	return resp.Body, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/download_sales_and_trends_reports
-func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *Response, error) {
-	res := new(bytes.Buffer)
-	resp, err := s.client.get("salesReports", params, res)
-	return res, resp, err
+func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (io.ReadCloser, *Response, error) {
+	resp, err := s.client.get("salesReports", params, nil, withAccept("gzip"))
+	return resp.Body, resp, err
 }
