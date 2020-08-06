@@ -71,8 +71,9 @@ func emailContainerJSON(email string) string {
 }
 
 func TestEmailMarshal(t *testing.T) {
-	want := emailContainerJSON("my@email.com")
-	b := newEmailContainer("my@email.com")
+	email := "my@email.com"
+	want := emailContainerJSON(email)
+	b := newEmailContainer(email)
 	got, err := json.Marshal(b)
 	assert.NoError(t, err)
 	assert.JSONEq(t, want, string(got))
@@ -86,7 +87,7 @@ func TestEmailMarshalInvalidEmail(t *testing.T) {
 
 func TestEmailUnmarshal(t *testing.T) {
 	want := "my@email.com"
-	jsonStr := emailContainerJSON("my@email.com")
+	jsonStr := emailContainerJSON(want)
 	var b emailContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.NoError(t, err)

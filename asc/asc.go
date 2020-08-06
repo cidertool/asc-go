@@ -99,17 +99,21 @@ type Rate struct {
 	Remaining int `json:"remaining"`
 }
 
-// ErrorResponse contains information with error details that an API returns in the response body whenever the API request is not successful.
+// ErrorResponse contains information with error details that an API returns in the
+// response body whenever the API request is not successful.
 type ErrorResponse struct {
-	Response *http.Response `json:"-"`
-	Errors   *[]struct {
-		Code   string       `json:"code"`
-		Detail string       `json:"detail"`
-		ID     *string      `json:"id,omitempty"`
-		Source *interface{} `json:"source,omitempty"`
-		Status string       `json:"status"`
-		Title  string       `json:"title"`
-	} `json:"errors,omitempty"`
+	Response *http.Response        `json:"-"`
+	Errors   *[]ErrorResponseError `json:"errors,omitempty"`
+}
+
+// ErrorResponseError is a model used in ErrorResponse to describe a single error from the API
+type ErrorResponseError struct {
+	Code   string       `json:"code"`
+	Detail string       `json:"detail"`
+	ID     *string      `json:"id,omitempty"`
+	Source *interface{} `json:"source,omitempty"`
+	Status string       `json:"status"`
+	Title  string       `json:"title"`
 }
 
 type service struct {
@@ -117,7 +121,7 @@ type service struct {
 }
 
 // request is a common structure for a request body sent to the API
-type request struct {
+type writingRequestPayload struct {
 	Data interface{} `json:"data"`
 }
 
@@ -213,7 +217,8 @@ func (c *Client) newRequest(method, path string, body interface{}, options ...re
 
 	buf := new(bytes.Buffer)
 	if body != nil {
-		err := json.NewEncoder(buf).Encode(wrapRequest(body))
+		payload := &writingRequestPayload{Data: body}
+		err := json.NewEncoder(buf).Encode(payload)
 		if err != nil {
 			return nil, err
 		}
@@ -295,11 +300,6 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	}
 
 	return response, err
-}
-
-func wrapRequest(v interface{}) *request {
-	req := &request{Data: v}
-	return req
 }
 
 func newResponse(r *http.Response) *Response {

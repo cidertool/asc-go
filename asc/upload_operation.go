@@ -62,6 +62,9 @@ func (e UploadOperationError) Error() string {
 
 // Chunk returns the bytes in the file from the given offset and with the given length
 func (op *UploadOperation) Chunk(f *os.File) (io.Reader, error) {
+	if op.Offset == nil || op.Length == nil {
+		return nil, errors.New("could not establish bounds of upload operation")
+	}
 	_, err := f.Seek(int64(*op.Offset), 0)
 	if err != nil {
 		return nil, err
@@ -76,12 +79,20 @@ func (op *UploadOperation) Chunk(f *os.File) (io.Reader, error) {
 
 // Request creates a new http.Request instance from the given UploadOperation and buffer
 func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
+	if op.Method == nil || op.URL == nil {
+		return nil, errors.New("could not establish destination of upload operation")
+	}
 	req, err := http.NewRequest(*op.Method, *op.URL, data)
 	if err != nil {
 		return nil, err
 	}
-	for _, h := range *op.RequestHeaders {
-		req.Header.Add(*h.Name, *h.Value)
+	if op.RequestHeaders != nil {
+		for _, h := range *op.RequestHeaders {
+			if h.Name == nil || h.Value == nil {
+				continue
+			}
+			req.Header.Add(*h.Name, *h.Value)
+		}
 	}
 	return req, nil
 }

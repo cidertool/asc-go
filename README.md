@@ -49,10 +49,10 @@ func main() {
     // The bytes of the PKCS#8 private key created on App Store Connect. Keep this key safe as you can only download it once.
     privateKey = ioutil.ReadFile("path/to/key")
 
-	auth, err = asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
-	if err != nil {
-		return nil, err
-	}
+    auth, err = asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
+    if err != nil {
+        return nil, err
+    }
     client := asc.NewClient(auth.Client())
 
     // list all apps with the bundle ID "com.sky.MyApp" in the authenticated user's team
