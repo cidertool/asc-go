@@ -185,6 +185,8 @@ type ListBetaTesterIDsForBetaGroupQuery struct {
 }
 
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_group
 func (s *TestflightService) CreateBetaGroup(body *BetaGroupCreateRequest) (*BetaGroupResponse, *Response, error) {
 	res := new(BetaGroupResponse)
 	resp, err := s.client.post("betaGroups", body, res)
@@ -192,6 +194,8 @@ func (s *TestflightService) CreateBetaGroup(body *BetaGroupCreateRequest) (*Beta
 }
 
 // UpdateBetaGroup modifies a beta group's metadata, including changing its Testflight public link status.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_group
 func (s *TestflightService) UpdateBetaGroup(id string, body *BetaGroupUpdateRequest) (*BetaGroupResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
@@ -200,12 +204,16 @@ func (s *TestflightService) UpdateBetaGroup(id string, body *BetaGroupUpdateRequ
 }
 
 // DeleteBetaGroup deletes a beta group and remove beta tester access to associated builds.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_group
 func (s *TestflightService) DeleteBetaGroup(id string) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // ListBetaGroups finds and lists beta groups for all apps.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_groups
 func (s *TestflightService) ListBetaGroups(params *ListBetaGroupsQuery) (*BetaGroupsResponse, *Response, error) {
 	res := new(BetaGroupsResponse)
 	resp, err := s.client.get("betaGroups", params, res)
@@ -213,6 +221,8 @@ func (s *TestflightService) ListBetaGroups(params *ListBetaGroupsQuery) (*BetaGr
 }
 
 // GetBetaGroup gets a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_group_information
 func (s *TestflightService) GetBetaGroup(id string, params *GetBetaGroupQuery) (*BetaGroupResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
@@ -221,6 +231,8 @@ func (s *TestflightService) GetBetaGroup(id string, params *GetBetaGroupQuery) (
 }
 
 // GetAppForBetaGroup gets the app information for a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_group
 func (s *TestflightService) GetAppForBetaGroup(id string, params *GetAppForBetaGroupQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/app", id)
 	res := new(AppResponse)
@@ -229,6 +241,8 @@ func (s *TestflightService) GetAppForBetaGroup(id string, params *GetAppForBetaG
 }
 
 // ListBetaGroupsForApp gets a list of beta groups associated with a specific app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_groups_for_an_app
 func (s *TestflightService) ListBetaGroupsForApp(id string, params *ListBetaGroupsForAppQuery) (*BetaGroupsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
@@ -237,30 +251,40 @@ func (s *TestflightService) ListBetaGroupsForApp(id string, params *ListBetaGrou
 }
 
 // AddBetaTestersToBetaGroup adds a specific beta tester to one or more beta groups for beta testing.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/add_beta_testers_to_a_beta_group
 func (s *TestflightService) AddBetaTestersToBetaGroup(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.client.post(url, linkages, nil)
 }
 
 // RemoveBetaTestersFromBetaGroup removes a specific beta tester from a one or more beta groups, revoking their access to test builds associated with those groups.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_a_beta_group
 func (s *TestflightService) RemoveBetaTestersFromBetaGroup(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.client.delete(url, linkages)
 }
 
 // AddBuildsToBetaGroup associates builds with a beta group to enable the group to test the builds.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/add_builds_to_a_beta_group
 func (s *TestflightService) AddBuildsToBetaGroup(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.client.post(url, linkages, nil)
 }
 
 // RemoveBuildsFromBetaGroup removes access to test one or more builds from beta testers in a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/remove_builds_from_a_beta_group
 func (s *TestflightService) RemoveBuildsFromBetaGroup(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.client.delete(url, linkages)
 }
 
 // ListBuildsForBetaGroup gets a list of builds associated with a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_for_a_betagroup
 func (s *TestflightService) ListBuildsForBetaGroup(id string, params *ListBuildsForBetaGroupQuery) (*BuildsResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/builds", id)
 	res := new(BuildsResponse)
@@ -269,6 +293,8 @@ func (s *TestflightService) ListBuildsForBetaGroup(id string, params *ListBuilds
 }
 
 // ListBuildIDsForBetaGroup gets a list of build resource IDs in a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_build_ids_in_a_beta_group
 func (s *TestflightService) ListBuildIDsForBetaGroup(id string, params *ListBuildIDsForBetaGroupQuery) (*BetaGroupBuildsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	res := new(BetaGroupBuildsLinkagesResponse)
@@ -277,6 +303,8 @@ func (s *TestflightService) ListBuildIDsForBetaGroup(id string, params *ListBuil
 }
 
 // ListBetaTestersForBetaGroup gets a list of beta testers contained in a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_testers_in_a_betagroup
 func (s *TestflightService) ListBetaTestersForBetaGroup(id string, params *ListBetaTestersForBetaGroupQuery) (*BetaTestersResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/betaTesters", id)
 	res := new(BetaTestersResponse)
@@ -285,6 +313,8 @@ func (s *TestflightService) ListBetaTestersForBetaGroup(id string, params *ListB
 }
 
 // ListBetaTesterIDsForBetaGroup gets a list of the beta tester resource IDs in a specific beta group.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_beta_tester_ids_in_a_beta_group
 func (s *TestflightService) ListBetaTesterIDsForBetaGroup(id string, params *ListBetaTesterIDsForBetaGroupQuery) (*BetaGroupBetaTestersLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	res := new(BetaGroupBetaTestersLinkagesResponse)

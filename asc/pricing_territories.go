@@ -35,6 +35,8 @@ type ListTerritoriesQuery struct {
 }
 
 // ListTerritories lists all territories where the App Store operates.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_territories
 func (s *PricingService) ListTerritories(params *ListTerritoriesQuery) (*TerritoriesResponse, *Response, error) {
 	res := new(TerritoriesResponse)
 	resp, err := s.client.get("territories", params, res)
@@ -42,6 +44,8 @@ func (s *PricingService) ListTerritories(params *ListTerritoriesQuery) (*Territo
 }
 
 // ListTerritoriesForApp gets a list of App Store territories where an app is or will be available.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_available_territories_for_an_app
 func (s *PricingService) ListTerritoriesForApp(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/availableTerritories", id)
 	res := new(TerritoriesResponse)
@@ -50,6 +54,8 @@ func (s *PricingService) ListTerritoriesForApp(id string, params *ListTerritorie
 }
 
 // ListTerritoriesForEULA lists all the App Store territories to which a specific custom app license agreement applies.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_territories_for_an_end_user_license_agreement
 func (s *PricingService) ListTerritoriesForEULA(id string, params *ListTerritoriesQuery) (*TerritoriesResponse, *Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s/territories", id)
 	res := new(TerritoriesResponse)
@@ -58,6 +64,8 @@ func (s *PricingService) ListTerritoriesForEULA(id string, params *ListTerritori
 }
 
 // GetTerritoryForAppPrice gets the territory in which a specific price point applies.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_territory_information_of_an_app_price_point
 func (s *PricingService) GetTerritoryForAppPrice(id string, params *ListTerritoriesQuery) (*TerritoryResponse, *Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)

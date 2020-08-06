@@ -121,6 +121,8 @@ type GetAppPricePointQuery struct {
 }
 
 // ListAppPriceTiers lists all app price tiers available in App Store Connect, including related price points.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_price_tiers
 func (s *PricingService) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *Response, error) {
 	res := new(AppPriceTiersResponse)
 	resp, err := s.client.get("appPriceTiers", params, res)
@@ -128,6 +130,8 @@ func (s *PricingService) ListAppPriceTiers(params *ListAppPriceTiersQuery) (*App
 }
 
 // GetAppPriceTier reads available app price tiers.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_tier_information
 func (s *PricingService) GetAppPriceTier(id string, params *GetAppPriceTierQuery) (*AppPriceTierResponse, *Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s", id)
 	res := new(AppPriceTierResponse)
@@ -136,6 +140,8 @@ func (s *PricingService) GetAppPriceTier(id string, params *GetAppPriceTierQuery
 }
 
 // ListPricePointsForAppPriceTier lists price points across all App Store territories for a specific price tier.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_price_points_for_an_app_price_tier
 func (s *PricingService) ListPricePointsForAppPriceTier(id string, params *ListPricePointsForAppPriceTierQuery) (*AppPricePointsResponse, *Response, error) {
 	url := fmt.Sprintf("appPriceTiers/%s/pricePoints", id)
 	res := new(AppPricePointsResponse)
@@ -144,6 +150,8 @@ func (s *PricingService) ListPricePointsForAppPriceTier(id string, params *ListP
 }
 
 // ListAppPricePoints lists all app price points available in App Store Connect, including related price tier, developer proceeds, and territory.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_price_points
 func (s *PricingService) ListAppPricePoints(params *ListAppPricePointsQuery) (*AppPricePointsResponse, *Response, error) {
 	res := new(AppPricePointsResponse)
 	resp, err := s.client.get("appPricePoints", params, res)
@@ -151,6 +159,8 @@ func (s *PricingService) ListAppPricePoints(params *ListAppPricePointsQuery) (*A
 }
 
 // GetTerritoryForAppPricePoint gets the territory in which a specific price point applies.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_territory_information_of_an_app_price_point
 func (s *PricingService) GetTerritoryForAppPricePoint(id string, params *GetTerritoryForAppPricePointQuery) (*TerritoryResponse, *Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
@@ -159,6 +169,8 @@ func (s *PricingService) GetTerritoryForAppPricePoint(id string, params *GetTerr
 }
 
 // GetAppPricePoint reads the customer prices and your proceeds for a price tier.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_point_information
 func (s *PricingService) GetAppPricePoint(id string, params *GetAppPricePointQuery) (*AppPricePointResponse, *Response, error) {
 	url := fmt.Sprintf("appPricePoints/%s", id)
 	res := new(AppPricePointResponse)

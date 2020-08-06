@@ -11,7 +11,7 @@ type Reference struct {
 }
 
 // Cursor returns the cursor parameter on the Reference's internal URL.
-func (r *Reference) Cursor() string {
+func (r Reference) Cursor() string {
 	return r.Query().Get("cursor")
 }
 

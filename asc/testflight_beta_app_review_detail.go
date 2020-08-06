@@ -89,6 +89,8 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 }
 
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_details
 func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
 	resp, err := s.client.get("betaAppReviewDetails", params, res)
@@ -96,6 +98,8 @@ func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDe
 }
 
 // GetBetaAppReviewDetail gets beta app review details for a specific app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_review_detail_information
 func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
@@ -104,6 +108,8 @@ func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaApp
 }
 
 // GetAppForBetaAppReviewDetail gets the app information for a specific beta app review details resource.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_app_review_detail
 func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(AppResponse)
@@ -112,6 +118,8 @@ func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetA
 }
 
 // GetBetaAppReviewDetailsForApp gets the beta app review details for a specific app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_app_review_details_resource_of_an_app
 func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
@@ -120,6 +128,8 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *Get
 }
 
 // UpdateBetaAppReviewDetail updates the details for a specific app's beta app review.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_review_detail
 func (s *TestflightService) UpdateBetaAppReviewDetail(id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)

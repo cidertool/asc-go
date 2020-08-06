@@ -97,6 +97,8 @@ type ListBetaBuildLocalizationsForBuildQuery struct {
 }
 
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_build_localizations
 func (s *TestflightService) ListBetaBuildLocalizations(params *ListBetaBuildLocalizationsQuery) (*BetaBuildLocalizationsResponse, *Response, error) {
 	res := new(BetaBuildLocalizationsResponse)
 	resp, err := s.client.get("betaBuildLocalizations", params, res)
@@ -104,6 +106,8 @@ func (s *TestflightService) ListBetaBuildLocalizations(params *ListBetaBuildLoca
 }
 
 // GetBetaBuildLocalization gets localized beta build information for a specific build and locale.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_build_localization_information
 func (s *TestflightService) GetBetaBuildLocalization(id string, params *GetBetaBuildLocalizationQuery) (*BetaBuildLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
@@ -112,6 +116,8 @@ func (s *TestflightService) GetBetaBuildLocalization(id string, params *GetBetaB
 }
 
 // GetBuildForBetaBuildLocalization gets the build information associated with a specific beta build localization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_beta_build_localization
 func (s *TestflightService) GetBuildForBetaBuildLocalization(id string, params *GetBuildForBetaBuildLocalizationQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s/build", id)
 	res := new(BuildResponse)
@@ -120,6 +126,8 @@ func (s *TestflightService) GetBuildForBetaBuildLocalization(id string, params *
 }
 
 // ListBetaBuildLocalizationsForBuild gets a list of localized beta test information for a specific build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_build_localizations_of_a_build
 func (s *TestflightService) ListBetaBuildLocalizationsForBuild(id string, params *ListBetaBuildLocalizationsForBuildQuery) (*BetaBuildLocalizationsResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/betaBuildLocalizations", id)
 	res := new(BetaBuildLocalizationsResponse)
@@ -128,6 +136,8 @@ func (s *TestflightService) ListBetaBuildLocalizationsForBuild(id string, params
 }
 
 // CreateBetaBuildLocalization creates localized descriptive information for an build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_build_localization
 func (s *TestflightService) CreateBetaBuildLocalization(body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
@@ -136,6 +146,8 @@ func (s *TestflightService) CreateBetaBuildLocalization(body *BetaBuildLocalizat
 }
 
 // UpdateBetaBuildLocalization updates the localized What’s New text for a specific build and locale.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_build_localization
 func (s *TestflightService) UpdateBetaBuildLocalization(id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
@@ -144,6 +156,8 @@ func (s *TestflightService) UpdateBetaBuildLocalization(id string, body *BetaBui
 }
 
 // DeleteBetaBuildLocalization deletes a beta build localization associated with an build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_build_localization
 func (s *TestflightService) DeleteBetaBuildLocalization(id string) (*Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	return s.client.delete(url, nil)

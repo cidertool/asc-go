@@ -75,6 +75,8 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 }
 
 // CreatePhasedRelease enables phased release for an App Store version.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_phased_release
 func (s *PublishingService) CreatePhasedRelease(body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.post("appStoreVersionPhasedReleases", body, res)
@@ -82,6 +84,8 @@ func (s *PublishingService) CreatePhasedRelease(body *AppStoreVersionPhasedRelea
 }
 
 // UpdatePhasedRelease pauses or resumes a phased release, or immediately release an app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_phased_release
 func (s *PublishingService) UpdatePhasedRelease(id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
@@ -90,12 +94,16 @@ func (s *PublishingService) UpdatePhasedRelease(id string, body *AppStoreVersion
 }
 
 // DeletePhasedRelease cancels a planned phased release that has not been started.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_phased_release
 func (s *PublishingService) DeletePhasedRelease(id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersion reads the phased release status and configuration for a version with phased release enabled.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_phased_release_information_of_an_app_store_version
 func (s *PublishingService) GetAppStoreVersionPhasedReleaseForAppStoreVersion(id string, params *GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)

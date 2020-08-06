@@ -30,6 +30,8 @@ type BetaTesterInvitationResponse struct {
 }
 
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/send_an_invitation_to_a_beta_tester
 func (s *TestflightService) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *Response, error) {
 	res := new(BetaTesterInvitationResponse)
 	resp, err := s.client.post("betaTesterInvitations", body, res)

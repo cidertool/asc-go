@@ -111,6 +111,8 @@ type ListBetaAppLocalizationsForAppQuery struct {
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_localizations
 func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *Response, error) {
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.client.get("betaAppLocalizations", params, res)
@@ -118,6 +120,8 @@ func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocaliza
 }
 
 // GetBetaAppLocalization gets localized beta app information for a specific app and locale.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_localization_information
 func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
@@ -126,6 +130,8 @@ func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaApp
 }
 
 // GetAppForBetaAppLocalization gets the app information associated with a specific beta app localization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_app_localization
 func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(AppResponse)
@@ -134,6 +140,8 @@ func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetA
 }
 
 // ListBetaAppLocalizationsForApp gets a list of localized beta test information for a specific app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_app_localizations_of_an_app
 func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
@@ -142,6 +150,8 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *Li
 }
 
 // CreateBetaAppLocalization creates localized descriptive information for an app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_app_localization
 func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
@@ -150,6 +160,8 @@ func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationC
 }
 
 // UpdateBetaAppLocalization updates the localized What’s New text for a specific app and locale.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_localization
 func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
@@ -158,6 +170,8 @@ func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLo
 }
 
 // DeleteBetaAppLocalization deletes a beta app localization associated with an app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_app_localization
 func (s *TestflightService) DeleteBetaAppLocalization(id string) (*Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	return s.client.delete(url, nil)

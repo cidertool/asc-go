@@ -72,6 +72,8 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_idfa_declaration
 func (s *SubmissionService) CreateIDFADeclaration(body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *Response, error) {
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.post("idfaDeclarations", body, res)
@@ -79,6 +81,8 @@ func (s *SubmissionService) CreateIDFADeclaration(body *IDFADeclarationCreateReq
 }
 
 // UpdateIDFADeclaration updates your declared IDFA usage.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_idfa_declaration
 func (s *SubmissionService) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
@@ -87,12 +91,16 @@ func (s *SubmissionService) UpdateIDFADeclaration(id string, body *IDFADeclarati
 }
 
 // DeleteIDFADeclaration deletes the IDFA declaration that is associated with a version.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_idfa_declaration
 func (s *SubmissionService) DeleteIDFADeclaration(id string) (*Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // GetIDFADeclarationForAppStoreVersion reads your declared Advertising Identifier (IDFA) usage responses.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_idfa_declaration_information_of_an_app_store_version
 func (s *SubmissionService) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/idfaDeclaration", id)
 	res := new(IDFADeclarationResponse)

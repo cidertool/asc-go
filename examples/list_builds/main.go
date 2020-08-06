@@ -46,7 +46,9 @@ func main() {
 			fmt.Println(*user.Attributes.Version)
 		}
 
-		cursor = b.Links.Next.Cursor()
+		if b.Links.Next != nil {
+			cursor = b.Links.Next.Cursor()
+		}
 		if cursor == "" {
 			break
 		}

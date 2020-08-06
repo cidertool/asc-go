@@ -111,6 +111,8 @@ type GetBuildBetaDetailForBuildQuery struct {
 }
 
 // ListBuildBetaDetails finds and lists build beta details for all builds.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_build_beta_details
 func (s *TestflightService) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *Response, error) {
 	res := new(BuildBetaDetailsResponse)
 	resp, err := s.client.get("buildBetaDetails", params, res)
@@ -118,6 +120,8 @@ func (s *TestflightService) ListBuildBetaDetails(params *ListBuildBetaDetailsQue
 }
 
 // GetBuildBetaDetail gets a specific build beta details resource.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_build_beta_detail_information
 func (s *TestflightService) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
@@ -126,6 +130,8 @@ func (s *TestflightService) GetBuildBetaDetail(id string, params *GetBuildBetaDe
 }
 
 // GetBuildForBuildBetaDetail gets the build information for a specific build beta details resource.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_build_beta_detail
 func (s *TestflightService) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(BuildResponse)
@@ -134,6 +140,8 @@ func (s *TestflightService) GetBuildForBuildBetaDetail(id string, params *GetBui
 }
 
 // GetBuildBetaDetailForBuild gets the beta test details for a specific build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_beta_details_information_of_a_build
 func (s *TestflightService) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
@@ -142,6 +150,8 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(id string, params *GetBui
 }
 
 // UpdateBuildBetaDetail updates beta test details for a specific build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build_beta_detail
 func (s *TestflightService) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)

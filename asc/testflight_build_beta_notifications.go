@@ -27,6 +27,8 @@ type BuildBetaNotificationResponse struct {
 }
 
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/send_notification_of_an_available_build
 func (s *TestflightService) CreateAvailableBuildNotification(body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *Response, error) {
 	res := new(BuildBetaNotificationResponse)
 	resp, err := s.client.post("buildBetaNotifications", body, res)
