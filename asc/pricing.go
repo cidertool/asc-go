@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // PricingService handles communication with pricing-related methods of the App Store Connect API
@@ -59,7 +58,7 @@ type GetPriceQuery struct {
 }
 
 // ListPricesForApp gets current price tier of an app and any future planned price changes.
-func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *http.Response, error) {
+func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -67,7 +66,7 @@ func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*
 }
 
 // GetPrice reads current price and scheduled price changes for an app, including price tier and start date.
-func (s *PricingService) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *http.Response, error) {
+func (s *PricingService) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *Response, error) {
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
 	resp, err := s.client.get(url, params, res)

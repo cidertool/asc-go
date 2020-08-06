@@ -1,9 +1,5 @@
 package asc
 
-import (
-	"net/http"
-)
-
 // BetaTesterInvitation defines model for BetaTesterInvitation.
 type BetaTesterInvitation struct {
 	ID    string        `json:"id"`
@@ -34,7 +30,7 @@ type BetaTesterInvitationResponse struct {
 }
 
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
-func (s *TestflightService) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *http.Response, error) {
+func (s *TestflightService) CreateBetaTesterInvitation(body *BetaTesterCreateRequest) (*BetaTesterInvitationResponse, *Response, error) {
 	res := new(BetaTesterInvitationResponse)
 	resp, err := s.client.post("betaTesterInvitations", body, res)
 	return res, resp, err

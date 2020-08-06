@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppsService handles communication with build-related methods of the App Store Connect API
@@ -272,14 +271,18 @@ type GetInAppPurchaseQuery struct {
 }
 
 // ListApps finds and lists apps added in App Store Connect.
-func (s *AppsService) ListApps(params *ListAppsQuery) (*AppsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_apps
+func (s *AppsService) ListApps(params *ListAppsQuery) (*AppsResponse, *Response, error) {
 	res := new(AppsResponse)
 	resp, err := s.client.get("apps", params, res)
 	return res, resp, err
 }
 
 // GetApp gets information about a specific app.
-func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_information
+func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(url, params, res)
@@ -287,7 +290,9 @@ func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *htt
 }
 
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
-func (s *AppsService) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app
+func (s *AppsService) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -295,13 +300,17 @@ func (s *AppsService) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
-func (s *AppsService) RemoveBetaTestersFromApp(id string, linkages *[]RelationshipsData) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
+func (s *AppsService) RemoveBetaTestersFromApp(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(url, linkages)
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
-func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_in-app_purchases_for_an_app
+func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -309,7 +318,9 @@ func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurch
 }
 
 // GetInAppPurchase gets information about an in-app purchase.
-func (s *AppsService) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_in-app_purchase_information
+func (s *AppsService) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
 	resp, err := s.client.get(url, params, res)

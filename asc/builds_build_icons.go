@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // IconAssetType defines model for IconAssetType.
@@ -43,7 +42,9 @@ type ListIconsQuery struct {
 }
 
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.
-func (s *BuildsService) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_icons_for_a_build
+func (s *BuildsService) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
 	resp, err := s.client.get(url, params, res)

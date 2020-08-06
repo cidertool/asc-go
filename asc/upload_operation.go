@@ -14,6 +14,9 @@ import (
 type UploadOperations []UploadOperation
 
 // UploadOperation defines model for UploadOperation.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/uploadoperation
+// https://developer.apple.com/documentation/appstoreconnectapi/uploading_assets_to_app_store_connect
 type UploadOperation struct {
 	Length         *int                     `json:"length,omitempty"`
 	Method         *string                  `json:"method,omitempty"`
@@ -23,6 +26,8 @@ type UploadOperation struct {
 }
 
 // UploadOperationHeader defines model for UploadOperationHeader.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/uploadoperationheader
 type UploadOperationHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`

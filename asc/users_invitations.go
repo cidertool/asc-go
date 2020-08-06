@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -91,14 +90,18 @@ type GetInvitationQuery struct {
 }
 
 // ListInvitations gets a list of pending invitations to join your team.
-func (s *UsersService) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_invited_users
+func (s *UsersService) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *Response, error) {
 	res := new(UserInvitationsResponse)
 	resp, err := s.client.get("userInvitations", params, res)
 	return res, resp, err
 }
 
 // GetInvitation gets information about a pending invitation to join your team.
-func (s *UsersService) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_user_invitation_information
+func (s *UsersService) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
 	resp, err := s.client.get(url, params, res)
@@ -106,20 +109,26 @@ func (s *UsersService) GetInvitation(id string, params *GetInvitationQuery) (*Us
 }
 
 // CreateInvitation invites a user with assigned user roles to join your team.
-func (s *UsersService) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/invite_a_user
+func (s *UsersService) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *Response, error) {
 	res := new(UserInvitationResponse)
 	resp, err := s.client.post("userInvitations", body, res)
 	return res, resp, err
 }
 
 // CancelInvitation cancels a pending invitation for a user to join your team.
-func (s *UsersService) CancelInvitation(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/cancel_a_user_invitation
+func (s *UsersService) CancelInvitation(id string) (*Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
-func (s *UsersService) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*AppsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_an_invited_user
+func (s *UsersService) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(AppsResponse)
 	resp, err := s.client.get(url, params, res)

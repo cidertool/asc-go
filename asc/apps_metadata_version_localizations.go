@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppStoreVersionLocalization defines model for AppStoreVersionLocalization.
@@ -134,7 +133,9 @@ type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 }
 
 // ListLocalizationsForAppStoreVersion gets a list of localized, version-level information about an app, for all locales.
-func (s *AppsService) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionQuery) (*AppStoreVersionLocalizationsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_version_localizations_for_an_app_store_version
+func (s *AppsService) ListLocalizationsForAppStoreVersion(id string, params *ListLocalizationsForAppStoreVersionQuery) (*AppStoreVersionLocalizationsResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionLocalizations", id)
 	res := new(AppStoreVersionLocalizationsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -142,7 +143,9 @@ func (s *AppsService) ListLocalizationsForAppStoreVersion(id string, params *Lis
 }
 
 // GetAppStoreVersionLocalization reads localized version-level information.
-func (s *AppsService) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationQuery) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_version_localization_information
+func (s *AppsService) GetAppStoreVersionLocalization(id string, params *GetAppStoreVersionLocalizationQuery) (*AppStoreVersionLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.get(url, params, res)
@@ -150,14 +153,18 @@ func (s *AppsService) GetAppStoreVersionLocalization(id string, params *GetAppSt
 }
 
 // CreateAppStoreVersionLocalization adds localized version-level information for a new locale.
-func (s *AppsService) CreateAppStoreVersionLocalization(body *AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_localization
+func (s *AppsService) CreateAppStoreVersionLocalization(body *AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.post("appStoreVersionLocalizations", body, res)
 	return res, resp, err
 }
 
 // UpdateAppStoreVersionLocalization modifies localized version-level information for a particular language.
-func (s *AppsService) UpdateAppStoreVersionLocalization(id string, body *AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_localization
+func (s *AppsService) UpdateAppStoreVersionLocalization(id string, body *AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -165,13 +172,17 @@ func (s *AppsService) UpdateAppStoreVersionLocalization(id string, body *AppStor
 }
 
 // DeleteAppStoreVersionLocalization deletes a language from your version metadata.
-func (s *AppsService) DeleteAppStoreVersionLocalization(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_localization
+func (s *AppsService) DeleteAppStoreVersionLocalization(id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // ListAppScreenshotSetsForAppStoreVersionLocalization lists all screenshot sets for a specific localization.
-func (s *AppsService) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationQuery) (*AppScreenshotSetsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_screenshot_sets_for_an_app_store_version_localization
+func (s *AppsService) ListAppScreenshotSetsForAppStoreVersionLocalization(id string, params *ListAppScreenshotSetsForAppStoreVersionLocalizationQuery) (*AppScreenshotSetsResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appScreenshotSets", id)
 	res := new(AppScreenshotSetsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -179,7 +190,9 @@ func (s *AppsService) ListAppScreenshotSetsForAppStoreVersionLocalization(id str
 }
 
 // ListAppPreviewSetsForAppStoreVersionLocalization lists all app preview sets for a specific localization.
-func (s *AppsService) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationQuery) (*AppPreviewSetsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_preview_sets_for_an_app_store_version_localization
+func (s *AppsService) ListAppPreviewSetsForAppStoreVersionLocalization(id string, params *ListAppPreviewSetsForAppStoreVersionLocalizationQuery) (*AppPreviewSetsResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appPreviewSets", id)
 	res := new(AppPreviewSetsResponse)
 	resp, err := s.client.get(url, params, res)

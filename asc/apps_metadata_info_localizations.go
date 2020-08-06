@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppInfoLocalization defines model for AppInfoLocalization.
@@ -93,7 +92,9 @@ type GetAppInfoLocalizationQuery struct {
 }
 
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.
-func (s *AppsService) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_info_localizations_for_an_app_info
+func (s *AppsService) ListAppInfoLocalizationsForAppInfo(id string, params *ListAppInfoLocalizationsForAppInfoQuery) (*AppInfoLocalizationsResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/appInfoLocalizations", id)
 	res := new(AppInfoLocalizationsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -101,7 +102,9 @@ func (s *AppsService) ListAppInfoLocalizationsForAppInfo(id string, params *List
 }
 
 // GetAppInfoLocalization reads localized app-level information.
-func (s *AppsService) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_localization_information
+func (s *AppsService) GetAppInfoLocalization(id string, params *GetAppInfoLocalizationQuery) (*AppInfoLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.get(url, params, res)
@@ -109,14 +112,18 @@ func (s *AppsService) GetAppInfoLocalization(id string, params *GetAppInfoLocali
 }
 
 // CreateAppInfoLocalization adds app-level localized information for a new locale.
-func (s *AppsService) CreateAppInfoLocalization(body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_info_localization
+func (s *AppsService) CreateAppInfoLocalization(body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *Response, error) {
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.post("appInfoLocalizations", body, res)
 	return res, resp, err
 }
 
 // UpdateAppInfoLocalization modifies localized app-level information for a particular language.
-func (s *AppsService) UpdateAppInfoLocalization(id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info_localization
+func (s *AppsService) UpdateAppInfoLocalization(id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -124,7 +131,9 @@ func (s *AppsService) UpdateAppInfoLocalization(id string, body *AppInfoLocaliza
 }
 
 // DeleteAppInfoLocalization deletes an app information localization that is associated with an app.
-func (s *AppsService) DeleteAppInfoLocalization(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_info_localization
+func (s *AppsService) DeleteAppInfoLocalization(id string) (*Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	return s.client.delete(url, nil)
 }

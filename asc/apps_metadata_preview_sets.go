@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppPreviewSet defines model for AppPreviewSet.
@@ -91,7 +90,9 @@ type ListAppPreviewIDsForSetQuery struct {
 }
 
 // GetAppPreviewSet gets an app preview set including its display target, language, and the preview it contains.
-func (s *AppsService) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery) (*AppPreviewSetResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_set_information
+func (s *AppsService) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery) (*AppPreviewSetResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.get(url, params, res)
@@ -99,20 +100,26 @@ func (s *AppsService) GetAppPreviewSet(id string, params *GetAppPreviewSetQuery)
 }
 
 // CreateAppPreviewSet adds a new preview set to an App Store version localization for a specific preview type and display size.
-func (s *AppsService) CreateAppPreviewSet(body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview_set
+func (s *AppsService) CreateAppPreviewSet(body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *Response, error) {
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.post("appPreviewSets", body, res)
 	return res, resp, err
 }
 
 // DeleteAppPreviewSet deletes an app preview set and all of its previews.
-func (s *AppsService) DeleteAppPreviewSet(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_preview_set
+func (s *AppsService) DeleteAppPreviewSet(id string) (*Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // ListAppPreviewsForSet lists all ordered previews in a preview set.
-func (s *AppsService) ListAppPreviewsForSet(id string, params *ListAppPreviewsForSetQuery) (*AppPreviewsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_previews_for_an_app_preview_set
+func (s *AppsService) ListAppPreviewsForSet(id string, params *ListAppPreviewsForSetQuery) (*AppPreviewsResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/appPreviews", id)
 	res := new(AppPreviewsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -120,7 +127,9 @@ func (s *AppsService) ListAppPreviewsForSet(id string, params *ListAppPreviewsFo
 }
 
 // ListAppPreviewIDsForSet gets the ordered preview IDs in a preview set.
-func (s *AppsService) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsForSetQuery) (*AppPreviewSetAppPreviewsLinkagesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_preview_ids_for_an_app_preview_set
+func (s *AppsService) ListAppPreviewIDsForSet(id string, params *ListAppPreviewIDsForSetQuery) (*AppPreviewSetAppPreviewsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	res := new(AppPreviewSetAppPreviewsLinkagesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -128,7 +137,9 @@ func (s *AppsService) ListAppPreviewIDsForSet(id string, params *ListAppPreviewI
 }
 
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
-func (s *AppsService) ReplaceAppPreviewsForSet(id string, linkages *[]RelationshipsData) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_previews_for_an_app_preview_set
+func (s *AppsService) ReplaceAppPreviewsForSet(id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.client.patch(url, linkages, nil)
 }

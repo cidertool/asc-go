@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // RoutingAppCoverage defines model for RoutingAppCoverage.
@@ -83,8 +82,20 @@ type GetRoutingAppCoverageQuery struct {
 	Include                   []string `url:"include,omitempty"`
 }
 
+// GetRoutingAppCoverageForAppStoreVersion gets the routing app coverage file that is associated with a specific App Store version
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_routing_app_coverage_information_of_an_app_store_version
+func (s *AppsService) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *Response, error) {
+	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
+	res := new(RoutingAppCoverageResponse)
+	resp, err := s.client.get(url, params, res)
+	return res, resp, err
+}
+
 // GetRoutingAppCoverage gets information about the routing app coverage file and its upload and processing status.
-func (s *AppsService) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_routing_app_coverage_information
+func (s *AppsService) GetRoutingAppCoverage(id string, params *GetRoutingAppCoverageQuery) (*RoutingAppCoverageResponse, *Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.get(url, params, res)
@@ -92,14 +103,18 @@ func (s *AppsService) GetRoutingAppCoverage(id string, params *GetRoutingAppCove
 }
 
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
-func (s *AppsService) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_a_routing_app_coverage
+func (s *AppsService) CreateRoutingAppCoverage(body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *Response, error) {
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.post("routingAppCoverages", body, res)
 	return res, resp, err
 }
 
 // CommitRoutingAppCoverage commits a routing app coverage file after uploading it.
-func (s *AppsService) CommitRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_routing_app_coverage
+func (s *AppsService) CommitRoutingAppCoverage(id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -107,7 +122,9 @@ func (s *AppsService) CommitRoutingAppCoverage(id string, body *RoutingAppCovera
 }
 
 // DeleteRoutingAppCoverage deletes the routing app coverage file that is associated with a version.
-func (s *AppsService) DeleteRoutingAppCoverage(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_a_routing_app_coverage
+func (s *AppsService) DeleteRoutingAppCoverage(id string) (*Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	return s.client.delete(url, nil)
 }

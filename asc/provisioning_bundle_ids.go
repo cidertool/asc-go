@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // BundleIDPlatform defines model for BundleIdPlatform.
@@ -135,14 +134,18 @@ type ListCapabilitiesForBundleIDQuery struct {
 }
 
 // CreateBundleID registers a new bundle ID for app development.
-func (s *ProvisioningService) CreateBundleID(body *BundleIDCreateRequest) (*BundleIDResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id
+func (s *ProvisioningService) CreateBundleID(body *BundleIDCreateRequest) (*BundleIDResponse, *Response, error) {
 	res := new(BundleIDResponse)
 	resp, err := s.client.post("bundleIds", body, res)
 	return res, resp, err
 }
 
 // UpdateBundleID updates a specific bundle ID’s name.
-func (s *ProvisioningService) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_bundle_id
+func (s *ProvisioningService) UpdateBundleID(id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -150,20 +153,26 @@ func (s *ProvisioningService) UpdateBundleID(id string, body *BundleIDUpdateRequ
 }
 
 // DeleteBundleID deletes a bundle ID that is used for app development.
-func (s *ProvisioningService) DeleteBundleID(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_a_bundle_id
+func (s *ProvisioningService) DeleteBundleID(id string) (*Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // ListBundleIDs finds and lists bundle IDs that are registered to your team.
-func (s *ProvisioningService) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_bundle_ids
+func (s *ProvisioningService) ListBundleIDs(params *ListBundleIDsQuery) (*BundleIDsResponse, *Response, error) {
 	res := new(BundleIDsResponse)
 	resp, err := s.client.get("bundleIds", params, res)
 	return res, resp, err
 }
 
 // GetBundleID gets information about a specific bundle ID.
-func (s *ProvisioningService) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_bundle_id_information
+func (s *ProvisioningService) GetBundleID(id string, params *GetBundleIDQuery) (*BundleIDResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.get(url, params, res)
@@ -171,7 +180,9 @@ func (s *ProvisioningService) GetBundleID(id string, params *GetBundleIDQuery) (
 }
 
 // GetAppForBundleID gets app information for a specific bundle identifier.
-func (s *ProvisioningService) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*AppResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_bundle_id
+func (s *ProvisioningService) GetAppForBundleID(id string, params *GetAppForBundleIDQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(url, params, res)
@@ -179,7 +190,9 @@ func (s *ProvisioningService) GetAppForBundleID(id string, params *GetAppForBund
 }
 
 // ListProfilesForBundleID gets a list of all profiles for a specific bundle ID.
-func (s *ProvisioningService) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_profiles_for_a_bundle_id
+func (s *ProvisioningService) ListProfilesForBundleID(id string, params *ListProfilesForBundleIDQuery) (*ProfilesResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/profiles", id)
 	res := new(ProfilesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -187,7 +200,9 @@ func (s *ProvisioningService) ListProfilesForBundleID(id string, params *ListPro
 }
 
 // ListCapabilitiesForBundleID gets a list of all capabilities for a specific bundle ID.
-func (s *ProvisioningService) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_capabilities_for_a_bundle_id
+func (s *ProvisioningService) ListCapabilitiesForBundleID(id string, params *ListCapabilitiesForBundleIDQuery) (*BundleIDCapabilitiesResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s/bundleIdCapabilities", id)
 	res := new(BundleIDCapabilitiesResponse)
 	resp, err := s.client.get(url, params, res)

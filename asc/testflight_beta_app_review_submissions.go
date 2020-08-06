@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // BetaReviewState defines model for BetaReviewState.
@@ -89,21 +88,21 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 }
 
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
-func (s *TestflightService) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
+func (s *TestflightService) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.post("betaAppReviewSubmissions", body, res)
 	return res, resp, err
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
-func (s *TestflightService) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *http.Response, error) {
+func (s *TestflightService) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
 	resp, err := s.client.get("betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmission gets a specific beta app review submission.
-func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
+func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.get(url, params, res)
@@ -111,7 +110,7 @@ func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBet
 }
 
 // GetBuildForBetaAppReviewSubmission gets the build information for a specific beta app review submission.
-func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*BuildResponse, *http.Response, error) {
+func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(url, params, res)
@@ -119,7 +118,7 @@ func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params
 }
 
 // GetBetaAppReviewSubmissionForBuild gets the beta app review submission status for a specific build.
-func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *http.Response, error) {
+func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.get(url, params, res)

@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppCategory defines model for AppCategory.
@@ -72,14 +71,18 @@ type GetAppCategoryForAppInfoQuery struct {
 }
 
 // ListAppCategories lists all categories on the App Store, including the category and subcategory hierarchy.
-func (s *AppsService) ListAppCategories(params *ListAppCategoriesQuery) (*AppCategoriesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_categories
+func (s *AppsService) ListAppCategories(params *ListAppCategoriesQuery) (*AppCategoriesResponse, *Response, error) {
 	res := new(AppCategoriesResponse)
 	resp, err := s.client.get("appCategories", params, res)
 	return res, resp, err
 }
 
 // ListSubcategoriesForAppCategory lists all App Store subcategories that belong to a specific category.
-func (s *AppsService) ListSubcategoriesForAppCategory(id string, params *ListSubcategoriesForAppCategoryQuery) (*AppCategoriesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_subcategories_for_an_app_category
+func (s *AppsService) ListSubcategoriesForAppCategory(id string, params *ListSubcategoriesForAppCategoryQuery) (*AppCategoriesResponse, *Response, error) {
 	url := fmt.Sprintf("appCategories/%s/subcategories", id)
 	res := new(AppCategoriesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -87,7 +90,9 @@ func (s *AppsService) ListSubcategoriesForAppCategory(id string, params *ListSub
 }
 
 // GetAppCategory gets a specific app category.
-func (s *AppsService) GetAppCategory(id string, params *GetAppCategoryQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_category_information
+func (s *AppsService) GetAppCategory(id string, params *GetAppCategoryQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appCategories/%s", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -95,7 +100,9 @@ func (s *AppsService) GetAppCategory(id string, params *GetAppCategoryQuery) (*A
 }
 
 // GetParentCategoryForAppCategory gets the App Store category to which a specific subcategory belongs.
-func (s *AppsService) GetParentCategoryForAppCategory(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_parent_information_of_an_app_category
+func (s *AppsService) GetParentCategoryForAppCategory(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appCategories/%s/parent", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -103,7 +110,9 @@ func (s *AppsService) GetParentCategoryForAppCategory(id string, params *GetAppC
 }
 
 // GetPrimaryCategoryForAppInfo gets an app’s primary App Store category.
-func (s *AppsService) GetPrimaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_category_information_of_an_app_info
+func (s *AppsService) GetPrimaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -111,7 +120,9 @@ func (s *AppsService) GetPrimaryCategoryForAppInfo(id string, params *GetAppCate
 }
 
 // GetSecondaryCategoryForAppInfo gets an app’s secondary App Store category.
-func (s *AppsService) GetSecondaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_category_information_of_an_app_info
+func (s *AppsService) GetSecondaryCategoryForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -119,7 +130,9 @@ func (s *AppsService) GetSecondaryCategoryForAppInfo(id string, params *GetAppCa
 }
 
 // GetPrimarySubcategoryOneForAppInfo gets the first App Store subcategory within an app’s primary category.
-func (s *AppsService) GetPrimarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_subcategory_one_information_of_an_app_info
+func (s *AppsService) GetPrimarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -127,7 +140,9 @@ func (s *AppsService) GetPrimarySubcategoryOneForAppInfo(id string, params *GetA
 }
 
 // GetPrimarySubcategoryTwoForAppInfo gets the second App Store subcategory within an app’s primary category.
-func (s *AppsService) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_subcategory_two_information_of_an_app_info
+func (s *AppsService) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -135,7 +150,9 @@ func (s *AppsService) GetPrimarySubcategoryTwoForAppInfo(id string, params *GetA
 }
 
 // GetSecondarySubcategoryOneForAppInfo gets the first App Store subcategory within an app’s secondary category.
-func (s *AppsService) GetSecondarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_subcategory_one_information_of_an_app_info
+func (s *AppsService) GetSecondarySubcategoryOneForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)
@@ -143,7 +160,9 @@ func (s *AppsService) GetSecondarySubcategoryOneForAppInfo(id string, params *Ge
 }
 
 // GetSecondarySubcategoryTwoForAppInfo gets the second App Store subcategory within an app’s secondary category.
-func (s *AppsService) GetSecondarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_subcategory_two_information_of_an_app_info
+func (s *AppsService) GetSecondarySubcategoryTwoForAppInfo(id string, params *GetAppCategoryForAppInfoQuery) (*AppCategoryResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(url, params, res)

@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -80,21 +79,27 @@ type GetDeviceQuery struct {
 }
 
 // CreateDevice registers a new device for app development.
-func (s *ProvisioningService) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_device
+func (s *ProvisioningService) CreateDevice(body *DeviceCreateRequest) (*DeviceResponse, *Response, error) {
 	res := new(DeviceResponse)
 	resp, err := s.client.post("devices", body, res)
 	return res, resp, err
 }
 
 // ListDevices finds and lists devices registered to your team.
-func (s *ProvisioningService) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_devices
+func (s *ProvisioningService) ListDevices(params *ListDevicesQuery) (*DevicesResponse, *Response, error) {
 	res := new(DevicesResponse)
 	resp, err := s.client.get("devices", params, res)
 	return res, resp, err
 }
 
 // GetDevice gets information for a specific device registered to your team.
-func (s *ProvisioningService) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_device_information
+func (s *ProvisioningService) GetDevice(id string, params *GetDeviceQuery) (*DeviceResponse, *Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.client.get(url, params, res)
@@ -102,7 +107,9 @@ func (s *ProvisioningService) GetDevice(id string, params *GetDeviceQuery) (*Dev
 }
 
 // UpdateDevice updates the name or status of a specific device.
-func (s *ProvisioningService) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_a_registered_device
+func (s *ProvisioningService) UpdateDevice(id string, body *DeviceUpdateRequest) (*DeviceResponse, *Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.client.patch(url, body, res)

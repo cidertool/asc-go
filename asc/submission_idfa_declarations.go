@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // IDFADeclaration defines model for IDFADeclaration.
@@ -73,14 +72,14 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
-func (s *SubmissionService) CreateIDFADeclaration(body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *http.Response, error) {
+func (s *SubmissionService) CreateIDFADeclaration(body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *Response, error) {
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.post("idfaDeclarations", body, res)
 	return res, resp, err
 }
 
 // UpdateIDFADeclaration updates your declared IDFA usage.
-func (s *SubmissionService) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *http.Response, error) {
+func (s *SubmissionService) UpdateIDFADeclaration(id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -88,13 +87,13 @@ func (s *SubmissionService) UpdateIDFADeclaration(id string, body *IDFADeclarati
 }
 
 // DeleteIDFADeclaration deletes the IDFA declaration that is associated with a version.
-func (s *SubmissionService) DeleteIDFADeclaration(id string) (*http.Response, error) {
+func (s *SubmissionService) DeleteIDFADeclaration(id string) (*Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // GetIDFADeclarationForAppStoreVersion reads your declared Advertising Identifier (IDFA) usage responses.
-func (s *SubmissionService) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *http.Response, error) {
+func (s *SubmissionService) GetIDFADeclarationForAppStoreVersion(id string, params *GetIDFADeclarationForAppStoreVersionQuery) (*IDFADeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/idfaDeclaration", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.get(url, params, res)

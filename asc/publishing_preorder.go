@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppPreOrder defines model for AppPreOrder.
@@ -71,7 +70,7 @@ type GetPreOrderForAppQuery struct {
 }
 
 // GetPreOrder gets information about your app's pre-order configuration.
-func (s *PublishingService) GetPreOrder(id string, params *GetPreOrderQuery) (*AppPreOrderResponse, *http.Response, error) {
+func (s *PublishingService) GetPreOrder(id string, params *GetPreOrderQuery) (*AppPreOrderResponse, *Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.get(url, params, res)
@@ -79,7 +78,7 @@ func (s *PublishingService) GetPreOrder(id string, params *GetPreOrderQuery) (*A
 }
 
 // GetPreOrderForApp gets available date and release date of an app that is available for pre-order.
-func (s *PublishingService) GetPreOrderForApp(id string, params *GetPreOrderForAppQuery) (*AppPreOrderResponse, *http.Response, error) {
+func (s *PublishingService) GetPreOrderForApp(id string, params *GetPreOrderForAppQuery) (*AppPreOrderResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/preOrder", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.get(url, params, res)
@@ -87,14 +86,14 @@ func (s *PublishingService) GetPreOrderForApp(id string, params *GetPreOrderForA
 }
 
 // CreatePreOrder turns on pre-order and set the expected app release date.
-func (s *PublishingService) CreatePreOrder(body *AppPreOrderCreateRequest) (*AppPreOrderResponse, *http.Response, error) {
+func (s *PublishingService) CreatePreOrder(body *AppPreOrderCreateRequest) (*AppPreOrderResponse, *Response, error) {
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.post("appPreOrders", body, res)
 	return res, resp, err
 }
 
 // UpdatePreOrder updates the release date for your app pre-order.
-func (s *PublishingService) UpdatePreOrder(id string, body *AppPreOrderUpdateRequest) (*AppPreOrderResponse, *http.Response, error) {
+func (s *PublishingService) UpdatePreOrder(id string, body *AppPreOrderUpdateRequest) (*AppPreOrderResponse, *Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -102,7 +101,7 @@ func (s *PublishingService) UpdatePreOrder(id string, body *AppPreOrderUpdateReq
 }
 
 // DeletePreOrder cancels a planned app pre-order that has not begun.
-func (s *PublishingService) DeletePreOrder(id string) (*http.Response, error) {
+func (s *PublishingService) DeletePreOrder(id string) (*Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	return s.client.delete(url, nil)
 }

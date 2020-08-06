@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -20,6 +21,8 @@ import (
 const (
 	defaultBaseURL = "https://api.appstoreconnect.apple.com/v1/"
 	userAgent      = "asc-go"
+
+	headerRateLimit = "X-Rate-Limit"
 
 	dateFormat = "2006-01-02"
 
@@ -77,6 +80,38 @@ func NewClient(httpClient *http.Client) *Client {
 	return c
 }
 
+// Response is a App Store Connect API response. This wraps the standard http.Response
+// returned from Apple and provides convenient access to things like rate limit.
+type Response struct {
+	*http.Response
+
+	Rate Rate
+}
+
+// Rate represents the rate limit for the current client.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/identifying_rate_limits
+type Rate struct {
+	// The number of requests per hour the client is currently limited to.
+	Limit int `json:"limit"`
+
+	// The number of remaining requests the client can make this hour.
+	Remaining int `json:"remaining"`
+}
+
+// ErrorResponse contains information with error details that an API returns in the response body whenever the API request is not successful.
+type ErrorResponse struct {
+	Response *http.Response `json:"-"`
+	Errors   *[]struct {
+		Code   string       `json:"code"`
+		Detail string       `json:"detail"`
+		ID     *string      `json:"id,omitempty"`
+		Source *interface{} `json:"source,omitempty"`
+		Status string       `json:"status"`
+		Title  string       `json:"title"`
+	} `json:"errors,omitempty"`
+}
+
 type service struct {
 	client *Client
 }
@@ -86,19 +121,14 @@ type request struct {
 	Data interface{} `json:"data"`
 }
 
-func newRequest(v interface{}) *request {
-	req := &request{Data: v}
-	return req
-}
-
 // FollowReference is a convenience method to perform a GET on a relationship link with
 // pre-established parameters that you know the response type of.
-func (c *Client) FollowReference(ref *Reference, v interface{}) (*http.Response, error) {
+func (c *Client) FollowReference(ref *Reference, v interface{}) (*Response, error) {
 	return c.get(ref.String(), nil, &v)
 }
 
 // get sends a GET request to the API as configured
-func (c *Client) get(url string, query interface{}, v interface{}) (*http.Response, error) {
+func (c *Client) get(url string, query interface{}, v interface{}) (*Response, error) {
 	var err error
 	if query != nil {
 		url, err = c.addOptions(url, query)
@@ -119,7 +149,7 @@ func (c *Client) get(url string, query interface{}, v interface{}) (*http.Respon
 }
 
 // post sends a POST request to the API as configured
-func (c *Client) post(url string, body interface{}, v interface{}) (*http.Response, error) {
+func (c *Client) post(url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("POST", url, body)
 	if err != nil {
 		return nil, err
@@ -132,7 +162,7 @@ func (c *Client) post(url string, body interface{}, v interface{}) (*http.Respon
 }
 
 // patch sends a PATCH request to the API as configured
-func (c *Client) patch(url string, body interface{}, v interface{}) (*http.Response, error) {
+func (c *Client) patch(url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("PATCH", url, body)
 	if err != nil {
 		return nil, err
@@ -145,7 +175,7 @@ func (c *Client) patch(url string, body interface{}, v interface{}) (*http.Respo
 }
 
 // delete sends a DELETE request to the API as configured
-func (c *Client) delete(url string, body interface{}) (*http.Response, error) {
+func (c *Client) delete(url string, body interface{}) (*Response, error) {
 	req, err := c.newRequest("DELETE", url, body)
 	if err != nil {
 		return nil, err
@@ -168,7 +198,7 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 
 	buf := new(bytes.Buffer)
 	if body != nil {
-		err := json.NewEncoder(buf).Encode(newRequest(body))
+		err := json.NewEncoder(buf).Encode(wrapRequest(body))
 		if err != nil {
 			return nil, err
 		}
@@ -211,7 +241,7 @@ func (c *Client) addOptions(s string, opt interface{}) (string, error) {
 	return u.String(), nil
 }
 
-func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
+func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
 		resp, err := c.client.Do(req)
@@ -231,10 +261,11 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 	resp := <-respCh
 
 	defer resp.Body.Close()
-	defer io.Copy(ioutil.Discard, resp.Body)
+
+	response := newResponse(resp)
 
 	if err := checkResponse(resp); err != nil {
-		return resp, err
+		return response, err
 	}
 
 	var err error
@@ -247,20 +278,61 @@ func (c *Client) do(req *http.Request, v interface{}) (*http.Response, error) {
 		}
 	}
 
-	return resp, err
+	return response, err
 }
 
-// ErrorResponse contains information with error details that an API returns in the response body whenever the API request is not successful.
-type ErrorResponse struct {
-	Response *http.Response `json:"-"`
-	Errors   *[]struct {
-		Code   string       `json:"code"`
-		Detail string       `json:"detail"`
-		ID     *string      `json:"id,omitempty"`
-		Source *interface{} `json:"source,omitempty"`
-		Status string       `json:"status"`
-		Title  string       `json:"title"`
-	} `json:"errors,omitempty"`
+func wrapRequest(v interface{}) *request {
+	req := &request{Data: v}
+	return req
+}
+
+func newResponse(r *http.Response) *Response {
+	response := &Response{Response: r}
+	response.Rate = parseRate(r)
+	return response
+}
+
+func checkResponse(r *http.Response) error {
+	if c := r.StatusCode; 200 <= c && c <= 299 {
+		return nil
+	}
+	data, err := ioutil.ReadAll(r.Body)
+	erro := new(ErrorResponse)
+	if err == nil && data != nil {
+		json.Unmarshal(data, erro)
+	}
+	erro.Response = r
+	return erro
+}
+
+// parseRate parses the rate related headers.
+func parseRate(r *http.Response) Rate {
+	var rate Rate
+	header := r.Header.Get(headerRateLimit)
+	if header == "" {
+		return rate
+	}
+	for _, component := range strings.Split(header, ";") {
+		if component == "" {
+			continue
+		}
+		kvp := strings.Split(component, ":")
+		if len(kvp) != 2 {
+			continue
+		}
+		key := kvp[0]
+		value, err := strconv.Atoi(kvp[1])
+		if err != nil {
+			continue
+		}
+		switch key {
+		case "user-hour-lim":
+			rate.Limit = value
+		case "user-hour-rem":
+			rate.Remaining = value
+		}
+	}
+	return rate
 }
 
 func (e ErrorResponse) Error() string {
@@ -277,17 +349,4 @@ func (e ErrorResponse) Error() string {
 		e.Response.StatusCode,
 		report.String(),
 	)
-}
-
-func checkResponse(r *http.Response) error {
-	if c := r.StatusCode; 200 <= c && c <= 299 {
-		return nil
-	}
-	data, err := ioutil.ReadAll(r.Body)
-	erro := new(ErrorResponse)
-	if err == nil && data != nil {
-		json.Unmarshal(data, erro)
-	}
-	erro.Response = r
-	return erro
 }

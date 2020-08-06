@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // DiagnosticLog defines model for DiagnosticLog.
@@ -81,7 +80,7 @@ type GetLogsForDiagnosticSignatureQuery struct {
 }
 
 // GetPerfPowerMetricsForApp gets the performance and power metrics data for the most recent versions of an app.
-func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *http.Response, error) {
+func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -89,7 +88,7 @@ func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfP
 }
 
 // GetPerfPowerMetricsForBuild gets the performance and power metrics data for a specific build.
-func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *http.Response, error) {
+func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -97,7 +96,7 @@ func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPer
 }
 
 // ListDiagnosticSignaturesForBuild lists the aggregate backtrace signatures captured for a specific build.
-func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *http.Response, error) {
+func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
 	resp, err := s.client.get(url, params, res)
@@ -105,7 +104,7 @@ func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *L
 }
 
 // GetLogsForDiagnosticSignature gets the anonymized backtrace logs associated with a specific diagnostic signature.
-func (s *ReportingService) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *http.Response, error) {
+func (s *ReportingService) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *Response, error) {
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
 	resp, err := s.client.get(url, params, res)

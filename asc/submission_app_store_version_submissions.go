@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppStoreVersionSubmission defines model for AppStoreVersionSubmission.
@@ -47,7 +46,7 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
-func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *http.Response, error) {
+func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.client.post("appStoreVersionSubmissions", body, res)
 	return res, resp, err
@@ -56,13 +55,13 @@ func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCrea
 // DeleteSubmission removes a version from App Store review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_submission
-func (s *SubmissionService) DeleteSubmission(id string) (*http.Response, error) {
+func (s *SubmissionService) DeleteSubmission(id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
-func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *http.Response, error) {
+func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.client.get(url, params, res)

@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // BetaAppLocalization defines model for BetaAppLocalization.
@@ -112,14 +111,14 @@ type ListBetaAppLocalizationsForAppQuery struct {
 }
 
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
-func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *http.Response, error) {
+func (s *TestflightService) ListBetaAppLocalizations(params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *Response, error) {
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.client.get("betaAppLocalizations", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppLocalization gets localized beta app information for a specific app and locale.
-func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *http.Response, error) {
+func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaAppLocalizationQuery) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.get(url, params, res)
@@ -127,7 +126,7 @@ func (s *TestflightService) GetBetaAppLocalization(id string, params *GetBetaApp
 }
 
 // GetAppForBetaAppLocalization gets the app information associated with a specific beta app localization.
-func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*AppResponse, *http.Response, error) {
+func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetAppForBetaAppLocalizationQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(url, params, res)
@@ -135,7 +134,7 @@ func (s *TestflightService) GetAppForBetaAppLocalization(id string, params *GetA
 }
 
 // ListBetaAppLocalizationsForApp gets a list of localized beta test information for a specific app.
-func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *http.Response, error) {
+func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *ListBetaAppLocalizationsForAppQuery) (*BetaAppLocalizationsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -143,7 +142,7 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(id string, params *Li
 }
 
 // CreateBetaAppLocalization creates localized descriptive information for an app.
-func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *http.Response, error) {
+func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.post(url, body, res)
@@ -151,7 +150,7 @@ func (s *TestflightService) CreateBetaAppLocalization(body *BetaAppLocalizationC
 }
 
 // UpdateBetaAppLocalization updates the localized What’s New text for a specific app and locale.
-func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *http.Response, error) {
+func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -159,7 +158,7 @@ func (s *TestflightService) UpdateBetaAppLocalization(id string, body *BetaAppLo
 }
 
 // DeleteBetaAppLocalization deletes a beta app localization associated with an app.
-func (s *TestflightService) DeleteBetaAppLocalization(id string) (*http.Response, error) {
+func (s *TestflightService) DeleteBetaAppLocalization(id string) (*Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	return s.client.delete(url, nil)
 }

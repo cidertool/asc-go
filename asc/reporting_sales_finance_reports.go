@@ -2,7 +2,6 @@ package asc
 
 import (
 	"bytes"
-	"net/http"
 )
 
 // DownloadFinanceReportsQuery are query options for DownloadFinanceReports
@@ -24,14 +23,14 @@ type DownloadSalesAndTrendsReportsQuery struct {
 }
 
 // DownloadFinanceReports downloads finance reports filtered by your specified criteria.
-func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *http.Response, error) {
+func (s *ReportingService) DownloadFinanceReports(params *DownloadFinanceReportsQuery) (*bytes.Buffer, *Response, error) {
 	res := new(bytes.Buffer)
 	resp, err := s.client.get("financeReports", params, res)
 	return res, resp, err
 }
 
 // DownloadSalesAndTrendsReports downloads sales and trends reports filtered by your specified criteria.
-func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *http.Response, error) {
+func (s *ReportingService) DownloadSalesAndTrendsReports(params *DownloadSalesAndTrendsReportsQuery) (*bytes.Buffer, *Response, error) {
 	res := new(bytes.Buffer)
 	resp, err := s.client.get("salesReports", params, res)
 	return res, resp, err

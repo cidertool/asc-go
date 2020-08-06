@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppStoreAgeRating defines model for AppStoreAgeRating.
@@ -71,7 +70,9 @@ type AgeRatingDeclarationResponse struct {
 }
 
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
-func (s *AppsService) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_age_rating_declaration
+func (s *AppsService) UpdateAgeRatingDeclaration(id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.client.patch(url, body, res)

@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -229,7 +228,9 @@ type GetRoutingAppCoverageForVersionQuery struct {
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
-func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_versions_for_an_app
+func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
 	resp, err := s.client.get(url, params, res)
@@ -237,7 +238,9 @@ func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStore
 }
 
 // GetAppStoreVersion gets information for a specific app store version.
-func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_version_information
+func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.get(url, params, res)
@@ -245,7 +248,9 @@ func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQu
 }
 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
-func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version
+func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.post(url, body, res)
@@ -253,7 +258,9 @@ func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) 
 }
 
 // UpdateAppStoreVersion updates the app store version for a specific app.
-func (s *AppsService) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version
+func (s *AppsService) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.patch(url, body, res)
@@ -261,13 +268,17 @@ func (s *AppsService) UpdateAppStoreVersion(id string, body *AppStoreVersionUpda
 }
 
 // DeleteAppStoreVersion deletes an app store version that is associated with an app.
-func (s *AppsService) DeleteAppStoreVersion(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version
+func (s *AppsService) DeleteAppStoreVersion(id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	return s.client.delete(url, nil)
 }
 
 // GetBuildIDForAppStoreVersion gets the ID of the build that is attached to a specific App Store version.
-func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_the_build_id_for_an_app_store_version
+func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.get(url, nil, res)
@@ -275,7 +286,9 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionB
 }
 
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
-func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
+func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(url, linkages, res)
@@ -283,17 +296,11 @@ func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkages *[]Relat
 }
 
 // GetAgeRatingDeclarationForAppStoreVersion gets the age-related information declared for your app.
-func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
+func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.get(url, params, res)
-	return res, resp, err
-}
-
-// GetRoutingAppCoverageForAppStoreVersion gets the routing app coverage file that is associated with a specific App Store version
-func (s *AppsService) GetRoutingAppCoverageForAppStoreVersion(id string, params *GetRoutingAppCoverageForVersionQuery) (*RoutingAppCoverageResponse, *http.Response, error) {
-	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
-	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.get(url, params, res)
 	return res, resp, err
 }

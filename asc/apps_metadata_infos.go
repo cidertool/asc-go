@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // AppInfo defines model for AppInfo.
@@ -118,7 +117,9 @@ type ListAppInfosForAppQuery struct {
 }
 
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
-func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_information
+func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.client.get(url, params, res)
@@ -126,7 +127,9 @@ func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoRe
 }
 
 // ListAppInfosForApp gets information about an app that is currently live on App Store, or that goes live with the next version.
-func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_infos_for_an_app
+func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
 	resp, err := s.client.get(url, params, res)
@@ -134,7 +137,9 @@ func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQu
 }
 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
-func (s *AppsService) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info
+func (s *AppsService) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.client.patch(url, body, res)

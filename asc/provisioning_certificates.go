@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -82,21 +81,27 @@ type GetCertificateQuery struct {
 }
 
 // CreateCertificate creates a new certificate using a certificate signing request.
-func (s *ProvisioningService) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate
+func (s *ProvisioningService) CreateCertificate(body *CertificateCreateRequest) (*CertificateResponse, *Response, error) {
 	res := new(CertificateResponse)
 	resp, err := s.client.post("certificates", body, res)
 	return res, resp, err
 }
 
 // ListCertificates finds and lists certificates and download their data.
-func (s *ProvisioningService) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_and_download_certificates
+func (s *ProvisioningService) ListCertificates(params *ListCertificatesQuery) (*CertificatesResponse, *Response, error) {
 	res := new(CertificatesResponse)
 	resp, err := s.client.get("certificates", params, res)
 	return res, resp, err
 }
 
 // GetCertificate gets information about a certificate and download the certificate data.
-func (s *ProvisioningService) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_and_download_certificate_information
+func (s *ProvisioningService) GetCertificate(id string, params *GetCertificateQuery) (*CertificateResponse, *Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
 	resp, err := s.client.get(url, params, res)
@@ -104,7 +109,9 @@ func (s *ProvisioningService) GetCertificate(id string, params *GetCertificateQu
 }
 
 // RevokeCertificate revokes a lost, stolen, compromised, or expiring signing certificate.
-func (s *ProvisioningService) RevokeCertificate(id string) (*http.Response, error) {
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/revoke_a_certificate
+func (s *ProvisioningService) RevokeCertificate(id string) (*Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
 	return s.client.delete(url, nil)
 }

@@ -2,7 +2,6 @@ package asc
 
 import (
 	"fmt"
-	"net/http"
 )
 
 // BetaAppReviewDetail defines model for BetaAppReviewDetail.
@@ -90,14 +89,14 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 }
 
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
-func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *http.Response, error) {
+func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
 	resp, err := s.client.get("betaAppReviewDetails", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewDetail gets beta app review details for a specific app.
-func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *http.Response, error) {
+func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.get(url, params, res)
@@ -105,7 +104,7 @@ func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaApp
 }
 
 // GetAppForBetaAppReviewDetail gets the app information for a specific beta app review details resource.
-func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *http.Response, error) {
+func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(url, params, res)
@@ -113,7 +112,7 @@ func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetA
 }
 
 // GetBetaAppReviewDetailsForApp gets the beta app review details for a specific app.
-func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *http.Response, error) {
+func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.get(url, params, res)
@@ -121,7 +120,7 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *Get
 }
 
 // UpdateBetaAppReviewDetail updates the details for a specific app's beta app review.
-func (s *TestflightService) UpdateBetaAppReviewDetail(id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *http.Response, error) {
+func (s *TestflightService) UpdateBetaAppReviewDetail(id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.patch(url, body, res)
