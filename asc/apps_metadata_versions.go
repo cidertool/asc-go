@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -230,77 +231,77 @@ type GetRoutingAppCoverageForVersionQuery struct {
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_versions_for_an_app
-func (s *AppsService) ListAppStoreVersionsForApp(id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *Response, error) {
+func (s *AppsService) ListAppStoreVersionsForApp(ctx context.Context, id string, params *ListAppStoreVersionsQuery) (*AppStoreVersionsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppStoreVersion gets information for a specific app store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_version_information
-func (s *AppsService) GetAppStoreVersion(id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) GetAppStoreVersion(ctx context.Context, id string, params *GetAppStoreVersionQuery) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version
-func (s *AppsService) CreateAppStoreVersion(body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) CreateAppStoreVersion(ctx context.Context, body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.post(url, body, res)
+	resp, err := s.client.post(ctx, url, body, res)
 	return res, resp, err
 }
 
 // UpdateAppStoreVersion updates the app store version for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version
-func (s *AppsService) UpdateAppStoreVersion(id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppStoreVersion deletes an app store version that is associated with an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version
-func (s *AppsService) DeleteAppStoreVersion(id string) (*Response, error) {
+func (s *AppsService) DeleteAppStoreVersion(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // GetBuildIDForAppStoreVersion gets the ID of the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_the_build_id_for_an_app_store_version
-func (s *AppsService) GetBuildIDForAppStoreVersion(id string) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id string) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.get(url, nil, res)
+	resp, err := s.client.get(ctx, url, nil, res)
 	return res, resp, err
 }
 
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
-func (s *AppsService) UpdateBuildForAppStoreVersion(id string, linkage *RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.patch(url, linkage, res)
+	resp, err := s.client.patch(ctx, url, linkage, res)
 	return res, resp, err
 }
 
 // GetAgeRatingDeclarationForAppStoreVersion gets the age-related information declared for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
-func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *Response, error) {
+func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(ctx context.Context, id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

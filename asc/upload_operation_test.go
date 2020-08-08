@@ -2,6 +2,7 @@ package asc
 
 import (
 	"bytes"
+	"context"
 	"crypto/rand"
 	"io"
 	"io/ioutil"
@@ -72,7 +73,7 @@ func TestMultipartUpload(t *testing.T) {
 		},
 	}
 
-	err = operations.Upload(file, client)
+	err = operations.Upload(context.Background(), file, client)
 	assert.NoError(t, err)
 }
 

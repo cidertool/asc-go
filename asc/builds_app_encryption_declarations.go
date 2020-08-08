@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -86,36 +87,36 @@ type GetAppForEncryptionDeclarationQuery struct {
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_app_encryption_declarations
-func (s *BuildsService) ListAppEncryptionDeclarations(params *ListAppEncryptionDeclarationsQuery) (*AppEncryptionDeclarationsResponse, *Response, error) {
+func (s *BuildsService) ListAppEncryptionDeclarations(ctx context.Context, params *ListAppEncryptionDeclarationsQuery) (*AppEncryptionDeclarationsResponse, *Response, error) {
 	res := new(AppEncryptionDeclarationsResponse)
-	resp, err := s.client.get("appEncryptionDeclarations", params, res)
+	resp, err := s.client.get(ctx, "appEncryptionDeclarations", params, res)
 	return res, resp, err
 }
 
 // GetAppEncryptionDeclaration gets information about a specific app encryption declaration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_encryption_declaration_information
-func (s *BuildsService) GetAppEncryptionDeclaration(id string, params *GetAppEncryptionDeclarationQuery) (*AppEncryptionDeclarationResponse, *Response, error) {
+func (s *BuildsService) GetAppEncryptionDeclaration(ctx context.Context, id string, params *GetAppEncryptionDeclarationQuery) (*AppEncryptionDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppForAppEncryptionDeclaration gets the app information from a specific app encryption declaration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_an_app_encryption_declaration
-func (s *BuildsService) GetAppForAppEncryptionDeclaration(id string, params *GetAppForEncryptionDeclarationQuery) (*AppResponse, *Response, error) {
+func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, id string, params *GetAppForEncryptionDeclarationQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("appEncryptionDeclarations/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // AssignBuildsToAppEncryptionDeclaration assigns one or more builds to an app encryption declaration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_builds_to_an_app_encryption_declaration
-func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
-	return s.client.post(url, linkages, nil)
+	return s.client.post(ctx, url, linkages, nil)
 }

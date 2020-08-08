@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/md5"
 	"flag"
 	"fmt"
@@ -24,6 +25,7 @@ var (
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
 	// 1. Create an Authorization header value with bearer token (JWT).
 	//    The token is set to expire in 20 minutes, and is used for all App Store
 	//    Connect API calls.
@@ -37,7 +39,7 @@ func main() {
 
 	// 2. Look up the app by bundle ID.
 	//    If the app is not found, report an error and exit.
-	app, err := util.GetApp(client, &asc.ListAppsQuery{
+	app, err := util.GetApp(ctx, client, &asc.ListAppsQuery{
 		FilterBundleID: []string{*bundleID},
 	})
 	if err != nil {
@@ -46,7 +48,7 @@ func main() {
 
 	// 3. Look up the version version by platform and version number.
 	//    If the version is not found, report an error and exit.
-	versions, _, err := client.Apps.ListAppStoreVersionsForApp(app.ID, &asc.ListAppStoreVersionsQuery{
+	versions, _, err := client.Apps.ListAppStoreVersionsForApp(ctx, app.ID, &asc.ListAppStoreVersionsQuery{
 		FilterVersionString: []string{*versionString},
 		FilterPlatform:      []string{*platform},
 	})
@@ -62,7 +64,7 @@ func main() {
 	}
 
 	// 4. Get all localizations for the version and look for the requested locale.
-	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(version.ID, nil)
+	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(ctx, version.ID, nil)
 	var selectedLocalizations []asc.AppStoreVersionLocalization
 	for _, loc := range localizations.Data {
 		if *loc.Attributes.Locale == *locale {
@@ -77,7 +79,7 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(&asc.AppStoreVersionLocalizationCreateRequest{
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
 			},
@@ -103,7 +105,7 @@ func main() {
 	//    If a preview set for the desired preview type already exists, use it.
 	//    Otherwise, make a new one.
 	var previewSets asc.AppPreviewSetsResponse
-	_, err = client.FollowReference(selectedLocalization.Relationships.AppPreviewSets.Links.Related, &previewSets)
+	_, err = client.FollowReference(ctx, selectedLocalization.Relationships.AppPreviewSets.Links.Related, &previewSets)
 	previewType := asc.PreviewType(*previewTypeString)
 	var selectedPreviewSets []asc.AppPreviewSet
 	for _, set := range previewSets.Data {
@@ -117,7 +119,7 @@ func main() {
 	if len(selectedPreviewSets) > 0 {
 		selectedPreviewSet = selectedPreviewSets[0]
 	} else {
-		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(&asc.AppPreviewSetCreateRequest{
+		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, &asc.AppPreviewSetCreateRequest{
 			Attributes: asc.AppPreviewSetCreateRequestAttributes{
 				PreviewType: previewType,
 			},
@@ -151,7 +153,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app preview.")
-	reservePreview, _, err := client.Apps.CreateAppPreview(&asc.AppPreviewCreateRequest{
+	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, &asc.AppPreviewCreateRequest{
 		Attributes: asc.AppPreviewCreateRequestAttributes{
 			FileName: file.Name(),
 			FileSize: stat.Size(),
@@ -177,7 +179,7 @@ func main() {
 	//     if you have the bandwidth.
 	uploadOperations := preview.Attributes.UploadOperations
 	fmt.Printf("Uploading %d preview components\n", len(*uploadOperations))
-	err = uploadOperations.Upload(file, client)
+	err = uploadOperations.Upload(ctx, file, client)
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}
@@ -193,7 +195,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppPreview(preview.ID, &asc.AppPreviewUpdateRequest{
+	client.Apps.CommitAppPreview(ctx, preview.ID, &asc.AppPreviewUpdateRequest{
 		Attributes: &asc.AppPreviewUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,

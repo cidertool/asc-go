@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -77,48 +78,48 @@ type GetBetaLicenseAgreementForAppQuery struct {
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_license_agreements
-func (s *TestflightService) ListBetaLicenseAgreements(params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *Response, error) {
+func (s *TestflightService) ListBetaLicenseAgreements(ctx context.Context, params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
-	resp, err := s.client.get("betaLicenseAgreements", params, res)
+	resp, err := s.client.get(ctx, "betaLicenseAgreements", params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreement gets a specific beta license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_beta_license_agreement_information
-func (s *TestflightService) GetBetaLicenseAgreement(id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *Response, error) {
+func (s *TestflightService) GetBetaLicenseAgreement(ctx context.Context, id string, params *GetBetaLicenseAgreementQuery) (*BetaLicenseAgreementResponse, *Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBetaLicenseAgreement gets the app information for a specific beta license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_license_agreement
-func (s *TestflightService) GetAppForBetaLicenseAgreement(id string, params *GetAppForBetaLicenseAgreementQuery) (*AppResponse, *Response, error) {
+func (s *TestflightService) GetAppForBetaLicenseAgreement(ctx context.Context, id string, params *GetAppForBetaLicenseAgreementQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBetaLicenseAgreementForApp gets the beta license agreement for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_license_agreement_of_an_app
-func (s *TestflightService) GetBetaLicenseAgreementForApp(id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *Response, error) {
+func (s *TestflightService) GetBetaLicenseAgreementForApp(ctx context.Context, id string, params *GetBetaLicenseAgreementForAppQuery) (*BetaLicenseAgreementResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateBetaLicenseAgreement updates the text for your beta license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_license_agreement
-func (s *TestflightService) UpdateBetaLicenseAgreement(id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }

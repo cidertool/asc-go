@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -210,138 +211,138 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 // ListBuilds finds and lists builds for all apps in App Store Connect.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_builds
-func (s *BuildsService) ListBuilds(params *ListBuildsQuery) (*BuildsResponse, *Response, error) {
+func (s *BuildsService) ListBuilds(ctx context.Context, params *ListBuildsQuery) (*BuildsResponse, *Response, error) {
 	res := new(BuildsResponse)
-	resp, err := s.client.get("builds", params, res)
+	resp, err := s.client.get(ctx, "builds", params, res)
 	return res, resp, err
 }
 
 // ListBuildsForApp gets a list of builds associated with a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_of_an_app
-func (s *BuildsService) ListBuildsForApp(id string, params *ListBuildsForAppQuery) (*BuildsResponse, *Response, error) {
+func (s *BuildsService) ListBuildsForApp(ctx context.Context, id string, params *ListBuildsForAppQuery) (*BuildsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBuild gets information about a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_build_information
-func (s *BuildsService) GetBuild(id string, params *GetBuildsQuery) (*BuildResponse, *Response, error) {
+func (s *BuildsService) GetBuild(ctx context.Context, id string, params *GetBuildsQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBuild gets the app information for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_build
-func (s *BuildsService) GetAppForBuild(id string, params *GetAppForBuildQuery) (*AppResponse, *Response, error) {
+func (s *BuildsService) GetAppForBuild(ctx context.Context, id string, params *GetAppForBuildQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppStoreVersionForBuild gets the App Store version of a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_information_of_a_build
-func (s *BuildsService) GetAppStoreVersionForBuild(id string, params *GetAppStoreVersionForBuildQuery) (*AppStoreVersionResponse, *Response, error) {
+func (s *BuildsService) GetAppStoreVersionForBuild(ctx context.Context, id string, params *GetAppStoreVersionForBuildQuery) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForAppStoreVersion gets the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_an_app_store_version
-func (s *BuildsService) GetBuildForAppStoreVersion(id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *Response, error) {
+func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id string, params *GetBuildForAppStoreVersionQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateBuild expires a build or changes its encryption exemption setting.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build
-func (s *BuildsService) UpdateBuild(id string, body BuildUpdateRequest) (*BuildResponse, *Response, error) {
+func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body BuildUpdateRequest) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.post(url, body, res)
+	resp, err := s.client.post(ctx, url, body, res)
 	return res, resp, err
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_the_app_encryption_declaration_for_a_build
-func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(id string, linkage *RelationshipsData) (*Response, error) {
+func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, linkage *RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
-	return s.client.patch(url, linkage, nil)
+	return s.client.patch(ctx, url, linkage, nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or creates a beta group to a build to enable testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_access_for_beta_groups_to_a_build
-func (s *BuildsService) CreateAccessForBetaGroupsToBuild(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.post(url, linkages, nil)
+	return s.client.post(ctx, url, linkages, nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_access_for_beta_groups_to_a_build
-func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_individual_testers_to_a_build
-func (s *BuildsService) CreateAccessForIndividualTestersToBuild(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.post(url, linkages, nil)
+	return s.client.post(ctx, url, linkages, nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_individual_testers_from_a_build
-func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_resource_ids_of_individual_testers_for_a_build
-func (s *BuildsService) ListResourceIDsForIndividualTestersForBuild(id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *Response, error) {
+func (s *BuildsService) ListResourceIDsForIndividualTestersForBuild(ctx context.Context, id string, params *ListResourceIDsForIndividualTestersForBuildQuery) (*BuildIndividualTestersLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppEncryptionDeclarationForBuild reads an app encryption declaration associated with a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_encryption_declaration_of_a_build
-func (s *BuildsService) GetAppEncryptionDeclarationForBuild(id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *Response, error) {
+func (s *BuildsService) GetAppEncryptionDeclarationForBuild(ctx context.Context, id string, params *GetAppEncryptionDeclarationForBuildQuery) (*AppEncryptionDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppEncryptionDeclarationIDForBuild gets the beta app encryption declaration resource ID associated with a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_the_app_encryption_declaration_id_for_a_build
-func (s *BuildsService) GetAppEncryptionDeclarationIDForBuild(id string) (*BuildAppEncryptionDeclarationLinkageResponse, *Response, error) {
+func (s *BuildsService) GetAppEncryptionDeclarationIDForBuild(ctx context.Context, id string) (*BuildAppEncryptionDeclarationLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
-	resp, err := s.client.get(url, nil, res)
+	resp, err := s.client.get(ctx, url, nil, res)
 	return res, resp, err
 }

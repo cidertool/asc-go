@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -60,19 +61,19 @@ type GetPriceQuery struct {
 // ListPricesForApp gets current price tier of an app and any future planned price changes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_prices_for_an_app
-func (s *PricingService) ListPricesForApp(id string, params *ListPricesQuery) (*AppPricesResponse, *Response, error) {
+func (s *PricingService) ListPricesForApp(ctx context.Context, id string, params *ListPricesQuery) (*AppPricesResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetPrice reads current price and scheduled price changes for an app, including price tier and start date.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_information
-func (s *PricingService) GetPrice(id string, params *GetPriceQuery) (*AppPriceResponse, *Response, error) {
+func (s *PricingService) GetPrice(ctx context.Context, id string, params *GetPriceQuery) (*AppPriceResponse, *Response, error) {
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

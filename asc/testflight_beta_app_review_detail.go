@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -91,48 +92,48 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_details
-func (s *TestflightService) ListBetaAppReviewDetails(params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *Response, error) {
+func (s *TestflightService) ListBetaAppReviewDetails(ctx context.Context, params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
-	resp, err := s.client.get("betaAppReviewDetails", params, res)
+	resp, err := s.client.get(ctx, "betaAppReviewDetails", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewDetail gets beta app review details for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_review_detail_information
-func (s *TestflightService) GetBetaAppReviewDetail(id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *Response, error) {
+func (s *TestflightService) GetBetaAppReviewDetail(ctx context.Context, id string, params *GetBetaAppReviewDetailQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppForBetaAppReviewDetail gets the app information for a specific beta app review details resource.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_app_review_detail
-func (s *TestflightService) GetAppForBetaAppReviewDetail(id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *Response, error) {
+func (s *TestflightService) GetAppForBetaAppReviewDetail(ctx context.Context, id string, params *GetAppForBetaAppReviewDetailQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewDetailsForApp gets the beta app review details for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_app_review_details_resource_of_an_app
-func (s *TestflightService) GetBetaAppReviewDetailsForApp(id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *Response, error) {
+func (s *TestflightService) GetBetaAppReviewDetailsForApp(ctx context.Context, id string, params *GetBetaAppReviewDetailsForAppQuery) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateBetaAppReviewDetail updates the details for a specific app's beta app review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_review_detail
-func (s *TestflightService) UpdateBetaAppReviewDetail(id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }

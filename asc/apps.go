@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -273,56 +274,56 @@ type GetInAppPurchaseQuery struct {
 // ListApps finds and lists apps added in App Store Connect.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_apps
-func (s *AppsService) ListApps(params *ListAppsQuery) (*AppsResponse, *Response, error) {
+func (s *AppsService) ListApps(ctx context.Context, params *ListAppsQuery) (*AppsResponse, *Response, error) {
 	res := new(AppsResponse)
-	resp, err := s.client.get("apps", params, res)
+	resp, err := s.client.get(ctx, "apps", params, res)
 	return res, resp, err
 }
 
 // GetApp gets information about a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_information
-func (s *AppsService) GetApp(id string, params *GetAppQuery) (*AppResponse, *Response, error) {
+func (s *AppsService) GetApp(ctx context.Context, id string, params *GetAppQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app
-func (s *AppsService) UpdateApp(id string, body *AppUpdateRequest) (*AppResponse, *Response, error) {
+func (s *AppsService) UpdateApp(ctx context.Context, id string, body *AppUpdateRequest) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
-func (s *AppsService) RemoveBetaTestersFromApp(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_in-app_purchases_for_an_app
-func (s *AppsService) ListInAppPurchasesForApp(id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *Response, error) {
+func (s *AppsService) ListInAppPurchasesForApp(ctx context.Context, id string, params *ListInAppPurchasesQuery) (*InAppPurchasesResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetInAppPurchase gets information about an in-app purchase.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_in-app_purchase_information
-func (s *AppsService) GetInAppPurchase(id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *Response, error) {
+func (s *AppsService) GetInAppPurchase(ctx context.Context, id string, params *GetInAppPurchaseQuery) (*InAppPurchaseResponse, *Response, error) {
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

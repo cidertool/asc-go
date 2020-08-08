@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -144,79 +145,79 @@ type ListVisibleAppsByResourceIDQuery struct {
 // ListUsers gets a list of the users on your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_users
-func (s *UsersService) ListUsers(params *ListUsersQuery) (*UsersResponse, *Response, error) {
+func (s *UsersService) ListUsers(ctx context.Context, params *ListUsersQuery) (*UsersResponse, *Response, error) {
 	res := new(UsersResponse)
-	resp, err := s.client.get("users", params, res)
+	resp, err := s.client.get(ctx, "users", params, res)
 	return res, resp, err
 }
 
 // GetUser gets information about a user on your team, such as name, roles, and app visibility.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_user_information
-func (s *UsersService) GetUser(id string, params *GetUserQuery) (*UserResponse, *Response, error) {
+func (s *UsersService) GetUser(ctx context.Context, id string, params *GetUserQuery) (*UserResponse, *Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateUser changes a user's role, app visibility information, or other account details.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_user_account
-func (s *UsersService) UpdateUser(id string, body *UserUpdateRequest) (*UserResponse, *Response, error) {
+func (s *UsersService) UpdateUser(ctx context.Context, id string, body *UserUpdateRequest) (*UserResponse, *Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }
 
 // RemoveUser removes a user from your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_user_account
-func (s *UsersService) RemoveUser(id string) (*Response, error) {
+func (s *UsersService) RemoveUser(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("users/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // ListVisibleAppsForUser gets a list of apps that a user on your team can view.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_a_user
-func (s *UsersService) ListVisibleAppsForUser(id string, params *ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
+func (s *UsersService) ListVisibleAppsForUser(ctx context.Context, id string, params *ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
 	url := fmt.Sprintf("users/%s/visibleApps", id)
 	res := new(AppsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListVisibleAppsByResourceIDForUser gets a list of app resource IDs to which a user on your team has access.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_visible_app_resource_ids_for_a_user
-func (s *UsersService) ListVisibleAppsByResourceIDForUser(id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *Response, error) {
+func (s *UsersService) ListVisibleAppsByResourceIDForUser(ctx context.Context, id string, params *ListVisibleAppsByResourceIDQuery) (*UserVisibleAppsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	res := new(UserVisibleAppsLinkagesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // AddVisibleAppsForUser gives a user on your team access to one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_visible_apps_to_a_user
-func (s *UsersService) AddVisibleAppsForUser(id string, linkages *[]RelationshipsData) (*Response, error) {
-	return s.client.post("appStoreReviewDetails", linkages, nil)
+func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+	return s.client.post(ctx, "appStoreReviewDetails", linkages, nil)
 }
 
 // UpdateVisibleAppsForUser replaces the list of apps a user on your team can see.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_the_list_of_visible_apps_for_a_user
-func (s *UsersService) UpdateVisibleAppsForUser(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
-	return s.client.patch(url, linkages, nil)
+	return s.client.patch(ctx, url, linkages, nil)
 }
 
 // RemoveVisibleAppsFromUser removes a user on your team’s access to one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_visible_apps_from_a_user
-func (s *UsersService) RemoveVisibleAppsFromUser(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *UsersService) RemoveVisibleAppsFromUser(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }

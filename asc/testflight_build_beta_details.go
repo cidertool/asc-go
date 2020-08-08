@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -113,48 +114,48 @@ type GetBuildBetaDetailForBuildQuery struct {
 // ListBuildBetaDetails finds and lists build beta details for all builds.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_build_beta_details
-func (s *TestflightService) ListBuildBetaDetails(params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *Response, error) {
+func (s *TestflightService) ListBuildBetaDetails(ctx context.Context, params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *Response, error) {
 	res := new(BuildBetaDetailsResponse)
-	resp, err := s.client.get("buildBetaDetails", params, res)
+	resp, err := s.client.get(ctx, "buildBetaDetails", params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetail gets a specific build beta details resource.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_build_beta_detail_information
-func (s *TestflightService) GetBuildBetaDetail(id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) GetBuildBetaDetail(ctx context.Context, id string, params *GetBuildBetaDetailsQuery) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForBuildBetaDetail gets the build information for a specific build beta details resource.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_build_beta_detail
-func (s *TestflightService) GetBuildForBuildBetaDetail(id string, params *GetBuildForBuildBetaDetailQuery) (*BuildResponse, *Response, error) {
+func (s *TestflightService) GetBuildForBuildBetaDetail(ctx context.Context, id string, params *GetBuildForBuildBetaDetailQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBuildBetaDetailForBuild gets the beta test details for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_beta_details_information_of_a_build
-func (s *TestflightService) GetBuildBetaDetailForBuild(id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) GetBuildBetaDetailForBuild(ctx context.Context, id string, params *GetBuildBetaDetailForBuildQuery) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateBuildBetaDetail updates beta test details for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build_beta_detail
-func (s *TestflightService) UpdateBuildBetaDetail(id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }

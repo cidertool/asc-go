@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -46,24 +47,24 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
-func (s *SubmissionService) CreateSubmission(body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
+func (s *SubmissionService) CreateSubmission(ctx context.Context, body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.post("appStoreVersionSubmissions", body, res)
+	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", body, res)
 	return res, resp, err
 }
 
 // DeleteSubmission removes a version from App Store review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_submission
-func (s *SubmissionService) DeleteSubmission(id string) (*Response, error) {
+func (s *SubmissionService) DeleteSubmission(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
-func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *Response, error) {
+func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(ctx context.Context, id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

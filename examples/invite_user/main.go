@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -23,6 +24,7 @@ var (
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
 	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
@@ -32,23 +34,23 @@ func main() {
 	client := asc.NewClient(auth.Client())
 
 	if *shouldCancel {
-		err = cancelUserInvitation(client)
+		err = cancelUserInvitation(ctx, client)
 	} else {
-		err = inviteUser(client)
+		err = inviteUser(ctx, client)
 	}
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func inviteUser(client *asc.Client) error {
+func inviteUser(ctx context.Context, client *asc.Client) error {
 	userRoles := make([]asc.UserRole, 0)
 	for _, role := range strings.Split(*roles, ",") {
 		role = strings.Trim(role, " ")
 		userRoles = append(userRoles, asc.UserRole(role))
 	}
 
-	invitation, _, err := client.Users.CreateInvitation(&asc.UserInvitationCreateRequest{
+	invitation, _, err := client.Users.CreateInvitation(ctx, &asc.UserInvitationCreateRequest{
 		Attributes: asc.UserInvitationCreateRequestAttributes{
 			FirstName:           *givenName,
 			LastName:            *familyName,
@@ -72,15 +74,15 @@ func inviteUser(client *asc.Client) error {
 	return nil
 }
 
-func cancelUserInvitation(client *asc.Client) error {
-	invitations, _, err := client.Users.ListInvitations(&asc.ListInvitationsQuery{
+func cancelUserInvitation(ctx context.Context, client *asc.Client) error {
+	invitations, _, err := client.Users.ListInvitations(ctx, &asc.ListInvitationsQuery{
 		FilterEmail: []string{*email},
 	})
 	var invitation asc.UserInvitation
 	if len(invitations.Data) > 0 {
 		invitation = invitations.Data[0]
 	}
-	_, err = client.Users.CancelInvitation(invitation.ID)
+	_, err = client.Users.CancelInvitation(ctx, invitation.ID)
 	if err != nil {
 		return err
 	}

@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -92,45 +93,45 @@ type GetInvitationQuery struct {
 // ListInvitations gets a list of pending invitations to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_invited_users
-func (s *UsersService) ListInvitations(params *ListInvitationsQuery) (*UserInvitationsResponse, *Response, error) {
+func (s *UsersService) ListInvitations(ctx context.Context, params *ListInvitationsQuery) (*UserInvitationsResponse, *Response, error) {
 	res := new(UserInvitationsResponse)
-	resp, err := s.client.get("userInvitations", params, res)
+	resp, err := s.client.get(ctx, "userInvitations", params, res)
 	return res, resp, err
 }
 
 // GetInvitation gets information about a pending invitation to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_user_invitation_information
-func (s *UsersService) GetInvitation(id string, params *GetInvitationQuery) (*UserInvitationResponse, *Response, error) {
+func (s *UsersService) GetInvitation(ctx context.Context, id string, params *GetInvitationQuery) (*UserInvitationResponse, *Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // CreateInvitation invites a user with assigned user roles to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/invite_a_user
-func (s *UsersService) CreateInvitation(body *UserInvitationCreateRequest) (*UserInvitationResponse, *Response, error) {
+func (s *UsersService) CreateInvitation(ctx context.Context, body *UserInvitationCreateRequest) (*UserInvitationResponse, *Response, error) {
 	res := new(UserInvitationResponse)
-	resp, err := s.client.post("userInvitations", body, res)
+	resp, err := s.client.post(ctx, "userInvitations", body, res)
 	return res, resp, err
 }
 
 // CancelInvitation cancels a pending invitation for a user to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/cancel_a_user_invitation
-func (s *UsersService) CancelInvitation(id string) (*Response, error) {
+func (s *UsersService) CancelInvitation(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_an_invited_user
-func (s *UsersService) ListVisibleAppsForInvitation(id string, params ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
+func (s *UsersService) ListVisibleAppsForInvitation(ctx context.Context, id string, params ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(AppsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

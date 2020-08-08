@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -115,36 +116,36 @@ type GetAppPreviewQuery struct {
 // GetAppPreview gets information about an app preview and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_information
-func (s *AppsService) GetAppPreview(id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) GetAppPreview(ctx context.Context, id string, params *GetAppPreviewQuery) (*AppPreviewResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // CreateAppPreview adds a new preview to a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview
-func (s *AppsService) CreateAppPreview(body *AppPreviewCreateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CreateAppPreview(ctx context.Context, body *AppPreviewCreateRequest) (*AppPreviewResponse, *Response, error) {
 	res := new(AppPreviewResponse)
-	resp, err := s.client.post("appPreviews", body, res)
+	resp, err := s.client.post(ctx, "appPreviews", body, res)
 	return res, resp, err
 }
 
 // CommitAppPreview commits an app preview after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_preview
-func (s *AppsService) CommitAppPreview(id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CommitAppPreview(ctx context.Context, id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppPreview deletes an app preview that is associated with a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_preview
-func (s *AppsService) DeleteAppPreview(id string) (*Response, error) {
+func (s *AppsService) DeleteAppPreview(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }

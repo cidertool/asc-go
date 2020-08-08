@@ -1,6 +1,7 @@
 package util
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -40,8 +41,8 @@ func TokenConfig() (auth *asc.AuthTransport, err error) {
 }
 
 // GetApp returns a single asc.App by filtering by its full name on App Store Connect
-func GetApp(client *asc.Client, params *asc.ListAppsQuery) (*asc.App, error) {
-	apps, _, err := client.Apps.ListApps(params)
+func GetApp(ctx context.Context, client *asc.Client, params *asc.ListAppsQuery) (*asc.App, error) {
+	apps, _, err := client.Apps.ListApps(ctx, params)
 	if err != nil {
 		return nil, err
 	} else if len(apps.Data) == 0 {

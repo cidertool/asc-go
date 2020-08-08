@@ -2,6 +2,7 @@ package asc
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -98,7 +99,7 @@ func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
 }
 
 // Upload takes a file path and concurrently uploads each part of the file to App Store Connect
-func (ops UploadOperations) Upload(file *os.File, client *Client) error {
+func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *Client) error {
 	var wg sync.WaitGroup
 	errs := make(chan UploadOperationError)
 
@@ -112,7 +113,7 @@ func (ops UploadOperations) Upload(file *os.File, client *Client) error {
 			continue
 		}
 		wg.Add(1)
-		go client.sendChunk(ops[i], chunk, errs, &wg)
+		go client.sendChunk(ctx, ops[i], chunk, errs, &wg)
 	}
 
 	go func() {
@@ -131,7 +132,7 @@ func (ops UploadOperations) Upload(file *os.File, client *Client) error {
 	return nil
 }
 
-func (c *Client) sendChunk(op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
+func (c *Client) sendChunk(ctx context.Context, op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
 	defer wg.Done()
 	req, err := op.Request(chunk)
 	if err != nil {
@@ -141,7 +142,8 @@ func (c *Client) sendChunk(op UploadOperation, chunk io.Reader, errs chan<- Uplo
 		}
 		return
 	}
-	_, err = c.do(req, nil)
+	req = req.WithContext(ctx)
+	_, err = c.do(ctx, req, nil)
 	if err != nil {
 		errs <- UploadOperationError{
 			Operation: op,

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -18,6 +19,7 @@ var (
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
 	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
@@ -26,7 +28,7 @@ func main() {
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
 
-	device, _, err := client.Provisioning.CreateDevice(&asc.DeviceCreateRequest{
+	device, _, err := client.Provisioning.CreateDevice(ctx, &asc.DeviceCreateRequest{
 		Attributes: asc.DeviceCreateRequestAttributes{
 			Name:     *name,
 			Platform: asc.BundleIDPlatform(*platform),

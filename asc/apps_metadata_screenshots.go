@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -82,36 +83,36 @@ type GetAppScreenshotQuery struct {
 // GetAppScreenshot gets information about an app screenshot and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_screenshot_information
-func (s *AppsService) GetAppScreenshot(id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) GetAppScreenshot(ctx context.Context, id string, params *GetAppScreenshotQuery) (*AppScreenshotResponse, *Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // CreateAppScreenshot adds a new screenshot to a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_screenshot
-func (s *AppsService) CreateAppScreenshot(body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CreateAppScreenshot(ctx context.Context, body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *Response, error) {
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.post("appScreenshots", body, res)
+	resp, err := s.client.post(ctx, "appScreenshots", body, res)
 	return res, resp, err
 }
 
 // CommitAppScreenshot commits an app screenshot after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_screenshot
-func (s *AppsService) CommitAppScreenshot(id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }
 
 // DeleteAppScreenshot deletes an app screenshot that is associated with a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_screenshot
-func (s *AppsService) DeleteAppScreenshot(id string) (*Response, error) {
+func (s *AppsService) DeleteAppScreenshot(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }

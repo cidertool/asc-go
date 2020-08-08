@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -121,26 +122,26 @@ type CapabilitySetting struct {
 // EnableCapability enables a capability for a bundle ID.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enable_a_capability
-func (s *ProvisioningService) EnableCapability(body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) EnableCapability(ctx context.Context, body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *Response, error) {
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.patch("bundleIdCapabilities", body, res)
+	resp, err := s.client.patch(ctx, "bundleIdCapabilities", body, res)
 	return res, resp, err
 }
 
 // DisableCapability disables a capability for a bundle ID.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/disable_a_capability
-func (s *ProvisioningService) DisableCapability(id string) (*Response, error) {
+func (s *ProvisioningService) DisableCapability(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // UpdateCapability updates the configuration of a specific capability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_capability_configuration
-func (s *ProvisioningService) UpdateCapability(id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }

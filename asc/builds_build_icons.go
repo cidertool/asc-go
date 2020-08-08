@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -44,9 +45,9 @@ type ListIconsQuery struct {
 // ListIconsForBuild lists all the icons for various platforms delivered with a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_icons_for_a_build
-func (s *BuildsService) ListIconsForBuild(id string, params *ListIconsQuery) (*BuildIconsResponse, *Response, error) {
+func (s *BuildsService) ListIconsForBuild(ctx context.Context, id string, params *ListIconsQuery) (*BuildIconsResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

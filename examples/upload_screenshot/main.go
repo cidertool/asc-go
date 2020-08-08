@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/md5"
 	"flag"
 	"fmt"
@@ -24,6 +25,7 @@ var (
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
 	// 1. Create an Authorization header value with bearer token (JWT).
 	//    The token is set to expire in 20 minutes, and is used for all App Store
 	//    Connect API calls.
@@ -37,7 +39,7 @@ func main() {
 
 	// 2. Look up the app by bundle ID.
 	//    If the app is not found, report an error and exit.
-	app, err := util.GetApp(client, &asc.ListAppsQuery{
+	app, err := util.GetApp(ctx, client, &asc.ListAppsQuery{
 		FilterBundleID: []string{*bundleID},
 	})
 	if err != nil {
@@ -46,7 +48,7 @@ func main() {
 
 	// 3. Look up the version version by platform and version number.
 	//    If the version is not found, report an error and exit.
-	versions, _, err := client.Apps.ListAppStoreVersionsForApp(app.ID, &asc.ListAppStoreVersionsQuery{
+	versions, _, err := client.Apps.ListAppStoreVersionsForApp(ctx, app.ID, &asc.ListAppStoreVersionsQuery{
 		FilterVersionString: []string{*versionString},
 		FilterPlatform:      []string{*platform},
 	})
@@ -62,7 +64,7 @@ func main() {
 	}
 
 	// 4. Get all localizations for the version and look for the requested locale.
-	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(version.ID, nil)
+	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(ctx, version.ID, nil)
 	var selectedLocalizations []asc.AppStoreVersionLocalization
 	for _, loc := range localizations.Data {
 		if *loc.Attributes.Locale == *locale {
@@ -77,7 +79,7 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(&asc.AppStoreVersionLocalizationCreateRequest{
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
 			},
@@ -103,7 +105,7 @@ func main() {
 	//    If a screenshot set for the desired screenshot type already exists, use it.
 	//    Otherwise, make a new one.
 	var screenshotSets asc.AppScreenshotSetsResponse
-	_, err = client.FollowReference(selectedLocalization.Relationships.AppScreenshotSets.Links.Related, &screenshotSets)
+	_, err = client.FollowReference(ctx, selectedLocalization.Relationships.AppScreenshotSets.Links.Related, &screenshotSets)
 	screenshotType := asc.ScreenshotDisplayType(*screenshotTypeString)
 	var selectedScreenshotSets []asc.AppScreenshotSet
 	for _, set := range screenshotSets.Data {
@@ -117,7 +119,7 @@ func main() {
 	if len(selectedScreenshotSets) > 0 {
 		selectedScreenshotSet = selectedScreenshotSets[0]
 	} else {
-		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(&asc.AppScreenshotSetCreateRequest{
+		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, &asc.AppScreenshotSetCreateRequest{
 			Attributes: asc.AppScreenshotSetCreateRequestAttributes{
 				ScreenshotDisplayType: screenshotType,
 			},
@@ -151,7 +153,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
-	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(&asc.AppScreenshotCreateRequest{
+	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, &asc.AppScreenshotCreateRequest{
 		Attributes: asc.AppScreenshotCreateRequestAttributes{
 			FileName: file.Name(),
 			FileSize: stat.Size(),
@@ -177,7 +179,7 @@ func main() {
 	//     if you have the bandwidth.
 	uploadOperations := screenshot.Attributes.UploadOperations
 	fmt.Printf("Uploading %d screenshot components\n", len(*uploadOperations))
-	err = uploadOperations.Upload(file, client)
+	err = uploadOperations.Upload(ctx, file, client)
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}
@@ -193,7 +195,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppScreenshot(screenshot.ID, &asc.AppScreenshotUpdateRequest{
+	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, &asc.AppScreenshotUpdateRequest{
 		Attributes: &asc.AppScreenshotUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,

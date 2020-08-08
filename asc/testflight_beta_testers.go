@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -186,145 +187,145 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_tester
-func (s *TestflightService) CreateBetaTester(body *BetaTesterCreateRequest) (*BetaTesterResponse, *Response, error) {
+func (s *TestflightService) CreateBetaTester(ctx context.Context, body *BetaTesterCreateRequest) (*BetaTesterResponse, *Response, error) {
 	res := new(BetaTesterResponse)
-	resp, err := s.client.post("betaTesters", body, res)
+	resp, err := s.client.post(ctx, "betaTesters", body, res)
 	return res, resp, err
 }
 
 // DeleteBetaTester removes a beta tester's ability to test all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_tester
-func (s *TestflightService) DeleteBetaTester(id string) (*Response, error) {
+func (s *TestflightService) DeleteBetaTester(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // ListBetaTesters finds and lists beta testers for all apps, builds, and beta groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_testers
-func (s *TestflightService) ListBetaTesters(id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *Response, error) {
+func (s *TestflightService) ListBetaTesters(ctx context.Context, id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *Response, error) {
 	res := new(BetaTestersResponse)
-	resp, err := s.client.get("betaTesters", params, res)
+	resp, err := s.client.get(ctx, "betaTesters", params, res)
 	return res, resp, err
 }
 
 // GetBetaTester gets a specific beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_beta_tester_information
-func (s *TestflightService) GetBetaTester(id string, params *GetBetaTesterQuery) (*BetaTesterResponse, *Response, error) {
+func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params *GetBetaTesterQuery) (*BetaTesterResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
 	res := new(BetaTesterResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // AddBetaTesterToBetaGroups adds one or more beta testers to a specific beta group.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_a_beta_tester_to_beta_groups
-func (s *TestflightService) AddBetaTesterToBetaGroups(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
-	return s.client.post(url, linkages, nil)
+	return s.client.post(ctx, url, linkages, nil)
 }
 
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_from_beta_groups
-func (s *TestflightService) RemoveBetaTesterFromBetaGroups(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_assign_a_beta_tester_to_builds
-func (s *TestflightService) AssignSingleBetaTesterToBuilds(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
-	return s.client.post(url, linkages, nil)
+	return s.client.post(ctx, url, linkages, nil)
 }
 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_unassign_a_beta_tester_from_builds
-func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_s_access_to_apps
-func (s *TestflightService) RemoveSingleBetaTesterAccessApps(id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
-	return s.client.delete(url, linkages)
+	return s.client.delete(ctx, url, linkages)
 }
 
 // ListAppsForBetaTester gets a list of apps that a beta tester can test.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_for_a_beta_tester
-func (s *TestflightService) ListAppsForBetaTester(id string, params *ListAppsForBetaTesterQuery) (*AppsResponse, *Response, error) {
+func (s *TestflightService) ListAppsForBetaTester(ctx context.Context, id string, params *ListAppsForBetaTesterQuery) (*AppsResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/apps", id)
 	res := new(AppsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListAppIDsForBetaTester gets a list of app resource IDs associated with a beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_resource_ids_for_a_beta_tester
-func (s *TestflightService) ListAppIDsForBetaTester(id string, params *ListAppIDsForBetaTesterQuery) (*BetaTesterAppsLinkagesResponse, *Response, error) {
+func (s *TestflightService) ListAppIDsForBetaTester(ctx context.Context, id string, params *ListAppIDsForBetaTesterQuery) (*BetaTesterAppsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	res := new(BetaTesterAppsLinkagesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListBuildsIndividuallyAssignedToBetaTester gets a list of builds individually assigned to a specific beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_individually_assigned_to_a_beta_tester
-func (s *TestflightService) ListBuildsIndividuallyAssignedToBetaTester(id string, params *ListBuildsIndividuallyAssignedToBetaTesterQuery) (*BuildsResponse, *Response, error) {
+func (s *TestflightService) ListBuildsIndividuallyAssignedToBetaTester(ctx context.Context, id string, params *ListBuildsIndividuallyAssignedToBetaTesterQuery) (*BuildsResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListBuildIDsIndividuallyAssignedToBetaTester gets a list of build resource IDs individually assigned to a specific beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_ids_of_builds_individually_assigned_to_a_beta_tester
-func (s *TestflightService) ListBuildIDsIndividuallyAssignedToBetaTester(id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterQuery) (*BetaTesterBuildsLinkagesResponse, *Response, error) {
+func (s *TestflightService) ListBuildIDsIndividuallyAssignedToBetaTester(ctx context.Context, id string, params *ListBuildIDsIndividuallyAssignedToBetaTesterQuery) (*BetaTesterBuildsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	res := new(BetaTesterBuildsLinkagesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListIndividualTestersForBuild gets a list of beta testers individually assigned to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_individual_testers_for_a_build
-func (s *TestflightService) ListIndividualTestersForBuild(id string, params *ListIndividualTestersForBuildQuery) (*BetaTestersResponse, *Response, error) {
+func (s *TestflightService) ListIndividualTestersForBuild(ctx context.Context, id string, params *ListIndividualTestersForBuildQuery) (*BetaTestersResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/individualTesters", id)
 	res := new(BetaTestersResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListBetaGroupsForBetaTester gets a list of beta groups that contain a specific beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_groups_to_which_a_beta_tester_belongs
-func (s *TestflightService) ListBetaGroupsForBetaTester(id string, params *ListBetaGroupsForBetaTesterQuery) (*BetaGroupsResponse, *Response, error) {
+func (s *TestflightService) ListBetaGroupsForBetaTester(ctx context.Context, id string, params *ListBetaGroupsForBetaTesterQuery) (*BetaGroupsResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListBetaGroupIDsForBetaTester gets a list of group resource IDs associated with a beta tester.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_beta_group_ids_of_a_beta_tester_s_groups
-func (s *TestflightService) ListBetaGroupIDsForBetaTester(id string, params *ListBetaGroupIDsForBetaTesterQuery) (*BetaTesterBetaGroupsLinkagesResponse, *Response, error) {
+func (s *TestflightService) ListBetaGroupIDsForBetaTester(ctx context.Context, id string, params *ListBetaGroupIDsForBetaTesterQuery) (*BetaTesterBetaGroupsLinkagesResponse, *Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	res := new(BetaTesterBetaGroupsLinkagesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

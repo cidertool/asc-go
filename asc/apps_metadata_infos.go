@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -119,29 +120,29 @@ type ListAppInfosForAppQuery struct {
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_information
-func (s *AppsService) GetAppInfo(id string, params *GetAppInfoQuery) (*AppInfoResponse, *Response, error) {
+func (s *AppsService) GetAppInfo(ctx context.Context, id string, params *GetAppInfoQuery) (*AppInfoResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListAppInfosForApp gets information about an app that is currently live on App Store, or that goes live with the next version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_infos_for_an_app
-func (s *AppsService) ListAppInfosForApp(id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *Response, error) {
+func (s *AppsService) ListAppInfosForApp(ctx context.Context, id string, params *ListAppInfosForAppQuery) (*AppInfosResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info
-func (s *AppsService) UpdateAppInfo(id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
+func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.patch(url, body, res)
+	resp, err := s.client.patch(ctx, url, body, res)
 	return res, resp, err
 }

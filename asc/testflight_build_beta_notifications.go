@@ -1,5 +1,7 @@
 package asc
 
+import "context"
+
 // BuildBetaNotification defines model for BuildBetaNotification.
 type BuildBetaNotification struct {
 	ID    string        `json:"id"`
@@ -29,8 +31,8 @@ type BuildBetaNotificationResponse struct {
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/send_notification_of_an_available_build
-func (s *TestflightService) CreateAvailableBuildNotification(body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *Response, error) {
+func (s *TestflightService) CreateAvailableBuildNotification(ctx context.Context, body *BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *Response, error) {
 	res := new(BuildBetaNotificationResponse)
-	resp, err := s.client.post("buildBetaNotifications", body, res)
+	resp, err := s.client.post(ctx, "buildBetaNotifications", body, res)
 	return res, resp, err
 }

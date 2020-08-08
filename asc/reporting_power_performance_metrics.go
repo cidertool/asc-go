@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -82,39 +83,39 @@ type GetLogsForDiagnosticSignatureQuery struct {
 // GetPerfPowerMetricsForApp gets the performance and power metrics data for the most recent versions of an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_power_and_performance_metrics_for_an_app
-func (s *ReportingService) GetPerfPowerMetricsForApp(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
+func (s *ReportingService) GetPerfPowerMetricsForApp(ctx context.Context, id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetPerfPowerMetricsForBuild gets the performance and power metrics data for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_power_and_performance_metrics_for_a_build
-func (s *ReportingService) GetPerfPowerMetricsForBuild(id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
+func (s *ReportingService) GetPerfPowerMetricsForBuild(ctx context.Context, id string, params *GetPerfPowerMetricsQuery) (*PerfPowerMetricsResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListDiagnosticSignaturesForBuild lists the aggregate backtrace signatures captured for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_diagnostic_signatures_for_a_build
-func (s *ReportingService) ListDiagnosticSignaturesForBuild(id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *Response, error) {
+func (s *ReportingService) ListDiagnosticSignaturesForBuild(ctx context.Context, id string, params *ListDiagnosticsSignaturesQuery) (*DiagnosticSignaturesResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetLogsForDiagnosticSignature gets the anonymized backtrace logs associated with a specific diagnostic signature.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/download_logs_for_a_diagnostic_signature
-func (s *ReportingService) GetLogsForDiagnosticSignature(id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *Response, error) {
+func (s *ReportingService) GetLogsForDiagnosticSignature(ctx context.Context, id string, params *GetLogsForDiagnosticSignatureQuery) (*DiagnosticLogsResponse, *Response, error) {
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

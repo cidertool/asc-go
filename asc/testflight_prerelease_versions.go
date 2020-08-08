@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -95,58 +96,58 @@ type GetPrereleaseVersionForBuildQuery struct {
 // ListPrereleaseVersions gets a list of prerelease versions for all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_prerelease_versions
-func (s *TestflightService) ListPrereleaseVersions(params *ListPrereleaseVersionsQuery) (*PrereleaseVersionsResponse, *Response, error) {
+func (s *TestflightService) ListPrereleaseVersions(ctx context.Context, params *ListPrereleaseVersionsQuery) (*PrereleaseVersionsResponse, *Response, error) {
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.client.get("preReleaseVersions", params, res)
+	resp, err := s.client.get(ctx, "preReleaseVersions", params, res)
 	return res, resp, err
 }
 
 // GetPrereleaseVersion gets information about a specific prerelease version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_prerelease_version_information
-func (s *TestflightService) GetPrereleaseVersion(id string, params *GetPrereleaseVersionQuery) (*PrereleaseVersionResponse, *Response, error) {
+func (s *TestflightService) GetPrereleaseVersion(ctx context.Context, id string, params *GetPrereleaseVersionQuery) (*PrereleaseVersionResponse, *Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetAppForPrereleaseVersion gets the app information for a specific prerelease version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_prerelease_version
-func (s *TestflightService) GetAppForPrereleaseVersion(id string, params *GetAppForPrereleaseVersionQuery) (*AppResponse, *Response, error) {
+func (s *TestflightService) GetAppForPrereleaseVersion(ctx context.Context, id string, params *GetAppForPrereleaseVersionQuery) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/app", id)
 	res := new(AppResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListPrereleaseVersionsForApp gets a list of prerelease versions associated with a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_prerelease_versions_for_an_app
-func (s *TestflightService) ListPrereleaseVersionsForApp(id string, params *ListPrereleaseVersionsForAppQuery) (*PrereleaseVersionsResponse, *Response, error) {
+func (s *TestflightService) ListPrereleaseVersionsForApp(ctx context.Context, id string, params *ListPrereleaseVersionsForAppQuery) (*PrereleaseVersionsResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s/preReleaseVersions", id)
 	res := new(PrereleaseVersionsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListBuildsForPrereleaseVersion gets a list of builds of a specific prerelease version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_of_a_prerelease_version
-func (s *TestflightService) ListBuildsForPrereleaseVersion(id string, params *ListBuildsForPrereleaseVersionQuery) (*BuildsResponse, *Response, error) {
+func (s *TestflightService) ListBuildsForPrereleaseVersion(ctx context.Context, id string, params *ListBuildsForPrereleaseVersionQuery) (*BuildsResponse, *Response, error) {
 	url := fmt.Sprintf("preReleaseVersions/%s/builds", id)
 	res := new(BuildsResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetPrereleaseVersionForBuild gets the prerelease version for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_prerelease_version_of_a_build
-func (s *TestflightService) GetPrereleaseVersionForBuild(id string, params *GetPrereleaseVersionForBuildQuery) (*PrereleaseVersionResponse, *Response, error) {
+func (s *TestflightService) GetPrereleaseVersionForBuild(ctx context.Context, id string, params *GetPrereleaseVersionForBuildQuery) (*PrereleaseVersionResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/preReleaseVersion", id)
 	res := new(PrereleaseVersionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

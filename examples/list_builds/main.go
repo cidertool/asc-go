@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -16,6 +17,7 @@ var (
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
 	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
@@ -23,7 +25,7 @@ func main() {
 
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
-	app, err := util.GetApp(client, &asc.ListAppsQuery{
+	app, err := util.GetApp(ctx, client, &asc.ListAppsQuery{
 		FilterName: []string{*appName},
 	})
 	if err != nil {
@@ -36,7 +38,7 @@ func main() {
 		if cursor != "" {
 			params.Cursor = cursor
 		}
-		b, _, err := client.Builds.ListBuildsForApp(app.ID, &params)
+		b, _, err := client.Builds.ListBuildsForApp(ctx, app.ID, &params)
 		if err != nil {
 			log.Fatal(err)
 			break

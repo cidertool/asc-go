@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -130,65 +131,65 @@ type ListDevicesInProfileQuery struct {
 // CreateProfile creates a new provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_profile
-func (s *ProvisioningService) CreateProfile(body *ProfileCreateRequest) (*ProfileResponse, *Response, error) {
+func (s *ProvisioningService) CreateProfile(ctx context.Context, body *ProfileCreateRequest) (*ProfileResponse, *Response, error) {
 	res := new(ProfileResponse)
-	resp, err := s.client.post("profiles", body, res)
+	resp, err := s.client.post(ctx, "profiles", body, res)
 	return res, resp, err
 }
 
 // DeleteProfile deletes a provisioning profile that is used for app development or distribution.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_profile
-func (s *ProvisioningService) DeleteProfile(id string) (*Response, error) {
+func (s *ProvisioningService) DeleteProfile(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
-	return s.client.delete(url, nil)
+	return s.client.delete(ctx, url, nil)
 }
 
 // ListProfiles finds and list provisioning profiles and download their data.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_and_download_profiles
-func (s *ProvisioningService) ListProfiles(params *ListProfileQuery) (*ProfilesResponse, *Response, error) {
+func (s *ProvisioningService) ListProfiles(ctx context.Context, params *ListProfileQuery) (*ProfilesResponse, *Response, error) {
 	res := new(ProfilesResponse)
-	resp, err := s.client.get("profiles", params, res)
+	resp, err := s.client.get(ctx, "profiles", params, res)
 	return res, resp, err
 }
 
 // GetProfile gets information for a specific provisioning profile and download its data.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_and_download_profile_information
-func (s *ProvisioningService) GetProfile(id string, params *GetProfileQuery) (*ProfileResponse, *Response, error) {
+func (s *ProvisioningService) GetProfile(ctx context.Context, id string, params *GetProfileQuery) (*ProfileResponse, *Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBundleIDForProfile gets the bundle ID information for a specific provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_bundle_id_in_a_profile
-func (s *ProvisioningService) GetBundleIDForProfile(id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *Response, error) {
+func (s *ProvisioningService) GetBundleIDForProfile(ctx context.Context, id string, params *GetBundleIDForProfileQuery) (*BundleIDResponse, *Response, error) {
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListCertificatesInProfile gets a list of all certificates and their data for a specific provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_certificates_in_a_profile
-func (s *ProvisioningService) ListCertificatesInProfile(id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *Response, error) {
+func (s *ProvisioningService) ListCertificatesInProfile(ctx context.Context, id string, params *ListCertificatesForProfileQuery) (*CertificatesResponse, *Response, error) {
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // ListDevicesInProfile gets a list of all devices for a specific provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_devices_in_a_profile
-func (s *ProvisioningService) ListDevicesInProfile(id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *Response, error) {
+func (s *ProvisioningService) ListDevicesInProfile(ctx context.Context, id string, params *ListDevicesInProfileQuery) (*DevicesResponse, *Response, error) {
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"io"
@@ -26,6 +27,7 @@ func main() {
 		log.Fatal("no vendor number provided to the -vendornum flag")
 	}
 
+	ctx := context.Background()
 	auth, err := util.TokenConfig()
 	if err != nil {
 		log.Fatalf("client config failed: %s", err)
@@ -36,7 +38,7 @@ func main() {
 
 	var report io.Reader
 	if *reportSales {
-		report, _, err = client.Reporting.DownloadSalesAndTrendsReports(&asc.DownloadSalesAndTrendsReportsQuery{
+		report, _, err = client.Reporting.DownloadSalesAndTrendsReports(ctx, &asc.DownloadSalesAndTrendsReportsQuery{
 			FilterVendorNumber:  []string{*vendorNumber},
 			FilterReportType:    []string{"SALES"},
 			FilterReportSubType: []string{"SUMMARY"},
@@ -44,7 +46,7 @@ func main() {
 			FilterReportDate:    []string{*reportDate},
 		})
 	} else if *reportFinance {
-		report, _, err = client.Reporting.DownloadFinanceReports(&asc.DownloadFinanceReportsQuery{
+		report, _, err = client.Reporting.DownloadFinanceReports(ctx, &asc.DownloadFinanceReportsQuery{
 			FilterVendorNumber: []string{*vendorNumber},
 			FilterRegionCode:   []string{"US"},
 			FilterReportDate:   []string{*reportDate},

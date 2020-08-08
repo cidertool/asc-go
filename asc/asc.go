@@ -2,7 +2,9 @@ package asc
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -127,8 +129,8 @@ type writingRequestPayload struct {
 
 // FollowReference is a convenience method to perform a GET on a relationship link with
 // pre-established parameters that you know the response type of.
-func (c *Client) FollowReference(ref *Reference, v interface{}) (*Response, error) {
-	return c.get(ref.String(), nil, &v)
+func (c *Client) FollowReference(ctx context.Context, ref *Reference, v interface{}) (*Response, error) {
+	return c.get(ctx, ref.String(), nil, &v)
 }
 
 type requestOption func(*http.Request)
@@ -146,7 +148,7 @@ func withContentType(typ string) requestOption {
 }
 
 // get sends a GET request to the API as configured
-func (c *Client) get(url string, query interface{}, v interface{}, options ...requestOption) (*Response, error) {
+func (c *Client) get(ctx context.Context, url string, query interface{}, v interface{}, options ...requestOption) (*Response, error) {
 	var err error
 	if query != nil {
 		url, err = c.addOptions(url, query)
@@ -160,7 +162,7 @@ func (c *Client) get(url string, query interface{}, v interface{}, options ...re
 		return nil, err
 	}
 
-	resp, err := c.do(req, v)
+	resp, err := c.do(ctx, req, v)
 	if err != nil {
 		return resp, err
 	}
@@ -168,12 +170,12 @@ func (c *Client) get(url string, query interface{}, v interface{}, options ...re
 }
 
 // post sends a POST request to the API as configured
-func (c *Client) post(url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) post(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("POST", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
-	resp, err := c.do(req, v)
+	resp, err := c.do(ctx, req, v)
 	if err != nil {
 		return resp, err
 	}
@@ -181,12 +183,12 @@ func (c *Client) post(url string, body interface{}, v interface{}) (*Response, e
 }
 
 // patch sends a PATCH request to the API as configured
-func (c *Client) patch(url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) patch(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
 	req, err := c.newRequest("PATCH", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
-	resp, err := c.do(req, v)
+	resp, err := c.do(ctx, req, v)
 	if err != nil {
 		return resp, err
 	}
@@ -194,12 +196,12 @@ func (c *Client) patch(url string, body interface{}, v interface{}) (*Response, 
 }
 
 // delete sends a DELETE request to the API as configured
-func (c *Client) delete(url string, body interface{}) (*Response, error) {
+func (c *Client) delete(ctx context.Context, url string, body interface{}) (*Response, error) {
 	req, err := c.newRequest("DELETE", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
-	return c.do(req, nil)
+	return c.do(ctx, req, nil)
 }
 
 func (c *Client) newRequest(method, path string, body interface{}, options ...requestOption) (*http.Request, error) {
@@ -262,12 +264,22 @@ func (c *Client) addOptions(s string, opt interface{}) (string, error) {
 	return u.String(), nil
 }
 
-func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
+func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
+	if ctx == nil {
+		return nil, errors.New("context must be non-nil")
+	}
+	req = req.WithContext(ctx)
+
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
 		resp, err := c.client.Do(req)
 		if err != nil {
-			return backoff.Permanent(err)
+			select {
+			case <-ctx.Done():
+				return backoff.Permanent(ctx.Err())
+			default:
+				return backoff.Permanent(err)
+			}
 		}
 		respCh <- resp
 		return nil

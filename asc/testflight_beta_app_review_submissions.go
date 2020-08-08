@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -90,47 +91,47 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/submit_an_app_for_beta_review
-func (s *TestflightService) CreateBetaAppReviewSubmission(body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
+func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.post("betaAppReviewSubmissions", body, res)
+	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", body, res)
 	return res, resp, err
 }
 
 // ListBetaAppReviewSubmissions finds and lists beta app review submissions for all builds.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_submissions
-func (s *TestflightService) ListBetaAppReviewSubmissions(params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *Response, error) {
+func (s *TestflightService) ListBetaAppReviewSubmissions(ctx context.Context, params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
-	resp, err := s.client.get("betaAppReviewSubmissions", params, res)
+	resp, err := s.client.get(ctx, "betaAppReviewSubmissions", params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmission gets a specific beta app review submission.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_review_submission_information
-func (s *TestflightService) GetBetaAppReviewSubmission(id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
+func (s *TestflightService) GetBetaAppReviewSubmission(ctx context.Context, id string, params *GetBetaAppReviewSubmissionQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBuildForBetaAppReviewSubmission gets the build information for a specific beta app review submission.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_beta_app_review_submission
-func (s *TestflightService) GetBuildForBetaAppReviewSubmission(id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*BuildResponse, *Response, error) {
+func (s *TestflightService) GetBuildForBetaAppReviewSubmission(ctx context.Context, id string, params *GetBuildForBetaAppReviewSubmissionQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(BuildResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
 
 // GetBetaAppReviewSubmissionForBuild gets the beta app review submission status for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_app_review_submission_of_a_build
-func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
+func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(ctx context.Context, id string, params *GetBetaAppReviewSubmissionForBuildQuery) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.get(url, params, res)
+	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
 }
