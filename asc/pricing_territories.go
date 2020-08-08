@@ -6,6 +6,8 @@ import (
 )
 
 // Territory defines model for Territory.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/territory
 type Territory struct {
 	Attributes *struct {
 		Currency *string `json:"currency,omitempty"`
@@ -16,12 +18,16 @@ type Territory struct {
 }
 
 // TerritoryResponse defines model for TerritoryResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/territoryresponse
 type TerritoryResponse struct {
 	Data  Territory     `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // TerritoriesResponse defines model for TerritoriesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/territoriesresponse
 type TerritoriesResponse struct {
 	Data  []Territory        `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -29,6 +35,11 @@ type TerritoriesResponse struct {
 }
 
 // ListTerritoriesQuery are query options for ListTerritories
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_territories
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_available_territories_for_an_app
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_territories_for_an_end_user_license_agreement
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_territory_information_of_an_app_price_point
 type ListTerritoriesQuery struct {
 	FieldsTerritories []string `url:"fields[territories],omitempty"`
 	Limit             int      `url:"limit,omitempty"`

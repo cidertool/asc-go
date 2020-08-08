@@ -6,6 +6,8 @@ import (
 )
 
 // AppPriceTier defines model for AppPriceTier.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricetier
 type AppPriceTier struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
@@ -20,6 +22,8 @@ type AppPriceTier struct {
 }
 
 // AppPriceTierResponse defines model for AppPriceTierResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricetierresponse
 type AppPriceTierResponse struct {
 	Data     AppPriceTier     `json:"data"`
 	Included *[]AppPricePoint `json:"included,omitempty"`
@@ -27,6 +31,8 @@ type AppPriceTierResponse struct {
 }
 
 // AppPriceTiersResponse defines model for AppPriceTiersResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricetiersresponse
 type AppPriceTiersResponse struct {
 	Data     []AppPriceTier     `json:"data"`
 	Included *[]AppPricePoint   `json:"included,omitempty"`
@@ -35,6 +41,8 @@ type AppPriceTiersResponse struct {
 }
 
 // AppPricePoint defines model for AppPricePoint.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricepoint
 type AppPricePoint struct {
 	Attributes *struct {
 		CustomerPrice *string `json:"customerPrice,omitempty"`
@@ -56,6 +64,8 @@ type AppPricePoint struct {
 }
 
 // AppPricePointResponse defines model for AppPricePointResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricepointresponse
 type AppPricePointResponse struct {
 	Data     AppPricePoint `json:"data"`
 	Included *[]Territory  `json:"included,omitempty"`
@@ -63,6 +73,8 @@ type AppPricePointResponse struct {
 }
 
 // AppPricePointsResponse defines model for AppPricePointsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricepointsresponse
 type AppPricePointsResponse struct {
 	Data     []AppPricePoint    `json:"data"`
 	Included *[]Territory       `json:"included,omitempty"`
@@ -71,6 +83,8 @@ type AppPricePointsResponse struct {
 }
 
 // ListAppPriceTiersQuery are query options for ListAppPriceTiers
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_price_tiers
 type ListAppPriceTiersQuery struct {
 	FieldsAppPricePoints []string `url:"fields[appPricePoints],omitempty"`
 	FieldsAppPriceTiers  []string `url:"fields[appPriceTiers],omitempty"`
@@ -82,6 +96,8 @@ type ListAppPriceTiersQuery struct {
 }
 
 // GetAppPriceTierQuery are query options for GetAppPriceTier
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_tier_information
 type GetAppPriceTierQuery struct {
 	FieldsAppPricePoints []string `url:"fields[appPricePoints],omitempty"`
 	FieldsAppPriceTiers  []string `url:"fields[appPriceTiers],omitempty"`
@@ -90,6 +106,8 @@ type GetAppPriceTierQuery struct {
 }
 
 // ListPricePointsForAppPriceTierQuery are query options for ListPricePointsForAppPriceTier
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_price_points_for_an_app_price_tier
 type ListPricePointsForAppPriceTierQuery struct {
 	FieldsAppPricePoints []string `url:"fields[appPricePoints],omitempty"`
 	Limit                int      `url:"limit,omitempty"`
@@ -97,6 +115,8 @@ type ListPricePointsForAppPriceTierQuery struct {
 }
 
 // ListAppPricePointsQuery are query options for ListAppPricePoints
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_price_points
 type ListAppPricePointsQuery struct {
 	FieldsAppPricePoints []string `url:"fields[appPricePoints],omitempty"`
 	FieldsTerritories    []string `url:"fields[territories],omitempty"`
@@ -108,11 +128,15 @@ type ListAppPricePointsQuery struct {
 }
 
 // GetTerritoryForAppPricePointQuery are query options for GetTerritoryForAppPricePoint
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_territory_information_of_an_app_price_point
 type GetTerritoryForAppPricePointQuery struct {
 	FieldsTerritories []string `url:"fields[territories],omitempty"`
 }
 
 // GetAppPricePointQuery are query options for GetAppPricePoint
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_point_information
 type GetAppPricePointQuery struct {
 	FieldsAppPricePoints []string `url:"fields[appPricePoints],omitempty"`
 	FieldsTerritories    []string `url:"fields[territories],omitempty"`

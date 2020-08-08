@@ -7,6 +7,8 @@ import (
 )
 
 // DownloadFinanceReportsQuery are query options for DownloadFinanceReports
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/download_finance_reports
 type DownloadFinanceReportsQuery struct {
 	FilterRegionCode   []string `url:"filter[regionCode]"`
 	FilterReportDate   []string `url:"filter[reportDate]"`
@@ -15,6 +17,8 @@ type DownloadFinanceReportsQuery struct {
 }
 
 // DownloadSalesAndTrendsReportsQuery are query options for DownloadSalesAndTrendsReports
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/download_sales_and_trends_reports
 type DownloadSalesAndTrendsReportsQuery struct {
 	FilterFrequency     []string `url:"filter[frequency]"`
 	FilterReportDate    []string `url:"filter[reportDate],omitempty"`

@@ -6,6 +6,8 @@ import (
 )
 
 // AppPreOrder defines model for AppPreOrder.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorder
 type AppPreOrder struct {
 	Attributes *struct {
 		AppReleaseDate        *Date `json:"appReleaseDate,omitempty"`
@@ -23,6 +25,8 @@ type AppPreOrder struct {
 }
 
 // AppPreOrderCreateRequest defines model for AppPreOrderCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest
 type AppPreOrderCreateRequest struct {
 	Attributes    *AppPreOrderCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships AppPreOrderCreateRequestRelationships `json:"relationships"`
@@ -30,6 +34,8 @@ type AppPreOrderCreateRequest struct {
 }
 
 // AppPreOrderCreateRequestAttributes are attributes for AppPreOrderCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest/data/attributes
 type AppPreOrderCreateRequestAttributes struct {
 	AppReleaseDate *Date `json:"appReleaseDate,omitempty"`
 }
@@ -42,6 +48,8 @@ type AppPreOrderCreateRequestRelationships struct {
 }
 
 // AppPreOrderUpdateRequest defines model for AppPreOrderUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest
 type AppPreOrderUpdateRequest struct {
 	Attributes *AppPreOrderUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                              `json:"id"`
@@ -49,23 +57,31 @@ type AppPreOrderUpdateRequest struct {
 }
 
 // AppPreOrderUpdateRequestAttributes are attributes for AppPreOrderUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest/data/attributes
 type AppPreOrderUpdateRequestAttributes struct {
 	AppReleaseDate *Date `json:"appReleaseDate,omitempty"`
 }
 
 // AppPreOrderResponse defines model for AppPreOrderResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorderresponse
 type AppPreOrderResponse struct {
 	Data  AppPreOrder   `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // GetPreOrderQuery are query options for GetPreOrder
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_pre-order_information
 type GetPreOrderQuery struct {
 	FieldsAppPreOrders []string `url:"fields[appPreOrders],omitempty"`
 	Include            []string `url:"include,omitempty"`
 }
 
 // GetPreOrderForAppQuery are query options for GetPreOrderForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_pre-order_information_of_an_app
 type GetPreOrderForAppQuery struct {
 	FieldsAppPreOrders []string `url:"fields[appPreOrders],omitempty"`
 }

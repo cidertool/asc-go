@@ -6,6 +6,8 @@ import (
 )
 
 // DiagnosticLog defines model for DiagnosticLog.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/diagnosticlog
 type DiagnosticLog struct {
 	ID    string        `json:"id"`
 	Links ResourceLinks `json:"links"`
@@ -13,6 +15,8 @@ type DiagnosticLog struct {
 }
 
 // DiagnosticLogsResponse defines model for DiagnosticLogsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/diagnosticlogsresponse
 type DiagnosticLogsResponse struct {
 	Data  []DiagnosticLog    `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -20,6 +24,8 @@ type DiagnosticLogsResponse struct {
 }
 
 // DiagnosticSignature defines model for DiagnosticSignature.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/diagnosticsignature
 type DiagnosticSignature struct {
 	Attributes *struct {
 		DiagnosticType *string  `json:"diagnosticType,omitempty"`
@@ -32,6 +38,8 @@ type DiagnosticSignature struct {
 }
 
 // DiagnosticSignaturesResponse defines model for DiagnosticSignaturesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/diagnosticsignaturesresponse
 type DiagnosticSignaturesResponse struct {
 	Data     []DiagnosticSignature `json:"data"`
 	Included *[]DiagnosticLog      `json:"included,omitempty"`
@@ -40,6 +48,8 @@ type DiagnosticSignaturesResponse struct {
 }
 
 // PerfPowerMetric defines model for PerfPowerMetric.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/perfpowermetric
 type PerfPowerMetric struct {
 	Attributes *struct {
 		DeviceType *string `json:"deviceType,omitempty"`
@@ -52,6 +62,8 @@ type PerfPowerMetric struct {
 }
 
 // PerfPowerMetricsResponse defines model for PerfPowerMetricsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/perfpowermetricsresponse
 type PerfPowerMetricsResponse struct {
 	Data  []PerfPowerMetric  `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -59,6 +71,8 @@ type PerfPowerMetricsResponse struct {
 }
 
 // GetPerfPowerMetricsQuery are query options for GetPerfPowerMetrics
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_power_and_performance_metrics_for_a_build
 type GetPerfPowerMetricsQuery struct {
 	FilterDeviceType []string `url:"filter[deviceType],omitempty"`
 	FilterMetricType []string `url:"filter[metricType],omitempty"`
@@ -67,6 +81,8 @@ type GetPerfPowerMetricsQuery struct {
 }
 
 // ListDiagnosticsSignaturesQuery are query options for ListDiagnosticsSignatures
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_diagnostic_signatures_for_a_build
 type ListDiagnosticsSignaturesQuery struct {
 	FieldsDiagnosticSignatures []string `url:"fields[diagnosticSignatures],omitempty"`
 	FilterDiagnosticType       []string `url:"filter[diagnosticType],omitempty"`
@@ -75,6 +91,8 @@ type ListDiagnosticsSignaturesQuery struct {
 }
 
 // GetLogsForDiagnosticSignatureQuery are query options for GetLogsForDiagnosticSignature
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/download_logs_for_a_diagnostic_signature
 type GetLogsForDiagnosticSignatureQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`

@@ -6,6 +6,8 @@ import (
 )
 
 // AppStoreReviewAttachment defines model for AppStoreReviewAttachment.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachment
 type AppStoreReviewAttachment struct {
 	Attributes *struct {
 		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
@@ -26,6 +28,8 @@ type AppStoreReviewAttachment struct {
 }
 
 // AppStoreReviewAttachmentCreateRequest defines model for AppStoreReviewAttachmentCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest
 type AppStoreReviewAttachmentCreateRequest struct {
 	Attributes    AppStoreReviewAttachmentCreateRequestAttributes    `json:"attributes"`
 	Relationships AppStoreReviewAttachmentCreateRequestRelationships `json:"relationships"`
@@ -33,12 +37,16 @@ type AppStoreReviewAttachmentCreateRequest struct {
 }
 
 // AppStoreReviewAttachmentCreateRequestAttributes are attributes for AppStoreReviewAttachmentCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/attributes
 type AppStoreReviewAttachmentCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
 
 // AppStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/relationships
 type AppStoreReviewAttachmentCreateRequestRelationships struct {
 	AppStoreReviewDetail struct {
 		Data RelationshipsData `json:"data"`
@@ -46,12 +54,16 @@ type AppStoreReviewAttachmentCreateRequestRelationships struct {
 }
 
 // AppStoreReviewAttachmentResponse defines model for AppStoreReviewAttachmentResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentresponse
 type AppStoreReviewAttachmentResponse struct {
 	Data  AppStoreReviewAttachment `json:"data"`
 	Links DocumentLinks            `json:"links"`
 }
 
 // AppStoreReviewAttachmentUpdateRequest defines model for AppStoreReviewAttachmentUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentupdaterequest
 type AppStoreReviewAttachmentUpdateRequest struct {
 	Attributes *AppStoreReviewAttachmentUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                           `json:"id"`
@@ -59,25 +71,33 @@ type AppStoreReviewAttachmentUpdateRequest struct {
 }
 
 // AppStoreReviewAttachmentUpdateRequestAttributes are attributes for AppStoreReviewAttachmentUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentupdaterequest/data/attributes
 type AppStoreReviewAttachmentUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppStoreReviewAttachmentsResponse defines model for AppStoreReviewAttachmentsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentsresponse
 type AppStoreReviewAttachmentsResponse struct {
 	Data  []AppStoreReviewAttachment `json:"data"`
 	Links PagedDocumentLinks         `json:"links"`
 	Meta  *PagingInformation         `json:"meta,omitempty"`
 }
 
-// ReadAttachmentQuery are query options forGetAttachment
-type ReadAttachmentQuery struct {
+// GetAttachmentQuery are query options for GetAttachment
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_attachment_information
+type GetAttachmentQuery struct {
 	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
 	Include                         []string `url:"include,omitempty"`
 }
 
 // ListAttachmentQuery are query options for ListAttachmentsForReviewDetail
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_review_attachments_for_an_app_store_review_detail
 type ListAttachmentQuery struct {
 	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
 	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
@@ -89,7 +109,7 @@ type ListAttachmentQuery struct {
 // GetAttachment gets information about an App Store review attachment and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_attachment_information
-func (s *SubmissionService) GetAttachment(ctx context.Context, id string, params *ReadAttachmentQuery) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) GetAttachment(ctx context.Context, id string, params *GetAttachmentQuery) (*AppStoreReviewAttachmentResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.get(ctx, url, params, res)

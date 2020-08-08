@@ -13,6 +13,8 @@ import (
 type PricingService service
 
 // AppPrice defines model for AppPrice.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appprice
 type AppPrice struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
@@ -30,12 +32,16 @@ type AppPrice struct {
 }
 
 // AppPriceResponse defines model for AppPriceResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppriceresponse
 type AppPriceResponse struct {
 	Data  AppPrice      `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // AppPricesResponse defines model for AppPricesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricesresponse
 type AppPricesResponse struct {
 	Data  []AppPrice         `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -43,6 +49,8 @@ type AppPricesResponse struct {
 }
 
 // ListPricesQuery are query options for ListPrices
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_prices_for_an_app
 type ListPricesQuery struct {
 	FieldsAppPrices     []string `url:"fields[appPrices],omitempty"`
 	FieldsApps          []string `url:"fields[apps],omitempty"`
@@ -53,6 +61,8 @@ type ListPricesQuery struct {
 }
 
 // GetPriceQuery are query options for GetPrice
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_price_information
 type GetPriceQuery struct {
 	FieldsAppPrices []string `url:"fields[appPrices],omitempty"`
 	Include         []string `url:"include,omitempty"`

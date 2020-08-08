@@ -6,6 +6,8 @@ import (
 )
 
 // IDFADeclaration defines model for IDFADeclaration.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclaration
 type IDFADeclaration struct {
 	Attributes *struct {
 		AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
@@ -25,6 +27,8 @@ type IDFADeclaration struct {
 }
 
 // IDFADeclarationCreateRequest defines model for IDFADeclarationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest
 type IDFADeclarationCreateRequest struct {
 	Attributes    IDFADeclarationCreateRequestAttributes    `json:"attributes"`
 	Relationships IDFADeclarationCreateRequestRelationships `json:"relationships"`
@@ -32,6 +36,8 @@ type IDFADeclarationCreateRequest struct {
 }
 
 // IDFADeclarationCreateRequestAttributes are attributes for IDFADeclarationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data/attributes
 type IDFADeclarationCreateRequestAttributes struct {
 	AttributesActionWithPreviousAd        bool `json:"attributesActionWithPreviousAd"`
 	AttributesAppInstallationToPreviousAd bool `json:"attributesAppInstallationToPreviousAd"`
@@ -40,6 +46,8 @@ type IDFADeclarationCreateRequestAttributes struct {
 }
 
 // IDFADeclarationCreateRequestRelationships are relationships for IDFADeclarationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data/relationships
 type IDFADeclarationCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -47,6 +55,8 @@ type IDFADeclarationCreateRequestRelationships struct {
 }
 
 // IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationupdaterequest
 type IDFADeclarationUpdateRequest struct {
 	Attributes *IDFADeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`
@@ -54,6 +64,8 @@ type IDFADeclarationUpdateRequest struct {
 }
 
 // IDFADeclarationUpdateRequestAttributes are attributes for IDFADeclarationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationupdaterequest/data/attributes
 type IDFADeclarationUpdateRequestAttributes struct {
 	AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
 	AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`
@@ -62,12 +74,16 @@ type IDFADeclarationUpdateRequestAttributes struct {
 }
 
 // IDFADeclarationResponse defines model for IDFADeclarationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationresponse
 type IDFADeclarationResponse struct {
 	Data  IDFADeclaration `json:"data"`
 	Links DocumentLinks   `json:"links"`
 }
 
 // GetIDFADeclarationForAppStoreVersionQuery are query options for GetIDFADeclarationForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_idfa_declaration_information_of_an_app_store_version
 type GetIDFADeclarationForAppStoreVersionQuery struct {
 	FieldsIDFADeclarations *[]string `url:"fields[idfaDeclarations],omitempty"`
 }

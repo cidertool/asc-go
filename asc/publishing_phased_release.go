@@ -7,6 +7,8 @@ import (
 )
 
 // PhasedReleaseState defines model for PhasedReleaseState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/phasedreleasestate
 type PhasedReleaseState string
 
 const (
@@ -21,6 +23,8 @@ const (
 )
 
 // AppStoreVersionPhasedRelease defines model for AppStoreVersionPhasedRelease.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedrelease
 type AppStoreVersionPhasedRelease struct {
 	Attributes *struct {
 		CurrentDayNumber   *int                `json:"currentDayNumber,omitempty"`
@@ -34,6 +38,8 @@ type AppStoreVersionPhasedRelease struct {
 }
 
 // AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest
 type AppStoreVersionPhasedReleaseCreateRequest struct {
 	Attributes    *AppStoreVersionPhasedReleaseCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships AppStoreVersionPhasedReleaseCreateRequestRelationships `json:"relationships"`
@@ -41,11 +47,15 @@ type AppStoreVersionPhasedReleaseCreateRequest struct {
 }
 
 // AppStoreVersionPhasedReleaseCreateRequestAttributes are attributes for AppStoreVersionPhasedReleaseCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/attributes
 type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequestRelationships are relationships for AppStoreVersionPhasedReleaseCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/relationships
 type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -53,12 +63,16 @@ type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseresponse
 type AppStoreVersionPhasedReleaseResponse struct {
 	Data  AppStoreVersionPhasedRelease `json:"data"`
 	Links DocumentLinks                `json:"links"`
 }
 
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest
 type AppStoreVersionPhasedReleaseUpdateRequest struct {
 	Attributes *AppStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                               `json:"id"`
@@ -66,11 +80,15 @@ type AppStoreVersionPhasedReleaseUpdateRequest struct {
 }
 
 // AppStoreVersionPhasedReleaseUpdateRequestAttributes are attributes for AppStoreVersionPhasedReleaseUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest/data/attributes
 type AppStoreVersionPhasedReleaseUpdateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
 // GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery are query options for GetAppStoreVersionPhasedReleaseForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_phased_release_information_of_an_app_store_version
 type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 }

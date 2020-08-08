@@ -6,6 +6,8 @@ import (
 )
 
 // AppStoreVersionSubmission defines model for AppStoreVersionSubmission.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmission
 type AppStoreVersionSubmission struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
@@ -19,12 +21,16 @@ type AppStoreVersionSubmission struct {
 }
 
 // AppStoreVersionSubmissionCreateRequest defines model for AppStoreVersionSubmissionCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissioncreaterequest
 type AppStoreVersionSubmissionCreateRequest struct {
 	Relationships AppStoreVersionSubmissionCreateRequestRelationships `json:"relationships"`
 	Type          string                                              `json:"type"`
 }
 
 // AppStoreVersionSubmissionCreateRequestRelationships are attributes for AppStoreVersionSubmissionCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissioncreaterequest/data/relationships
 type AppStoreVersionSubmissionCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -32,12 +38,16 @@ type AppStoreVersionSubmissionCreateRequestRelationships struct {
 }
 
 // AppStoreVersionSubmissionResponse defines model for AppStoreVersionSubmissionResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissionresponse
 type AppStoreVersionSubmissionResponse struct {
 	Data  AppStoreVersionSubmission `json:"data"`
 	Links DocumentLinks             `json:"links"`
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersionQuery are query options for GetAppStoreVersionSubmissionForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_submission_information_of_an_app_store_version
 type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 	FieldsAppStoreVersions           []string `url:"fields[appStoreVersions],omitempty"`
 	FieldsAppStoreVersionSubmissions []string `url:"fields[appStoreVersionSubmissions],omitempty"`
@@ -62,6 +72,8 @@ func (s *SubmissionService) DeleteSubmission(ctx context.Context, id string) (*R
 }
 
 // GetAppStoreVersionSubmissionForAppStoreVersion reads the App Store Version Submission Information of an App Store Version
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_submission_information_of_an_app_store_version
 func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(ctx context.Context, id string, params *GetAppStoreVersionSubmissionForAppStoreVersionQuery) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)

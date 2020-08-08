@@ -7,6 +7,8 @@ import (
 )
 
 // AppEncryptionDeclarationState defines model for AppEncryptionDeclarationState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationstate
 type AppEncryptionDeclarationState string
 
 // List of AppEncryptionDeclarationState
@@ -19,6 +21,8 @@ const (
 )
 
 // AppEncryptionDeclaration defines model for AppEncryptionDeclaration.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclaration
 type AppEncryptionDeclaration struct {
 	Attributes *struct {
 		AppEncryptionDeclarationState   *AppEncryptionDeclarationState `json:"appEncryptionDeclarationState,omitempty"`
@@ -46,6 +50,8 @@ type AppEncryptionDeclaration struct {
 }
 
 // AppEncryptionDeclarationResponse defines model for AppEncryptionDeclarationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationresponse
 type AppEncryptionDeclarationResponse struct {
 	Data     AppEncryptionDeclaration `json:"data"`
 	Included *[]App                   `json:"included,omitempty"`
@@ -53,6 +59,8 @@ type AppEncryptionDeclarationResponse struct {
 }
 
 // AppEncryptionDeclarationsResponse defines model for AppEncryptionDeclarationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationsresponse
 type AppEncryptionDeclarationsResponse struct {
 	Data     []AppEncryptionDeclaration `json:"data"`
 	Included *[]App                     `json:"included,omitempty"`
@@ -61,6 +69,8 @@ type AppEncryptionDeclarationsResponse struct {
 }
 
 // ListAppEncryptionDeclarationsQuery are query options for ListAppEncryptionDeclarations
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_encryption_declarations
 type ListAppEncryptionDeclarationsQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
@@ -73,6 +83,8 @@ type ListAppEncryptionDeclarationsQuery struct {
 }
 
 // GetAppEncryptionDeclarationQuery are query options for GetAppEncryptionDeclaration
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_encryption_declaration_information
 type GetAppEncryptionDeclarationQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
@@ -80,6 +92,8 @@ type GetAppEncryptionDeclarationQuery struct {
 }
 
 // GetAppForEncryptionDeclarationQuery are query options for GetAppForEncryptionDeclaration
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_an_app_encryption_declaration
 type GetAppForEncryptionDeclarationQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }

@@ -6,6 +6,8 @@ import (
 )
 
 // AppStoreReviewDetail defines model for AppStoreReviewDetail.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetail
 type AppStoreReviewDetail struct {
 	Attributes *struct {
 		ContactEmail        *string `json:"contactEmail,omitempty"`
@@ -34,6 +36,8 @@ type AppStoreReviewDetail struct {
 }
 
 // AppStoreReviewDetailCreateRequest defines model for AppStoreReviewDetailCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest
 type AppStoreReviewDetailCreateRequest struct {
 	Attributes    *AppStoreReviewDetailCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships AppStoreReviewDetailCreateRequestRelationships `json:"relationships"`
@@ -41,6 +45,8 @@ type AppStoreReviewDetailCreateRequest struct {
 }
 
 // AppStoreReviewDetailCreateRequestAttributes are attributes for AppStoreReviewDetailCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data/attributes
 type AppStoreReviewDetailCreateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`
@@ -53,6 +59,8 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 }
 
 // AppStoreReviewDetailCreateRequestRelationships are relationships for AppStoreReviewDetailCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data/relationships
 type AppStoreReviewDetailCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -60,6 +68,8 @@ type AppStoreReviewDetailCreateRequestRelationships struct {
 }
 
 // AppStoreReviewDetailUpdateRequest defines model for AppStoreReviewDetailUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailupdaterequest
 type AppStoreReviewDetailUpdateRequest struct {
 	Attributes *AppStoreReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
@@ -67,6 +77,8 @@ type AppStoreReviewDetailUpdateRequest struct {
 }
 
 // AppStoreReviewDetailUpdateRequestAttributes are attributes for AppStoreReviewDetailUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailupdaterequest/data/attributes
 type AppStoreReviewDetailUpdateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`
@@ -79,6 +91,8 @@ type AppStoreReviewDetailUpdateRequestAttributes struct {
 }
 
 // AppStoreReviewDetailResponse defines model for AppStoreReviewDetailResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailresponse
 type AppStoreReviewDetailResponse struct {
 	Data     AppStoreReviewDetail        `json:"data"`
 	Included *[]AppStoreReviewAttachment `json:"included,omitempty"`
@@ -86,6 +100,8 @@ type AppStoreReviewDetailResponse struct {
 }
 
 // GetReviewDetailQuery are query options for GetReviewDetail
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_detail_information
 type GetReviewDetailQuery struct {
 	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
 	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
@@ -94,6 +110,8 @@ type GetReviewDetailQuery struct {
 }
 
 // GetAppStoreReviewDetailsForAppStoreVersionQuery are query options for GetAppStoreReviewDetailsForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_review_details_resource_information_of_an_app_store_version
 type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 	FieldsAppStoreReviewAttachments []string `url:"fields[appStoreReviewAttachments],omitempty"`
 	FieldsAppStoreReviewDetails     []string `url:"fields[appStoreReviewDetails],omitempty"`
@@ -121,6 +139,8 @@ func (s *SubmissionService) GetReviewDetail(ctx context.Context, id string, para
 }
 
 // GetReviewDetailsForAppStoreVersion gets the details you provide to App Review so they can test your app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_review_details_resource_information_of_an_app_store_version
 func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(ctx context.Context, id string, params *GetAppStoreReviewDetailsForAppStoreVersionQuery) (*AppStoreReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreReviewDetail", id)
 	res := new(AppStoreReviewDetailResponse)

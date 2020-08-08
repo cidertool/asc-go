@@ -6,6 +6,8 @@ import (
 )
 
 // IconAssetType defines model for IconAssetType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/iconassettype
 type IconAssetType string
 
 // List of IconAssetType
@@ -18,6 +20,8 @@ const (
 )
 
 // BuildIcon defines model for BuildIcon.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildicon
 type BuildIcon struct {
 	Attributes *struct {
 		IconAsset *ImageAsset    `json:"iconAsset,omitempty"`
@@ -29,6 +33,8 @@ type BuildIcon struct {
 }
 
 // BuildIconsResponse defines model for BuildIconsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildiconsresponse
 type BuildIconsResponse struct {
 	Data  []BuildIcon        `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -36,6 +42,8 @@ type BuildIconsResponse struct {
 }
 
 // ListIconsQuery are query options for ListIcons
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_icons_for_a_build
 type ListIconsQuery struct {
 	FieldsBuildIcons []string `url:"fields[buildIcons],omitempty"`
 	Limit            int      `url:"limit,omitempty"`

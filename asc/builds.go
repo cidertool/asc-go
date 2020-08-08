@@ -14,6 +14,8 @@ import (
 type BuildsService service
 
 // Build defines model for Build.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/build
 type Build struct {
 	Attributes *struct {
 		ExpirationDate          *time.Time  `json:"expirationDate,omitempty"`
@@ -72,6 +74,8 @@ type Build struct {
 }
 
 // BuildResponse defines model for BuildResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildresponse
 type BuildResponse struct {
 	Data     Build          `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -79,6 +83,8 @@ type BuildResponse struct {
 }
 
 // BuildsResponse defines model for BuildsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildsresponse
 type BuildsResponse struct {
 	Data     []Build            `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -87,6 +93,8 @@ type BuildsResponse struct {
 }
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest
 type BuildUpdateRequest struct {
 	Attributes    *BuildUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                           `json:"id"`
@@ -95,12 +103,16 @@ type BuildUpdateRequest struct {
 }
 
 // BuildUpdateRequestAttributes are attributes for BuildUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data/attributes
 type BuildUpdateRequestAttributes struct {
 	Expired                 *bool `json:"expired,omitempty"`
 	UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
 }
 
 // BuildUpdateRequestRelationships are relationships for BuildUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data/relationships
 type BuildUpdateRequestRelationships struct {
 	AppEncryptionDeclaration *struct {
 		Data *RelationshipsData `json:"data,omitempty"`
@@ -108,12 +120,16 @@ type BuildUpdateRequestRelationships struct {
 }
 
 // BuildAppEncryptionDeclarationLinkageResponse defines model for BuildAppEncryptionDeclarationLinkageResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildappencryptiondeclarationlinkageresponse
 type BuildAppEncryptionDeclarationLinkageResponse struct {
 	Data  RelationshipsData `json:"data"`
 	Links DocumentLinks     `json:"links"`
 }
 
 // BuildIndividualTestersLinkagesResponse defines model for BuildIndividualTestersLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildindividualtesterslinkagesresponse
 type BuildIndividualTestersLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -121,6 +137,8 @@ type BuildIndividualTestersLinkagesResponse struct {
 }
 
 // ListBuildsQuery are query options for ListBuilds
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_builds
 type ListBuildsQuery struct {
 	FieldsAppEncryptionDeclarations          []string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                               []string `url:"fields[apps],omitempty"`
@@ -156,6 +174,8 @@ type ListBuildsQuery struct {
 }
 
 // ListBuildsForAppQuery are query options for ListBuildsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_of_an_app
 type ListBuildsForAppQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 	Limit        int      `url:"limit,omitempty"`
@@ -163,6 +183,8 @@ type ListBuildsForAppQuery struct {
 }
 
 // GetBuildsQuery are query options for GetBuilds
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_build_information
 type GetBuildsQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
@@ -183,27 +205,37 @@ type GetBuildsQuery struct {
 }
 
 // GetAppForBuildQuery are query options for GetAppForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_build
 type GetAppForBuildQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetAppStoreVersionForBuildQuery are query options for GetAppStoreVersionForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_store_version_information_of_a_build
 type GetAppStoreVersionForBuildQuery struct {
 	FieldsAppStoreVersions []string `url:"fields[appStoreVersions],omitempty"`
 }
 
 // GetBuildForAppStoreVersionQuery are query options for GetBuildForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_an_app_store_version
 type GetBuildForAppStoreVersionQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // ListResourceIDsForIndividualTestersForBuildQuery are query options for ListResourceIDsForIndividualTestersForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_resource_ids_of_individual_testers_for_a_build
 type ListResourceIDsForIndividualTestersForBuildQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`
 }
 
 // GetAppEncryptionDeclarationForBuildQuery are query options for GetAppEncryptionDeclarationForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_encryption_declaration_of_a_build
 type GetAppEncryptionDeclarationForBuildQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 }
