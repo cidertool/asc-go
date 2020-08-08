@@ -6,6 +6,8 @@ import (
 )
 
 // RoutingAppCoverage defines model for RoutingAppCoverage.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverage
 type RoutingAppCoverage struct {
 	Attributes *struct {
 		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
@@ -26,6 +28,8 @@ type RoutingAppCoverage struct {
 }
 
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest
 type RoutingAppCoverageCreateRequest struct {
 	Attributes    RoutingAppCoverageCreateRequestAttributes    `json:"attributes"`
 	Relationships RoutingAppCoverageCreateRequestRelationships `json:"relationships"`
@@ -33,12 +37,16 @@ type RoutingAppCoverageCreateRequest struct {
 }
 
 // RoutingAppCoverageCreateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/attributes
 type RoutingAppCoverageCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
 
 // RoutingAppCoverageCreateRequestRelationships are relationships for RoutingAppCoverageCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/relationships
 type RoutingAppCoverageCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -46,12 +54,16 @@ type RoutingAppCoverageCreateRequestRelationships struct {
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageresponse
 type RoutingAppCoverageResponse struct {
 	Data  RoutingAppCoverage `json:"data"`
 	Links DocumentLinks      `json:"links"`
 }
 
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest
 type RoutingAppCoverageUpdateRequest struct {
 	Attributes *RoutingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
@@ -59,12 +71,16 @@ type RoutingAppCoverageUpdateRequest struct {
 }
 
 // RoutingAppCoverageUpdateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest/data/attributes
 type RoutingAppCoverageUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppMediaAssetState defines model for AppMediaAssetState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appmediastateerror
 type AppMediaAssetState struct {
 	Errors   *[]AppMediaStateError `json:"errors,omitempty"`
 	State    *string               `json:"state,omitempty"`
@@ -72,12 +88,23 @@ type AppMediaAssetState struct {
 }
 
 // AppMediaStateError defines model for AppMediaStateError.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appmediaassetstate
 type AppMediaStateError struct {
 	Code        *string `json:"code,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
+// GetRoutingAppCoverageForVersionQuery are query options for GetRoutingAppCoverageForVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_routing_app_coverage_information_of_an_app_store_version
+type GetRoutingAppCoverageForVersionQuery struct {
+	FieldsRoutingAppCoverages []string `url:"fields[routingAppCoverages],omitempty"`
+}
+
 // GetRoutingAppCoverageQuery are query options for GetRoutingAppCoverage
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_routing_app_coverage_information
 type GetRoutingAppCoverageQuery struct {
 	FieldsRoutingAppCoverages []string `url:"fields[routingAppCoverages],omitempty"`
 	Include                   []string `url:"include,omitempty"`

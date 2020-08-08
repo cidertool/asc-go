@@ -7,6 +7,8 @@ import (
 )
 
 // Device defines model for Device.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/device
 type Device struct {
 	Attributes *struct {
 		AddedDate   *time.Time        `json:"addedDate,omitempty"`
@@ -23,12 +25,16 @@ type Device struct {
 }
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest
 type DeviceCreateRequest struct {
 	Attributes DeviceCreateRequestAttributes `json:"attributes"`
 	Type       string                        `json:"type"`
 }
 
 // DeviceCreateRequestAttributes are attributes for DeviceCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest/data/attributes
 type DeviceCreateRequestAttributes struct {
 	Name     string           `json:"name"`
 	Platform BundleIDPlatform `json:"platform"`
@@ -36,6 +42,8 @@ type DeviceCreateRequestAttributes struct {
 }
 
 // DeviceUpdateRequest defines model for DeviceUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest
 type DeviceUpdateRequest struct {
 	Attributes *DeviceUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                         `json:"id"`
@@ -43,18 +51,24 @@ type DeviceUpdateRequest struct {
 }
 
 // DeviceUpdateRequestAttributes are attributes for DeviceUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest/attributes
 type DeviceUpdateRequestAttributes struct {
 	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 }
 
 // DeviceResponse defines model for DeviceResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/deviceresponse
 type DeviceResponse struct {
 	Data  Device        `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // DevicesResponse defines model for DevicesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/devicesresponse
 type DevicesResponse struct {
 	Data  []Device           `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -62,6 +76,8 @@ type DevicesResponse struct {
 }
 
 // ListDevicesQuery are query options for ListDevices
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_devices
 type ListDevicesQuery struct {
 	FieldsDevices  []string `url:"fields[devices],omitempty"`
 	FilterID       []string `url:"filter[id],omitempty"`
@@ -75,6 +91,8 @@ type ListDevicesQuery struct {
 }
 
 // GetDeviceQuery are query options for GetDevice
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_device_information
 type GetDeviceQuery struct {
 	FieldsDevices []string `url:"fields[devices],omitempty"`
 }

@@ -12,6 +12,8 @@ import (
 type UsersService service
 
 // UserRole defines model for UserRole.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userrole
 type UserRole string
 
 // List of UserRole
@@ -41,6 +43,8 @@ const (
 )
 
 // User defines model for User.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/user
 type User struct {
 	Attributes *struct {
 		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
@@ -63,6 +67,8 @@ type User struct {
 }
 
 // UserUpdateRequest defines model for UserUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest
 type UserUpdateRequest struct {
 	Attributes    *UserUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                          `json:"id"`
@@ -71,6 +77,8 @@ type UserUpdateRequest struct {
 }
 
 // UserUpdateRequestAttributes are attributes for UserUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest/data/attributes
 type UserUpdateRequestAttributes struct {
 	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
 	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
@@ -78,6 +86,8 @@ type UserUpdateRequestAttributes struct {
 }
 
 // UserUpdateRequestRelationships are relationships for UserUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest/data/relationships
 type UserUpdateRequestRelationships struct {
 	VisibleApps *struct {
 		Data *[]RelationshipsData `json:"data,omitempty"`
@@ -85,6 +95,8 @@ type UserUpdateRequestRelationships struct {
 }
 
 // UserResponse defines model for UserResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userresponse
 type UserResponse struct {
 	Data     User          `json:"data"`
 	Included *[]App        `json:"included,omitempty"`
@@ -92,6 +104,8 @@ type UserResponse struct {
 }
 
 // UsersResponse defines model for UsersResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/usersresponse
 type UsersResponse struct {
 	Data     []User             `json:"data"`
 	Included *[]App             `json:"included,omitempty"`
@@ -100,6 +114,8 @@ type UsersResponse struct {
 }
 
 // UserVisibleAppsLinkagesResponse defines model for UserVisibleAppsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/uservisibleappslinkagesresponse
 type UserVisibleAppsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -107,6 +123,8 @@ type UserVisibleAppsLinkagesResponse struct {
 }
 
 // ListUsersQuery is the query params structure for ListUsers
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_users
 type ListUsersQuery struct {
 	FieldsApps        []string `url:"fields[apps],omitempty"`
 	FieldsUsers       []string `url:"fields[users],omitempty"`
@@ -121,6 +139,8 @@ type ListUsersQuery struct {
 }
 
 // GetUserQuery is the query params structure for GetUser
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_user_information
 type GetUserQuery struct {
 	FieldsApps       []string `url:"fields[apps],omitempty"`
 	FieldsUsers      []string `url:"fields[users],omitempty"`
@@ -130,6 +150,8 @@ type GetUserQuery struct {
 }
 
 // ListVisibleAppsQuery is the query params structure for ListVisibleAppsForUser
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_a_user
 type ListVisibleAppsQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 	Limit      int      `url:"limit,omitempty"`
@@ -137,6 +159,8 @@ type ListVisibleAppsQuery struct {
 }
 
 // ListVisibleAppsByResourceIDQuery is the query params structure for ListVisibleAppsByResourceIDForUser
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_visible_app_resource_ids_for_a_user
 type ListVisibleAppsByResourceIDQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`

@@ -6,6 +6,8 @@ import (
 )
 
 // ScreenshotDisplayType defines model for ScreenshotDisplayType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/screenshotdisplaytype
 type ScreenshotDisplayType string
 
 // List of ScreenshotDisplayType
@@ -38,6 +40,8 @@ const (
 )
 
 // AppScreenshotSet defines model for AppScreenshotSet.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotset
 type AppScreenshotSet struct {
 	Attributes *struct {
 		ScreenshotDisplayType *ScreenshotDisplayType `json:"screenshotDisplayType,omitempty"`
@@ -59,6 +63,8 @@ type AppScreenshotSet struct {
 }
 
 // AppScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest
 type AppScreenshotSetCreateRequest struct {
 	Attributes    AppScreenshotSetCreateRequestAttributes    `json:"attributes"`
 	Relationships AppScreenshotSetCreateRequestRelationships `json:"relationships"`
@@ -66,11 +72,15 @@ type AppScreenshotSetCreateRequest struct {
 }
 
 // AppScreenshotSetCreateRequestAttributes are attributes for AppScreenshotSetCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/attributes
 type AppScreenshotSetCreateRequestAttributes struct {
 	ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
 }
 
 // AppScreenshotSetCreateRequestRelationships are relationships for AppScreenshotSetCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/relationships
 type AppScreenshotSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization struct {
 		Data RelationshipsData `json:"data"`
@@ -78,6 +88,8 @@ type AppScreenshotSetCreateRequestRelationships struct {
 }
 
 // AppScreenshotSetResponse defines model for AppScreenshotSetResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetresponse
 type AppScreenshotSetResponse struct {
 	Data     AppScreenshotSet `json:"data"`
 	Included *[]AppScreenshot `json:"included,omitempty"`
@@ -85,6 +97,8 @@ type AppScreenshotSetResponse struct {
 }
 
 // AppScreenshotSetsResponse defines model for AppScreenshotSetsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetsresponse
 type AppScreenshotSetsResponse struct {
 	Data     []AppScreenshotSet `json:"data"`
 	Included *[]AppScreenshot   `json:"included,omitempty"`
@@ -93,6 +107,8 @@ type AppScreenshotSetsResponse struct {
 }
 
 // AppScreenshotSetAppScreenshotsLinkagesResponse defines model for AppScreenshotSetAppScreenshotsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetappscreenshotslinkagesresponse
 type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -100,6 +116,8 @@ type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
 }
 
 // GetAppScreenshotSetQuery are query options for GetAppScreenshotSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_screenshot_set_information
 type GetAppScreenshotSetQuery struct {
 	FieldsAppScreenshots    []string `url:"fields[appScreenshots],omitempty"`
 	FieldsAppScreenshotSets []string `url:"fields[appScreenshotSets],omitempty"`
@@ -108,6 +126,8 @@ type GetAppScreenshotSetQuery struct {
 }
 
 // ListAppScreenshotsForSetQuery are query options for ListAppScreenshotsForSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_screenshots_for_an_app_screenshot_set
 type ListAppScreenshotsForSetQuery struct {
 	FieldsAppScreenshotSets []string `url:"fields[appScreenshotSets],omitempty"`
 	FieldsAppScreenshots    []string `url:"fields[appScreenshots],omitempty"`
@@ -117,6 +137,8 @@ type ListAppScreenshotsForSetQuery struct {
 }
 
 // ListAppScreenshotIDsForSetQuery are query options for ListAppScreenshotIDsForSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_screenshot_ids_for_an_app_screenshot_set
 type ListAppScreenshotIDsForSetQuery struct {
 	Limit int `url:"limit,omitempty"`
 }

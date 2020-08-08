@@ -6,6 +6,8 @@ import (
 )
 
 // AppInfoLocalization defines model for AppInfoLocalization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalization
 type AppInfoLocalization struct {
 	Attributes *struct {
 		Locale            *string `json:"locale,omitempty"`
@@ -26,6 +28,8 @@ type AppInfoLocalization struct {
 }
 
 // AppInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest
 type AppInfoLocalizationCreateRequest struct {
 	Attributes    AppInfoLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships AppInfoLocalizationCreateRequestRelationships `json:"relationships"`
@@ -33,6 +37,8 @@ type AppInfoLocalizationCreateRequest struct {
 }
 
 // AppInfoLocalizationCreateRequestAttributes are attributes for AppInfoLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest/data/attributes
 type AppInfoLocalizationCreateRequestAttributes struct {
 	Locale            string  `json:"locale"`
 	Name              *string `json:"name,omitempty"`
@@ -42,6 +48,8 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 }
 
 // AppInfoLocalizationCreateRequestRelationships are relationships for AppInfoLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest/data/relationships
 type AppInfoLocalizationCreateRequestRelationships struct {
 	AppInfo struct {
 		Data RelationshipsData `json:"data"`
@@ -49,12 +57,16 @@ type AppInfoLocalizationCreateRequestRelationships struct {
 }
 
 // AppInfoLocalizationResponse defines model for AppInfoLocalizationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationresponse
 type AppInfoLocalizationResponse struct {
 	Data  AppInfoLocalization `json:"data"`
 	Links DocumentLinks       `json:"links"`
 }
 
 // AppInfoLocalizationUpdateRequest defines model for AppInfoLocalizationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationupdaterequest
 type AppInfoLocalizationUpdateRequest struct {
 	Attributes *AppInfoLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
@@ -62,6 +74,8 @@ type AppInfoLocalizationUpdateRequest struct {
 }
 
 // AppInfoLocalizationUpdateRequestAttributes are attributes for AppInfoLocalizationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationupdaterequest/data/attributes
 type AppInfoLocalizationUpdateRequestAttributes struct {
 	Name              *string `json:"name,omitempty"`
 	PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
@@ -70,6 +84,8 @@ type AppInfoLocalizationUpdateRequestAttributes struct {
 }
 
 // AppInfoLocalizationsResponse defines model for AppInfoLocalizationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationsresponse
 type AppInfoLocalizationsResponse struct {
 	Data  []AppInfoLocalization `json:"data"`
 	Links PagedDocumentLinks    `json:"links"`
@@ -77,6 +93,8 @@ type AppInfoLocalizationsResponse struct {
 }
 
 // ListAppInfoLocalizationsForAppInfoQuery are query options for ListAppInfoLocalizationsForAppInfo
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_info_localizations_for_an_app_info
 type ListAppInfoLocalizationsForAppInfoQuery struct {
 	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
 	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
@@ -87,6 +105,8 @@ type ListAppInfoLocalizationsForAppInfoQuery struct {
 }
 
 // GetAppInfoLocalizationQuery are query options for GetAppInfoLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_localization_information
 type GetAppInfoLocalizationQuery struct {
 	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
 	Include                    []string `url:"include,omitempty"`

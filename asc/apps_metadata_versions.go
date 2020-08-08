@@ -7,6 +7,8 @@ import (
 )
 
 // AppStoreVersionState defines model for AppStoreVersionState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionstate
 type AppStoreVersionState string
 
 // List of AppStoreVersionState
@@ -31,6 +33,8 @@ const (
 )
 
 // AppStoreVersionUpdateRequest defines model for AppStoreVersionUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest
 type AppStoreVersionUpdateRequest struct {
 	Attributes    *AppStoreVersionUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                     `json:"id"`
@@ -39,6 +43,8 @@ type AppStoreVersionUpdateRequest struct {
 }
 
 // AppStoreVersionUpdateRequestAttributes are attributes for AppStoreVersionUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/attributes
 type AppStoreVersionUpdateRequestAttributes struct {
 	Copyright           *string    `json:"copyright,omitempty"`
 	Downloadable        *bool      `json:"downloadable,omitempty"`
@@ -49,6 +55,8 @@ type AppStoreVersionUpdateRequestAttributes struct {
 }
 
 // AppStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/relationships
 type AppStoreVersionUpdateRequestRelationships struct {
 	Build *struct {
 		Data *RelationshipsData `json:"data,omitempty"`
@@ -56,6 +64,8 @@ type AppStoreVersionUpdateRequestRelationships struct {
 }
 
 // AgeRatingDeclaration defines model for AgeRatingDeclaration.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclaration
 type AgeRatingDeclaration struct {
 	Attributes *struct {
 		AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
@@ -79,6 +89,8 @@ type AgeRatingDeclaration struct {
 }
 
 // AppStoreVersion defines model for AppStoreVersion.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion
 type AppStoreVersion struct {
 	Attributes *struct {
 		AppStoreState       *AppStoreVersionState `json:"appStoreState,omitempty"`
@@ -136,6 +148,8 @@ type AppStoreVersion struct {
 }
 
 // AppStoreVersionResponse defines model for AppStoreVersionResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionresponse
 type AppStoreVersionResponse struct {
 	Data     AppStoreVersion `json:"data"`
 	Included *[]interface{}  `json:"included,omitempty"`
@@ -143,6 +157,8 @@ type AppStoreVersionResponse struct {
 }
 
 // AppStoreVersionsResponse defines model for AppStoreVersionsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsresponse
 type AppStoreVersionsResponse struct {
 	Data     []AppStoreVersion  `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -151,6 +167,8 @@ type AppStoreVersionsResponse struct {
 }
 
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest
 type AppStoreVersionCreateRequest struct {
 	Attributes    AppStoreVersionCreateRequestAttributes    `json:"attributes"`
 	Relationships AppStoreVersionCreateRequestRelationships `json:"relationships"`
@@ -158,6 +176,8 @@ type AppStoreVersionCreateRequest struct {
 }
 
 // AppStoreVersionCreateRequestAttributes are attributes for AppStoreVersionCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data/attributes
 type AppStoreVersionCreateRequestAttributes struct {
 	Copyright           *string    `json:"copyright,omitempty"`
 	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
@@ -168,6 +188,8 @@ type AppStoreVersionCreateRequestAttributes struct {
 }
 
 // AppStoreVersionCreateRequestRelationships are relationships for AppStoreVersionCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data/relationships
 type AppStoreVersionCreateRequestRelationships struct {
 	App struct {
 		Data RelationshipsData `json:"data"`
@@ -178,12 +200,16 @@ type AppStoreVersionCreateRequestRelationships struct {
 }
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionbuildlinkageresponse
 type AppStoreVersionBuildLinkageResponse struct {
 	Data  RelationshipsData `json:"data"`
 	Links DocumentLinks     `json:"links"`
 }
 
 // ListAppStoreVersionsQuery are query options for ListAppStoreVersions
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_versions_for_an_app
 type ListAppStoreVersionsQuery struct {
 	FieldsApps                          []string `url:"fields[apps],omitempty"`
 	FieldsAppStoreVersionSubmissions    []string `url:"fields[appStoreVersionSubmissions],omitempty"`
@@ -204,6 +230,8 @@ type ListAppStoreVersionsQuery struct {
 }
 
 // GetAppStoreVersionQuery are query options for GetAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_version_information
 type GetAppStoreVersionQuery struct {
 	FieldsAppStoreVersions              []string `url:"fields[appStoreVersions],omitempty"`
 	FieldsAppStoreVersionSubmissions    []string `url:"fields[appStoreVersionSubmissions],omitempty"`
@@ -219,13 +247,10 @@ type GetAppStoreVersionQuery struct {
 }
 
 // GetAgeRatingDeclarationForAppStoreVersionQuery are query options for GetAgeRatingDeclarationForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
 type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
 	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
-}
-
-// GetRoutingAppCoverageForVersionQuery are query options for GetRoutingAppCoverageForVersion
-type GetRoutingAppCoverageForVersionQuery struct {
-	FieldsRoutingAppCoverages []string `url:"fields[routingAppCoverages],omitempty"`
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.

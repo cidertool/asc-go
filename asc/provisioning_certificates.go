@@ -7,6 +7,8 @@ import (
 )
 
 // CertificateType defines model for CertificateType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificatetype
 type CertificateType string
 
 // List of CertificateType
@@ -23,6 +25,8 @@ const (
 )
 
 // Certificate defines model for Certificate.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificate
 type Certificate struct {
 	Attributes *struct {
 		CertificateContent *string           `json:"certificateContent,omitempty"`
@@ -39,24 +43,32 @@ type Certificate struct {
 }
 
 // CertificateCreateRequest defines model for CertificateCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest
 type CertificateCreateRequest struct {
 	Attributes CertificateCreateRequestAttributes `json:"attributes"`
 	Type       string                             `json:"type"`
 }
 
 // CertificateCreateRequestAttributes are attributes for CertificateCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest/data/attributes
 type CertificateCreateRequestAttributes struct {
 	CertificateType CertificateType `json:"certificateType"`
 	CsrContent      string          `json:"csrContent"`
 }
 
 // CertificateResponse defines model for CertificateResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificateresponse
 type CertificateResponse struct {
 	Data  Certificate   `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // CertificatesResponse defines model for CertificatesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificatesresponse
 type CertificatesResponse struct {
 	Data  []Certificate      `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -64,6 +76,8 @@ type CertificatesResponse struct {
 }
 
 // ListCertificatesQuery are query options for ListCertificates
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_and_download_certificates
 type ListCertificatesQuery struct {
 	FieldsCertificates    []string `url:"fields[certificates],omitempty"`
 	Limit                 int      `url:"limit,omitempty"`
@@ -77,6 +91,8 @@ type ListCertificatesQuery struct {
 }
 
 // GetCertificateQuery are query options for GetCertificate
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_and_download_certificate_information
 type GetCertificateQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 }

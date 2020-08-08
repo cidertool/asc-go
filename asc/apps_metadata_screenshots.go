@@ -6,6 +6,8 @@ import (
 )
 
 // AppScreenshot defines model for AppScreenshot.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshot
 type AppScreenshot struct {
 	Attributes *struct {
 		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
@@ -29,6 +31,8 @@ type AppScreenshot struct {
 }
 
 // AppScreenshotCreateRequest defines model for AppScreenshotCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest
 type AppScreenshotCreateRequest struct {
 	Attributes    AppScreenshotCreateRequestAttributes    `json:"attributes"`
 	Relationships AppScreenshotCreateRequestRelationships `json:"relationships"`
@@ -36,12 +40,16 @@ type AppScreenshotCreateRequest struct {
 }
 
 // AppScreenshotCreateRequestAttributes are attributes for AppScreenshotCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/attributes
 type AppScreenshotCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
 
 // AppScreenshotCreateRequestRelationships are relationships for AppScreenshotCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/relationships
 type AppScreenshotCreateRequestRelationships struct {
 	AppScreenshotSet struct {
 		Data RelationshipsData `json:"data"`
@@ -49,6 +57,8 @@ type AppScreenshotCreateRequestRelationships struct {
 }
 
 // AppScreenshotUpdateRequest defines model for AppScreenshotUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest
 type AppScreenshotUpdateRequest struct {
 	Attributes *AppScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                `json:"id"`
@@ -56,18 +66,24 @@ type AppScreenshotUpdateRequest struct {
 }
 
 // AppScreenshotUpdateRequestAttributes are attributes for AppScreenshotUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest/data/attributes
 type AppScreenshotUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
 
 // AppScreenshotResponse defines model for AppScreenshotResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotresponse
 type AppScreenshotResponse struct {
 	Data  AppScreenshot `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // AppScreenshotsResponse defines model for AppScreenshotsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsresponse
 type AppScreenshotsResponse struct {
 	Data  []AppScreenshot    `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -75,6 +91,8 @@ type AppScreenshotsResponse struct {
 }
 
 // GetAppScreenshotQuery are query options for GetAppScreenshot
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_screenshot_information
 type GetAppScreenshotQuery struct {
 	FieldsAppScreenshots []string `url:"fields[appScreenshots],omitempty"`
 	Include              []string `url:"include,omitempty"`

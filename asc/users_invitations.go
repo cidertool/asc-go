@@ -7,6 +7,8 @@ import (
 )
 
 // UserInvitation defines model for UserInvitation.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitation
 type UserInvitation struct {
 	Attributes *struct {
 		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
@@ -30,6 +32,8 @@ type UserInvitation struct {
 }
 
 // UserInvitationCreateRequest defines model for UserInvitationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest
 type UserInvitationCreateRequest struct {
 	Attributes    UserInvitationCreateRequestAttributes     `json:"attributes"`
 	Relationships *UserInvitationCreateRequestRelationships `json:"relationships,omitempty"`
@@ -37,6 +41,8 @@ type UserInvitationCreateRequest struct {
 }
 
 // UserInvitationCreateRequestAttributes are attributes for UserInvitationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data/attributes
 type UserInvitationCreateRequestAttributes struct {
 	AllAppsVisible      *bool      `json:"allAppsVisible,omitempty"`
 	Email               Email      `json:"email"`
@@ -47,6 +53,8 @@ type UserInvitationCreateRequestAttributes struct {
 }
 
 // UserInvitationCreateRequestRelationships are relationships for UserInvitationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data/relationships
 type UserInvitationCreateRequestRelationships struct {
 	VisibleApps *struct {
 		Data *[]RelationshipsData `json:"data,omitempty"`
@@ -54,6 +62,8 @@ type UserInvitationCreateRequestRelationships struct {
 }
 
 // UserInvitationResponse defines model for UserInvitationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationresponse
 type UserInvitationResponse struct {
 	Data     UserInvitation `json:"data"`
 	Included *[]App         `json:"included,omitempty"`
@@ -61,6 +71,8 @@ type UserInvitationResponse struct {
 }
 
 // UserInvitationsResponse defines model for UserInvitationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationsresponse
 type UserInvitationsResponse struct {
 	Data     []UserInvitation   `json:"data"`
 	Included *[]App             `json:"included,omitempty"`
@@ -69,6 +81,8 @@ type UserInvitationsResponse struct {
 }
 
 // ListInvitationsQuery is the query params structure for ListInvitations
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_invited_users
 type ListInvitationsQuery struct {
 	FieldsApps            []string `url:"fields[apps],omitempty"`
 	FieldsUserInvitations []string `url:"fields[userInvitations],omitempty"`
@@ -83,6 +97,8 @@ type ListInvitationsQuery struct {
 }
 
 // GetInvitationQuery is the query params structure for GetInvitation
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_user_invitation_information
 type GetInvitationQuery struct {
 	FieldsApps            []string `url:"fields[apps],omitempty"`
 	FieldsUserInvitations []string `url:"fields[userInvitations],omitempty"`

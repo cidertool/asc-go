@@ -6,6 +6,8 @@ import (
 )
 
 // AppInfo defines model for AppInfo.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfo
 type AppInfo struct {
 	Attributes *struct {
 		AppStoreAgeRating *AppStoreAgeRating    `json:"appStoreAgeRating,omitempty"`
@@ -54,6 +56,8 @@ type AppInfo struct {
 }
 
 // AppInfoResponse defines model for AppInfoResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinforesponse
 type AppInfoResponse struct {
 	Data     AppInfo        `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -61,6 +65,8 @@ type AppInfoResponse struct {
 }
 
 // AppInfosResponse defines model for AppInfosResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfosresponse
 type AppInfosResponse struct {
 	Data     []AppInfo          `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -69,6 +75,8 @@ type AppInfosResponse struct {
 }
 
 // AppInfoUpdateRequest defines model for AppInfoUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest
 type AppInfoUpdateRequest struct {
 	ID            string                             `json:"id"`
 	Relationships *AppInfoUpdateRequestRelationships `json:"relationships,omitempty"`
@@ -76,6 +84,8 @@ type AppInfoUpdateRequest struct {
 }
 
 // AppInfoUpdateRequestRelationships are relationships for AppInfoUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest/data/relationships
 type AppInfoUpdateRequestRelationships struct {
 	PrimaryCategory *struct {
 		Data *RelationshipsData `json:"data,omitempty"`
@@ -98,6 +108,8 @@ type AppInfoUpdateRequestRelationships struct {
 }
 
 // GetAppInfoQuery are query options for GetAppInfo
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_information
 type GetAppInfoQuery struct {
 	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
 	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
@@ -107,6 +119,8 @@ type GetAppInfoQuery struct {
 }
 
 // ListAppInfosForAppQuery are query options for ListAppInfosForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_infos_for_an_app
 type ListAppInfosForAppQuery struct {
 	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
 	FieldsApps                 []string `url:"fields[apps],omitempty"`

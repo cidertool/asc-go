@@ -6,6 +6,8 @@ import (
 )
 
 // EndUserLicenseAgreement defines model for EndUserLicenseAgreement.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreement
 type EndUserLicenseAgreement struct {
 	Attributes *struct {
 		AgreementText *string `json:"agreementText,omitempty"`
@@ -27,6 +29,8 @@ type EndUserLicenseAgreement struct {
 }
 
 // EndUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest
 type EndUserLicenseAgreementCreateRequest struct {
 	Attributes    EndUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
 	Relationships EndUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
@@ -34,11 +38,15 @@ type EndUserLicenseAgreementCreateRequest struct {
 }
 
 // EndUserLicenseAgreementCreateRequestAttributes are attributes for EndUserLicenseAgreementCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data/attributes
 type EndUserLicenseAgreementCreateRequestAttributes struct {
 	AgreementText string `json:"agreementText"`
 }
 
 // EndUserLicenseAgreementCreateRequestRelationships are relationships for EndUserLicenseAgreementCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data/relationships
 type EndUserLicenseAgreementCreateRequestRelationships struct {
 	App struct {
 		Data RelationshipsData `json:"data"`
@@ -49,6 +57,8 @@ type EndUserLicenseAgreementCreateRequestRelationships struct {
 }
 
 // EndUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest
 type EndUserLicenseAgreementUpdateRequest struct {
 	Attributes    *EndUserLicenseAgreementUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                             `json:"id"`
@@ -57,11 +67,15 @@ type EndUserLicenseAgreementUpdateRequest struct {
 }
 
 // EndUserLicenseAgreementUpdateRequestAttributes are attributes for EndUserLicenseAgreementUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/attributes
 type EndUserLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
 // EndUserLicenseAgreementUpdateRequestRelationships are relationships for EndUserLicenseAgreementUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/relationships
 type EndUserLicenseAgreementUpdateRequestRelationships struct {
 	Territories *struct {
 		Data *[]RelationshipsData `json:"data,omitempty"`
@@ -69,6 +83,8 @@ type EndUserLicenseAgreementUpdateRequestRelationships struct {
 }
 
 // EndUserLicenseAgreementResponse defines model for EndUserLicenseAgreementResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementresponse
 type EndUserLicenseAgreementResponse struct {
 	Data     EndUserLicenseAgreement `json:"data"`
 	Included *[]Territory            `json:"included,omitempty"`
@@ -76,6 +92,8 @@ type EndUserLicenseAgreementResponse struct {
 }
 
 // GetEULAQuery are query options for GetEULA
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_end_user_license_agreement_information
 type GetEULAQuery struct {
 	FieldsEndUserLicenseAgreements []string `url:"fields[endUserLicenseAgreements],omitempty"`
 	FieldsTerritories              []string `url:"fields[territories],omitempty"`
@@ -84,6 +102,8 @@ type GetEULAQuery struct {
 }
 
 // GetEULAForAppQuery are query options for GetEULAForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_end_user_license_agreement_information_of_an_app
 type GetEULAForAppQuery struct {
 	FieldsEndUserLicenseAgreements []string `url:"fields[endUserLicenseAgreements],omitempty"`
 }

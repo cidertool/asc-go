@@ -6,6 +6,8 @@ import (
 )
 
 // BundleIDPlatform defines model for BundleIdPlatform.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidplatform
 type BundleIDPlatform string
 
 const (
@@ -16,6 +18,8 @@ const (
 )
 
 // BundleID defines model for BundleId.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleid
 type BundleID struct {
 	Attributes *struct {
 		IDentifier *string           `json:"identifier,omitempty"`
@@ -45,12 +49,16 @@ type BundleID struct {
 }
 
 // BundleIDCreateRequest defines model for BundleIdCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcreaterequest
 type BundleIDCreateRequest struct {
 	Attributes BundleIDCreateRequestAttributes `json:"attributes"`
 	Type       string                          `json:"type"`
 }
 
 // BundleIDCreateRequestAttributes are attributes for BundleIDCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcreaterequest/data/attributes
 type BundleIDCreateRequestAttributes struct {
 	Identifier string           `json:"identifier"`
 	Name       string           `json:"name"`
@@ -59,6 +67,8 @@ type BundleIDCreateRequestAttributes struct {
 }
 
 // BundleIDUpdateRequest defines model for BundleIdUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidupdaterequest
 type BundleIDUpdateRequest struct {
 	Attributes *BundleIDUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                           `json:"id"`
@@ -66,11 +76,15 @@ type BundleIDUpdateRequest struct {
 }
 
 // BundleIDUpdateRequestAttributes are attributes for BundleIDUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidupdaterequest/data/attributes
 type BundleIDUpdateRequestAttributes struct {
 	Name *string `json:"name,omitempty"`
 }
 
 // BundleIDResponse defines model for BundleIdResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidresponse
 type BundleIDResponse struct {
 	Data     BundleID       `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -78,6 +92,8 @@ type BundleIDResponse struct {
 }
 
 // BundleIDsResponse defines model for BundleIdsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidsresponse
 type BundleIDsResponse struct {
 	Data     []BundleID         `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -86,6 +102,8 @@ type BundleIDsResponse struct {
 }
 
 // ListBundleIDsQuery are query options for ListBundleIDs
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_bundle_ids
 type ListBundleIDsQuery struct {
 	FieldsBundleIds            []string `url:"fields[bundleIds],omitempty"`
 	FieldsProfiles             []string `url:"fields[profiles],omitempty"`
@@ -105,6 +123,8 @@ type ListBundleIDsQuery struct {
 }
 
 // GetBundleIDQuery are query options for GetBundleID
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_bundle_id_information
 type GetBundleIDQuery struct {
 	FieldsBundleIds            []string `url:"fields[bundleIds],omitempty"`
 	FieldsProfiles             []string `url:"fields[profiles],omitempty"`
@@ -116,11 +136,15 @@ type GetBundleIDQuery struct {
 }
 
 // GetAppForBundleIDQuery are query options for GetAppForBundleID
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_bundle_id
 type GetAppForBundleIDQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListProfilesForBundleIDQuery are query options for ListProfilesForBundleID
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_profiles_for_a_bundle_id
 type ListProfilesForBundleIDQuery struct {
 	FieldsProfiles []string `url:"fields[profiles],omitempty"`
 	Limit          int      `url:"limit,omitempty"`
@@ -128,6 +152,8 @@ type ListProfilesForBundleIDQuery struct {
 }
 
 // ListCapabilitiesForBundleIDQuery are query options for ListCapabilitiesForBundleID
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_capabilities_for_a_bundle_id
 type ListCapabilitiesForBundleIDQuery struct {
 	FieldsBundleIDCapabilities []string `url:"fields[bundleIdCapabilities],omitempty"`
 	Limit                      int      `url:"limit,omitempty"`

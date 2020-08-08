@@ -6,6 +6,8 @@ import (
 )
 
 // CapabilityType defines model for CapabilityType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/capabilitytype
 type CapabilityType string
 
 // List of CapabilityType
@@ -41,6 +43,8 @@ const (
 )
 
 // BundleIDCapability defines model for BundleIdCapability.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapability
 type BundleIDCapability struct {
 	Attributes *struct {
 		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
@@ -52,6 +56,8 @@ type BundleIDCapability struct {
 }
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest
 type BundleIDCapabilityCreateRequest struct {
 	Attributes    BundleIDCapabilityCreateRequestAttributes    `json:"attributes"`
 	Relationships BundleIDCapabilityCreateRequestRelationships `json:"relationships"`
@@ -59,12 +65,16 @@ type BundleIDCapabilityCreateRequest struct {
 }
 
 // BundleIDCapabilityCreateRequestAttributes are attributes for BundleIDCapabilityCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/attributes
 type BundleIDCapabilityCreateRequestAttributes struct {
 	CapabilityType CapabilityType       `json:"capabilityType"`
 	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 }
 
-// BundleIDCapabilityCreateRequestRelationships are attributes for BundleIDCapabilityCreateRequest
+// BundleIDCapabilityCreateRequestRelationships are relationships for BundleIDCapabilityCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/relationships
 type BundleIDCapabilityCreateRequestRelationships struct {
 	BundleID struct {
 		Data RelationshipsData `json:"data"`
@@ -72,6 +82,8 @@ type BundleIDCapabilityCreateRequestRelationships struct {
 }
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest
 type BundleIDCapabilityUpdateRequest struct {
 	Attributes *BundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
@@ -79,18 +91,24 @@ type BundleIDCapabilityUpdateRequest struct {
 }
 
 // BundleIDCapabilityUpdateRequestAttributes are attributes for BundleIDCapabilityUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest/data/attributes
 type BundleIDCapabilityUpdateRequestAttributes struct {
 	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
 	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityResponse defines model for BundleIdCapabilityResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityresponse
 type BundleIDCapabilityResponse struct {
 	Data  BundleIDCapability `json:"data"`
 	Links DocumentLinks      `json:"links"`
 }
 
 // BundleIDCapabilitiesResponse defines model for BundleIdCapabilitiesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitiesresponse
 type BundleIDCapabilitiesResponse struct {
 	Data  []BundleIDCapability `json:"data"`
 	Links PagedDocumentLinks   `json:"links"`
@@ -98,6 +116,8 @@ type BundleIDCapabilitiesResponse struct {
 }
 
 // CapabilityOption defines model for CapabilityOption.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/capabilityoption
 type CapabilityOption struct {
 	Description      *string `json:"description,omitempty"`
 	Enabled          *bool   `json:"enabled,omitempty"`
@@ -108,6 +128,8 @@ type CapabilityOption struct {
 }
 
 // CapabilitySetting defines model for CapabilitySetting.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/capabilitysetting
 type CapabilitySetting struct {
 	AllowedInstances *string             `json:"allowedInstances,omitempty"`
 	Description      *string             `json:"description,omitempty"`

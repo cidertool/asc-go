@@ -6,6 +6,8 @@ import (
 )
 
 // GameCenterEnabledVersion defines model for GameCenterEnabledVersion.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversion
 type GameCenterEnabledVersion struct {
 	Attributes *struct {
 		IconAsset     *ImageAsset `json:"iconAsset,omitempty"`
@@ -29,6 +31,8 @@ type GameCenterEnabledVersion struct {
 }
 
 // GameCenterEnabledVersionCompatibleVersionsLinkagesResponse defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversioncompatibleversionslinkagesresponse
 type GameCenterEnabledVersionCompatibleVersionsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -36,6 +40,8 @@ type GameCenterEnabledVersionCompatibleVersionsLinkagesResponse struct {
 }
 
 // GameCenterEnabledVersionsResponse defines model for GameCenterEnabledVersionsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversionsresponse
 type GameCenterEnabledVersionsResponse struct {
 	Data     []GameCenterEnabledVersion  `json:"data"`
 	Included *[]GameCenterEnabledVersion `json:"included,omitempty"`
@@ -44,6 +50,8 @@ type GameCenterEnabledVersionsResponse struct {
 }
 
 // ListGameCenterEnabledVersionsForAppQuery are query options for ListGameCenterEnabledVersionsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_compatible_versions_for_a_game_center_enabled_version
 type ListGameCenterEnabledVersionsForAppQuery struct {
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
 	FieldsGameCenterEnabledVersions []string `url:"fields[gameCenterEnabledVersions],omitempty"`
@@ -71,6 +79,8 @@ type ListCompatibleVersionsForGameCenterEnabledVersionQuery struct {
 }
 
 // ListCompatibleVersionIDsForGameCenterEnabledVersionQuery are query options for ListCompatibleVersionIDsForGameCenterEnabledVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_compatible_version_ids_for_a_game_center_enabled_version
 type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`

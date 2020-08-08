@@ -6,6 +6,8 @@ import (
 )
 
 // AppStoreAgeRating defines model for AppStoreAgeRating.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreagerating
 type AppStoreAgeRating string
 
 // List of AppStoreAgeRating
@@ -17,6 +19,8 @@ const (
 )
 
 // BrazilAgeRating defines model for BrazilAgeRating.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/brazilagerating
 type BrazilAgeRating string
 
 // List of BrazilAgeRating
@@ -30,6 +34,8 @@ const (
 )
 
 // KidsAgeBand defines model for KidsAgeBand.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/kidsageband
 type KidsAgeBand string
 
 // List of KidsAgeBand
@@ -40,6 +46,8 @@ const (
 )
 
 // AgeRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest
 type AgeRatingDeclarationUpdateRequest struct {
 	Attributes *AgeRatingDeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
@@ -47,6 +55,8 @@ type AgeRatingDeclarationUpdateRequest struct {
 }
 
 // AgeRatingDeclarationUpdateRequestAttributes are attributes for AgeRatingDeclarationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest/data/attributes
 type AgeRatingDeclarationUpdateRequestAttributes struct {
 	AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
 	GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
@@ -65,6 +75,8 @@ type AgeRatingDeclarationUpdateRequestAttributes struct {
 }
 
 // AgeRatingDeclarationResponse defines model for AgeRatingDeclarationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationresponse
 type AgeRatingDeclarationResponse struct {
 	Data  AgeRatingDeclaration `json:"data"`
 	Links DocumentLinks        `json:"links"`

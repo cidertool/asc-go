@@ -6,6 +6,8 @@ import (
 )
 
 // AppPreviewSet defines model for AppPreviewSet.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewset
 type AppPreviewSet struct {
 	Attributes *struct {
 		PreviewType *PreviewType `json:"previewType,omitempty"`
@@ -27,6 +29,8 @@ type AppPreviewSet struct {
 }
 
 // AppPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest
 type AppPreviewSetCreateRequest struct {
 	Attributes    AppPreviewSetCreateRequestAttributes    `json:"attributes"`
 	Relationships AppPreviewSetCreateRequestRelationships `json:"relationships"`
@@ -34,11 +38,15 @@ type AppPreviewSetCreateRequest struct {
 }
 
 // AppPreviewSetCreateRequestAttributes are attributes for AppPreviewSetCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/attributes
 type AppPreviewSetCreateRequestAttributes struct {
 	PreviewType PreviewType `json:"previewType"`
 }
 
 // AppPreviewSetCreateRequestRelationships are relationships for AppPreviewSetCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/relationships
 type AppPreviewSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization struct {
 		Data RelationshipsData `json:"data"`
@@ -46,6 +54,8 @@ type AppPreviewSetCreateRequestRelationships struct {
 }
 
 // AppPreviewSetResponse defines model for AppPreviewSetResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetresponse
 type AppPreviewSetResponse struct {
 	Data     AppPreviewSet `json:"data"`
 	Included *[]AppPreview `json:"included,omitempty"`
@@ -53,6 +63,8 @@ type AppPreviewSetResponse struct {
 }
 
 // AppPreviewSetsResponse defines model for AppPreviewSetsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetsresponse
 type AppPreviewSetsResponse struct {
 	Data     []AppPreviewSet    `json:"data"`
 	Included *[]AppPreview      `json:"included,omitempty"`
@@ -61,6 +73,8 @@ type AppPreviewSetsResponse struct {
 }
 
 // AppPreviewSetAppPreviewsLinkagesResponse defines model for AppPreviewSetAppPreviewsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetapppreviewslinkagesresponse
 type AppPreviewSetAppPreviewsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -68,6 +82,8 @@ type AppPreviewSetAppPreviewsLinkagesResponse struct {
 }
 
 // GetAppPreviewSetQuery are query options for GetAppPreviewSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_set_information
 type GetAppPreviewSetQuery struct {
 	FieldsAppPreviews    []string `url:"fields[appPreviews],omitempty"`
 	FieldsAppPreviewSets []string `url:"fields[appPreviewSets],omitempty"`
@@ -76,6 +92,8 @@ type GetAppPreviewSetQuery struct {
 }
 
 // ListAppPreviewsForSetQuery are query options for ListAppPreviewsForSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_previews_for_an_app_preview_set
 type ListAppPreviewsForSetQuery struct {
 	FieldsAppPreviewSets []string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppPreviews    []string `url:"fields[appPreviews],omitempty"`
@@ -85,6 +103,8 @@ type ListAppPreviewsForSetQuery struct {
 }
 
 // ListAppPreviewIDsForSetQuery are query options for ListAppPreviewIDsForSet
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_preview_ids_for_an_app_preview_set
 type ListAppPreviewIDsForSetQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`

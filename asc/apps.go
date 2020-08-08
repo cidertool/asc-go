@@ -12,6 +12,8 @@ import (
 type AppsService service
 
 // Platform defines model for Platform.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/platform
 type Platform string
 
 // List of Platform
@@ -22,6 +24,8 @@ const (
 )
 
 // App defines model for App.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/app
 type App struct {
 	Attributes *struct {
 		AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
@@ -106,6 +110,8 @@ type App struct {
 }
 
 // AppUpdateRequest defines model for AppUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest
 type AppUpdateRequest struct {
 	Attributes    *AppUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                         `json:"id"`
@@ -114,6 +120,8 @@ type AppUpdateRequest struct {
 }
 
 // AppUpdateRequestAttributes are attributes for AppUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data/attributes
 type AppUpdateRequestAttributes struct {
 	AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
 	BundleID                  *string `json:"bundleId,omitempty"`
@@ -122,6 +130,8 @@ type AppUpdateRequestAttributes struct {
 }
 
 // AppUpdateRequestRelationships are relationships for AppUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data/relationships
 type AppUpdateRequestRelationships struct {
 	AvailableTerritories *struct {
 		Data *[]RelationshipsData `json:"data,omitempty"`
@@ -132,6 +142,8 @@ type AppUpdateRequestRelationships struct {
 }
 
 // AppResponse defines model for AppResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appresponse
 type AppResponse struct {
 	Data     App            `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -139,6 +151,8 @@ type AppResponse struct {
 }
 
 // AppsResponse defines model for AppsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appsresponse
 type AppsResponse struct {
 	Data     []App              `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -147,6 +161,8 @@ type AppsResponse struct {
 }
 
 // InAppPurchase defines model for InAppPurchase.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/inapppurchase
 type InAppPurchase struct {
 	Attributes *struct {
 		InAppPurchaseType *string `json:"inAppPurchaseType,omitempty"`
@@ -167,12 +183,16 @@ type InAppPurchase struct {
 }
 
 // InAppPurchaseResponse defines model for InAppPurchaseResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/inapppurchaseresponse
 type InAppPurchaseResponse struct {
 	Data  InAppPurchase `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // InAppPurchasesResponse defines model for InAppPurchasesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/inapppurchasesresponse
 type InAppPurchasesResponse struct {
 	Data  []InAppPurchase    `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -180,6 +200,8 @@ type InAppPurchasesResponse struct {
 }
 
 // ListAppsQuery are query options for ListApps
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_apps
 type ListAppsQuery struct {
 	FieldsApps                          []string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements         []string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -222,6 +244,8 @@ type ListAppsQuery struct {
 }
 
 // GetAppQuery are query options for GetApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_information
 type GetAppQuery struct {
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements     []string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -253,6 +277,8 @@ type GetAppQuery struct {
 }
 
 // ListInAppPurchasesQuery are query options for ListInAppPurchases
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_in-app_purchases_for_an_app
 type ListInAppPurchasesQuery struct {
 	FieldsApps              []string `url:"fields[apps],omitempty"`
 	FieldsInAppPurchases    []string `url:"fields[inAppPurchases],omitempty"`
@@ -265,6 +291,8 @@ type ListInAppPurchasesQuery struct {
 }
 
 // GetInAppPurchaseQuery are query options for GetInAppPurchase
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_in-app_purchase_information
 type GetInAppPurchaseQuery struct {
 	FieldsInAppPurchases []string `url:"fields[inAppPurchases],omitempty"`
 	Include              []string `url:"include,omitempty"`

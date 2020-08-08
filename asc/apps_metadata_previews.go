@@ -6,6 +6,8 @@ import (
 )
 
 // PreviewType defines model for PreviewType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/previewtype
 type PreviewType string
 
 // List of PreviewType
@@ -28,6 +30,8 @@ const (
 )
 
 // AppPreview defines model for AppPreview.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreview
 type AppPreview struct {
 	Attributes *struct {
 		AssetDeliveryState   *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
@@ -52,6 +56,8 @@ type AppPreview struct {
 }
 
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest
 type AppPreviewCreateRequest struct {
 	Attributes    AppPreviewCreateRequestAttributes    `json:"attributes"`
 	Relationships AppPreviewCreateRequestRelationships `json:"relationships"`
@@ -59,6 +65,8 @@ type AppPreviewCreateRequest struct {
 }
 
 // AppPreviewCreateRequestAttributes are attributes for AppPreviewCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/attributes
 type AppPreviewCreateRequestAttributes struct {
 	FileName             string  `json:"fileName"`
 	FileSize             int64   `json:"fileSize"`
@@ -67,6 +75,8 @@ type AppPreviewCreateRequestAttributes struct {
 }
 
 // AppPreviewCreateRequestRelationships are relationships for AppPreviewCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/relationships
 type AppPreviewCreateRequestRelationships struct {
 	AppPreviewSet struct {
 		Data RelationshipsData `json:"data"`
@@ -74,13 +84,17 @@ type AppPreviewCreateRequestRelationships struct {
 }
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest
 type AppPreviewUpdateRequest struct {
 	Attributes *AppPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                             `json:"id"`
 	Type       string                             `json:"type"`
 }
 
-// AppPreviewUpdateRequestAttributes are attributes for AppPreviewCreateRequest
+// AppPreviewUpdateRequestAttributes are attributes for AppPreviewUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest/data/attributes
 type AppPreviewUpdateRequestAttributes struct {
 	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
 	SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
@@ -88,12 +102,16 @@ type AppPreviewUpdateRequestAttributes struct {
 }
 
 // AppPreviewResponse defines model for AppPreviewResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewresponse
 type AppPreviewResponse struct {
 	Data  AppPreview    `json:"data"`
 	Links DocumentLinks `json:"links"`
 }
 
 // AppPreviewsResponse defines model for AppPreviewsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsresponse
 type AppPreviewsResponse struct {
 	Data  []AppPreview       `json:"data"`
 	Links PagedDocumentLinks `json:"links"`
@@ -101,6 +119,8 @@ type AppPreviewsResponse struct {
 }
 
 // ImageAsset defines model for ImageAsset.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/imageasset
 type ImageAsset struct {
 	Height      *int    `json:"height,omitempty"`
 	TemplateURL *string `json:"templateUrl,omitempty"`
@@ -108,6 +128,8 @@ type ImageAsset struct {
 }
 
 // GetAppPreviewQuery are query options for GetAppPreview
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_information
 type GetAppPreviewQuery struct {
 	FieldsAppPreviews []string `url:"fields[appPreviews],omitempty"`
 	Include           []string `url:"include,omitempty"`

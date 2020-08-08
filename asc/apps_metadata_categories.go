@@ -6,6 +6,8 @@ import (
 )
 
 // AppCategory defines model for AppCategory.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appcategory
 type AppCategory struct {
 	Attributes *struct {
 		Platforms *[]Platform `json:"platforms,omitempty"`
@@ -27,6 +29,8 @@ type AppCategory struct {
 }
 
 // AppCategoriesResponse defines model for AppCategoriesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appcategoriesresponse
 type AppCategoriesResponse struct {
 	Data     []AppCategory      `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -35,6 +39,8 @@ type AppCategoriesResponse struct {
 }
 
 // AppCategoryResponse defines model for AppCategoryResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appcategoryresponse
 type AppCategoryResponse struct {
 	Data     AppCategory    `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -42,6 +48,8 @@ type AppCategoryResponse struct {
 }
 
 // ListAppCategoriesQuery are query options for ListAppCategories
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_app_categories
 type ListAppCategoriesQuery struct {
 	ExistsParent        []string `url:"exists[parent],omitempty"`
 	FieldsAppCategories []string `url:"fields[appCategories],omitempty"`
@@ -53,6 +61,8 @@ type ListAppCategoriesQuery struct {
 }
 
 // ListSubcategoriesForAppCategoryQuery are query options for ListSubcategoriesForAppCategory
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_subcategories_for_an_app_category
 type ListSubcategoriesForAppCategoryQuery struct {
 	FieldsAppCategories []string `url:"fields[appCategories],omitempty"`
 	Limit               int      `url:"limit,omitempty"`
@@ -60,6 +70,8 @@ type ListSubcategoriesForAppCategoryQuery struct {
 }
 
 // GetAppCategoryQuery are query options for GetAppCategory
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_category_information
 type GetAppCategoryQuery struct {
 	FieldsAppCategories []string `url:"fields[appCategories],omitempty"`
 	Include             []string `url:"include,omitempty"`
@@ -67,6 +79,14 @@ type GetAppCategoryQuery struct {
 }
 
 // GetAppCategoryForAppInfoQuery are query options for GetAppCategoryForAppInfo
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_parent_information_of_an_app_category
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_category_information_of_an_app_info
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_category_information_of_an_app_info
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_subcategory_one_information_of_an_app_info
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_primary_subcategory_two_information_of_an_app_info
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_subcategory_one_information_of_an_app_info
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_secondary_subcategory_two_information_of_an_app_info
 type GetAppCategoryForAppInfoQuery struct {
 	FieldsAppCategories []string `url:"fields[appCategories],omitempty"`
 }

@@ -6,6 +6,8 @@ import (
 )
 
 // AppStoreVersionLocalization defines model for AppStoreVersionLocalization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalization
 type AppStoreVersionLocalization struct {
 	Attributes *struct {
 		Description     *string `json:"description,omitempty"`
@@ -38,6 +40,8 @@ type AppStoreVersionLocalization struct {
 }
 
 // AppStoreVersionLocalizationCreateRequest defines model for AppStoreVersionLocalizationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest
 type AppStoreVersionLocalizationCreateRequest struct {
 	Attributes    AppStoreVersionLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships AppStoreVersionLocalizationCreateRequestRelationships `json:"relationships"`
@@ -45,6 +49,8 @@ type AppStoreVersionLocalizationCreateRequest struct {
 }
 
 // AppStoreVersionLocalizationCreateRequestAttributes are attributes for AppStoreVersionLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest/data/attributes
 type AppStoreVersionLocalizationCreateRequestAttributes struct {
 	Description     *string `json:"description,omitempty"`
 	Keywords        *string `json:"keywords,omitempty"`
@@ -56,6 +62,8 @@ type AppStoreVersionLocalizationCreateRequestAttributes struct {
 }
 
 // AppStoreVersionLocalizationCreateRequestRelationships are relationships for AppStoreVersionLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest/data/relationships
 type AppStoreVersionLocalizationCreateRequestRelationships struct {
 	AppStoreVersion struct {
 		Data RelationshipsData `json:"data"`
@@ -63,6 +71,8 @@ type AppStoreVersionLocalizationCreateRequestRelationships struct {
 }
 
 // AppStoreVersionLocalizationResponse defines model for AppStoreVersionLocalizationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationresponse
 type AppStoreVersionLocalizationResponse struct {
 	Data     AppStoreVersionLocalization `json:"data"`
 	Included *[]interface{}              `json:"included,omitempty"`
@@ -70,6 +80,8 @@ type AppStoreVersionLocalizationResponse struct {
 }
 
 // AppStoreVersionLocalizationsResponse defines model for AppStoreVersionLocalizationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationsresponse
 type AppStoreVersionLocalizationsResponse struct {
 	Data     []AppStoreVersionLocalization `json:"data"`
 	Included *[]interface{}                `json:"included,omitempty"`
@@ -78,6 +90,8 @@ type AppStoreVersionLocalizationsResponse struct {
 }
 
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationupdaterequest
 type AppStoreVersionLocalizationUpdateRequest struct {
 	Attributes *AppStoreVersionLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                              `json:"id"`
@@ -85,6 +99,8 @@ type AppStoreVersionLocalizationUpdateRequest struct {
 }
 
 // AppStoreVersionLocalizationUpdateRequestAttributes are attributes for AppStoreVersionLocalizationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationupdaterequest/data/attributes
 type AppStoreVersionLocalizationUpdateRequestAttributes struct {
 	Description     *string `json:"description,omitempty"`
 	Keywords        *string `json:"keywords,omitempty"`
@@ -95,6 +111,8 @@ type AppStoreVersionLocalizationUpdateRequestAttributes struct {
 }
 
 // ListLocalizationsForAppStoreVersionQuery are query options for ListLocalizationsForAppStoreVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_version_localizations_for_an_app_store_version
 type ListLocalizationsForAppStoreVersionQuery struct {
 	FieldsAppStoreVersionLocalizations []string `url:"fields[appStoreVersionLocalizations],omitempty"`
 	Limit                              int      `url:"limit,omitempty"`
@@ -102,6 +120,8 @@ type ListLocalizationsForAppStoreVersionQuery struct {
 }
 
 // GetAppStoreVersionLocalizationQuery are query options for GetAppStoreVersionLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_version_localization_information
 type GetAppStoreVersionLocalizationQuery struct {
 	FieldsAppPreviewSets               []string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppScreenshotSets            []string `url:"fields[appScreenshotSets],omitempty"`
@@ -112,6 +132,8 @@ type GetAppStoreVersionLocalizationQuery struct {
 }
 
 // ListAppScreenshotSetsForAppStoreVersionLocalizationQuery are query options for ListAppScreenshotSetsForAppStoreVersionLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_screenshot_sets_for_an_app_store_version_localization
 type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
 	FieldsAppScreenshotSets            []string `url:"fields[appScreenshotSets],omitempty"`
 	FieldsAppScreenshots               []string `url:"fields[appScreenshots],omitempty"`
@@ -123,6 +145,8 @@ type ListAppScreenshotSetsForAppStoreVersionLocalizationQuery struct {
 }
 
 // ListAppPreviewSetsForAppStoreVersionLocalizationQuery are query options for ListAppPreviewSetsForAppStoreVersionLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_preview_sets_for_an_app_store_version_localization
 type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 	FieldsAppPreviewSets               []string `url:"fields[appPreviewSets],omitempty"`
 	FieldsAppPreviews                  []string `url:"fields[appPreviews],omitempty"`

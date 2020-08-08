@@ -7,6 +7,8 @@ import (
 )
 
 // Profile defines model for Profile.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profile
 type Profile struct {
 	Attributes *struct {
 		CreatedDate    *time.Time        `json:"createdDate,omitempty"`
@@ -40,6 +42,8 @@ type Profile struct {
 }
 
 // ProfileCreateRequest defines model for ProfileCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest
 type ProfileCreateRequest struct {
 	Attributes    ProfileCreateRequestAttributes    `json:"attributes"`
 	Relationships ProfileCreateRequestRelationships `json:"relationships"`
@@ -47,12 +51,16 @@ type ProfileCreateRequest struct {
 }
 
 // ProfileCreateRequestAttributes are attributes for ProfileCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data/attributes
 type ProfileCreateRequestAttributes struct {
 	Name        string `json:"name"`
 	ProfileType string `json:"profileType"`
 }
 
 // ProfileCreateRequestRelationships are relationships for ProfileCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data/relationships
 type ProfileCreateRequestRelationships struct {
 	BundleID struct {
 		Data RelationshipsData `json:"data"`
@@ -66,6 +74,8 @@ type ProfileCreateRequestRelationships struct {
 }
 
 // ProfileResponse defines model for ProfileResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profileresponse
 type ProfileResponse struct {
 	Data     Profile        `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -73,6 +83,8 @@ type ProfileResponse struct {
 }
 
 // ProfilesResponse defines model for ProfilesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profilesresponse
 type ProfilesResponse struct {
 	Data     []Profile          `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -80,8 +92,10 @@ type ProfilesResponse struct {
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
 
-// ListProfileQuery are query options for ListProfile
-type ListProfileQuery struct {
+// ListProfilesQuery are query options for ListProfile
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_and_download_profiles
+type ListProfilesQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 	FieldsDevices      []string `url:"fields[devices],omitempty"`
 	FieldsProfiles     []string `url:"fields[profiles],omitempty"`
@@ -99,6 +113,8 @@ type ListProfileQuery struct {
 }
 
 // GetProfileQuery are query options for GetProfile
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_and_download_profile_information
 type GetProfileQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 	FieldsDevices      []string `url:"fields[devices],omitempty"`
@@ -110,11 +126,15 @@ type GetProfileQuery struct {
 }
 
 // GetBundleIDForProfileQuery are query options for GetBundleIDForProfile
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_bundle_id_in_a_profile
 type GetBundleIDForProfileQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 }
 
 // ListCertificatesForProfileQuery are query options for ListCertificatesForProfile
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_certificates_in_a_profile
 type ListCertificatesForProfileQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 	Limit              int      `url:"limit,omitempty"`
@@ -122,6 +142,8 @@ type ListCertificatesForProfileQuery struct {
 }
 
 // ListDevicesInProfileQuery are query options for ListDevicesInProfile
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_devices_in_a_profile
 type ListDevicesInProfileQuery struct {
 	FieldsDevices []string `url:"fields[devices],omitempty"`
 	Limit         int      `url:"limit,omitempty"`
@@ -148,7 +170,7 @@ func (s *ProvisioningService) DeleteProfile(ctx context.Context, id string) (*Re
 // ListProfiles finds and list provisioning profiles and download their data.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_and_download_profiles
-func (s *ProvisioningService) ListProfiles(ctx context.Context, params *ListProfileQuery) (*ProfilesResponse, *Response, error) {
+func (s *ProvisioningService) ListProfiles(ctx context.Context, params *ListProfilesQuery) (*ProfilesResponse, *Response, error) {
 	res := new(ProfilesResponse)
 	resp, err := s.client.get(ctx, "profiles", params, res)
 	return res, resp, err
