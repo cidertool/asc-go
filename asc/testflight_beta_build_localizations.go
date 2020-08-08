@@ -6,6 +6,8 @@ import (
 )
 
 // BetaBuildLocalization defines model for BetaBuildLocalization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization
 type BetaBuildLocalization struct {
 	Attributes *struct {
 		Locale   *string `json:"locale,omitempty"`
@@ -23,6 +25,8 @@ type BetaBuildLocalization struct {
 }
 
 // BetaBuildLocalizationResponse defines model for BetaBuildLocalizationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationresponse
 type BetaBuildLocalizationResponse struct {
 	Data     BetaBuildLocalization `json:"data"`
 	Included *[]Build              `json:"included,omitempty"`
@@ -30,6 +34,8 @@ type BetaBuildLocalizationResponse struct {
 }
 
 // BetaBuildLocalizationCreateRequest defines model for BetaBuildLocalizationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest
 type BetaBuildLocalizationCreateRequest struct {
 	Attributes    BetaBuildLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships BetaBuildLocalizationCreateRequestRelationships `json:"relationships"`
@@ -37,12 +43,16 @@ type BetaBuildLocalizationCreateRequest struct {
 }
 
 // BetaBuildLocalizationCreateRequestAttributes are attributes for BetaBuildLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest/data/attributes
 type BetaBuildLocalizationCreateRequestAttributes struct {
 	Locale   string  `json:"locale"`
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }
 
 // BetaBuildLocalizationCreateRequestRelationships are relationships for BetaBuildLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest/data/relationships
 type BetaBuildLocalizationCreateRequestRelationships struct {
 	Build struct {
 		Data RelationshipsData `json:"data"`
@@ -50,6 +60,8 @@ type BetaBuildLocalizationCreateRequestRelationships struct {
 }
 
 // BetaBuildLocalizationUpdateRequest defines model for BetaBuildLocalizationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationupdaterequest
 type BetaBuildLocalizationUpdateRequest struct {
 	Attributes *BetaBuildLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                        `json:"id"`
@@ -57,11 +69,15 @@ type BetaBuildLocalizationUpdateRequest struct {
 }
 
 // BetaBuildLocalizationUpdateRequestAttributes are attributes for BetaBuildLocalizationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationupdaterequest/data/attributes
 type BetaBuildLocalizationUpdateRequestAttributes struct {
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }
 
 // BetaBuildLocalizationsResponse defines model for BetaBuildLocalizationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationsresponse
 type BetaBuildLocalizationsResponse struct {
 	Data     []BetaBuildLocalization `json:"data"`
 	Included *[]Build                `json:"included,omitempty"`
@@ -70,6 +86,8 @@ type BetaBuildLocalizationsResponse struct {
 }
 
 // ListBetaBuildLocalizationsQuery defines model for ListBetaBuildLocalizations
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_build_localizations
 type ListBetaBuildLocalizationsQuery struct {
 	FieldsBuilds                 []string `url:"fields[builds],omitempty"`
 	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
@@ -80,6 +98,8 @@ type ListBetaBuildLocalizationsQuery struct {
 }
 
 // GetBetaBuildLocalizationQuery defines model for GetBetaBuildLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_build_localization_information
 type GetBetaBuildLocalizationQuery struct {
 	FieldsBuilds                 []string `url:"fields[builds],omitempty"`
 	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
@@ -87,11 +107,15 @@ type GetBetaBuildLocalizationQuery struct {
 }
 
 // GetBuildForBetaBuildLocalizationQuery defines model for GetBuildForBetaBuildLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_beta_build_localization
 type GetBuildForBetaBuildLocalizationQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // ListBetaBuildLocalizationsForBuildQuery defines model for ListBetaBuildLocalizationsForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_build_localizations_of_a_build
 type ListBetaBuildLocalizationsForBuildQuery struct {
 	FieldsBetaBuildLocalizations []string `url:"fields[betaBuildLocalizations],omitempty"`
 	Limit                        int      `url:"limit,omitempty"`

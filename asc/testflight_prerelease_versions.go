@@ -6,6 +6,8 @@ import (
 )
 
 // PrereleaseVersion defines model for PrereleaseVersion.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversion
 type PrereleaseVersion struct {
 	Attributes *struct {
 		Platform *Platform `json:"platform,omitempty"`
@@ -28,6 +30,8 @@ type PrereleaseVersion struct {
 }
 
 // PrereleaseVersionResponse defines model for PrereleaseVersionResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionresponse
 type PrereleaseVersionResponse struct {
 	Data     PrereleaseVersion `json:"data"`
 	Included *[]interface{}    `json:"included,omitempty"`
@@ -35,6 +39,8 @@ type PrereleaseVersionResponse struct {
 }
 
 // PrereleaseVersionsResponse defines model for PreReleaseVersionsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionsresponse
 type PrereleaseVersionsResponse struct {
 	Data     []PrereleaseVersion `json:"data"`
 	Included *[]interface{}      `json:"included,omitempty"`
@@ -43,6 +49,8 @@ type PrereleaseVersionsResponse struct {
 }
 
 // ListPrereleaseVersionsQuery defines model for ListPrereleaseVersions
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_prerelease_versions
 type ListPrereleaseVersionsQuery struct {
 	FieldsApps                  []string `url:"fields[apps],omitempty"`
 	FieldsBuilds                []string `url:"fields[builds],omitempty"`
@@ -61,6 +69,8 @@ type ListPrereleaseVersionsQuery struct {
 }
 
 // GetPrereleaseVersionQuery defines model for GetPrereleaseVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_prerelease_version_information
 type GetPrereleaseVersionQuery struct {
 	FieldsApps               []string `url:"fields[apps],omitempty"`
 	FieldsBuilds             []string `url:"fields[builds],omitempty"`
@@ -70,11 +80,15 @@ type GetPrereleaseVersionQuery struct {
 }
 
 // GetAppForPrereleaseVersionQuery defines model for GetAppForPrereleaseVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_prerelease_version
 type GetAppForPrereleaseVersionQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListPrereleaseVersionsForAppQuery defines model for ListPrereleaseVersionsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_prerelease_versions_for_an_app
 type ListPrereleaseVersionsForAppQuery struct {
 	FieldsPreReleaseVersions []string `url:"fields[preReleaseVersions],omitempty"`
 	Limit                    int      `url:"limit,omitempty"`
@@ -82,6 +96,8 @@ type ListPrereleaseVersionsForAppQuery struct {
 }
 
 // ListBuildsForPrereleaseVersionQuery defines model for ListBuildsForPrereleaseVersion
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_of_a_prerelease_version
 type ListBuildsForPrereleaseVersionQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 	Limit        int      `url:"limit,omitempty"`
@@ -89,6 +105,8 @@ type ListBuildsForPrereleaseVersionQuery struct {
 }
 
 // GetPrereleaseVersionForBuildQuery defines model for GetPrereleaseVersionForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_prerelease_version_of_a_build
 type GetPrereleaseVersionForBuildQuery struct {
 	FieldsPreReleaseVersions []string `url:"fields[preReleaseVersions],omitempty"`
 }

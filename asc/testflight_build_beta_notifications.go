@@ -3,6 +3,8 @@ package asc
 import "context"
 
 // BuildBetaNotification defines model for BuildBetaNotification.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotification
 type BuildBetaNotification struct {
 	ID    string        `json:"id"`
 	Links ResourceLinks `json:"links"`
@@ -10,12 +12,16 @@ type BuildBetaNotification struct {
 }
 
 // BuildBetaNotificationCreateRequest defines model for BuildBetaNotificationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest
 type BuildBetaNotificationCreateRequest struct {
 	Relationships BuildBetaNotificationCreateRequestRelationships `json:"relationships"`
 	Type          string                                          `json:"type"`
 }
 
 // BuildBetaNotificationCreateRequestRelationships are relationships for BuildBetaNotificationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest/data/relationships
 type BuildBetaNotificationCreateRequestRelationships struct {
 	Build struct {
 		Data RelationshipsData `json:"data"`
@@ -23,6 +29,8 @@ type BuildBetaNotificationCreateRequestRelationships struct {
 }
 
 // BuildBetaNotificationResponse defines model for BuildBetaNotificationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationresponse
 type BuildBetaNotificationResponse struct {
 	Data  BuildBetaNotification `json:"data"`
 	Links DocumentLinks         `json:"links"`

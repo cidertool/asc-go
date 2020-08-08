@@ -6,6 +6,8 @@ import (
 )
 
 // BetaAppLocalization defines model for BetaAppLocalization.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalization
 type BetaAppLocalization struct {
 	Attributes *struct {
 		Description       *string `json:"description,omitempty"`
@@ -27,6 +29,8 @@ type BetaAppLocalization struct {
 }
 
 // BetaAppLocalizationCreateRequest defines model for BetaAppLocalizationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest
 type BetaAppLocalizationCreateRequest struct {
 	Attributes    BetaAppLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships BetaAppLocalizationCreateRequestRelationships `json:"relationships"`
@@ -34,6 +38,8 @@ type BetaAppLocalizationCreateRequest struct {
 }
 
 // BetaAppLocalizationCreateRequestAttributes are attributes for BetaAppLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest/data/attributes
 type BetaAppLocalizationCreateRequestAttributes struct {
 	Description       *string `json:"description,omitempty"`
 	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
@@ -44,6 +50,8 @@ type BetaAppLocalizationCreateRequestAttributes struct {
 }
 
 // BetaAppLocalizationCreateRequestRelationships are relationships for BetaAppLocalizationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest/data/relationships
 type BetaAppLocalizationCreateRequestRelationships struct {
 	App struct {
 		Data RelationshipsData `json:"data"`
@@ -51,6 +59,8 @@ type BetaAppLocalizationCreateRequestRelationships struct {
 }
 
 // BetaAppLocalizationResponse defines model for BetaAppLocalizationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationresponse
 type BetaAppLocalizationResponse struct {
 	Data     BetaAppLocalization `json:"data"`
 	Included *[]App              `json:"included,omitempty"`
@@ -58,6 +68,8 @@ type BetaAppLocalizationResponse struct {
 }
 
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationupdaterequest
 type BetaAppLocalizationUpdateRequest struct {
 	Attributes *BetaAppLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
@@ -65,6 +77,8 @@ type BetaAppLocalizationUpdateRequest struct {
 }
 
 // BetaAppLocalizationUpdateRequestAttributes are attributes for BetaAppLocalizationUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationupdaterequest/data/attributes
 type BetaAppLocalizationUpdateRequestAttributes struct {
 	Description       *string `json:"description,omitempty"`
 	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
@@ -74,6 +88,8 @@ type BetaAppLocalizationUpdateRequestAttributes struct {
 }
 
 // BetaAppLocalizationsResponse defines model for BetaAppLocalizationsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationsresponse
 type BetaAppLocalizationsResponse struct {
 	Data     []BetaAppLocalization `json:"data"`
 	Included *[]App                `json:"included,omitempty"`
@@ -82,6 +98,8 @@ type BetaAppLocalizationsResponse struct {
 }
 
 // ListBetaAppLocalizationsQuery defines model for ListBetaAppLocalizations
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_localizations
 type ListBetaAppLocalizationsQuery struct {
 	FieldsApps                 []string `url:"fields[apps],omitempty"`
 	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
@@ -93,6 +111,8 @@ type ListBetaAppLocalizationsQuery struct {
 }
 
 // GetBetaAppLocalizationQuery defines model for GetBetaAppLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_localization_information
 type GetBetaAppLocalizationQuery struct {
 	FieldsApps                 []string `url:"fields[apps],omitempty"`
 	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
@@ -100,11 +120,15 @@ type GetBetaAppLocalizationQuery struct {
 }
 
 // GetAppForBetaAppLocalizationQuery defines model for GetAppForBetaAppLocalization
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_app_localization
 type GetAppForBetaAppLocalizationQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListBetaAppLocalizationsForAppQuery defines model for ListBetaAppLocalizationsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_app_localizations_of_an_app
 type ListBetaAppLocalizationsForAppQuery struct {
 	FieldsBetaAppLocalizations []string `url:"fields[betaAppLocalizations],omitempty"`
 	Limit                      int      `url:"limit,omitempty"`

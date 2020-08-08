@@ -6,6 +6,8 @@ import (
 )
 
 // BetaReviewState defines model for BetaReviewState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betareviewstate
 type BetaReviewState string
 
 // List of BetaReviewState
@@ -17,6 +19,8 @@ const (
 )
 
 // BetaAppReviewSubmission defines model for BetaAppReviewSubmission.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmission
 type BetaAppReviewSubmission struct {
 	Attributes *struct {
 		BetaReviewState *BetaReviewState `json:"betaReviewState,omitempty"`
@@ -33,12 +37,16 @@ type BetaAppReviewSubmission struct {
 }
 
 // BetaAppReviewSubmissionCreateRequest defines model for BetaAppReviewSubmissionCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest
 type BetaAppReviewSubmissionCreateRequest struct {
 	Relationships BetaAppReviewSubmissionCreateRequestRelationships `json:"relationships"`
 	Type          string                                            `json:"type"`
 }
 
 // BetaAppReviewSubmissionCreateRequestRelationships are relationships for BetaAppReviewSubmissionCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest/data/relationships
 type BetaAppReviewSubmissionCreateRequestRelationships struct {
 	Build struct {
 		Data RelationshipsData `json:"data"`
@@ -46,6 +54,8 @@ type BetaAppReviewSubmissionCreateRequestRelationships struct {
 }
 
 // BetaAppReviewSubmissionResponse defines model for BetaAppReviewSubmissionResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissionresponse
 type BetaAppReviewSubmissionResponse struct {
 	Data     BetaAppReviewSubmission `json:"data"`
 	Included *[]Build                `json:"included,omitempty"`
@@ -53,6 +63,8 @@ type BetaAppReviewSubmissionResponse struct {
 }
 
 // BetaAppReviewSubmissionsResponse defines model for BetaAppReviewSubmissionsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissionsresponse
 type BetaAppReviewSubmissionsResponse struct {
 	Data     []BetaAppReviewSubmission `json:"data"`
 	Included *[]Build                  `json:"included,omitempty"`
@@ -61,6 +73,8 @@ type BetaAppReviewSubmissionsResponse struct {
 }
 
 // ListBetaAppReviewSubmissionsQuery defines model for ListBetaAppReviewSubmissions
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_submissions
 type ListBetaAppReviewSubmissionsQuery struct {
 	FieldsBuilds                   []string `url:"fields[builds],omitempty"`
 	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
@@ -72,6 +86,8 @@ type ListBetaAppReviewSubmissionsQuery struct {
 }
 
 // GetBetaAppReviewSubmissionQuery defines model for GetBetaAppReviewSubmission
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_review_submission_information
 type GetBetaAppReviewSubmissionQuery struct {
 	FieldsBuilds                   []string `url:"fields[builds],omitempty"`
 	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
@@ -79,11 +95,15 @@ type GetBetaAppReviewSubmissionQuery struct {
 }
 
 // GetBuildForBetaAppReviewSubmissionQuery defines model for GetBuildForBetaAppReviewSubmission
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_beta_app_review_submission
 type GetBuildForBetaAppReviewSubmissionQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // GetBetaAppReviewSubmissionForBuildQuery defines model for GetBetaAppReviewSubmissionForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_app_review_submission_of_a_build
 type GetBetaAppReviewSubmissionForBuildQuery struct {
 	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
 }

@@ -6,6 +6,8 @@ import (
 )
 
 // ExternalBetaState defines model for ExternalBetaState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/externalbetastate
 type ExternalBetaState string
 
 // List of ExternalBetaState
@@ -25,6 +27,8 @@ const (
 )
 
 // InternalBetaState defines model for InternalBetaState.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/internalbetastate
 type InternalBetaState string
 
 // List of InternalBetaState
@@ -39,6 +43,8 @@ const (
 )
 
 // BuildBetaDetail defines model for BuildBetaDetail.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetail
 type BuildBetaDetail struct {
 	Attributes *struct {
 		AutoNotifyEnabled  *bool              `json:"autoNotifyEnabled,omitempty"`
@@ -57,6 +63,8 @@ type BuildBetaDetail struct {
 }
 
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest
 type BuildBetaDetailUpdateRequest struct {
 	Attributes *BuildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`
@@ -64,11 +72,15 @@ type BuildBetaDetailUpdateRequest struct {
 }
 
 // BuildBetaDetailUpdateRequestAttributes are attributes for BuildBetaDetailUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest/data/attributes
 type BuildBetaDetailUpdateRequestAttributes struct {
 	AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
 }
 
 // BuildBetaDetailResponse defines model for BuildBetaDetailResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailresponse
 type BuildBetaDetailResponse struct {
 	Data     BuildBetaDetail `json:"data"`
 	Included *[]Build        `json:"included,omitempty"`
@@ -76,6 +88,8 @@ type BuildBetaDetailResponse struct {
 }
 
 // BuildBetaDetailsResponse defines model for BuildBetaDetailsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailsresponse
 type BuildBetaDetailsResponse struct {
 	Data     []BuildBetaDetail  `json:"data"`
 	Included *[]Build           `json:"included,omitempty"`
@@ -84,6 +98,8 @@ type BuildBetaDetailsResponse struct {
 }
 
 // ListBuildBetaDetailsQuery defines model for ListBuildBetaDetails
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_build_beta_details
 type ListBuildBetaDetailsQuery struct {
 	FieldsBuilds           []string `url:"fields[builds],omitempty"`
 	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
@@ -95,6 +111,8 @@ type ListBuildBetaDetailsQuery struct {
 }
 
 // GetBuildBetaDetailsQuery defines model for GetBuildBetaDetails
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_build_beta_detail_information
 type GetBuildBetaDetailsQuery struct {
 	FieldsBuilds           []string `url:"fields[builds],omitempty"`
 	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
@@ -102,11 +120,15 @@ type GetBuildBetaDetailsQuery struct {
 }
 
 // GetBuildForBuildBetaDetailQuery defines model for GetBuildForBuildBetaDetail
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_information_of_a_build_beta_detail
 type GetBuildForBuildBetaDetailQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 }
 
 // GetBuildBetaDetailForBuildQuery defines model for GetBuildBetaDetailForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_build_beta_details_information_of_a_build
 type GetBuildBetaDetailForBuildQuery struct {
 	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
 }

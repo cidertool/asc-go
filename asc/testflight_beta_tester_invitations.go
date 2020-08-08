@@ -3,6 +3,8 @@ package asc
 import "context"
 
 // BetaTesterInvitation defines model for BetaTesterInvitation.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitation
 type BetaTesterInvitation struct {
 	ID    string        `json:"id"`
 	Links ResourceLinks `json:"links"`
@@ -10,12 +12,16 @@ type BetaTesterInvitation struct {
 }
 
 // BetaTesterInvitationCreateRequest defines model for BetaTesterInvitationCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest
 type BetaTesterInvitationCreateRequest struct {
 	Relationships BetaTesterInvitationCreateRequestRelationships `json:"relationships"`
 	Type          string                                         `json:"type"`
 }
 
 // BetaTesterInvitationCreateRequestRelationships are relationships for BetaTesterInvitationCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest/data/relationships
 type BetaTesterInvitationCreateRequestRelationships struct {
 	App struct {
 		Data RelationshipsData `json:"data"`
@@ -26,6 +32,8 @@ type BetaTesterInvitationCreateRequestRelationships struct {
 }
 
 // BetaTesterInvitationResponse defines model for BetaTesterInvitationResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationresponse
 type BetaTesterInvitationResponse struct {
 	Data  BetaTesterInvitation `json:"data"`
 	Links DocumentLinks        `json:"links"`

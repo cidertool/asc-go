@@ -6,6 +6,8 @@ import (
 )
 
 // BetaInviteType defines model for BetaInviteType.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betainvitetype
 type BetaInviteType string
 
 // List of BetaInviteType
@@ -15,6 +17,8 @@ const (
 )
 
 // BetaTester defines model for BetaTester.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatester
 type BetaTester struct {
 	Attributes *struct {
 		Email      *Email          `json:"email,omitempty"`
@@ -45,6 +49,8 @@ type BetaTester struct {
 }
 
 // BetaTesterAppsLinkagesResponse defines model for BetaTesterAppsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterappslinkagesresponse
 type BetaTesterAppsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -52,6 +58,8 @@ type BetaTesterAppsLinkagesResponse struct {
 }
 
 // BetaTesterBetaGroupsLinkagesResponse defines model for BetaTesterBetaGroupsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterbetagroupslinkagesresponse
 type BetaTesterBetaGroupsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -59,6 +67,8 @@ type BetaTesterBetaGroupsLinkagesResponse struct {
 }
 
 // BetaTesterBuildsLinkagesResponse defines model for BetaTesterBuildsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterbuildslinkagesresponse
 type BetaTesterBuildsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -66,6 +76,8 @@ type BetaTesterBuildsLinkagesResponse struct {
 }
 
 // BetaTesterCreateRequest defines model for BetaTesterCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest
 type BetaTesterCreateRequest struct {
 	Attributes    BetaTesterCreateRequestAttributes     `json:"attributes"`
 	Relationships *BetaTesterCreateRequestRelationships `json:"relationships,omitempty"`
@@ -73,6 +85,8 @@ type BetaTesterCreateRequest struct {
 }
 
 // BetaTesterCreateRequestAttributes are attributes for BetaTesterCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest/data/attributes
 type BetaTesterCreateRequestAttributes struct {
 	Email     Email   `json:"email"`
 	FirstName *string `json:"firstName,omitempty"`
@@ -80,6 +94,8 @@ type BetaTesterCreateRequestAttributes struct {
 }
 
 // BetaTesterCreateRequestRelationships are relationships for BetaTesterCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest/data/relationships
 type BetaTesterCreateRequestRelationships struct {
 	BetaGroups *struct {
 		Data *[]RelationshipsData `json:"data,omitempty"`
@@ -90,6 +106,8 @@ type BetaTesterCreateRequestRelationships struct {
 }
 
 // BetaTesterResponse defines model for BetaTesterResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterresponse
 type BetaTesterResponse struct {
 	Data     BetaTester     `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -97,6 +115,8 @@ type BetaTesterResponse struct {
 }
 
 // BetaTestersResponse defines model for BetaTestersResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatestersresponse
 type BetaTestersResponse struct {
 	Data     []BetaTester       `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -105,6 +125,8 @@ type BetaTestersResponse struct {
 }
 
 // ListBetaTestersQuery defines model for ListBetaTesters
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_testers
 type ListBetaTestersQuery struct {
 	FieldsApps        []string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
@@ -127,6 +149,8 @@ type ListBetaTestersQuery struct {
 }
 
 // GetBetaTesterQuery defines model for GetBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_tester_information
 type GetBetaTesterQuery struct {
 	FieldsApps        []string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
@@ -139,6 +163,8 @@ type GetBetaTesterQuery struct {
 }
 
 // ListAppsForBetaTesterQuery defines model for ListAppsForBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_for_a_beta_tester
 type ListAppsForBetaTesterQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 	Limit      int      `url:"limit,omitempty"`
@@ -146,12 +172,16 @@ type ListAppsForBetaTesterQuery struct {
 }
 
 // ListAppIDsForBetaTesterQuery defines model for ListAppIDsForBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_resource_ids_for_a_beta_tester
 type ListAppIDsForBetaTesterQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListBuildsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildsIndividuallyAssignedToBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_individually_assigned_to_a_beta_tester
 type ListBuildsIndividuallyAssignedToBetaTesterQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 	Limit        int      `url:"limit,omitempty"`
@@ -159,12 +189,16 @@ type ListBuildsIndividuallyAssignedToBetaTesterQuery struct {
 }
 
 // ListBuildIDsIndividuallyAssignedToBetaTesterQuery defines model for ListBuildIDsIndividuallyAssignedToBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_ids_of_builds_individually_assigned_to_a_beta_tester
 type ListBuildIDsIndividuallyAssignedToBetaTesterQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListIndividualTestersForBuildQuery defines model for ListIndividualTestersForBuild
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_individual_testers_for_a_build
 type ListIndividualTestersForBuildQuery struct {
 	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
 	Limit             int      `url:"limit,omitempty"`
@@ -172,6 +206,8 @@ type ListIndividualTestersForBuildQuery struct {
 }
 
 // ListBetaGroupsForBetaTesterQuery defines model for ListBetaGroupsForBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_groups_to_which_a_beta_tester_belongs
 type ListBetaGroupsForBetaTesterQuery struct {
 	FieldsBetaGroups []string `url:"fields[betaGroups],omitempty"`
 	Limit            int      `url:"limit,omitempty"`
@@ -179,6 +215,8 @@ type ListBetaGroupsForBetaTesterQuery struct {
 }
 
 // ListBetaGroupIDsForBetaTesterQuery defines model for ListBetaGroupIDsForBetaTester
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_beta_group_ids_of_a_beta_tester_s_groups
 type ListBetaGroupIDsForBetaTesterQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`

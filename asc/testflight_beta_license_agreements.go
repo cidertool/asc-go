@@ -6,6 +6,8 @@ import (
 )
 
 // BetaLicenseAgreement defines model for BetaLicenseAgreement.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreement
 type BetaLicenseAgreement struct {
 	Attributes *struct {
 		AgreementText *string `json:"agreementText,omitempty"`
@@ -22,6 +24,8 @@ type BetaLicenseAgreement struct {
 }
 
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest
 type BetaLicenseAgreementUpdateRequest struct {
 	Attributes *BetaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
@@ -29,11 +33,15 @@ type BetaLicenseAgreementUpdateRequest struct {
 }
 
 // BetaLicenseAgreementUpdateRequestAttributes are attributes for BetaLicenseAgreementUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest/data/attributes
 type BetaLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
 // BetaLicenseAgreementsResponse defines model for BetaLicenseAgreementsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementsresponse
 type BetaLicenseAgreementsResponse struct {
 	Data     []BetaLicenseAgreement `json:"data"`
 	Included *[]App                 `json:"included,omitempty"`
@@ -42,6 +50,8 @@ type BetaLicenseAgreementsResponse struct {
 }
 
 // BetaLicenseAgreementResponse defines model for BetaLicenseAgreementResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementresponse
 type BetaLicenseAgreementResponse struct {
 	Data     BetaLicenseAgreement `json:"data"`
 	Included *[]App               `json:"included,omitempty"`
@@ -49,6 +59,8 @@ type BetaLicenseAgreementResponse struct {
 }
 
 // ListBetaLicenseAgreementsQuery defines model for ListBetaLicenseAgreements
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_license_agreements
 type ListBetaLicenseAgreementsQuery struct {
 	FieldsApps                  []string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -59,6 +71,8 @@ type ListBetaLicenseAgreementsQuery struct {
 }
 
 // GetBetaLicenseAgreementQuery defines model for GetBetaLicenseAgreement
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_license_agreement_information
 type GetBetaLicenseAgreementQuery struct {
 	FieldsApps                  []string `url:"fields[apps],omitempty"`
 	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
@@ -66,11 +80,15 @@ type GetBetaLicenseAgreementQuery struct {
 }
 
 // GetAppForBetaLicenseAgreementQuery defines model for GetAppForBetaLicenseAgreement
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_license_agreement
 type GetAppForBetaLicenseAgreementQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetBetaLicenseAgreementForAppQuery defines model for GetBetaLicenseAgreementForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_license_agreement_of_an_app
 type GetBetaLicenseAgreementForAppQuery struct {
 	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
 }

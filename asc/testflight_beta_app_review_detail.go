@@ -6,6 +6,8 @@ import (
 )
 
 // BetaAppReviewDetail defines model for BetaAppReviewDetail.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetail
 type BetaAppReviewDetail struct {
 	Attributes *struct {
 		ContactEmail        *string `json:"contactEmail,omitempty"`
@@ -29,6 +31,8 @@ type BetaAppReviewDetail struct {
 }
 
 // BetaAppReviewDetailUpdateRequest defines model for BetaAppReviewDetailUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailupdaterequest
 type BetaAppReviewDetailUpdateRequest struct {
 	Attributes *BetaAppReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
@@ -36,6 +40,8 @@ type BetaAppReviewDetailUpdateRequest struct {
 }
 
 // BetaAppReviewDetailUpdateRequestAttributes are attributes for BetaAppReviewDetailUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailupdaterequest/data/attributes
 type BetaAppReviewDetailUpdateRequestAttributes struct {
 	ContactEmail        *string `json:"contactEmail,omitempty"`
 	ContactFirstName    *string `json:"contactFirstName,omitempty"`
@@ -48,6 +54,8 @@ type BetaAppReviewDetailUpdateRequestAttributes struct {
 }
 
 // BetaAppReviewDetailResponse defines model for BetaAppReviewDetailResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailresponse
 type BetaAppReviewDetailResponse struct {
 	Data     BetaAppReviewDetail `json:"data"`
 	Included *[]App              `json:"included,omitempty"`
@@ -55,6 +63,8 @@ type BetaAppReviewDetailResponse struct {
 }
 
 // BetaAppReviewDetailsResponse defines model for BetaAppReviewDetailsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailsresponse
 type BetaAppReviewDetailsResponse struct {
 	Data     []BetaAppReviewDetail `json:"data"`
 	Included *[]App                `json:"included,omitempty"`
@@ -63,6 +73,8 @@ type BetaAppReviewDetailsResponse struct {
 }
 
 // ListBetaAppReviewDetailsQuery defines model for ListBetaAppReviewDetails
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_details
 type ListBetaAppReviewDetailsQuery struct {
 	FieldsApps                 []string `url:"fields[apps],omitempty"`
 	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
@@ -73,6 +85,8 @@ type ListBetaAppReviewDetailsQuery struct {
 }
 
 // GetBetaAppReviewDetailQuery defines model for GetBetaAppReviewDetail
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_app_review_detail_information
 type GetBetaAppReviewDetailQuery struct {
 	FieldsApps                 []string `url:"fields[apps],omitempty"`
 	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
@@ -80,11 +94,15 @@ type GetBetaAppReviewDetailQuery struct {
 }
 
 // GetAppForBetaAppReviewDetailQuery defines model for GetAppForBetaAppReviewDetail
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_app_review_detail
 type GetAppForBetaAppReviewDetailQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // GetBetaAppReviewDetailsForAppQuery defines model for GetBetaAppReviewDetailsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_beta_app_review_details_resource_of_an_app
 type GetBetaAppReviewDetailsForAppQuery struct {
 	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
 }

@@ -7,6 +7,8 @@ import (
 )
 
 // BetaGroup defines model for BetaGroup.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroup
 type BetaGroup struct {
 	Attributes *struct {
 		CreatedDate            *time.Time `json:"createdDate,omitempty"`
@@ -41,6 +43,8 @@ type BetaGroup struct {
 }
 
 // BetaGroupResponse defines model for BetaGroupResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupresponse
 type BetaGroupResponse struct {
 	Data     BetaGroup      `json:"data"`
 	Included *[]interface{} `json:"included,omitempty"`
@@ -48,6 +52,8 @@ type BetaGroupResponse struct {
 }
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest
 type BetaGroupCreateRequest struct {
 	Attributes    BetaGroupCreateRequestAttributes    `json:"attributes"`
 	Relationships BetaGroupCreateRequestRelationships `json:"relationships"`
@@ -55,6 +61,8 @@ type BetaGroupCreateRequest struct {
 }
 
 // BetaGroupCreateRequestAttributes are attributes for BetaGroupCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest/data/attributes
 type BetaGroupCreateRequestAttributes struct {
 	FeedbackEnabled        *bool  `json:"feedbackEnabled,omitempty"`
 	Name                   string `json:"name"`
@@ -64,6 +72,8 @@ type BetaGroupCreateRequestAttributes struct {
 }
 
 // BetaGroupCreateRequestRelationships are relationships for BetaGroupCreateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest/data/relationships
 type BetaGroupCreateRequestRelationships struct {
 	App struct {
 		Data RelationshipsData `json:"data"`
@@ -77,6 +87,8 @@ type BetaGroupCreateRequestRelationships struct {
 }
 
 // BetaGroupUpdateRequest defines model for BetaGroupUpdateRequest.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupupdaterequest
 type BetaGroupUpdateRequest struct {
 	Attributes *BetaGroupUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                            `json:"id"`
@@ -84,6 +96,8 @@ type BetaGroupUpdateRequest struct {
 }
 
 // BetaGroupUpdateRequestAttributes are attributes for BetaGroupUpdateRequest
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupupdaterequest/data/attributes
 type BetaGroupUpdateRequestAttributes struct {
 	FeedbackEnabled        *bool   `json:"feedbackEnabled,omitempty"`
 	Name                   *string `json:"name,omitempty"`
@@ -93,6 +107,8 @@ type BetaGroupUpdateRequestAttributes struct {
 }
 
 // BetaGroupBetaTestersLinkagesResponse defines model for BetaGroupBetaTestersLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupbetatesterslinkagesresponse
 type BetaGroupBetaTestersLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -100,6 +116,8 @@ type BetaGroupBetaTestersLinkagesResponse struct {
 }
 
 // BetaGroupBuildsLinkagesResponse defines model for BetaGroupBuildsLinkagesResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupbuildslinkagesresponse
 type BetaGroupBuildsLinkagesResponse struct {
 	Data  []RelationshipsData `json:"data"`
 	Links PagedDocumentLinks  `json:"links"`
@@ -107,6 +125,8 @@ type BetaGroupBuildsLinkagesResponse struct {
 }
 
 // BetaGroupsResponse defines model for BetaGroupsResponse.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupsresponse
 type BetaGroupsResponse struct {
 	Data     []BetaGroup        `json:"data"`
 	Included *[]interface{}     `json:"included,omitempty"`
@@ -115,6 +135,8 @@ type BetaGroupsResponse struct {
 }
 
 // ListBetaGroupsQuery defines model for ListBetaGroups
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_beta_groups
 type ListBetaGroupsQuery struct {
 	FieldsApps                   []string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups             []string `url:"fields[betaGroups],omitempty"`
@@ -137,6 +159,8 @@ type ListBetaGroupsQuery struct {
 }
 
 // GetBetaGroupQuery defines model for GetBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_beta_group_information
 type GetBetaGroupQuery struct {
 	FieldsApps        []string `url:"fields[apps],omitempty"`
 	FieldsBetaGroups  []string `url:"fields[betaGroups],omitempty"`
@@ -148,11 +172,15 @@ type GetBetaGroupQuery struct {
 }
 
 // GetAppForBetaGroupQuery defines model for GetAppForBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/read_the_app_information_of_a_beta_group
 type GetAppForBetaGroupQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
 // ListBetaGroupsForAppQuery defines model for ListBetaGroupsForApp
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_groups_for_an_app
 type ListBetaGroupsForAppQuery struct {
 	FieldsBetaGroups []string `url:"fields[betaGroups],omitempty"`
 	Limit            int      `url:"limit,omitempty"`
@@ -160,6 +188,8 @@ type ListBetaGroupsForAppQuery struct {
 }
 
 // ListBuildsForBetaGroupQuery defines model for ListBuildsForBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_builds_for_a_betagroup
 type ListBuildsForBetaGroupQuery struct {
 	FieldsBuilds []string `url:"fields[builds],omitempty"`
 	Limit        int      `url:"limit,omitempty"`
@@ -167,12 +197,16 @@ type ListBuildsForBetaGroupQuery struct {
 }
 
 // ListBuildIDsForBetaGroupQuery defines model for ListBuildIDsForBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_build_ids_in_a_beta_group
 type ListBuildIDsForBetaGroupQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`
 }
 
 // ListBetaTestersForBetaGroupQuery defines model for ListBetaTestersForBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/list_all_beta_testers_in_a_betagroup
 type ListBetaTestersForBetaGroupQuery struct {
 	FieldsBetaTesters []string `url:"fields[betaTesters],omitempty"`
 	Limit             int      `url:"limit,omitempty"`
@@ -180,6 +214,8 @@ type ListBetaTestersForBetaGroupQuery struct {
 }
 
 // ListBetaTesterIDsForBetaGroupQuery defines model for ListBetaTesterIDsForBetaGroup
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_all_beta_tester_ids_in_a_beta_group
 type ListBetaTesterIDsForBetaGroupQuery struct {
 	Limit  int    `url:"limit,omitempty"`
 	Cursor string `url:"cursor,omitempty"`
