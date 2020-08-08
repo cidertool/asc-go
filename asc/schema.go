@@ -3,6 +3,7 @@ package asc
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -36,8 +37,9 @@ type Email string
 
 // MarshalJSON is a custom marshaler for email addresses
 func (e Email) MarshalJSON() ([]byte, error) {
-	if !emailRegex.MatchString(string(e)) {
-		return nil, errors.New("email: failed to pass regex validation")
+	emailString := string(e)
+	if !emailRegex.MatchString(emailString) {
+		return nil, fmt.Errorf("email: %s failed to pass regex validation", emailString)
 	}
 	return json.Marshal(string(e))
 }

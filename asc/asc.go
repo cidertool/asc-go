@@ -287,21 +287,18 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 
 	notify := func(err error, delay time.Duration) {}
 
-	if err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify); err != nil {
-		return nil, err
-	}
-
+	err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify)
 	resp := <-respCh
-
 	defer resp.Body.Close()
-
 	response := newResponse(resp)
 
-	if err := checkResponse(resp); err != nil {
+	if err != nil {
 		return response, err
 	}
 
-	var err error
+	if err := checkResponse(response); err != nil {
+		return response, err
+	}
 
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
@@ -320,7 +317,7 @@ func newResponse(r *http.Response) *Response {
 	return response
 }
 
-func checkResponse(r *http.Response) error {
+func checkResponse(r *Response) error {
 	if c := r.StatusCode; 200 <= c && c <= 299 {
 		return nil
 	}
@@ -329,7 +326,7 @@ func checkResponse(r *http.Response) error {
 	if err == nil && data != nil {
 		json.Unmarshal(data, erro)
 	}
-	erro.Response = r
+	erro.Response = r.Response
 	return erro
 }
 

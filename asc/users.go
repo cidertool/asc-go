@@ -122,7 +122,7 @@ type UserVisibleAppsLinkagesResponse struct {
 	Meta  *PagingInformation  `json:"meta,omitempty"`
 }
 
-// ListUsersQuery is the query params structure for ListUsers
+// ListUsersQuery is query options for ListUsers
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_users
 type ListUsersQuery struct {
@@ -138,7 +138,7 @@ type ListUsersQuery struct {
 	Cursor            string   `url:"cursor,omitempty"`
 }
 
-// GetUserQuery is the query params structure for GetUser
+// GetUserQuery is query options for GetUser
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_user_information
 type GetUserQuery struct {
@@ -149,7 +149,7 @@ type GetUserQuery struct {
 	LimitVisibleApps int      `url:"limit[visibleApps],omitempty"`
 }
 
-// ListVisibleAppsQuery is the query params structure for ListVisibleAppsForUser
+// ListVisibleAppsQuery is query options for ListVisibleAppsForUser
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_a_user
 type ListVisibleAppsQuery struct {
@@ -158,7 +158,7 @@ type ListVisibleAppsQuery struct {
 	Cursor     string   `url:"cursor,omitempty"`
 }
 
-// ListVisibleAppsByResourceIDQuery is the query params structure for ListVisibleAppsByResourceIDForUser
+// ListVisibleAppsByResourceIDQuery is query options for ListVisibleAppsByResourceIDForUser
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_visible_app_resource_ids_for_a_user
 type ListVisibleAppsByResourceIDQuery struct {

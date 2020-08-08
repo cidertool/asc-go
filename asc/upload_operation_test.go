@@ -6,9 +6,6 @@ import (
 	"crypto/rand"
 	"io"
 	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
-	"net/url"
 	"os"
 	"testing"
 
@@ -32,7 +29,7 @@ func TestMultipartUpload(t *testing.T) {
 		assert.FailNow(t, "writing the temp file produced an error", err)
 	}
 
-	client, server := newMultipartServer()
+	client, server := newServer("")
 	defer server.Close()
 
 	operations := UploadOperations{
@@ -109,16 +106,4 @@ func TestUploadOperationChunk(t *testing.T) {
 	written, err := io.Copy(buf, chunk)
 	assert.NoError(t, err)
 	assert.EqualValues(t, written, *op.Length)
-}
-
-func newMultipartServer() (*Client, *httptest.Server) {
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-	}))
-	base, _ := url.Parse(server.URL)
-	client := &Client{
-		client:    server.Client(),
-		BaseURL:   base,
-		UserAgent: "asc-go",
-	}
-	return client, server
 }

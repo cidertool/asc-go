@@ -77,9 +77,6 @@ func TestGetError(t *testing.T) {
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
-func TestGetBadRequest(t *testing.T) {
-}
-
 func TestPost(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
 	client, server := newServer(marshaled)
@@ -93,9 +90,6 @@ func TestPost(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
-}
-
-func TestPostRespondingNoContent(t *testing.T) {
 }
 
 func TestPatch(t *testing.T) {
@@ -113,9 +107,6 @@ func TestPatch(t *testing.T) {
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
-func TestPatchRespondingNoContent(t *testing.T) {
-}
-
 func TestDelete(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
 	client, server := newServer(marshaled)
@@ -129,6 +120,38 @@ func TestDelete(t *testing.T) {
 	assert.NotNil(t, resp)
 }
 
+func TestCheckGoodResponse(t *testing.T) {
+	resp := &Response{&http.Response{StatusCode: 200}, Rate{}}
+	err := checkResponse(resp)
+	assert.NoError(t, err)
+}
+
+func TestCheckBadResponse(t *testing.T) {
+	resp := &Response{
+		Response: &http.Response{
+			StatusCode: 400,
+			Request: &http.Request{
+				Method: "GET",
+				URL:    &url.URL{},
+			},
+			Body: ioutil.NopCloser(strings.NewReader(`{"errors":[{"code":"","status":"","title":"","detail":""}]}`)),
+		},
+	}
+	err := checkResponse(resp)
+	assert.Error(t, err)
+	assert.IsType(t, new(ErrorResponse), err)
+	assert.Equal(t, resp.Response, err.(*ErrorResponse).Response)
+	assert.NotZero(t, len(err.Error()))
+}
+
+func mustParseURL(t *testing.T, u string) url.URL {
+	parsed, err := url.Parse(u)
+	if err != nil {
+		t.Fatalf("Parse(%q) got err %v", u, err)
+	}
+	return *parsed
+}
+
 func newServer(raw string) (*Client, *httptest.Server) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, raw)
@@ -139,27 +162,18 @@ func newServer(raw string) (*Client, *httptest.Server) {
 		BaseURL:   base,
 		UserAgent: "asc-go",
 	}
+
+	client.common.client = client
+
+	client.Apps = (*AppsService)(&client.common)
+	client.Builds = (*BuildsService)(&client.common)
+	client.Pricing = (*PricingService)(&client.common)
+	client.Provisioning = (*ProvisioningService)(&client.common)
+	client.Publishing = (*PublishingService)(&client.common)
+	client.Reporting = (*ReportingService)(&client.common)
+	client.Submission = (*SubmissionService)(&client.common)
+	client.TestFlight = (*TestflightService)(&client.common)
+	client.Users = (*UsersService)(&client.common)
+
 	return client, server
-}
-
-func TestCheckGoodResponse(t *testing.T) {
-	resp := &http.Response{StatusCode: 200}
-	err := checkResponse(resp)
-	assert.NoError(t, err)
-}
-
-func TestCheckBadResponse(t *testing.T) {
-	resp := &http.Response{
-		StatusCode: 400,
-		Request: &http.Request{
-			Method: "GET",
-			URL:    &url.URL{},
-		},
-		Body: ioutil.NopCloser(strings.NewReader(`{"errors":[{"code":"","status":"","title":"","detail":""}]}`)),
-	}
-	err := checkResponse(resp)
-	assert.Error(t, err)
-	assert.IsType(t, new(ErrorResponse), err)
-	assert.Equal(t, resp, err.(*ErrorResponse).Response)
-	assert.NotZero(t, len(err.Error()))
 }

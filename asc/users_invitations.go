@@ -80,7 +80,7 @@ type UserInvitationsResponse struct {
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
 
-// ListInvitationsQuery is the query params structure for ListInvitations
+// ListInvitationsQuery is query options for ListInvitations
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_invited_users
 type ListInvitationsQuery struct {
@@ -96,7 +96,7 @@ type ListInvitationsQuery struct {
 	Cursor                string   `url:"cursor,omitempty"`
 }
 
-// GetInvitationQuery is the query params structure for GetInvitation
+// GetInvitationQuery is query options for GetInvitation
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_user_invitation_information
 type GetInvitationQuery struct {
@@ -145,7 +145,7 @@ func (s *UsersService) CancelInvitation(ctx context.Context, id string) (*Respon
 // ListVisibleAppsForInvitation gets a list of apps that will be visible to a user with a pending invitation.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_apps_visible_to_an_invited_user
-func (s *UsersService) ListVisibleAppsForInvitation(ctx context.Context, id string, params ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
+func (s *UsersService) ListVisibleAppsForInvitation(ctx context.Context, id string, params *ListVisibleAppsQuery) (*AppsResponse, *Response, error) {
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(AppsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
