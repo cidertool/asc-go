@@ -182,10 +182,10 @@ type ListBuildsForAppQuery struct {
 	Cursor       string   `url:"cursor,omitempty"`
 }
 
-// GetBuildsQuery are query options for GetBuilds
+// GetBuildQuery are query options for GetBuilds
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_build_information
-type GetBuildsQuery struct {
+type GetBuildQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
 	FieldsBetaTesters               []string `url:"fields[betaTesters],omitempty"`
@@ -262,7 +262,7 @@ func (s *BuildsService) ListBuildsForApp(ctx context.Context, id string, params 
 // GetBuild gets information about a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_build_information
-func (s *BuildsService) GetBuild(ctx context.Context, id string, params *GetBuildsQuery) (*BuildResponse, *Response, error) {
+func (s *BuildsService) GetBuild(ctx context.Context, id string, params *GetBuildQuery) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(ctx, url, params, res)
@@ -302,7 +302,7 @@ func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuild expires a build or changes its encryption exemption setting.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build
-func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body BuildUpdateRequest) (*BuildResponse, *Response, error) {
+func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body *BuildUpdateRequest) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.client.post(ctx, url, body, res)
