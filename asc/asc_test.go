@@ -177,3 +177,26 @@ func newServer(raw string) (*Client, *httptest.Server) {
 
 	return client, server
 }
+
+func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface{}, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
+	client, server := newServer(marshalledGot)
+	defer server.Close()
+
+	got, resp, err := endpoint(context.Background(), client)
+
+	assert.NoError(t, err)
+	assert.NotNil(t, resp)
+	if want != nil {
+		assert.Equal(t, want, got)
+	}
+}
+
+func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, client *Client) (*Response, error)) {
+	client, server := newServer("")
+	defer server.Close()
+
+	resp, err := endpoint(context.Background(), client)
+
+	assert.NoError(t, err)
+	assert.NotNil(t, resp)
+}

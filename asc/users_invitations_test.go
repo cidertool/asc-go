@@ -4,15 +4,9 @@ import (
 	"context"
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestListInvitations(t *testing.T) {
-	marshaled := `{"data":[{"attributes":{"email":"me@email.com"}}]}`
-	client, server := newServer(marshaled)
-	defer server.Close()
-
 	email := Email("me@email.com")
 	want := &UserInvitationsResponse{
 		Data: []UserInvitation{
@@ -31,18 +25,12 @@ func TestListInvitations(t *testing.T) {
 			},
 		},
 	}
-	got, resp, err := client.Users.ListInvitations(context.Background(), &ListInvitationsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, `{"data":[{"attributes":{"email":"me@email.com"}}]}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.ListInvitations(ctx, &ListInvitationsQuery{})
+	})
 }
 
 func TestGetInvitation(t *testing.T) {
-	marshaled := `{"data":{"attributes":{"email":"me@email.com"}}}`
-	client, server := newServer(marshaled)
-	defer server.Close()
-
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
@@ -59,18 +47,12 @@ func TestGetInvitation(t *testing.T) {
 			},
 		},
 	}
-	got, resp, err := client.Users.GetInvitation(context.Background(), "10", &GetInvitationQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, `{"data":{"attributes":{"email":"me@email.com"}}}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.GetInvitation(ctx, "10", &GetInvitationQuery{})
+	})
 }
 
 func TestCreateInvitation(t *testing.T) {
-	marshaled := `{"data":{"attributes":{"email":"me@email.com"}}}`
-	client, server := newServer(marshaled)
-	defer server.Close()
-
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
@@ -87,35 +69,23 @@ func TestCreateInvitation(t *testing.T) {
 			},
 		},
 	}
-	got, resp, err := client.Users.CreateInvitation(context.Background(), &UserInvitationCreateRequest{
-		Attributes: UserInvitationCreateRequestAttributes{
-			Email: email,
-		},
+	testEndpointWithResponse(t, `{"data":{"attributes":{"email":"me@email.com"}}}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.CreateInvitation(ctx, &UserInvitationCreateRequest{
+			Attributes: UserInvitationCreateRequestAttributes{
+				Email: email,
+			},
+		})
 	})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
 }
 
 func TestCancelInvitation(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Users.CancelInvitation(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Users.CancelInvitation(ctx, "10")
+	})
 }
 
 func TestListVisibleAppsForInvitation(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppsResponse{}
-	got, resp, err := client.Users.ListVisibleAppsForInvitation(context.Background(), "10", &ListVisibleAppsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.ListVisibleAppsForInvitation(ctx, "10", &ListVisibleAppsQuery{})
+	})
 }

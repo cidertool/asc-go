@@ -3,52 +3,28 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestListAppEncryptionDeclarations(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppEncryptionDeclarationsResponse{}
-	got, resp, err := client.Builds.ListAppEncryptionDeclarations(context.Background(), &ListAppEncryptionDeclarationsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppEncryptionDeclarationsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Builds.ListAppEncryptionDeclarations(ctx, &ListAppEncryptionDeclarationsQuery{})
+	})
 }
 
 func TestGetAppEncryptionDeclaration(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppEncryptionDeclarationResponse{}
-	got, resp, err := client.Builds.GetAppEncryptionDeclaration(context.Background(), "10", &GetAppEncryptionDeclarationQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppEncryptionDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Builds.GetAppEncryptionDeclaration(ctx, "10", &GetAppEncryptionDeclarationQuery{})
+	})
 }
 
 func TestGetAppForAppEncryptionDeclaration(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppResponse{}
-	got, resp, err := client.Builds.GetAppForAppEncryptionDeclaration(context.Background(), "10", &GetAppForEncryptionDeclarationQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Builds.GetAppForAppEncryptionDeclaration(ctx, "10", &GetAppForEncryptionDeclarationQuery{})
+	})
 }
 
 func TestAssignBuildsToAppEncryptionDeclaration(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Builds.AssignBuildsToAppEncryptionDeclaration(context.Background(), "10", &[]RelationshipsData{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", &[]RelationshipsData{})
+	})
 }

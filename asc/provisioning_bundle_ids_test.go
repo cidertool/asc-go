@@ -3,100 +3,52 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDResponse{}
-	got, resp, err := client.Provisioning.CreateBundleID(context.Background(), &BundleIDCreateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateBundleID(ctx, &BundleIDCreateRequest{})
+	})
 }
 
 func TestUpdateBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDResponse{}
-	got, resp, err := client.Provisioning.UpdateBundleID(context.Background(), "10", &BundleIDUpdateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.UpdateBundleID(ctx, "10", &BundleIDUpdateRequest{})
+	})
 }
 
 func TestDeleteBundleID(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Provisioning.DeleteBundleID(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Provisioning.DeleteBundleID(ctx, "10")
+	})
 }
 
 func TestListBundleIDs(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDsResponse{}
-	got, resp, err := client.Provisioning.ListBundleIDs(context.Background(), &ListBundleIDsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListBundleIDs(ctx, &ListBundleIDsQuery{})
+	})
 }
 
 func TestGetBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDResponse{}
-	got, resp, err := client.Provisioning.GetBundleID(context.Background(), "10", &GetBundleIDQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.GetBundleID(ctx, "10", &GetBundleIDQuery{})
+	})
 }
 
 func TestGetAppForBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppResponse{}
-	got, resp, err := client.Provisioning.GetAppForBundleID(context.Background(), "10", &GetAppForBundleIDQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.GetAppForBundleID(ctx, "10", &GetAppForBundleIDQuery{})
+	})
 }
 
 func TestListProfilesForBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &ProfilesResponse{}
-	got, resp, err := client.Provisioning.ListProfilesForBundleID(context.Background(), "10", &ListProfilesForBundleIDQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &ProfilesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListProfilesForBundleID(ctx, "10", &ListProfilesForBundleIDQuery{})
+	})
 }
 
 func TestListCapabilitiesForBundleID(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDCapabilitiesResponse{}
-	got, resp, err := client.Provisioning.ListCapabilitiesForBundleID(context.Background(), "10", &ListCapabilitiesForBundleIDQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDCapabilitiesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListCapabilitiesForBundleID(ctx, "10", &ListCapabilitiesForBundleIDQuery{})
+	})
 }

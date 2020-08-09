@@ -3,88 +3,46 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateProfile(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &ProfileResponse{}
-	got, resp, err := client.Provisioning.CreateProfile(context.Background(), &ProfileCreateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateProfile(ctx, &ProfileCreateRequest{})
+	})
 }
 
 func TestDeleteProfile(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Provisioning.DeleteProfile(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Provisioning.DeleteProfile(ctx, "10")
+	})
 }
 
 func TestListProfiles(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &ProfilesResponse{}
-	got, resp, err := client.Provisioning.ListProfiles(context.Background(), &ListProfilesQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &ProfilesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListProfiles(ctx, &ListProfilesQuery{})
+	})
 }
 
 func TestGetProfile(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &ProfileResponse{}
-	got, resp, err := client.Provisioning.GetProfile(context.Background(), "10", &GetProfileQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.GetProfile(ctx, "10", &GetProfileQuery{})
+	})
 }
 
 func TestGetBundleIDForProfile(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &BundleIDResponse{}
-	got, resp, err := client.Provisioning.GetBundleIDForProfile(context.Background(), "10", &GetBundleIDForProfileQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.GetBundleIDForProfile(ctx, "10", &GetBundleIDForProfileQuery{})
+	})
 }
 
 func TestListCertificatesInProfile(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &CertificatesResponse{}
-	got, resp, err := client.Provisioning.ListCertificatesInProfile(context.Background(), "10", &ListCertificatesForProfileQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListCertificatesInProfile(ctx, "10", &ListCertificatesForProfileQuery{})
+	})
 }
 
 func TestListDevicesInProfile(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &DevicesResponse{}
-	got, resp, err := client.Provisioning.ListDevicesInProfile(context.Background(), "10", &ListDevicesInProfileQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &DevicesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListDevicesInProfile(ctx, "10", &ListDevicesInProfileQuery{})
+	})
 }

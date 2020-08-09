@@ -3,52 +3,28 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateCertificate(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &CertificateResponse{}
-	got, resp, err := client.Provisioning.CreateCertificate(context.Background(), &CertificateCreateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateCertificate(ctx, &CertificateCreateRequest{})
+	})
 }
 
 func TestListCertificates(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &CertificatesResponse{}
-	got, resp, err := client.Provisioning.ListCertificates(context.Background(), &ListCertificatesQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.ListCertificates(ctx, &ListCertificatesQuery{})
+	})
 }
 
 func TestGetCertificate(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &CertificateResponse{}
-	got, resp, err := client.Provisioning.GetCertificate(context.Background(), "10", &GetCertificateQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.GetCertificate(ctx, "10", &GetCertificateQuery{})
+	})
 }
 
 func TestRevokeCertificate(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Provisioning.RevokeCertificate(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Provisioning.RevokeCertificate(ctx, "10")
+	})
 }

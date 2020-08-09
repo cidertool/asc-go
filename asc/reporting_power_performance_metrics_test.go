@@ -3,54 +3,28 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestGetPerfPowerMetricsForApp(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &PerfPowerMetricsResponse{}
-	got, resp, err := client.Reporting.GetPerfPowerMetricsForApp(context.Background(), "10", &GetPerfPowerMetricsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &PerfPowerMetricsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Reporting.GetPerfPowerMetricsForApp(ctx, "10", &GetPerfPowerMetricsQuery{})
+	})
 }
 
 func TestGetPerfPowerMetricsForBuild(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &PerfPowerMetricsResponse{}
-	got, resp, err := client.Reporting.GetPerfPowerMetricsForBuild(context.Background(), "10", &GetPerfPowerMetricsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &PerfPowerMetricsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Reporting.GetPerfPowerMetricsForBuild(ctx, "10", &GetPerfPowerMetricsQuery{})
+	})
 }
 
 func TestListDiagnosticSignaturesForBuild(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &DiagnosticSignaturesResponse{}
-	got, resp, err := client.Reporting.ListDiagnosticSignaturesForBuild(context.Background(), "10", &ListDiagnosticsSignaturesQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &DiagnosticSignaturesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Reporting.ListDiagnosticSignaturesForBuild(ctx, "10", &ListDiagnosticsSignaturesQuery{})
+	})
 }
 
 func TestGetLogsForDiagnosticSignature(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &DiagnosticLogsResponse{}
-	got, resp, err := client.Reporting.GetLogsForDiagnosticSignature(context.Background(), "10", &GetLogsForDiagnosticSignatureQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &DiagnosticLogsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Reporting.GetLogsForDiagnosticSignature(ctx, "10", &GetLogsForDiagnosticSignatureQuery{})
+	})
 }

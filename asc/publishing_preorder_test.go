@@ -3,64 +3,34 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestGetPreOrder(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppPreOrderResponse{}
-	got, resp, err := client.Publishing.GetPreOrder(context.Background(), "10", &GetPreOrderQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.GetPreOrder(ctx, "10", &GetPreOrderQuery{})
+	})
 }
 
 func TestGetPreOrderForApp(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppPreOrderResponse{}
-	got, resp, err := client.Publishing.GetPreOrderForApp(context.Background(), "10", &GetPreOrderForAppQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.GetPreOrderForApp(ctx, "10", &GetPreOrderForAppQuery{})
+	})
 }
 
 func TestCreatePreOrder(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppPreOrderResponse{}
-	got, resp, err := client.Publishing.CreatePreOrder(context.Background(), &AppPreOrderCreateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.CreatePreOrder(ctx, &AppPreOrderCreateRequest{})
+	})
 }
 
 func TestUpdatePreOrder(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppPreOrderResponse{}
-	got, resp, err := client.Publishing.UpdatePreOrder(context.Background(), "10", &AppPreOrderUpdateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.UpdatePreOrder(ctx, "10", &AppPreOrderUpdateRequest{})
+	})
 }
 
 func TestDeletePreOrder(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Publishing.DeletePreOrder(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Publishing.DeletePreOrder(ctx, "10")
+	})
 }

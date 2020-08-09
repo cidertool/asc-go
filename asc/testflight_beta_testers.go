@@ -242,7 +242,7 @@ func (s *TestflightService) DeleteBetaTester(ctx context.Context, id string) (*R
 // ListBetaTesters finds and lists beta testers for all apps, builds, and beta groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_testers
-func (s *TestflightService) ListBetaTesters(ctx context.Context, id string, params *ListBetaTestersQuery) (*BetaTestersResponse, *Response, error) {
+func (s *TestflightService) ListBetaTesters(ctx context.Context, params *ListBetaTestersQuery) (*BetaTestersResponse, *Response, error) {
 	res := new(BetaTestersResponse)
 	resp, err := s.client.get(ctx, "betaTesters", params, res)
 	return res, resp, err

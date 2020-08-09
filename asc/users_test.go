@@ -3,106 +3,58 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestListUsers(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &UsersResponse{}
-	got, resp, err := client.Users.ListUsers(context.Background(), &ListUsersQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &UsersResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.ListUsers(ctx, &ListUsersQuery{})
+	})
 }
 
 func TestGetUser(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &UserResponse{}
-	got, resp, err := client.Users.GetUser(context.Background(), "10", &GetUserQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &UserResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.GetUser(ctx, "10", &GetUserQuery{})
+	})
 }
 
 func TestUpdateUser(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &UserResponse{}
-	got, resp, err := client.Users.UpdateUser(context.Background(), "10", &UserUpdateRequest{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &UserResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.UpdateUser(ctx, "10", &UserUpdateRequest{})
+	})
 }
 
 func TestRemoveUser(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Users.RemoveUser(context.Background(), "10")
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Users.RemoveUser(ctx, "10")
+	})
 }
 
 func TestListVisibleAppsForUser(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &AppsResponse{}
-	got, resp, err := client.Users.ListVisibleAppsForUser(context.Background(), "10", &ListVisibleAppsQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &AppsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.ListVisibleAppsForUser(ctx, "10", &ListVisibleAppsQuery{})
+	})
 }
 
 func TestListVisibleAppsByResourceIDForUser(t *testing.T) {
-	client, server := newServer("{}")
-	defer server.Close()
-
-	want := &UserVisibleAppsLinkagesResponse{}
-	got, resp, err := client.Users.ListVisibleAppsByResourceIDForUser(context.Background(), "10", &ListVisibleAppsByResourceIDQuery{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
-	assert.Equal(t, want, got)
+	testEndpointWithResponse(t, "{}", &UserVisibleAppsLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.ListVisibleAppsByResourceIDForUser(ctx, "10", &ListVisibleAppsByResourceIDQuery{})
+	})
 }
 
 func TestAddVisibleAppsForUser(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Users.AddVisibleAppsForUser(context.Background(), "10", &[]RelationshipsData{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Users.AddVisibleAppsForUser(ctx, "10", &[]RelationshipsData{})
+	})
 }
 
 func TestUpdateVisibleAppsForUser(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Users.UpdateVisibleAppsForUser(context.Background(), "10", &[]RelationshipsData{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Users.UpdateVisibleAppsForUser(ctx, "10", &[]RelationshipsData{})
+	})
 }
 
 func TestRemoveVisibleAppsFromUser(t *testing.T) {
-	client, server := newServer("")
-	defer server.Close()
-
-	resp, err := client.Users.RemoveVisibleAppsFromUser(context.Background(), "10", &[]RelationshipsData{})
-
-	assert.NoError(t, err)
-	assert.NotNil(t, resp)
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", &[]RelationshipsData{})
+	})
 }
