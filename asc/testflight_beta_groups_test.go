@@ -90,7 +90,7 @@ func TestListBetaTestersForBetaGroup(t *testing.T) {
 }
 
 func TestListBetaTesterIDsForBetaGroup(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.GetBetaBuildLocalization(ctx, "10", &GetBetaBuildLocalizationQuery{})
+	testEndpointWithResponse(t, "{}", &BetaGroupBetaTestersLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.ListBetaTesterIDsForBetaGroup(ctx, "10", &ListBetaTesterIDsForBetaGroupQuery{})
 	})
 }
