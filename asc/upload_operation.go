@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -32,22 +31,6 @@ type UploadOperation struct {
 type UploadOperationHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
-}
-
-// UploadOperationErrors is a collection of failed operations and their associated errors
-// that can be used to retry later.
-type UploadOperationErrors []UploadOperationError
-
-func (e UploadOperationErrors) Error() string {
-	var bigErr error
-	for _, err := range e {
-		if bigErr == nil {
-			bigErr = errors.New(err.Error())
-		} else {
-			bigErr = fmt.Errorf("%w; %s", bigErr, err.Error())
-		}
-	}
-	return bigErr.Error()
 }
 
 // UploadOperationError pairs a failed operation and its associated error so it
@@ -121,14 +104,10 @@ func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *C
 		close(errs)
 	}()
 
-	allErrors := make(UploadOperationErrors, 0)
 	for err := range errs {
-		allErrors = append(allErrors, err)
+		return err
 	}
 
-	if len(allErrors) > 0 {
-		return allErrors
-	}
 	return nil
 }
 

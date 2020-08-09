@@ -32,11 +32,15 @@ PURJWPQa24fI+wNPDi4OzjkB2g6fa5BHqam1gRlZHe8BU3+IjuC3AUFz
 
 	token, err := NewTokenConfig("TEST", "TEST", 20*time.Minute, privPEMData)
 	assert.NoError(t, err)
+
 	tok, err := token.jwtGenerator.Token()
 	assert.NoError(t, err)
-
 	components := strings.Split(tok, ".")
 	assert.Equal(t, 3, len(components))
+
+	tokCached, err := token.jwtGenerator.Token()
+	assert.NoError(t, err)
+	assert.Equal(t, tok, tokCached)
 }
 
 func TestNewTokenConfigBadPEM(t *testing.T) {
