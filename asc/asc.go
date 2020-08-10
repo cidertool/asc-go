@@ -110,12 +110,36 @@ type ErrorResponse struct {
 
 // ErrorResponseError is a model used in ErrorResponse to describe a single error from the API
 type ErrorResponseError struct {
-	Code   string       `json:"code"`
-	Detail string       `json:"detail"`
-	ID     *string      `json:"id,omitempty"`
-	Source *interface{} `json:"source,omitempty"`
-	Status string       `json:"status"`
-	Title  string       `json:"title"`
+	// Code is a machine-readable indication of the type of error. The code is a hierarchical
+	// value with levels of specificity separated by the '.' character. This value is parseable
+	// for programmatic error handling in code.
+	Code string `json:"code"`
+	// Detail is a detailed explanation of the error. Do not use this field for programmatic error handling.
+	Detail string `json:"detail"`
+	// ID is a unique identifier of a specific instance of an error, request, and response.
+	// Use this ID when providing feedback to or debugging issues with Apple.
+	ID *string `json:"id,omitempty"`
+	// Source wraps one of two possible types of values: source.parameter, provided when a query
+	// parameter produced the error, or source.JsonPointer, provided when a problem with the entity
+	// produced the error.
+	Source *ErrorSource `json:"source,omitempty"`
+	// Status is the HTTP status code of the error. This status code usually matches the
+	// response's status code; however, if the request produces multiple errors, these two
+	// codes may differ.
+	Status string `json:"status"`
+	// Title is a summary of the error. Do not use this field for programmatic error handling.
+	Title string `json:"title"`
+}
+
+// ErrorSource is the union of two API types: `ErrorResponse.Errors.JsonPointer` and `ErrorResponse.Errors.Parameter`.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/errorresponse/errors/jsonpointer
+// https://developer.apple.com/documentation/appstoreconnectapi/errorresponse/errors/parameter
+type ErrorSource struct {
+	// A JSON pointer that indicates the location in the request entity where the error originates.
+	Pointer string `json:"pointer,omitempty"`
+	// The query parameter that produced the error.
+	Parameter string `json:"parameter,omitempty"`
 }
 
 type service struct {

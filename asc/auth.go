@@ -1,6 +1,7 @@
 package asc
 
 import (
+	"crypto/ecdsa"
 	"crypto/x509"
 	"encoding/pem"
 	"errors"
@@ -27,7 +28,7 @@ type standardJWTGenerator struct {
 	keyID          string
 	issuerID       string
 	expireDuration time.Duration
-	privateKey     interface{}
+	privateKey     *ecdsa.PrivateKey
 
 	token string
 }
@@ -51,16 +52,19 @@ func NewTokenConfig(keyID string, issuerID string, expireDuration time.Duration,
 	}, err
 }
 
-func parsePrivateKey(blob []byte) (key interface{}, err error) {
+func parsePrivateKey(blob []byte) (*ecdsa.PrivateKey, error) {
 	block, _ := pem.Decode(blob)
 	if block == nil {
 		return nil, errors.New("no PEM blob found")
 	}
-	key, err = x509.ParsePKCS8PrivateKey(block.Bytes)
+	parsedKey, err := x509.ParsePKCS8PrivateKey(block.Bytes)
 	if err != nil {
 		return nil, err
 	}
-	return key, nil
+	if key, ok := parsedKey.(*ecdsa.PrivateKey); ok {
+		return key, nil
+	}
+	return nil, errors.New("key could not be parsed as a valid ecdsa.PrivateKey")
 }
 
 // RoundTrip implements the http.RoundTripper interface to set the Authorization header
