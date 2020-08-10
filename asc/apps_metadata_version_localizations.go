@@ -154,6 +154,21 @@ type ListAppPreviewSetsForAppStoreVersionLocalizationQuery struct {
 	Cursor                             string   `url:"cursor,omitempty"`
 }
 
+func (r *AppStoreVersionLocalizationCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersionLocalizations"
+	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
+}
+
+func (r *AppStoreVersionLocalizationUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersionLocalizations"
+}
+
 // ListLocalizationsForAppStoreVersion gets a list of localized, version-level information about an app, for all locales.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_version_localizations_for_an_app_store_version

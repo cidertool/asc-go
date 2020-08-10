@@ -91,6 +91,21 @@ type GetPreOrderForAppQuery struct {
 	FieldsAppPreOrders []string `url:"fields[appPreOrders],omitempty"`
 }
 
+func (r *AppPreOrderCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appPreOrders"
+	r.Relationships.App.applyType("apps")
+}
+
+func (r *AppPreOrderUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appPreOrders"
+}
+
 // GetPreOrder gets information about your app's pre-order configuration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_pre-order_information

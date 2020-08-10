@@ -143,6 +143,16 @@ type ListDevicesInProfileQuery struct {
 	Cursor        string   `url:"cursor,omitempty"`
 }
 
+func (r *ProfileCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "profiles"
+	r.Relationships.BundleID.applyType("bundleIds")
+	r.Relationships.Certificates.applyType("certificates")
+	r.Relationships.Devices.applyType("devices")
+}
+
 // CreateProfile creates a new provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_profile

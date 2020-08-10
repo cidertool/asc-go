@@ -46,6 +46,11 @@ type BetaTesterRelationships struct {
 	Builds     *PagedRelationship `json:"builds,omitempty"`
 }
 
+// BetaTesterAppsLinkagesRequest is a list of relationships to App objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterappslinkagesrequest
+type BetaTesterAppsLinkagesRequest []RelationshipData
+
 // BetaTesterAppsLinkagesResponse defines model for BetaTesterAppsLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterappslinkagesresponse
@@ -55,6 +60,11 @@ type BetaTesterAppsLinkagesResponse struct {
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
+// BetaTesterBetaGroupsLinkagesRequest is a list of relationships to BetaGroup objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterbetagroupslinkagesrequest
+type BetaTesterBetaGroupsLinkagesRequest []RelationshipData
+
 // BetaTesterBetaGroupsLinkagesResponse defines model for BetaTesterBetaGroupsLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterbetagroupslinkagesresponse
@@ -63,6 +73,11 @@ type BetaTesterBetaGroupsLinkagesResponse struct {
 	Links PagedDocumentLinks `json:"links"`
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
+
+// BetaTesterBuildsLinkagesRequest is a list of relationships to Build objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterbuildslinkagesrequest
+type BetaTesterBuildsLinkagesRequest []RelationshipData
 
 // BetaTesterBuildsLinkagesResponse defines model for BetaTesterBuildsLinkagesResponse.
 //
@@ -216,6 +231,45 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
+func (r *BetaTesterAppsLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("apps")
+	}
+}
+
+func (r *BetaTesterBetaGroupsLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("betaGroups")
+	}
+}
+
+func (r *BetaTesterBuildsLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("builds")
+	}
+}
+
+func (r *BetaTesterCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "betaTesters"
+	if r.Relationships == nil {
+		return
+	}
+	r.Relationships.BetaGroups.applyType("betaGroups")
+	r.Relationships.Builds.applyType("builds")
+}
+
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_tester
@@ -255,7 +309,7 @@ func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params
 // AddBetaTesterToBetaGroups adds one or more beta testers to a specific beta group.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_a_beta_tester_to_beta_groups
-func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, linkages *BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -263,7 +317,7 @@ func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id st
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_from_beta_groups
-func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, linkages *BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -271,7 +325,7 @@ func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_assign_a_beta_tester_to_builds
-func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, linkages *BetaTesterBuildsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -279,7 +333,7 @@ func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_unassign_a_beta_tester_from_builds
-func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, linkages *BetaTesterBuildsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -287,7 +341,7 @@ func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Conte
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_s_access_to_apps
-func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, linkages *BetaTesterAppsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	return s.client.delete(ctx, url, linkages)
 }

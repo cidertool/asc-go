@@ -148,7 +148,11 @@ type service struct {
 
 // request is a common structure for a request body sent to the API
 type writingRequestPayload struct {
-	Data interface{} `json:"data"`
+	Data typedResource `json:"data"`
+}
+
+type typedResource interface {
+	applyTypes()
 }
 
 // FollowReference is a convenience method to perform a GET on a relationship link with
@@ -194,7 +198,7 @@ func (c *Client) get(ctx context.Context, url string, query interface{}, v inter
 }
 
 // post sends a POST request to the API as configured
-func (c *Client) post(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) post(ctx context.Context, url string, body typedResource, v interface{}) (*Response, error) {
 	req, err := c.newRequest("POST", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
@@ -207,7 +211,7 @@ func (c *Client) post(ctx context.Context, url string, body interface{}, v inter
 }
 
 // patch sends a PATCH request to the API as configured
-func (c *Client) patch(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
+func (c *Client) patch(ctx context.Context, url string, body typedResource, v interface{}) (*Response, error) {
 	req, err := c.newRequest("PATCH", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
@@ -220,7 +224,7 @@ func (c *Client) patch(ctx context.Context, url string, body interface{}, v inte
 }
 
 // delete sends a DELETE request to the API as configured
-func (c *Client) delete(ctx context.Context, url string, body interface{}) (*Response, error) {
+func (c *Client) delete(ctx context.Context, url string, body typedResource) (*Response, error) {
 	req, err := c.newRequest("DELETE", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
@@ -228,7 +232,7 @@ func (c *Client) delete(ctx context.Context, url string, body interface{}) (*Res
 	return c.do(ctx, req, nil)
 }
 
-func (c *Client) newRequest(method, path string, body interface{}, options ...requestOption) (*http.Request, error) {
+func (c *Client) newRequest(method, path string, body typedResource, options ...requestOption) (*http.Request, error) {
 	rel, err := url.Parse(path)
 	if err != nil {
 		return nil, err
@@ -243,6 +247,7 @@ func (c *Client) newRequest(method, path string, body interface{}, options ...re
 
 	buf := new(bytes.Buffer)
 	if body != nil {
+		body.applyTypes()
 		payload := &writingRequestPayload{Data: body}
 		err := json.NewEncoder(buf).Encode(payload)
 		if err != nil {

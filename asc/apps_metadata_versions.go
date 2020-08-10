@@ -180,6 +180,11 @@ type AppStoreVersionCreateRequestRelationships struct {
 	Build *RelationshipDeclaration `json:"build,omitempty"`
 }
 
+// AppStoreVersionBuildLinkageRequest is a list of relationships to Build objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionbuildlinkagerequest
+type AppStoreVersionBuildLinkageRequest RelationshipData
+
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionbuildlinkageresponse
@@ -232,6 +237,33 @@ type GetAppStoreVersionQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
 type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
 	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
+}
+
+func (r *AppStoreVersionCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersions"
+	r.Relationships.App.applyType("apps")
+	r.Relationships.Build.applyType("builds")
+}
+
+func (r *AppStoreVersionUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersions"
+	if r.Relationships == nil {
+		return
+	}
+	r.Relationships.Build.applyType("builds")
+}
+
+func (r *AppStoreVersionBuildLinkageRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "builds"
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
@@ -295,7 +327,7 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
-func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *RelationshipData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *AppStoreVersionBuildLinkageRequest) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, linkage, res)

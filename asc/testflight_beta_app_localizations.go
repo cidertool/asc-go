@@ -140,6 +140,21 @@ type ListBetaAppLocalizationsForAppQuery struct {
 	Cursor                     string   `url:"cursor,omitempty"`
 }
 
+func (r *BetaAppLocalizationCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "betaAppLocalizations"
+	r.Relationships.App.applyType("apps")
+}
+
+func (r *BetaAppLocalizationUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "betaAppLocalizations"
+}
+
 // ListBetaAppLocalizations finds and lists beta app localizations for all apps and locales.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_localizations

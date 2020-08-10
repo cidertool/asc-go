@@ -96,6 +96,21 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 }
 
+func (r *AppStoreVersionPhasedReleaseCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersionPhasedReleases"
+	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
+}
+
+func (r *AppStoreVersionPhasedReleaseUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersionPhasedReleases"
+}
+
 // CreatePhasedRelease enables phased release for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_phased_release

@@ -49,31 +49,31 @@ func TestUpdateBuild(t *testing.T) {
 
 func TestUpdateAppEncryptionDeclarationForBuild(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.UpdateAppEncryptionDeclarationForBuild(ctx, "10", &RelationshipData{})
+		return client.Builds.UpdateAppEncryptionDeclarationForBuild(ctx, "10", &BuildAppEncryptionDeclarationLinkageRequest{})
 	})
 }
 
 func TestCreateAccessForBetaGroupsToBuild(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.CreateAccessForBetaGroupsToBuild(ctx, "10", &[]RelationshipData{})
+		return client.Builds.CreateAccessForBetaGroupsToBuild(ctx, "10", &BuildBetaGroupsLinkagesRequest{})
 	})
 }
 
 func TestRemoveAccessForBetaGroupsFromBuild(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.RemoveAccessForBetaGroupsFromBuild(ctx, "10", &[]RelationshipData{})
+		return client.Builds.RemoveAccessForBetaGroupsFromBuild(ctx, "10", &BuildBetaGroupsLinkagesRequest{})
 	})
 }
 
 func TestCreateAccessForIndividualTestersToBuild(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.CreateAccessForIndividualTestersToBuild(ctx, "10", &[]RelationshipData{})
+		return client.Builds.CreateAccessForIndividualTestersToBuild(ctx, "10", &BuildIndividualTestersLinkagesRequest{})
 	})
 }
 
 func TestRemoveAccessForIndividualTestersFromBuild(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.RemoveAccessForIndividualTestersFromBuild(ctx, "10", &[]RelationshipData{})
+		return client.Builds.RemoveAccessForIndividualTestersFromBuild(ctx, "10", &BuildIndividualTestersLinkagesRequest{})
 	})
 }
 

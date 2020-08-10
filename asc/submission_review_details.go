@@ -120,6 +120,21 @@ type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 	Include                         []string `url:"include,omitempty"`
 }
 
+func (r *AppStoreReviewDetailCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreReviewDetails"
+	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
+}
+
+func (r *AppStoreReviewDetailUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreReviewDetails"
+}
+
 // CreateReviewDetail adds App Store review details to an App Store version, including contact and demo account information.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail

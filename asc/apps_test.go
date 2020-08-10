@@ -25,7 +25,7 @@ func TestUpdateApp(t *testing.T) {
 
 func TestRemoveBetaTestersFromApp(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", &[]RelationshipData{})
+		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", &AppBetaTestersLinkagesRequest{})
 	})
 }
 

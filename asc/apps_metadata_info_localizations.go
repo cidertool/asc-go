@@ -117,6 +117,21 @@ type GetAppInfoLocalizationQuery struct {
 	Include                    []string `url:"include,omitempty"`
 }
 
+func (r *AppInfoLocalizationCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appInfoLocalizations"
+	r.Relationships.AppInfo.applyType("appInfos")
+}
+
+func (r *AppInfoLocalizationUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appInfoLocalizations"
+}
+
 // ListAppInfoLocalizationsForAppInfo gets a list of localized, app-level information for an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_info_localizations_for_an_app_info

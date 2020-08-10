@@ -159,6 +159,11 @@ type InAppPurchasesResponse struct {
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
+// AppBetaTestersLinkagesRequest is a list of relationships to BetaTester objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appbetatesterslinkagesrequest
+type AppBetaTestersLinkagesRequest []RelationshipData
+
 // ListAppsQuery are query options for ListApps
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_apps
@@ -259,6 +264,27 @@ type GetInAppPurchaseQuery struct {
 	LimitApps            int      `url:"limit[apps],omitempty"`
 }
 
+func (r *AppUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "ageRatingDeclarations"
+	if r.Relationships == nil {
+		return
+	}
+	r.Relationships.AvailableTerritories.applyType("territories")
+	r.Relationships.Prices.applyType("appPrices")
+}
+
+func (r *AppBetaTestersLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("betaTesters")
+	}
+}
+
 // ListApps finds and lists apps added in App Store Connect.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_apps
@@ -291,7 +317,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, body *AppUpdateR
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
-func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *AppBetaTestersLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

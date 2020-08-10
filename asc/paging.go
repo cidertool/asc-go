@@ -95,3 +95,26 @@ type RelationshipLinks struct {
 	Related *Reference `json:"related,omitempty"`
 	Self    *Reference `json:"self,omitempty"`
 }
+
+func (d *RelationshipDeclaration) applyType(t string) {
+	if d == nil || d.Data == nil {
+		return
+	}
+	d.Data.Type = t
+}
+
+func (d *PagedRelationshipDeclaration) applyType(t string) {
+	if d == nil || d.Data == nil {
+		return
+	}
+	for _, data := range *d.Data {
+		data.applyType(t)
+	}
+}
+
+func (d *RelationshipData) applyType(t string) {
+	if d == nil {
+		return
+	}
+	d.Type = t
+}

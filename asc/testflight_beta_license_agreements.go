@@ -100,6 +100,13 @@ type GetBetaLicenseAgreementForAppQuery struct {
 	FieldsBetaLicenseAgreements []string `url:"fields[betaLicenseAgreements],omitempty"`
 }
 
+func (r *BetaLicenseAgreementUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "betaLicenseAgreements"
+}
+
 // ListBetaLicenseAgreements finds and lists beta license agreements for all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_license_agreements

@@ -37,6 +37,6 @@ func TestListAppPreviewIDsForSet(t *testing.T) {
 
 func TestReplaceAppPreviewsForSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.ReplaceAppPreviewsForSet(ctx, "10", &[]RelationshipData{})
+		return client.Apps.ReplaceAppPreviewsForSet(ctx, "10", &AppPreviewSetAppPreviewsLinkagesRequest{})
 	})
 }

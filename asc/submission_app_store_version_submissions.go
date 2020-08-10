@@ -54,6 +54,14 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 	Include                          []string `url:"include,omitempty"`
 }
 
+func (r *AppStoreVersionSubmissionCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appStoreVersionSubmissions"
+	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
+}
+
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission

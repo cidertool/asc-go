@@ -107,6 +107,11 @@ type AppScreenshotSetsResponse struct {
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
 
+// AppScreenshotSetAppScreenshotsLinkagesRequest is a list of relationships to AppScreenshot objects
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetappscreenshotslinkagesrequest
+type AppScreenshotSetAppScreenshotsLinkagesRequest []RelationshipData
+
 // AppScreenshotSetAppScreenshotsLinkagesResponse defines model for AppScreenshotSetAppScreenshotsLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetappscreenshotslinkagesresponse
@@ -142,6 +147,23 @@ type ListAppScreenshotsForSetQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/get_all_app_screenshot_ids_for_an_app_screenshot_set
 type ListAppScreenshotIDsForSetQuery struct {
 	Limit int `url:"limit,omitempty"`
+}
+
+func (r *AppScreenshotSetCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appScreenshotSets"
+	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
+}
+
+func (r *AppScreenshotSetAppScreenshotsLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("appScreenshots")
+	}
 }
 
 // GetAppScreenshotSet gets an app screenshot set including its display target, language, and the screenshot it contains.
@@ -194,7 +216,7 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_screenshots_for_an_app_screenshot_set
-func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages *AppScreenshotSetAppScreenshotsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

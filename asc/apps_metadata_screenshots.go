@@ -103,6 +103,21 @@ type GetAppScreenshotQuery struct {
 	Include              []string `url:"include,omitempty"`
 }
 
+func (r *AppScreenshotCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appScreenshots"
+	r.Relationships.AppScreenshotSet.applyType("appScreenshotSets")
+}
+
+func (r *AppScreenshotUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "appScreenshots"
+}
+
 // GetAppScreenshot gets information about an app screenshot and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_screenshot_information

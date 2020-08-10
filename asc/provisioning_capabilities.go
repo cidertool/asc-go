@@ -144,6 +144,21 @@ type CapabilitySetting struct {
 	Visible          *bool               `json:"visible,omitempty"`
 }
 
+func (r *BundleIDCapabilityCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "bundleIdCapabilities"
+	r.Relationships.BundleID.applyType("bundleIds")
+}
+
+func (r *BundleIDCapabilityUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "bundleIdCapabilities"
+}
+
 // EnableCapability enables a capability for a bundle ID.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enable_a_capability

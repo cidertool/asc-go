@@ -114,6 +114,13 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 	FieldsBetaAppReviewDetails []string `url:"fields[betaAppReviewDetails],omitempty"`
 }
 
+func (r *BetaAppReviewDetailUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "betaAppReviewDetails"
+}
+
 // ListBetaAppReviewDetails finds and lists beta app review details for all apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_app_review_details

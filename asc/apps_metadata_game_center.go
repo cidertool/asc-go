@@ -33,6 +33,11 @@ type GameCenterEnabledVersionRelationships struct {
 	CompatibleVersions *PagedRelationship `json:"compatibleVersions,omitempty"`
 }
 
+// GameCenterEnabledVersionCompatibleVersionsLinkagesRequest is a list of relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversioncompatibleversionslinkagesrequest
+type GameCenterEnabledVersionCompatibleVersionsLinkagesRequest []RelationshipData
+
 // GameCenterEnabledVersionCompatibleVersionsLinkagesResponse defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversioncompatibleversionslinkagesresponse
@@ -89,6 +94,15 @@ type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
+func (r *GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	for _, rel := range *r {
+		rel.applyType("gameCenterEnabledVersions")
+	}
+}
+
 // ListGameCenterEnabledVersionsForApp lists the versions for a given app that are enabled for Game Center
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_game_center_enabled_versions_for_an_app
@@ -122,7 +136,7 @@ func (s *AppsService) ListCompatibleVersionIDsForGameCenterEnabledVersion(ctx co
 // CreateCompatibleVersionsForGameCenterEnabledVersion adds a relationship between a given version and a Game Center enabled version
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_compatible_versions_to_a_game_center_enabled_version
-func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -130,7 +144,7 @@ func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 // UpdateCompatibleVersionsForGameCenterEnabledVersion updates the relationship between a given version and a Game Center enabled version
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_compatible_versions_for_a_game_center_enabled_version
-func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }
@@ -138,7 +152,7 @@ func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 // RemoveCompatibleVersionsForGameCenterEnabledVersion deletes the relationship between a given version and a Game Center enabled version
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_compatible_versions_from_a_game_center_enabled_version
-func (s *AppsService) RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
+func (s *AppsService) RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, linkages *GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.delete(ctx, url, linkages)
 }

@@ -110,6 +110,17 @@ type GetInvitationQuery struct {
 	LimitVisibleApps      int      `url:"limit[visibleApps],omitempty"`
 }
 
+func (r *UserInvitationCreateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "userInvitations"
+	if r.Relationships == nil {
+		return
+	}
+	r.Relationships.VisibleApps.applyType("apps")
+}
+
 // ListInvitations gets a list of pending invitations to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_invited_users

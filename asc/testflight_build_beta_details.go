@@ -140,6 +140,13 @@ type GetBuildBetaDetailForBuildQuery struct {
 	FieldsBuildBetaDetails []string `url:"fields[buildBetaDetails],omitempty"`
 }
 
+func (r *BuildBetaDetailUpdateRequest) applyTypes() {
+	if r == nil {
+		return
+	}
+	r.Type = "buildBetaDetails"
+}
+
 // ListBuildBetaDetails finds and lists build beta details for all builds.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_build_beta_details
