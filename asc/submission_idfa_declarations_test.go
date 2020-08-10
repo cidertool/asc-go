@@ -11,9 +11,21 @@ func TestCreateIDFADeclaration(t *testing.T) {
 	})
 }
 
+func TestCreateIDFADeclarationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Submission.CreateIDFADeclaration(ctx, nil)
+	})
+}
+
 func TestUpdateIDFADeclaration(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Submission.UpdateIDFADeclaration(ctx, "10", &IDFADeclarationUpdateRequest{})
+	})
+}
+
+func TestUpdateIDFADeclarationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Submission.UpdateIDFADeclaration(ctx, "10", nil)
 	})
 }
 

@@ -34,3 +34,9 @@ func TestUpdateBuildBetaDetail(t *testing.T) {
 		return client.TestFlight.UpdateBuildBetaDetail(ctx, "10", &BuildBetaDetailUpdateRequest{})
 	})
 }
+
+func TestUpdateBuildBetaDetailNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BuildBetaDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.UpdateBuildBetaDetail(ctx, "10", nil)
+	})
+}

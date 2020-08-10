@@ -11,6 +11,12 @@ func TestCreateBetaAppReviewSubmission(t *testing.T) {
 	})
 }
 
+func TestCreateBetaAppReviewSubmissionNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaAppReviewSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.CreateBetaAppReviewSubmission(ctx, nil)
+	})
+}
+
 func TestListBetaAppReviewSubmissions(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaAppReviewSubmissionsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaAppReviewSubmissions(ctx, &ListBetaAppReviewSubmissionsQuery{})

@@ -11,9 +11,21 @@ func TestCreateBetaGroup(t *testing.T) {
 	})
 }
 
+func TestCreateBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.CreateBetaGroup(ctx, nil)
+	})
+}
+
 func TestUpdateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaGroup(ctx, "10", &BetaGroupUpdateRequest{})
+	})
+}
+
+func TestUpdateBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.UpdateBetaGroup(ctx, "10", nil)
 	})
 }
 
@@ -53,9 +65,21 @@ func TestAddBetaTestersToBetaGroup(t *testing.T) {
 	})
 }
 
+func TestAddBetaTestersToBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", nil)
+	})
+}
+
 func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", &BetaGroupBetaTestersLinkagesRequest{})
+	})
+}
+
+func TestRemoveBetaTestersFromBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", nil)
 	})
 }
 
@@ -65,9 +89,21 @@ func TestAddBuildsToBetaGroup(t *testing.T) {
 	})
 }
 
+func TestAddBuildsToBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", nil)
+	})
+}
+
 func TestRemoveBuildsFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", &BetaGroupBuildsLinkagesRequest{})
+	})
+}
+
+func TestRemoveBuildsFromBetaGroupNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", nil)
 	})
 }
 

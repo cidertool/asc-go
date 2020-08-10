@@ -11,9 +11,21 @@ func TestCreateEULA(t *testing.T) {
 	})
 }
 
+func TestCreateEULANoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &EndUserLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CreateEULA(ctx, nil)
+	})
+}
+
 func TestUpdateEULA(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &EndUserLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateEULA(ctx, "10", &EndUserLicenseAgreementUpdateRequest{})
+	})
+}
+
+func TestUpdateEULANoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &EndUserLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateEULA(ctx, "10", nil)
 	})
 }
 

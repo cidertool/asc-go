@@ -23,9 +23,21 @@ func TestCreateAppStoreVersion(t *testing.T) {
 	})
 }
 
+func TestCreateAppStoreVersionNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CreateAppStoreVersion(ctx, nil)
+	})
+}
+
 func TestUpdateAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppStoreVersion(ctx, "10", &AppStoreVersionUpdateRequest{})
+	})
+}
+
+func TestUpdateAppStoreVersionNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateAppStoreVersion(ctx, "10", nil)
 	})
 }
 
@@ -44,6 +56,12 @@ func TestGetBuildIDForAppStoreVersion(t *testing.T) {
 func TestUpdateBuildForAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", &AppStoreVersionBuildLinkageRequest{})
+	})
+}
+
+func TestUpdateBuildForAppStoreVersionNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", nil)
 	})
 }
 

@@ -29,14 +29,32 @@ func TestCreateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	})
 }
 
+func TestCreateCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Apps.CreateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
+	})
+}
+
 func TestUpdateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", &GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
 	})
 }
 
+func TestUpdateCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
+	})
+}
+
 func TestRemoveCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", &GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
+	})
+}
+
+func TestRemoveCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
 	})
 }

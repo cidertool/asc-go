@@ -17,6 +17,12 @@ func TestCreateAppScreenshotSet(t *testing.T) {
 	})
 }
 
+func TestCreateAppScreenshotSetNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppScreenshotSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CreateAppScreenshotSet(ctx, nil)
+	})
+}
+
 func TestDeleteAppScreenshotSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppScreenshotSet(ctx, "10")
@@ -38,5 +44,11 @@ func TestListAppScreenshotIDsForSet(t *testing.T) {
 func TestReplaceAppScreenshotsForSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", &AppScreenshotSetAppScreenshotsLinkagesRequest{})
+	})
+}
+
+func TestReplaceAppScreenshotsForSetNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", nil)
 	})
 }

@@ -11,6 +11,12 @@ func TestCreateCertificate(t *testing.T) {
 	})
 }
 
+func TestCreateCertificateNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateCertificate(ctx, nil)
+	})
+}
+
 func TestListCertificates(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListCertificates(ctx, &ListCertificatesQuery{})

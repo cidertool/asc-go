@@ -35,9 +35,21 @@ func TestCreateBetaAppLocalization(t *testing.T) {
 	})
 }
 
+func TestCreateBetaAppLocalizationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaAppLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.CreateBetaAppLocalization(ctx, nil)
+	})
+}
+
 func TestUpdateBetaAppLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaAppLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaAppLocalization(ctx, "10", &BetaAppLocalizationUpdateRequest{})
+	})
+}
+
+func TestUpdateBetaAppLocalizationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaAppLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.UpdateBetaAppLocalization(ctx, "10", nil)
 	})
 }
 

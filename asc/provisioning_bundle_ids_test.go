@@ -11,9 +11,21 @@ func TestCreateBundleID(t *testing.T) {
 	})
 }
 
+func TestCreateBundleIDNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateBundleID(ctx, nil)
+	})
+}
+
 func TestUpdateBundleID(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.UpdateBundleID(ctx, "10", &BundleIDUpdateRequest{})
+	})
+}
+
+func TestUpdateBundleIDNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.UpdateBundleID(ctx, "10", nil)
 	})
 }
 

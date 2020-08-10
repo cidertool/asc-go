@@ -34,3 +34,9 @@ func TestUpdateBetaAppReviewDetail(t *testing.T) {
 		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", &BetaAppReviewDetailUpdateRequest{})
 	})
 }
+
+func TestUpdateBetaAppReviewDetailNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", nil)
+	})
+}

@@ -23,9 +23,21 @@ func TestCreateAppInfoLocalization(t *testing.T) {
 	})
 }
 
+func TestCreateAppInfoLocalizationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CreateAppInfoLocalization(ctx, nil)
+	})
+}
+
 func TestUpdateAppInfoLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppInfoLocalization(ctx, "10", &AppInfoLocalizationUpdateRequest{})
+	})
+}
+
+func TestUpdateAppInfoLocalizationNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateAppInfoLocalization(ctx, "10", nil)
 	})
 }
 

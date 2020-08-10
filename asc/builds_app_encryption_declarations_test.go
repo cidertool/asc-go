@@ -28,3 +28,9 @@ func TestAssignBuildsToAppEncryptionDeclaration(t *testing.T) {
 		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", &AppEncryptionDeclarationBuildsLinkagesRequest{})
 	})
 }
+
+func TestAssignBuildsToAppEncryptionDeclarationNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", nil)
+	})
+}

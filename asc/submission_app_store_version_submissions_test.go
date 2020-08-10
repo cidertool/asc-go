@@ -11,6 +11,12 @@ func TestCreateSubmission(t *testing.T) {
 	})
 }
 
+func TestCreateSubmissionNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Submission.CreateSubmission(ctx, nil)
+	})
+}
+
 func TestDeleteSubmission(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Submission.DeleteSubmission(ctx, "10")

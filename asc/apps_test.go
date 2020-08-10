@@ -23,9 +23,21 @@ func TestUpdateApp(t *testing.T) {
 	})
 }
 
+func TestUpdateAppNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateApp(ctx, "10", nil)
+	})
+}
+
 func TestRemoveBetaTestersFromApp(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", &AppBetaTestersLinkagesRequest{})
+	})
+}
+
+func TestRemoveBetaTestersFromAppNoRequest(t *testing.T) {
+	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
+		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", nil)
 	})
 }
 

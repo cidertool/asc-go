@@ -34,3 +34,9 @@ func TestUpdateBetaLicenseAgreement(t *testing.T) {
 		return client.TestFlight.UpdateBetaLicenseAgreement(ctx, "10", &BetaLicenseAgreementUpdateRequest{})
 	})
 }
+
+func TestUpdateBetaLicenseAgreementNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &BetaLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.TestFlight.UpdateBetaLicenseAgreement(ctx, "10", nil)
+	})
+}

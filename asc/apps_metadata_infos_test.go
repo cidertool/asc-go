@@ -22,3 +22,9 @@ func TestUpdateAppInfo(t *testing.T) {
 		return client.Apps.UpdateAppInfo(ctx, "10", &AppInfoUpdateRequest{})
 	})
 }
+
+func TestUpdateAppInfoNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppInfoResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.UpdateAppInfo(ctx, "10", nil)
+	})
+}

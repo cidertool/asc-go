@@ -23,9 +23,21 @@ func TestCreateRoutingAppCoverage(t *testing.T) {
 	})
 }
 
+func TestCreateRoutingAppCoverageNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CreateRoutingAppCoverage(ctx, nil)
+	})
+}
+
 func TestCommitRoutingAppCoverage(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CommitRoutingAppCoverage(ctx, "10", &RoutingAppCoverageUpdateRequest{})
+	})
+}
+
+func TestCommitRoutingAppCoverageNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.CommitRoutingAppCoverage(ctx, "10", nil)
 	})
 }
 

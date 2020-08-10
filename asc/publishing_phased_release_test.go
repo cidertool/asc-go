@@ -11,9 +11,21 @@ func TestCreatePhasedRelease(t *testing.T) {
 	})
 }
 
+func TestCreatePhasedReleaseNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.CreatePhasedRelease(ctx, nil)
+	})
+}
+
 func TestUpdatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Publishing.UpdatePhasedRelease(ctx, "10", &AppStoreVersionPhasedReleaseUpdateRequest{})
+	})
+}
+
+func TestUpdatePhasedReleaseNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Publishing.UpdatePhasedRelease(ctx, "10", nil)
 	})
 }
 

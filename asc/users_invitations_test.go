@@ -53,6 +53,13 @@ func TestCreateInvitation(t *testing.T) {
 	})
 }
 
+func TestCreateInvitationNoRequest(t *testing.T) {
+	want := new(UserInvitationResponse)
+	testEndpointWithResponse(t, "null", want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Users.CreateInvitation(ctx, nil)
+	})
+}
+
 func TestCancelInvitation(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Users.CancelInvitation(ctx, "10")

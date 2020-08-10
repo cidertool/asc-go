@@ -23,9 +23,21 @@ func TestCreateAttachment(t *testing.T) {
 	})
 }
 
+func TestCreateAttachmentNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Submission.CreateAttachment(ctx, nil)
+	})
+}
+
 func TestCommitAttachment(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Submission.CommitAttachment(ctx, "10", &AppStoreReviewAttachmentUpdateRequest{})
+	})
+}
+
+func TestCommitAttachmentNoRequest(t *testing.T) {
+	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Submission.CommitAttachment(ctx, "10", nil)
 	})
 }
 
