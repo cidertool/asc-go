@@ -1,7 +1,9 @@
 /*
 Package asc is a Go client library for accessing Apple's App Store Connect API.
 
-Usage:
+Usage
+
+Import the package as you normally would:
 
 	import "github.com/aaronsky/asc-go/asc"
 
@@ -63,6 +65,28 @@ Also note that all App Store Connect APIs are scoped to the credentials of the p
 so you can't use this API to make queries against the entire App Store. For more information on
 creating the necessary credentials for the App Store Connect API, see the documentation at
 https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api.
+
+Resource Types
+
+The App Store Connect API has a lot of resources that declare a `Type` property. There are several situations where the API demands you provide a value for `Type` for your created types, typically for requests and relationship linkage, otherwise an error will be thrown.
+
+For the purposes of JSON marshalling, all of these fields are exported. However, setting them manually and having to know exactly what the API expects them to be set to can be tedious. For convenience, if you pass an object with an empty `Type`, the known default will be populated automatically. This applies to the top-level `Type` field as well as any relationships that have been defined deeper in.
+
+If you want to opt-out of this behavior, just set the `Type` directly.
+
+For example:
+
+	// This instance of `asc.UserInvitationCreateRequest` will automatically have its `Type` field set to "userInvitations"
+	invitation, _, err := client.Users.CreateInvitation(ctx, &asc.UserInvitationCreateRequest{
+		Attributes: asc.UserInvitationCreateRequestAttributes{
+			FirstName:           *givenName,
+			LastName:            *familyName,
+			Email:               asc.Email(*email),
+			Roles:               userRoles,
+			AllAppsVisible:      allAppsVisible,
+			ProvisioningAllowed: provisioningAllowed,
+		},
+	})
 
 Rate Limiting
 

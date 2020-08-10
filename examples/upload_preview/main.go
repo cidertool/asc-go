@@ -86,12 +86,10 @@ func main() {
 			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
 				AppStoreVersion: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID:   version.ID,
-						Type: "appStoreVersions",
+						ID: version.ID,
 					},
 				},
 			},
-			Type: "appStoreVersionLocalizations",
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -124,12 +122,10 @@ func main() {
 			Relationships: asc.AppPreviewSetCreateRequestRelationships{
 				AppStoreVersionLocalization: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID:   selectedLocalization.ID,
-						Type: "appStoreVersionLocalizations",
+						ID: selectedLocalization.ID,
 					},
 				},
 			},
-			Type: "appPreviewSets",
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -157,12 +153,10 @@ func main() {
 		Relationships: asc.AppPreviewCreateRequestRelationships{
 			AppPreviewSet: asc.RelationshipDeclaration{
 				Data: &asc.RelationshipData{
-					ID:   selectedPreviewSet.ID,
-					Type: "appPreviewSets",
+					ID: selectedPreviewSet.ID,
 				},
 			},
 		},
-		Type: "appPreviews",
 	})
 	preview := reservePreview.Data
 
@@ -194,8 +188,7 @@ func main() {
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,
 		},
-		ID:   preview.ID,
-		Type: "appPreviews",
+		ID: preview.ID,
 	})
 
 	// Report success to the caller.

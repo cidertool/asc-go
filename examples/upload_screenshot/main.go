@@ -86,12 +86,10 @@ func main() {
 			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
 				AppStoreVersion: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID:   version.ID,
-						Type: "appStoreVersions",
+						ID: version.ID,
 					},
 				},
 			},
-			Type: "appStoreVersionLocalizations",
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -124,12 +122,10 @@ func main() {
 			Relationships: asc.AppScreenshotSetCreateRequestRelationships{
 				AppStoreVersionLocalization: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID:   selectedLocalization.ID,
-						Type: "appStoreVersionLocalizations",
+						ID: selectedLocalization.ID,
 					},
 				},
 			},
-			Type: "appScreenshotSets",
 		})
 		if err != nil {
 			log.Fatal(err)
@@ -157,12 +153,10 @@ func main() {
 		Relationships: asc.AppScreenshotCreateRequestRelationships{
 			AppScreenshotSet: asc.RelationshipDeclaration{
 				Data: &asc.RelationshipData{
-					ID:   selectedScreenshotSet.ID,
-					Type: "appScreenshotSets",
+					ID: selectedScreenshotSet.ID,
 				},
 			},
 		},
-		Type: "appScreenshots",
 	})
 	screenshot := reserveScreenshot.Data
 
@@ -194,8 +188,7 @@ func main() {
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,
 		},
-		ID:   screenshot.ID,
-		Type: "appScreenshots",
+		ID: screenshot.ID,
 	})
 
 	// Report success to the caller.

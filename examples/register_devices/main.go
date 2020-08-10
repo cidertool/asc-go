@@ -34,7 +34,6 @@ func main() {
 			Platform: asc.BundleIDPlatform(*platform),
 			UDID:     *udid,
 		},
-		Type: "devices",
 	})
 
 	if err != nil {

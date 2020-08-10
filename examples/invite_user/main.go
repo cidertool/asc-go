@@ -59,7 +59,6 @@ func inviteUser(ctx context.Context, client *asc.Client) error {
 			AllAppsVisible:      allAppsVisible,
 			ProvisioningAllowed: provisioningAllowed,
 		},
-		Type: "userInvitations",
 	})
 	if err != nil {
 		return err
