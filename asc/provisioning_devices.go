@@ -96,14 +96,14 @@ type ListDevicesQuery struct {
 }
 
 func (r *DeviceCreateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "devices"
 }
 
 func (r *DeviceUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "devices"

@@ -103,7 +103,7 @@ type GetCertificateQuery struct {
 }
 
 func (r *CertificateCreateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "certificates"

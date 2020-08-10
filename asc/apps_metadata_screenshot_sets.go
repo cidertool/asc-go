@@ -153,7 +153,9 @@ func (r *AppScreenshotSetCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appScreenshotSets"
+	if r.Type == "" {
+		r.Type = "appScreenshotSets"
+	}
 	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
 }
 

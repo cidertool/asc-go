@@ -147,7 +147,9 @@ func (r *ProfileCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "profiles"
+	if r.Type == "" {
+		r.Type = "profiles"
+	}
 	r.Relationships.BundleID.applyType("bundleIds")
 	r.Relationships.Certificates.applyType("certificates")
 	r.Relationships.Devices.applyType("devices")

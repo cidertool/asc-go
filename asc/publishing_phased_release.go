@@ -100,12 +100,14 @@ func (r *AppStoreVersionPhasedReleaseCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreVersionPhasedReleases"
+	if r.Type == "" {
+		r.Type = "appStoreVersionPhasedReleases"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 
 func (r *AppStoreVersionPhasedReleaseUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appStoreVersionPhasedReleases"

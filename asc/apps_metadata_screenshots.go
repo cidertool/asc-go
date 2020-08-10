@@ -107,12 +107,14 @@ func (r *AppScreenshotCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appScreenshots"
+	if r.Type == "" {
+		r.Type = "appScreenshots"
+	}
 	r.Relationships.AppScreenshotSet.applyType("appScreenshotSets")
 }
 
 func (r *AppScreenshotUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appScreenshots"

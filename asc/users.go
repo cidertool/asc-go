@@ -179,7 +179,9 @@ func (r *UserUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "users"
+	if r.Type == "" {
+		r.Type = "users"
+	}
 	if r.Relationships == nil {
 		return
 	}

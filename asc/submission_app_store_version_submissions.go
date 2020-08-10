@@ -58,7 +58,9 @@ func (r *AppStoreVersionSubmissionCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreVersionSubmissions"
+	if r.Type == "" {
+		r.Type = "appStoreVersionSubmissions"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 

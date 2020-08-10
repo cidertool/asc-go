@@ -148,12 +148,14 @@ func (r *BundleIDCapabilityCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "bundleIdCapabilities"
+	if r.Type == "" {
+		r.Type = "bundleIdCapabilities"
+	}
 	r.Relationships.BundleID.applyType("bundleIds")
 }
 
 func (r *BundleIDCapabilityUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "bundleIdCapabilities"

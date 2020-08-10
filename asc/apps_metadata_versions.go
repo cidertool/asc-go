@@ -243,7 +243,9 @@ func (r *AppStoreVersionCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreVersions"
+	if r.Type == "" {
+		r.Type = "appStoreVersions"
+	}
 	r.Relationships.App.applyType("apps")
 	r.Relationships.Build.applyType("builds")
 }
@@ -252,7 +254,9 @@ func (r *AppStoreVersionUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreVersions"
+	if r.Type == "" {
+		r.Type = "appStoreVersions"
+	}
 	if r.Relationships == nil {
 		return
 	}
@@ -260,7 +264,7 @@ func (r *AppStoreVersionUpdateRequest) applyTypes() {
 }
 
 func (r *AppStoreVersionBuildLinkageRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "builds"

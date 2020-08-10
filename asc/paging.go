@@ -97,7 +97,9 @@ type RelationshipLinks struct {
 }
 
 func (d *RelationshipDeclaration) applyType(t string) {
-	if d == nil || d.Data == nil {
+	if d == nil ||
+		d.Data == nil ||
+		d.Data.Type != "" {
 		return
 	}
 	d.Data.Type = t
@@ -113,7 +115,7 @@ func (d *PagedRelationshipDeclaration) applyType(t string) {
 }
 
 func (d *RelationshipData) applyType(t string) {
-	if d == nil {
+	if d == nil || d.Type != "" {
 		return
 	}
 	d.Type = t

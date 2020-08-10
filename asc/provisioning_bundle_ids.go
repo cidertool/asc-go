@@ -160,14 +160,14 @@ type ListCapabilitiesForBundleIDQuery struct {
 }
 
 func (r *BundleIDCreateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "bundleIds"
 }
 
 func (r *BundleIDUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "bundleIds"

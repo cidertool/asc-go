@@ -108,7 +108,9 @@ func (r *AppInfoUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appInfos"
+	if r.Type == "" {
+		r.Type = "appInfos"
+	}
 	if r.Relationships == nil {
 		return
 	}

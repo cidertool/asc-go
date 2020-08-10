@@ -268,7 +268,9 @@ func (r *AppUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "ageRatingDeclarations"
+	if r.Type == "" {
+		r.Type = "ageRatingDeclarations"
+	}
 	if r.Relationships == nil {
 		return
 	}

@@ -144,12 +144,14 @@ func (r *AppPreviewCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appPreviews"
+	if r.Type == "" {
+		r.Type = "appPreviews"
+	}
 	r.Relationships.AppPreviewSet.applyType("appPreviewSets")
 }
 
 func (r *AppPreviewUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appPreviews"

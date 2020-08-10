@@ -95,12 +95,14 @@ func (r *AppPreOrderCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appPreOrders"
+	if r.Type == "" {
+		r.Type = "appPreOrders"
+	}
 	r.Relationships.App.applyType("apps")
 }
 
 func (r *AppPreOrderUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appPreOrders"

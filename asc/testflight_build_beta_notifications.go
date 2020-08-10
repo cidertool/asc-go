@@ -38,7 +38,9 @@ func (r *BuildBetaNotificationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "buildBetaNotifications"
+	if r.Type == "" {
+		r.Type = "buildBetaNotifications"
+	}
 	r.Relationships.Build.applyType("builds")
 }
 

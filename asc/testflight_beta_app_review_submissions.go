@@ -117,7 +117,9 @@ func (r *BetaAppReviewSubmissionCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaAppReviewSubmissions"
+	if r.Type == "" {
+		r.Type = "betaAppReviewSubmissions"
+	}
 	r.Relationships.Build.applyType("builds")
 }
 

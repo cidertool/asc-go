@@ -124,12 +124,14 @@ func (r *AppStoreReviewDetailCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreReviewDetails"
+	if r.Type == "" {
+		r.Type = "appStoreReviewDetails"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 
 func (r *AppStoreReviewDetailUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appStoreReviewDetails"

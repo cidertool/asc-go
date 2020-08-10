@@ -83,7 +83,7 @@ type AgeRatingDeclarationResponse struct {
 }
 
 func (r *AgeRatingDeclarationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "ageRatingDeclarations"

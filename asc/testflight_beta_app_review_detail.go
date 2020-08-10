@@ -115,7 +115,7 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 }
 
 func (r *BetaAppReviewDetailUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "betaAppReviewDetails"

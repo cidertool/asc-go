@@ -101,7 +101,7 @@ type GetBetaLicenseAgreementForAppQuery struct {
 }
 
 func (r *BetaLicenseAgreementUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "betaLicenseAgreements"

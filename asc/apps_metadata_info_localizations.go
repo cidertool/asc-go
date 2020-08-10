@@ -121,12 +121,14 @@ func (r *AppInfoLocalizationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appInfoLocalizations"
+	if r.Type == "" {
+		r.Type = "appInfoLocalizations"
+	}
 	r.Relationships.AppInfo.applyType("appInfos")
 }
 
 func (r *AppInfoLocalizationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appInfoLocalizations"

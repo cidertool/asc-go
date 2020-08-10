@@ -141,7 +141,7 @@ type GetBuildBetaDetailForBuildQuery struct {
 }
 
 func (r *BuildBetaDetailUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "buildBetaDetails"

@@ -115,12 +115,14 @@ func (r *AppStoreReviewAttachmentCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreReviewAttachments"
+	if r.Type == "" {
+		r.Type = "appStoreReviewAttachments"
+	}
 	r.Relationships.AppStoreReviewDetail.applyType("appStoreReviewDetails")
 }
 
 func (r *AppStoreReviewAttachmentUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appStoreReviewAttachments"

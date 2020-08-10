@@ -39,7 +39,9 @@ func (r *BetaTesterInvitationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaTesterInvitations"
+	if r.Type == "" {
+		r.Type = "betaTesterInvitations"
+	}
 	r.Relationships.App.applyType("apps")
 	r.Relationships.BetaTester.applyType("betaTesters")
 }

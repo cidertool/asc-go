@@ -144,12 +144,14 @@ func (r *BetaAppLocalizationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaAppLocalizations"
+	if r.Type == "" {
+		r.Type = "betaAppLocalizations"
+	}
 	r.Relationships.App.applyType("apps")
 }
 
 func (r *BetaAppLocalizationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "betaAppLocalizations"

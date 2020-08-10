@@ -119,12 +119,14 @@ func (r *RoutingAppCoverageCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "routingAppCoverages"
+	if r.Type == "" {
+		r.Type = "routingAppCoverages"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 
 func (r *RoutingAppCoverageUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "routingAppCoverages"

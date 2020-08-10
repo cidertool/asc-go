@@ -114,7 +114,9 @@ func (r *UserInvitationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "userInvitations"
+	if r.Type == "" {
+		r.Type = "userInvitations"
+	}
 	if r.Relationships == nil {
 		return
 	}

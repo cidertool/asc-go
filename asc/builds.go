@@ -237,7 +237,9 @@ func (r *BuildUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "builds"
+	if r.Type == "" {
+		r.Type = "builds"
+	}
 	if r.Relationships == nil {
 		return
 	}
@@ -245,7 +247,7 @@ func (r *BuildUpdateRequest) applyTypes() {
 }
 
 func (r *BuildAppEncryptionDeclarationLinkageRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appEncryptionDeclarations"

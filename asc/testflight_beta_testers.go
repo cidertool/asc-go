@@ -262,7 +262,9 @@ func (r *BetaTesterCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaTesters"
+	if r.Type == "" {
+		r.Type = "betaTesters"
+	}
 	if r.Relationships == nil {
 		return
 	}

@@ -158,12 +158,14 @@ func (r *AppStoreVersionLocalizationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appStoreVersionLocalizations"
+	if r.Type == "" {
+		r.Type = "appStoreVersionLocalizations"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 
 func (r *AppStoreVersionLocalizationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "appStoreVersionLocalizations"

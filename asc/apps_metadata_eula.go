@@ -109,7 +109,9 @@ func (r *EndUserLicenseAgreementCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "endUserLicenseAgreements"
+	if r.Type == "" {
+		r.Type = "endUserLicenseAgreements"
+	}
 	r.Relationships.App.applyType("apps")
 	r.Relationships.Territories.applyType("territories")
 }
@@ -118,7 +120,9 @@ func (r *EndUserLicenseAgreementUpdateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "endUserLicenseAgreements"
+	if r.Type == "" {
+		r.Type = "endUserLicenseAgreements"
+	}
 	if r.Relationships == nil {
 		return
 	}

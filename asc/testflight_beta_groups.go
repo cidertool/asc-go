@@ -228,14 +228,16 @@ func (r *BetaGroupCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaGroups"
+	if r.Type == "" {
+		r.Type = "betaGroups"
+	}
 	r.Relationships.App.applyType("apps")
 	r.Relationships.BetaTesters.applyType("betaTesters")
 	r.Relationships.Builds.applyType("builds")
 }
 
 func (r *BetaGroupUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "betaGroups"

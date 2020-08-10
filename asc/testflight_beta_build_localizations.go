@@ -130,12 +130,14 @@ func (r *BetaBuildLocalizationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "betaBuildLocalizations"
+	if r.Type == "" {
+		r.Type = "betaBuildLocalizations"
+	}
 	r.Relationships.Build.applyType("builds")
 }
 
 func (r *BetaBuildLocalizationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
 	r.Type = "betaBuildLocalizations"

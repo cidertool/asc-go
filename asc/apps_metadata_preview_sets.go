@@ -120,7 +120,9 @@ func (r *AppPreviewSetCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "appPreviewSets"
+	if r.Type == "" {
+		r.Type = "appPreviewSets"
+	}
 	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
 }
 

@@ -97,15 +97,17 @@ func (r *IDFADeclarationCreateRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	r.Type = "idfaDeclarations"
+	if r.Type == "" {
+		r.Type = "idfaDeclarations"
+	}
 	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
 }
 
 func (r *IDFADeclarationUpdateRequest) applyTypes() {
-	if r == nil {
+	if r == nil || r.Type != "" {
 		return
 	}
-	r.Type = "appStoreReviewAttachments"
+	r.Type = "idfaDeclarations"
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
