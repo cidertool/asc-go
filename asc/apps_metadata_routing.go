@@ -19,10 +19,7 @@ type RoutingAppCoverage struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppStoreVersion *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersion,omitempty"`
+		AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -48,9 +45,7 @@ type RoutingAppCoverageCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/relationships
 type RoutingAppCoverageCreateRequestRelationships struct {
-	AppStoreVersion struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersion"`
+	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.

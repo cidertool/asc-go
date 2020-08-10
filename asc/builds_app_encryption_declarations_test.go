@@ -25,6 +25,6 @@ func TestGetAppForAppEncryptionDeclaration(t *testing.T) {
 
 func TestAssignBuildsToAppEncryptionDeclaration(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", &[]RelationshipsData{})
+		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", &[]RelationshipData{})
 	})
 }

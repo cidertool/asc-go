@@ -57,9 +57,7 @@ type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/relationships
 type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
-	AppStoreVersion struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersion"`
+	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.

@@ -24,20 +24,9 @@ type BetaGroup struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		BetaTesters *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"betaTesters,omitempty"`
-		Builds *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"builds,omitempty"`
+		App         *Relationship      `json:"app,omitempty"`
+		BetaTesters *PagedRelationship `json:"betaTesters,omitempty"`
+		Builds      *PagedRelationship `json:"builds,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -75,15 +64,9 @@ type BetaGroupCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest/data/relationships
 type BetaGroupCreateRequestRelationships struct {
-	App struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"app"`
-	BetaTesters *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"betaTesters,omitempty"`
-	Builds *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"builds,omitempty"`
+	App         RelationshipDeclaration       `json:"app"`
+	BetaTesters *PagedRelationshipDeclaration `json:"betaTesters,omitempty"`
+	Builds      *PagedRelationshipDeclaration `json:"builds,omitempty"`
 }
 
 // BetaGroupUpdateRequest defines model for BetaGroupUpdateRequest.
@@ -110,18 +93,18 @@ type BetaGroupUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupbetatesterslinkagesresponse
 type BetaGroupBetaTestersLinkagesResponse struct {
-	Data  []RelationshipsData `json:"data"`
-	Links PagedDocumentLinks  `json:"links"`
-	Meta  *PagingInformation  `json:"meta,omitempty"`
+	Data  []RelationshipData `json:"data"`
+	Links PagedDocumentLinks `json:"links"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
 // BetaGroupBuildsLinkagesResponse defines model for BetaGroupBuildsLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupbuildslinkagesresponse
 type BetaGroupBuildsLinkagesResponse struct {
-	Data  []RelationshipsData `json:"data"`
-	Links PagedDocumentLinks  `json:"links"`
-	Meta  *PagingInformation  `json:"meta,omitempty"`
+	Data  []RelationshipData `json:"data"`
+	Links PagedDocumentLinks `json:"links"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
 // BetaGroupsResponse defines model for BetaGroupsResponse.
@@ -290,7 +273,7 @@ func (s *TestflightService) ListBetaGroupsForApp(ctx context.Context, id string,
 // AddBetaTestersToBetaGroup adds a specific beta tester to one or more beta groups for beta testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_beta_testers_to_a_beta_group
-func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -298,7 +281,7 @@ func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id st
 // RemoveBetaTestersFromBetaGroup removes a specific beta tester from a one or more beta groups, revoking their access to test builds associated with those groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_a_beta_group
-func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -306,7 +289,7 @@ func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, 
 // AddBuildsToBetaGroup associates builds with a beta group to enable the group to test the builds.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_builds_to_a_beta_group
-func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -314,7 +297,7 @@ func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string,
 // RemoveBuildsFromBetaGroup removes access to test one or more builds from beta testers in a specific beta group.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_builds_from_a_beta_group
-func (s *TestflightService) RemoveBuildsFromBetaGroup(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *TestflightService) RemoveBuildsFromBetaGroup(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	return s.client.delete(ctx, url, linkages)
 }

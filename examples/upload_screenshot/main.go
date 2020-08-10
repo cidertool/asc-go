@@ -84,10 +84,8 @@ func main() {
 				Locale: *locale,
 			},
 			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
-				AppStoreVersion: struct {
-					Data asc.RelationshipsData "json:\"data\""
-				}{
-					Data: asc.RelationshipsData{
+				AppStoreVersion: asc.RelationshipDeclaration{
+					Data: &asc.RelationshipData{
 						ID:   version.ID,
 						Type: "appStoreVersions",
 					},
@@ -124,10 +122,8 @@ func main() {
 				ScreenshotDisplayType: screenshotType,
 			},
 			Relationships: asc.AppScreenshotSetCreateRequestRelationships{
-				AppStoreVersionLocalization: struct {
-					Data asc.RelationshipsData "json:\"data\""
-				}{
-					Data: asc.RelationshipsData{
+				AppStoreVersionLocalization: asc.RelationshipDeclaration{
+					Data: &asc.RelationshipData{
 						ID:   selectedLocalization.ID,
 						Type: "appStoreVersionLocalizations",
 					},
@@ -159,10 +155,8 @@ func main() {
 			FileSize: stat.Size(),
 		},
 		Relationships: asc.AppScreenshotCreateRequestRelationships{
-			AppScreenshotSet: struct {
-				Data asc.RelationshipsData "json:\"data\""
-			}{
-				Data: asc.RelationshipsData{
+			AppScreenshotSet: asc.RelationshipDeclaration{
+				Data: &asc.RelationshipData{
 					ID:   selectedScreenshotSet.ID,
 					Type: "appScreenshotSets",
 				},

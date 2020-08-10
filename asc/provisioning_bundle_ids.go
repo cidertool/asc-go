@@ -30,20 +30,9 @@ type BundleID struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		BundleIDCapabilities *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"bundleIdCapabilities,omitempty"`
-		Profiles *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"profiles,omitempty"`
+		App                  *Relationship      `json:"app,omitempty"`
+		BundleIDCapabilities *PagedRelationship `json:"bundleIdCapabilities,omitempty"`
+		Profiles             *PagedRelationship `json:"profiles,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }

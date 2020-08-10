@@ -12,11 +12,7 @@ type AppPriceTier struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		PricePoints *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"pricePoints,omitempty"`
+		PricePoints *PagedRelationship `json:"pricePoints,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -51,14 +47,8 @@ type AppPricePoint struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		PriceTier *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"priceTier,omitempty"`
-		Territory *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"territory,omitempty"`
+		PriceTier *Relationship `json:"priceTier,omitempty"`
+		Territory *Relationship `json:"territory,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }

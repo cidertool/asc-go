@@ -49,15 +49,8 @@ type AppScreenshotSet struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppScreenshots *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appScreenshots,omitempty"`
-		AppStoreVersionLocalization *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersionLocalization,omitempty"`
+		AppScreenshots              *PagedRelationship `json:"appScreenshots,omitempty"`
+		AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -82,9 +75,7 @@ type AppScreenshotSetCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/relationships
 type AppScreenshotSetCreateRequestRelationships struct {
-	AppStoreVersionLocalization struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersionLocalization"`
+	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
 // AppScreenshotSetResponse defines model for AppScreenshotSetResponse.
@@ -110,9 +101,9 @@ type AppScreenshotSetsResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetappscreenshotslinkagesresponse
 type AppScreenshotSetAppScreenshotsLinkagesResponse struct {
-	Data  []RelationshipsData `json:"data"`
-	Links PagedDocumentLinks  `json:"links"`
-	Meta  *PagingInformation  `json:"meta,omitempty"`
+	Data  []RelationshipData `json:"data"`
+	Links PagedDocumentLinks `json:"links"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
 // GetAppScreenshotSetQuery are query options for GetAppScreenshotSet
@@ -193,7 +184,7 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_screenshots_for_an_app_screenshot_set
-func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

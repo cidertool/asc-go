@@ -28,10 +28,7 @@ type BetaAppReviewSubmission struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		Build *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"build,omitempty"`
+		Build *Relationship `json:"build,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -48,9 +45,7 @@ type BetaAppReviewSubmissionCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest/data/relationships
 type BetaAppReviewSubmissionCreateRequestRelationships struct {
-	Build struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"build"`
+	Build RelationshipDeclaration `json:"build"`
 }
 
 // BetaAppReviewSubmissionResponse defines model for BetaAppReviewSubmissionResponse.

@@ -58,9 +58,7 @@ type AppStoreVersionUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/relationships
 type AppStoreVersionUpdateRequestRelationships struct {
-	Build *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"build,omitempty"`
+	Build *RelationshipDeclaration `json:"build,omitempty"`
 }
 
 // AgeRatingDeclaration defines model for AgeRatingDeclaration.
@@ -106,43 +104,15 @@ type AppStoreVersion struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AgeRatingDeclaration *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"ageRatingDeclaration,omitempty"`
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		AppStoreReviewDetail *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreReviewDetail,omitempty"`
-		AppStoreVersionLocalizations *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appStoreVersionLocalizations,omitempty"`
-		AppStoreVersionPhasedRelease *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersionPhasedRelease,omitempty"`
-		AppStoreVersionSubmission *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersionSubmission,omitempty"`
-		Build *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"build,omitempty"`
-		IDFADeclaration *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"idfaDeclaration,omitempty"`
-		RoutingAppCoverage *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"routingAppCoverage,omitempty"`
+		AgeRatingDeclaration         *Relationship      `json:"ageRatingDeclaration,omitempty"`
+		App                          *Relationship      `json:"app,omitempty"`
+		AppStoreReviewDetail         *Relationship      `json:"appStoreReviewDetail,omitempty"`
+		AppStoreVersionLocalizations *PagedRelationship `json:"appStoreVersionLocalizations,omitempty"`
+		AppStoreVersionPhasedRelease *Relationship      `json:"appStoreVersionPhasedRelease,omitempty"`
+		AppStoreVersionSubmission    *Relationship      `json:"appStoreVersionSubmission,omitempty"`
+		Build                        *Relationship      `json:"build,omitempty"`
+		IDFADeclaration              *Relationship      `json:"idfaDeclaration,omitempty"`
+		RoutingAppCoverage           *Relationship      `json:"routingAppCoverage,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -191,20 +161,16 @@ type AppStoreVersionCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data/relationships
 type AppStoreVersionCreateRequestRelationships struct {
-	App struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"app"`
-	Build *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"build,omitempty"`
+	App   RelationshipDeclaration  `json:"app"`
+	Build *RelationshipDeclaration `json:"build,omitempty"`
 }
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionbuildlinkageresponse
 type AppStoreVersionBuildLinkageResponse struct {
-	Data  RelationshipsData `json:"data"`
-	Links DocumentLinks     `json:"links"`
+	Data  RelationshipData `json:"data"`
+	Links DocumentLinks    `json:"links"`
 }
 
 // ListAppStoreVersionsQuery are query options for ListAppStoreVersions
@@ -314,7 +280,7 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
-func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *RelationshipsData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *RelationshipData) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, linkage, res)

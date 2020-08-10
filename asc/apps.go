@@ -39,72 +39,20 @@ type App struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppInfos *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appInfos,omitempty"`
-		AppStoreVersions *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appStoreVersions,omitempty"`
-		AvailableTerritories *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"availableTerritories,omitempty"`
-		BetaAppLocalizations *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"betaAppLocalizations,omitempty"`
-		BetaAppReviewDetail *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"betaAppReviewDetail,omitempty"`
-		BetaGroups *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"betaGroups,omitempty"`
-		BetaLicenseAgreement *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"betaLicenseAgreement,omitempty"`
-		Builds *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"builds,omitempty"`
-		EndUserLicenseAgreement *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"endUserLicenseAgreement,omitempty"`
-		GameCenterEnabledVersions *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"gameCenterEnabledVersions,omitempty"`
-		InAppPurchases *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"inAppPurchases,omitempty"`
-		PreOrder *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"preOrder,omitempty"`
-		PreReleaseVersions *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"preReleaseVersions,omitempty"`
-		Prices *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"prices,omitempty"`
+		AppInfos                  *PagedRelationship `json:"appInfos,omitempty"`
+		AppStoreVersions          *PagedRelationship `json:"appStoreVersions,omitempty"`
+		AvailableTerritories      *PagedRelationship `json:"availableTerritories,omitempty"`
+		BetaAppLocalizations      *PagedRelationship `json:"betaAppLocalizations,omitempty"`
+		BetaAppReviewDetail       *Relationship      `json:"betaAppReviewDetail,omitempty"`
+		BetaGroups                *PagedRelationship `json:"betaGroups,omitempty"`
+		BetaLicenseAgreement      *Relationship      `json:"betaLicenseAgreement,omitempty"`
+		Builds                    *PagedRelationship `json:"builds,omitempty"`
+		EndUserLicenseAgreement   *Relationship      `json:"endUserLicenseAgreement,omitempty"`
+		GameCenterEnabledVersions *PagedRelationship `json:"gameCenterEnabledVersions,omitempty"`
+		InAppPurchases            *PagedRelationship `json:"inAppPurchases,omitempty"`
+		PreOrder                  *Relationship      `json:"preOrder,omitempty"`
+		PreReleaseVersions        *PagedRelationship `json:"preReleaseVersions,omitempty"`
+		Prices                    *PagedRelationship `json:"prices,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -133,12 +81,8 @@ type AppUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data/relationships
 type AppUpdateRequestRelationships struct {
-	AvailableTerritories *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"availableTerritories,omitempty"`
-	Prices *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"prices,omitempty"`
+	AvailableTerritories *PagedRelationshipDeclaration `json:"availableTerritories,omitempty"`
+	Prices               *PagedRelationshipDeclaration `json:"prices,omitempty"`
 }
 
 // AppResponse defines model for AppResponse.
@@ -173,11 +117,7 @@ type InAppPurchase struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		Apps *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"apps,omitempty"`
+		Apps *PagedRelationship `json:"apps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -331,7 +271,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, body *AppUpdateR
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
-func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

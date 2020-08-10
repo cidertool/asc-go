@@ -41,10 +41,7 @@ type AppEncryptionDeclaration struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
+		App *Relationship `json:"app,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -130,7 +127,7 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 // AssignBuildsToAppEncryptionDeclaration assigns one or more builds to an app encryption declaration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_builds_to_an_app_encryption_declaration
-func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.client.post(ctx, url, linkages, nil)
 }

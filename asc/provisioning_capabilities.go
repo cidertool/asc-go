@@ -76,9 +76,7 @@ type BundleIDCapabilityCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/relationships
 type BundleIDCapabilityCreateRequestRelationships struct {
-	BundleID struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"bundleId"`
+	BundleID RelationshipDeclaration `json:"bundleId"`
 }
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.

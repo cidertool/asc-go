@@ -19,10 +19,7 @@ type AppInfoLocalization struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppInfo *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appInfo,omitempty"`
+		AppInfo *Relationship `json:"appInfo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -51,9 +48,7 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest/data/relationships
 type AppInfoLocalizationCreateRequestRelationships struct {
-	AppInfo struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appInfo"`
+	AppInfo RelationshipDeclaration `json:"appInfo"`
 }
 
 // AppInfoLocalizationResponse defines model for AppInfoLocalizationResponse.

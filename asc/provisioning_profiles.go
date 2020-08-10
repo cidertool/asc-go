@@ -23,20 +23,9 @@ type Profile struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		BundleID *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"bundleId,omitempty"`
-		Certificates *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"certificates,omitempty"`
-		Devices *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"devices,omitempty"`
+		BundleID     *Relationship      `json:"bundleId,omitempty"`
+		Certificates *PagedRelationship `json:"certificates,omitempty"`
+		Devices      *PagedRelationship `json:"devices,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -62,15 +51,9 @@ type ProfileCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data/relationships
 type ProfileCreateRequestRelationships struct {
-	BundleID struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"bundleId"`
-	Certificates struct {
-		Data []RelationshipsData `json:"data"`
-	} `json:"certificates"`
-	Devices *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"devices,omitempty"`
+	BundleID     RelationshipDeclaration       `json:"bundleId"`
+	Certificates PagedRelationshipDeclaration  `json:"certificates"`
+	Devices      *PagedRelationshipDeclaration `json:"devices,omitempty"`
 }
 
 // ProfileResponse defines model for ProfileResponse.

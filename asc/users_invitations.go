@@ -22,11 +22,7 @@ type UserInvitation struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		VisibleApps *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"visibleApps,omitempty"`
+		VisibleApps *PagedRelationship `json:"visibleApps,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -56,9 +52,7 @@ type UserInvitationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data/relationships
 type UserInvitationCreateRequestRelationships struct {
-	VisibleApps *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"visibleApps,omitempty"`
+	VisibleApps *PagedRelationshipDeclaration `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationResponse defines model for UserInvitationResponse.

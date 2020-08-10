@@ -15,15 +15,8 @@ type AppPreviewSet struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppPreviews *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appPreviews,omitempty"`
-		AppStoreVersionLocalization *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersionLocalization,omitempty"`
+		AppPreviews                 *PagedRelationship `json:"appPreviews,omitempty"`
+		AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -48,9 +41,7 @@ type AppPreviewSetCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/relationships
 type AppPreviewSetCreateRequestRelationships struct {
-	AppStoreVersionLocalization struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersionLocalization"`
+	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
 // AppPreviewSetResponse defines model for AppPreviewSetResponse.
@@ -76,9 +67,9 @@ type AppPreviewSetsResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetapppreviewslinkagesresponse
 type AppPreviewSetAppPreviewsLinkagesResponse struct {
-	Data  []RelationshipsData `json:"data"`
-	Links PagedDocumentLinks  `json:"links"`
-	Meta  *PagingInformation  `json:"meta,omitempty"`
+	Data  []RelationshipData `json:"data"`
+	Links PagedDocumentLinks `json:"links"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
 // GetAppPreviewSetQuery are query options for GetAppPreviewSet
@@ -160,7 +151,7 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_previews_for_an_app_preview_set
-func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, linkages *[]RelationshipsData) (*Response, error) {
+func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, linkages *[]RelationshipData) (*Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

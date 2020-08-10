@@ -21,20 +21,9 @@ type AppStoreVersionLocalization struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppPreviewSets *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appPreviewSets,omitempty"`
-		AppScreenshotSets *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appScreenshotSets,omitempty"`
-		AppStoreVersion *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersion,omitempty"`
+		AppPreviewSets    *PagedRelationship `json:"appPreviewSets,omitempty"`
+		AppScreenshotSets *PagedRelationship `json:"appScreenshotSets,omitempty"`
+		AppStoreVersion   *Relationship      `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -65,9 +54,7 @@ type AppStoreVersionLocalizationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest/data/relationships
 type AppStoreVersionLocalizationCreateRequestRelationships struct {
-	AppStoreVersion struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersion"`
+	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreVersionLocalizationResponse defines model for AppStoreVersionLocalizationResponse.

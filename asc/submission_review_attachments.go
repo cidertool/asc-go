@@ -19,10 +19,7 @@ type AppStoreReviewAttachment struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppStoreReviewDetail *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreReviewDetail,omitempty"`
+		AppStoreReviewDetail *Relationship `json:"appStoreReviewDetail,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -48,9 +45,7 @@ type AppStoreReviewAttachmentCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/relationships
 type AppStoreReviewAttachmentCreateRequestRelationships struct {
-	AppStoreReviewDetail struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreReviewDetail"`
+	AppStoreReviewDetail RelationshipDeclaration `json:"appStoreReviewDetail"`
 }
 
 // AppStoreReviewAttachmentResponse defines model for AppStoreReviewAttachmentResponse.

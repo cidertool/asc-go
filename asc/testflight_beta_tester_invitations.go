@@ -23,12 +23,8 @@ type BetaTesterInvitationCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest/data/relationships
 type BetaTesterInvitationCreateRequestRelationships struct {
-	App struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"app"`
-	BetaTester struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"betaTester"`
+	App        RelationshipDeclaration `json:"app"`
+	BetaTester RelationshipDeclaration `json:"betaTester"`
 }
 
 // BetaTesterInvitationResponse defines model for BetaTesterInvitationResponse.

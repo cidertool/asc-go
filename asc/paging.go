@@ -61,14 +61,37 @@ type DocumentLinks struct {
 	Self Reference `json:"self"`
 }
 
-// RelationshipsData contains data on the given relationship
-type RelationshipsData struct {
+// Relationship contains data about a related resources as well as API references that can be followed
+type Relationship struct {
+	Data  *RelationshipData  `json:"data,omitempty"`
+	Links *RelationshipLinks `json:"links,omitempty"`
+}
+
+// PagedRelationship is a relationship to multiple resources that have paging information
+type PagedRelationship struct {
+	Data  *[]RelationshipData `json:"data,omitempty"`
+	Links *RelationshipLinks  `json:"links,omitempty"`
+	Meta  *PagingInformation  `json:"meta,omitempty"`
+}
+
+// RelationshipDeclaration represents a declared relationship to a single resource
+type RelationshipDeclaration struct {
+	Data *RelationshipData `json:"data"`
+}
+
+// PagedRelationshipDeclaration represents a declared relationship to multiple resources
+type PagedRelationshipDeclaration struct {
+	Data *[]RelationshipData `json:"data"`
+}
+
+// RelationshipData contains data on the given relationship
+type RelationshipData struct {
 	ID   string `json:"id"`
 	Type string `json:"type"`
 }
 
-// RelationshipsLinks contains links on the given relationship
-type RelationshipsLinks struct {
+// RelationshipLinks contains links on the given relationship
+type RelationshipLinks struct {
 	Related *Reference `json:"related,omitempty"`
 	Self    *Reference `json:"self,omitempty"`
 }

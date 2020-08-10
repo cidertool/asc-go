@@ -22,10 +22,7 @@ type AppScreenshot struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppScreenshotSet *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appScreenshotSet,omitempty"`
+		AppScreenshotSet *Relationship `json:"appScreenshotSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -51,9 +48,7 @@ type AppScreenshotCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/relationships
 type AppScreenshotCreateRequestRelationships struct {
-	AppScreenshotSet struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appScreenshotSet"`
+	AppScreenshotSet RelationshipDeclaration `json:"appScreenshotSet"`
 }
 
 // AppScreenshotUpdateRequest defines model for AppScreenshotUpdateRequest.

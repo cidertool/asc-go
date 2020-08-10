@@ -18,39 +18,14 @@ type AppInfo struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		AppInfoLocalizations *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appInfoLocalizations,omitempty"`
-		PrimaryCategory *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"primaryCategory,omitempty"`
-		PrimarySubcategoryOne *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"primarySubcategoryOne,omitempty"`
-		PrimarySubcategoryTwo *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"primarySubcategoryTwo,omitempty"`
-		SecondaryCategory *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"secondaryCategory,omitempty"`
-		SecondarySubcategoryOne *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"secondarySubcategoryOne,omitempty"`
-		SecondarySubcategoryTwo *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"secondarySubcategoryTwo,omitempty"`
+		App                     *Relationship      `json:"app,omitempty"`
+		AppInfoLocalizations    *PagedRelationship `json:"appInfoLocalizations,omitempty"`
+		PrimaryCategory         *Relationship      `json:"primaryCategory,omitempty"`
+		PrimarySubcategoryOne   *Relationship      `json:"primarySubcategoryOne,omitempty"`
+		PrimarySubcategoryTwo   *Relationship      `json:"primarySubcategoryTwo,omitempty"`
+		SecondaryCategory       *Relationship      `json:"secondaryCategory,omitempty"`
+		SecondarySubcategoryOne *Relationship      `json:"secondarySubcategoryOne,omitempty"`
+		SecondarySubcategoryTwo *Relationship      `json:"secondarySubcategoryTwo,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -87,24 +62,12 @@ type AppInfoUpdateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest/data/relationships
 type AppInfoUpdateRequestRelationships struct {
-	PrimaryCategory *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"primaryCategory,omitempty"`
-	PrimarySubcategoryOne *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"primarySubcategoryOne,omitempty"`
-	PrimarySubcategoryTwo *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"primarySubcategoryTwo,omitempty"`
-	SecondaryCategory *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"secondaryCategory,omitempty"`
-	SecondarySubcategoryOne *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"secondarySubcategoryOne,omitempty"`
-	SecondarySubcategoryTwo *struct {
-		Data *RelationshipsData `json:"data,omitempty"`
-	} `json:"secondarySubcategoryTwo,omitempty"`
+	PrimaryCategory         *RelationshipDeclaration `json:"primaryCategory,omitempty"`
+	PrimarySubcategoryOne   *RelationshipDeclaration `json:"primarySubcategoryOne,omitempty"`
+	PrimarySubcategoryTwo   *RelationshipDeclaration `json:"primarySubcategoryTwo,omitempty"`
+	SecondaryCategory       *RelationshipDeclaration `json:"secondaryCategory,omitempty"`
+	SecondarySubcategoryOne *RelationshipDeclaration `json:"secondarySubcategoryOne,omitempty"`
+	SecondarySubcategoryTwo *RelationshipDeclaration `json:"secondarySubcategoryTwo,omitempty"`
 }
 
 // GetAppInfoQuery are query options for GetAppInfo

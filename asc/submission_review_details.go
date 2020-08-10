@@ -22,15 +22,8 @@ type AppStoreReviewDetail struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppStoreReviewAttachments *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"appStoreReviewAttachments,omitempty"`
-		AppStoreVersion *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersion,omitempty"`
+		AppStoreReviewAttachments *PagedRelationship `json:"appStoreReviewAttachments,omitempty"`
+		AppStoreVersion           *Relationship      `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -62,9 +55,7 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data/relationships
 type AppStoreReviewDetailCreateRequestRelationships struct {
-	AppStoreVersion struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersion"`
+	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreReviewDetailUpdateRequest defines model for AppStoreReviewDetailUpdateRequest.

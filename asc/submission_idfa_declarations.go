@@ -18,10 +18,7 @@ type IDFADeclaration struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppStoreVersion *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appStoreVersion,omitempty"`
+		AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -49,9 +46,7 @@ type IDFADeclarationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data/relationships
 type IDFADeclarationCreateRequestRelationships struct {
-	AppStoreVersion struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appStoreVersion"`
+	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
 // IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.

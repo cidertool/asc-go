@@ -15,15 +15,8 @@ type EndUserLicenseAgreement struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		Territories *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"territories,omitempty"`
+		App         *Relationship      `json:"app,omitempty"`
+		Territories *PagedRelationship `json:"territories,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -48,12 +41,8 @@ type EndUserLicenseAgreementCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data/relationships
 type EndUserLicenseAgreementCreateRequestRelationships struct {
-	App struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"app"`
-	Territories struct {
-		Data []RelationshipsData `json:"data"`
-	} `json:"territories"`
+	App         RelationshipDeclaration      `json:"app"`
+	Territories PagedRelationshipDeclaration `json:"territories"`
 }
 
 // EndUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
@@ -77,9 +66,7 @@ type EndUserLicenseAgreementUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/relationships
 type EndUserLicenseAgreementUpdateRequestRelationships struct {
-	Territories *struct {
-		Data *[]RelationshipsData `json:"data,omitempty"`
-	} `json:"territories,omitempty"`
+	Territories *PagedRelationshipDeclaration `json:"territories,omitempty"`
 }
 
 // EndUserLicenseAgreementResponse defines model for EndUserLicenseAgreementResponse.

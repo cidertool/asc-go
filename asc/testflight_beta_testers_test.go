@@ -48,31 +48,31 @@ func TestGetBetaTester(t *testing.T) {
 
 func TestAddBetaTesterToBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", &[]RelationshipData{})
 	})
 }
 

@@ -49,25 +49,25 @@ func TestListBetaGroupsForApp(t *testing.T) {
 
 func TestAddBetaTestersToBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestAddBuildsToBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", &[]RelationshipData{})
 	})
 }
 
 func TestRemoveBuildsFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", &[]RelationshipsData{})
+		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", &[]RelationshipData{})
 	})
 }
 

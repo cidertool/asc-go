@@ -15,15 +15,8 @@ type AppCategory struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		Parent *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"parent,omitempty"`
-		Subcategories *struct {
-			Data  *[]RelationshipsData `json:"data,omitempty"`
-			Links *RelationshipsLinks  `json:"links,omitempty"`
-			Meta  *PagingInformation   `json:"meta,omitempty"`
-		} `json:"subcategories,omitempty"`
+		Parent        *Relationship      `json:"parent,omitempty"`
+		Subcategories *PagedRelationship `json:"subcategories,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }

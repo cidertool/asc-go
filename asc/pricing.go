@@ -19,14 +19,8 @@ type AppPrice struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		App *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"app,omitempty"`
-		PriceTier *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"priceTier,omitempty"`
+		App       *Relationship `json:"app,omitempty"`
+		PriceTier *Relationship `json:"priceTier,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }

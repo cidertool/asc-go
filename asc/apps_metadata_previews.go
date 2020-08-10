@@ -47,10 +47,7 @@ type AppPreview struct {
 	ID            string        `json:"id"`
 	Links         ResourceLinks `json:"links"`
 	Relationships *struct {
-		AppPreviewSet *struct {
-			Data  *RelationshipsData  `json:"data,omitempty"`
-			Links *RelationshipsLinks `json:"links,omitempty"`
-		} `json:"appPreviewSet,omitempty"`
+		AppPreviewSet *Relationship `json:"appPreviewSet,omitempty"`
 	} `json:"relationships,omitempty"`
 	Type string `json:"type"`
 }
@@ -78,9 +75,7 @@ type AppPreviewCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/relationships
 type AppPreviewCreateRequestRelationships struct {
-	AppPreviewSet struct {
-		Data RelationshipsData `json:"data"`
-	} `json:"appPreviewSet"`
+	AppPreviewSet RelationshipDeclaration `json:"appPreviewSet"`
 }
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.

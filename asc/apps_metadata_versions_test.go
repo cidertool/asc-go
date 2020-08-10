@@ -43,7 +43,7 @@ func TestGetBuildIDForAppStoreVersion(t *testing.T) {
 
 func TestUpdateBuildForAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", &RelationshipsData{})
+		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", &RelationshipData{})
 	})
 }
 
