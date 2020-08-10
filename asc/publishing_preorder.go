@@ -9,16 +9,26 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreorder
 type AppPreOrder struct {
-	Attributes *struct {
-		AppReleaseDate        *Date `json:"appReleaseDate,omitempty"`
-		PreOrderAvailableDate *Date `json:"preOrderAvailableDate,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App *Relationship `json:"app,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppPreOrderAttributes    `json:"attributes,omitempty"`
+	ID            string                    `json:"id"`
+	Links         ResourceLinks             `json:"links"`
+	Relationships *AppPreOrderRelationships `json:"relationships,omitempty"`
+	Type          string                    `json:"type"`
+}
+
+// AppPreOrderAttributes defines model for AppPreOrder.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorder/attributes
+type AppPreOrderAttributes struct {
+	AppReleaseDate        *Date `json:"appReleaseDate,omitempty"`
+	PreOrderAvailableDate *Date `json:"preOrderAvailableDate,omitempty"`
+}
+
+// AppPreOrderRelationships defines model for AppPreOrder.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorder/relationships
+type AppPreOrderRelationships struct {
+	App *Relationship `json:"app,omitempty"`
 }
 
 // AppPreOrderCreateRequest defines model for AppPreOrderCreateRequest.

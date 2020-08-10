@@ -43,16 +43,26 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotset
 type AppScreenshotSet struct {
-	Attributes *struct {
-		ScreenshotDisplayType *ScreenshotDisplayType `json:"screenshotDisplayType,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppScreenshots              *PagedRelationship `json:"appScreenshots,omitempty"`
-		AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppScreenshotSetAttributes    `json:"attributes,omitempty"`
+	ID            string                         `json:"id"`
+	Links         ResourceLinks                  `json:"links"`
+	Relationships *AppScreenshotSetRelationships `json:"relationships,omitempty"`
+	Type          string                         `json:"type"`
+}
+
+// AppScreenshotSetAttributes defines model for AppScreenshotSet.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotset/attributes
+type AppScreenshotSetAttributes struct {
+	ScreenshotDisplayType *ScreenshotDisplayType `json:"screenshotDisplayType,omitempty"`
+}
+
+// AppScreenshotSetRelationships defines model for AppScreenshotSet.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotset/relationships
+type AppScreenshotSetRelationships struct {
+	AppScreenshots              *PagedRelationship `json:"appScreenshots,omitempty"`
+	AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 }
 
 // AppScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.

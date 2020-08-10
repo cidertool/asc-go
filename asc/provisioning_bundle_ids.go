@@ -21,20 +21,30 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleid
 type BundleID struct {
-	Attributes *struct {
-		IDentifier *string           `json:"identifier,omitempty"`
-		Name       *string           `json:"name,omitempty"`
-		Platform   *BundleIDPlatform `json:"platform,omitempty"`
-		SeedID     *string           `json:"seedId,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App                  *Relationship      `json:"app,omitempty"`
-		BundleIDCapabilities *PagedRelationship `json:"bundleIdCapabilities,omitempty"`
-		Profiles             *PagedRelationship `json:"profiles,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BundleIDAttributes    `json:"attributes,omitempty"`
+	ID            string                 `json:"id"`
+	Links         ResourceLinks          `json:"links"`
+	Relationships *BundleIDRelationships `json:"relationships,omitempty"`
+	Type          string                 `json:"type"`
+}
+
+// BundleIDAttributes defines model for BundleId.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleid/attributes
+type BundleIDAttributes struct {
+	IDentifier *string           `json:"identifier,omitempty"`
+	Name       *string           `json:"name,omitempty"`
+	Platform   *BundleIDPlatform `json:"platform,omitempty"`
+	SeedID     *string           `json:"seedId,omitempty"`
+}
+
+// BundleIDRelationships defines model for BundleId.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleid/relationships
+type BundleIDRelationships struct {
+	App                  *Relationship      `json:"app,omitempty"`
+	BundleIDCapabilities *PagedRelationship `json:"bundleIdCapabilities,omitempty"`
+	Profiles             *PagedRelationship `json:"profiles,omitempty"`
 }
 
 // BundleIDCreateRequest defines model for BundleIdCreateRequest.

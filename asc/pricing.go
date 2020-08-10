@@ -16,13 +16,18 @@ type PricingService service
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appprice
 type AppPrice struct {
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App       *Relationship `json:"app,omitempty"`
-		PriceTier *Relationship `json:"priceTier,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	ID            string                 `json:"id"`
+	Links         ResourceLinks          `json:"links"`
+	Relationships *AppPriceRelationships `json:"relationships,omitempty"`
+	Type          string                 `json:"type"`
+}
+
+// AppPriceRelationships defines model for AppPrice.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appprice/relationships
+type AppPriceRelationships struct {
+	App       *Relationship `json:"app,omitempty"`
+	PriceTier *Relationship `json:"priceTier,omitempty"`
 }
 
 // AppPriceResponse defines model for AppPriceResponse.

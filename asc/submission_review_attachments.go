@@ -9,19 +9,29 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachment
 type AppStoreReviewAttachment struct {
-	Attributes *struct {
-		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
-		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int64              `json:"fileSize,omitempty"`
-		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppStoreReviewDetail *Relationship `json:"appStoreReviewDetail,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppStoreReviewAttachmentAttributes    `json:"attributes,omitempty"`
+	ID            string                                 `json:"id"`
+	Links         ResourceLinks                          `json:"links"`
+	Relationships *AppStoreReviewAttachmentRelationships `json:"relationships,omitempty"`
+	Type          string                                 `json:"type"`
+}
+
+// AppStoreReviewAttachmentAttributes defines model for AppStoreReviewAttachment.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachment/attributes
+type AppStoreReviewAttachmentAttributes struct {
+	AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
+	FileName           *string             `json:"fileName,omitempty"`
+	FileSize           *int64              `json:"fileSize,omitempty"`
+	SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
+	UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
+}
+
+// AppStoreReviewAttachmentRelationships defines model for AppStoreReviewAttachment.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachment/relationships
+type AppStoreReviewAttachmentRelationships struct {
+	AppStoreReviewDetail *Relationship `json:"appStoreReviewDetail,omitempty"`
 }
 
 // AppStoreReviewAttachmentCreateRequest defines model for AppStoreReviewAttachmentCreateRequest.

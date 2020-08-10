@@ -10,18 +10,23 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/device
 type Device struct {
-	Attributes *struct {
-		AddedDate   *time.Time        `json:"addedDate,omitempty"`
-		DeviceClass *string           `json:"deviceClass,omitempty"`
-		Model       *string           `json:"model,omitempty"`
-		Name        *string           `json:"name,omitempty"`
-		Platform    *BundleIDPlatform `json:"platform,omitempty"`
-		Status      *string           `json:"status,omitempty"`
-		UDID        *string           `json:"udid,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *DeviceAttributes `json:"attributes,omitempty"`
+	ID         string            `json:"id"`
+	Links      ResourceLinks     `json:"links"`
+	Type       string            `json:"type"`
+}
+
+// DeviceAttributes defines model for Device.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/device/attributes
+type DeviceAttributes struct {
+	AddedDate   *time.Time        `json:"addedDate,omitempty"`
+	DeviceClass *string           `json:"deviceClass,omitempty"`
+	Model       *string           `json:"model,omitempty"`
+	Name        *string           `json:"name,omitempty"`
+	Platform    *BundleIDPlatform `json:"platform,omitempty"`
+	Status      *string           `json:"status,omitempty"`
+	UDID        *string           `json:"udid,omitempty"`
 }
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.

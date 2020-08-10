@@ -9,12 +9,17 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmission
 type AppStoreVersionSubmission struct {
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	ID            string                                  `json:"id"`
+	Links         ResourceLinks                           `json:"links"`
+	Relationships *AppStoreVersionSubmissionRelationships `json:"relationships,omitempty"`
+	Type          string                                  `json:"type"`
+}
+
+// AppStoreVersionSubmissionRelationships defines model for AppStoreVersionSubmission.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmission/relationships
+type AppStoreVersionSubmissionRelationships struct {
+	AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 }
 
 // AppStoreVersionSubmissionCreateRequest defines model for AppStoreVersionSubmissionCreateRequest.

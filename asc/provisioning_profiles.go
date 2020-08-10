@@ -10,24 +10,34 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profile
 type Profile struct {
-	Attributes *struct {
-		CreatedDate    *time.Time        `json:"createdDate,omitempty"`
-		ExpirationDate *time.Time        `json:"expirationDate,omitempty"`
-		Name           *string           `json:"name,omitempty"`
-		Platform       *BundleIDPlatform `json:"platform,omitempty"`
-		ProfileContent *string           `json:"profileContent,omitempty"`
-		ProfileState   *string           `json:"profileState,omitempty"`
-		ProfileType    *string           `json:"profileType,omitempty"`
-		UUID           *string           `json:"uuid,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		BundleID     *Relationship      `json:"bundleId,omitempty"`
-		Certificates *PagedRelationship `json:"certificates,omitempty"`
-		Devices      *PagedRelationship `json:"devices,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *ProfileAttributes    `json:"attributes,omitempty"`
+	ID            string                `json:"id"`
+	Links         ResourceLinks         `json:"links"`
+	Relationships *ProfileRelationships `json:"relationships,omitempty"`
+	Type          string                `json:"type"`
+}
+
+// ProfileAttributes defines model for Profile.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profile/attributes
+type ProfileAttributes struct {
+	CreatedDate    *time.Time        `json:"createdDate,omitempty"`
+	ExpirationDate *time.Time        `json:"expirationDate,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	Platform       *BundleIDPlatform `json:"platform,omitempty"`
+	ProfileContent *string           `json:"profileContent,omitempty"`
+	ProfileState   *string           `json:"profileState,omitempty"`
+	ProfileType    *string           `json:"profileType,omitempty"`
+	UUID           *string           `json:"uuid,omitempty"`
+}
+
+// ProfileRelationships defines model for Profile.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/profile/relationships
+type ProfileRelationships struct {
+	BundleID     *Relationship      `json:"bundleId,omitempty"`
+	Certificates *PagedRelationship `json:"certificates,omitempty"`
+	Devices      *PagedRelationship `json:"devices,omitempty"`
 }
 
 // ProfileCreateRequest defines model for ProfileCreateRequest.

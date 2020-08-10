@@ -9,23 +9,33 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetail
 type AppStoreReviewDetail struct {
-	Attributes *struct {
-		ContactEmail        *string `json:"contactEmail,omitempty"`
-		ContactFirstName    *string `json:"contactFirstName,omitempty"`
-		ContactLastName     *string `json:"contactLastName,omitempty"`
-		ContactPhone        *string `json:"contactPhone,omitempty"`
-		DemoAccountName     *string `json:"demoAccountName,omitempty"`
-		DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
-		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
-		Notes               *string `json:"notes,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppStoreReviewAttachments *PagedRelationship `json:"appStoreReviewAttachments,omitempty"`
-		AppStoreVersion           *Relationship      `json:"appStoreVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppStoreReviewDetailAttributes    `json:"attributes,omitempty"`
+	ID            string                             `json:"id"`
+	Links         ResourceLinks                      `json:"links"`
+	Relationships *AppStoreReviewDetailRelationships `json:"relationships,omitempty"`
+	Type          string                             `json:"type"`
+}
+
+// AppStoreReviewDetailAttributes defines model for AppStoreReviewDetail.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetail/attributes
+type AppStoreReviewDetailAttributes struct {
+	ContactEmail        *string `json:"contactEmail,omitempty"`
+	ContactFirstName    *string `json:"contactFirstName,omitempty"`
+	ContactLastName     *string `json:"contactLastName,omitempty"`
+	ContactPhone        *string `json:"contactPhone,omitempty"`
+	DemoAccountName     *string `json:"demoAccountName,omitempty"`
+	DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
+	DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
+	Notes               *string `json:"notes,omitempty"`
+}
+
+// AppStoreReviewDetailRelationships defines model for AppStoreReviewDetail.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetail/relationships
+type AppStoreReviewDetailRelationships struct {
+	AppStoreReviewAttachments *PagedRelationship `json:"appStoreReviewAttachments,omitempty"`
+	AppStoreVersion           *Relationship      `json:"appStoreVersion,omitempty"`
 }
 
 // AppStoreReviewDetailCreateRequest defines model for AppStoreReviewDetailCreateRequest.

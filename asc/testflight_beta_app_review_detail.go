@@ -9,22 +9,32 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetail
 type BetaAppReviewDetail struct {
-	Attributes *struct {
-		ContactEmail        *string `json:"contactEmail,omitempty"`
-		ContactFirstName    *string `json:"contactFirstName,omitempty"`
-		ContactLastName     *string `json:"contactLastName,omitempty"`
-		ContactPhone        *string `json:"contactPhone,omitempty"`
-		DemoAccountName     *string `json:"demoAccountName,omitempty"`
-		DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
-		DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
-		Notes               *string `json:"notes,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App *Relationship `json:"app,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaAppReviewDetailAttributes    `json:"attributes,omitempty"`
+	ID            string                            `json:"id"`
+	Links         ResourceLinks                     `json:"links"`
+	Relationships *BetaAppReviewDetailRelationships `json:"relationships,omitempty"`
+	Type          string                            `json:"type"`
+}
+
+// BetaAppReviewDetailAttributes defines model for BetaAppReviewDetail.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetail/attributes
+type BetaAppReviewDetailAttributes struct {
+	ContactEmail        *string `json:"contactEmail,omitempty"`
+	ContactFirstName    *string `json:"contactFirstName,omitempty"`
+	ContactLastName     *string `json:"contactLastName,omitempty"`
+	ContactPhone        *string `json:"contactPhone,omitempty"`
+	DemoAccountName     *string `json:"demoAccountName,omitempty"`
+	DemoAccountPassword *string `json:"demoAccountPassword,omitempty"`
+	DemoAccountRequired *bool   `json:"demoAccountRequired,omitempty"`
+	Notes               *string `json:"notes,omitempty"`
+}
+
+// BetaAppReviewDetailRelationships defines model for BetaAppReviewDetail.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetail/relationships
+type BetaAppReviewDetailRelationships struct {
+	App *Relationship `json:"app,omitempty"`
 }
 
 // BetaAppReviewDetailUpdateRequest defines model for BetaAppReviewDetailUpdateRequest.

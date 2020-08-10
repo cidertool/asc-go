@@ -33,23 +33,33 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreview
 type AppPreview struct {
-	Attributes *struct {
-		AssetDeliveryState   *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
-		FileName             *string             `json:"fileName,omitempty"`
-		FileSize             *int64              `json:"fileSize,omitempty"`
-		MimeType             *string             `json:"mimeType,omitempty"`
-		PreviewFrameTimeCode *string             `json:"previewFrameTimeCode,omitempty"`
-		PreviewImage         *ImageAsset         `json:"previewImage,omitempty"`
-		SourceFileChecksum   *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations     *UploadOperations   `json:"uploadOperations,omitempty"`
-		VideoURL             *string             `json:"videoUrl,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppPreviewSet *Relationship `json:"appPreviewSet,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppPreviewAttributes    `json:"attributes,omitempty"`
+	ID            string                   `json:"id"`
+	Links         ResourceLinks            `json:"links"`
+	Relationships *AppPreviewRelationships `json:"relationships,omitempty"`
+	Type          string                   `json:"type"`
+}
+
+// AppPreviewAttributes defines model for AppPreview.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreview/attributes
+type AppPreviewAttributes struct {
+	AssetDeliveryState   *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
+	FileName             *string             `json:"fileName,omitempty"`
+	FileSize             *int64              `json:"fileSize,omitempty"`
+	MimeType             *string             `json:"mimeType,omitempty"`
+	PreviewFrameTimeCode *string             `json:"previewFrameTimeCode,omitempty"`
+	PreviewImage         *ImageAsset         `json:"previewImage,omitempty"`
+	SourceFileChecksum   *string             `json:"sourceFileChecksum,omitempty"`
+	UploadOperations     *UploadOperations   `json:"uploadOperations,omitempty"`
+	VideoURL             *string             `json:"videoUrl,omitempty"`
+}
+
+// AppPreviewRelationships defines model for AppPreview.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreview/relationships
+type AppPreviewRelationships struct {
+	AppPreviewSet *Relationship `json:"appPreviewSet,omitempty"`
 }
 
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.

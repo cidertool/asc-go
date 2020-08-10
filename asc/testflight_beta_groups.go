@@ -10,25 +10,35 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroup
 type BetaGroup struct {
-	Attributes *struct {
-		CreatedDate            *time.Time `json:"createdDate,omitempty"`
-		FeedbackEnabled        *bool      `json:"feedbackEnabled,omitempty"`
-		IsInternalGroup        *bool      `json:"isInternalGroup,omitempty"`
-		Name                   *string    `json:"name,omitempty"`
-		PublicLink             *string    `json:"publicLink,omitempty"`
-		PublicLinkEnabled      *bool      `json:"publicLinkEnabled,omitempty"`
-		PublicLinkID           *string    `json:"publicLinkId,omitempty"`
-		PublicLinkLimit        *int       `json:"publicLinkLimit,omitempty"`
-		PublicLinkLimitEnabled *bool      `json:"publicLinkLimitEnabled,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App         *Relationship      `json:"app,omitempty"`
-		BetaTesters *PagedRelationship `json:"betaTesters,omitempty"`
-		Builds      *PagedRelationship `json:"builds,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaGroupAttributes    `json:"attributes,omitempty"`
+	ID            string                  `json:"id"`
+	Links         ResourceLinks           `json:"links"`
+	Relationships *BetaGroupRelationships `json:"relationships,omitempty"`
+	Type          string                  `json:"type"`
+}
+
+// BetaGroupAttributes defines model for BetaGroup.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroup/attributes
+type BetaGroupAttributes struct {
+	CreatedDate            *time.Time `json:"createdDate,omitempty"`
+	FeedbackEnabled        *bool      `json:"feedbackEnabled,omitempty"`
+	IsInternalGroup        *bool      `json:"isInternalGroup,omitempty"`
+	Name                   *string    `json:"name,omitempty"`
+	PublicLink             *string    `json:"publicLink,omitempty"`
+	PublicLinkEnabled      *bool      `json:"publicLinkEnabled,omitempty"`
+	PublicLinkID           *string    `json:"publicLinkId,omitempty"`
+	PublicLinkLimit        *int       `json:"publicLinkLimit,omitempty"`
+	PublicLinkLimitEnabled *bool      `json:"publicLinkLimitEnabled,omitempty"`
+}
+
+// BetaGroupRelationships defines model for BetaGroup.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroup/relationships
+type BetaGroupRelationships struct {
+	App         *Relationship      `json:"app,omitempty"`
+	BetaTesters *PagedRelationship `json:"betaTesters,omitempty"`
+	Builds      *PagedRelationship `json:"builds,omitempty"`
 }
 
 // BetaGroupResponse defines model for BetaGroupResponse.

@@ -9,16 +9,26 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization
 type BetaBuildLocalization struct {
-	Attributes *struct {
-		Locale   *string `json:"locale,omitempty"`
-		WhatsNew *string `json:"whatsNew,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Build *Relationship `json:"build,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaBuildLocalizationAttributes    `json:"attributes,omitempty"`
+	ID            string                              `json:"id"`
+	Links         ResourceLinks                       `json:"links"`
+	Relationships *BetaBuildLocalizationRelationships `json:"relationships,omitempty"`
+	Type          string                              `json:"type"`
+}
+
+// BetaBuildLocalizationAttributes defines model for BetaBuildLocalization.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/attributes
+type BetaBuildLocalizationAttributes struct {
+	Locale   *string `json:"locale,omitempty"`
+	WhatsNew *string `json:"whatsNew,omitempty"`
+}
+
+// BetaBuildLocalizationRelationships defines model for BetaBuildLocalization.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/relationships
+type BetaBuildLocalizationRelationships struct {
+	Build *Relationship `json:"build,omitempty"`
 }
 
 // BetaBuildLocalizationResponse defines model for BetaBuildLocalizationResponse.

@@ -9,19 +9,29 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverage
 type RoutingAppCoverage struct {
-	Attributes *struct {
-		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
-		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int64              `json:"fileSize,omitempty"`
-		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *RoutingAppCoverageAttributes    `json:"attributes,omitempty"`
+	ID            string                           `json:"id"`
+	Links         ResourceLinks                    `json:"links"`
+	Relationships *RoutingAppCoverageRelationships `json:"relationships,omitempty"`
+	Type          string                           `json:"type"`
+}
+
+// RoutingAppCoverageAttributes defines model for RoutingAppCoverage.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverage/attributes
+type RoutingAppCoverageAttributes struct {
+	AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
+	FileName           *string             `json:"fileName,omitempty"`
+	FileSize           *int64              `json:"fileSize,omitempty"`
+	SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
+	UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
+}
+
+// RoutingAppCoverageRelationships defines model for RoutingAppCoverage.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverage/relationships
+type RoutingAppCoverageRelationships struct {
+	AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 }
 
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.

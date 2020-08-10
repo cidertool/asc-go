@@ -9,16 +9,26 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewset
 type AppPreviewSet struct {
-	Attributes *struct {
-		PreviewType *PreviewType `json:"previewType,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppPreviews                 *PagedRelationship `json:"appPreviews,omitempty"`
-		AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppPreviewSetAttributes    `json:"attributes,omitempty"`
+	ID            string                      `json:"id"`
+	Links         ResourceLinks               `json:"links"`
+	Relationships *AppPreviewSetRelationships `json:"relationships,omitempty"`
+	Type          string                      `json:"type"`
+}
+
+// AppPreviewSetAttributes defines model for AppPreviewSet.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewset/attributes
+type AppPreviewSetAttributes struct {
+	PreviewType *PreviewType `json:"previewType,omitempty"`
+}
+
+// AppPreviewSetRelationships defines model for AppPreviewSet.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewset/relationships
+type AppPreviewSetRelationships struct {
+	AppPreviews                 *PagedRelationship `json:"appPreviews,omitempty"`
+	AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 }
 
 // AppPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.

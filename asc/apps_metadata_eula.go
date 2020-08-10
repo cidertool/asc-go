@@ -9,16 +9,26 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreement
 type EndUserLicenseAgreement struct {
-	Attributes *struct {
-		AgreementText *string `json:"agreementText,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App         *Relationship      `json:"app,omitempty"`
-		Territories *PagedRelationship `json:"territories,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *EndUserLicenseAgreementAttributes    `json:"attributes,omitempty"`
+	ID            string                                `json:"id"`
+	Links         ResourceLinks                         `json:"links"`
+	Relationships *EndUserLicenseAgreementRelationships `json:"relationships,omitempty"`
+	Type          string                                `json:"type"`
+}
+
+// EndUserLicenseAgreementAttributes defines model for EndUserLicenseAgreement.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreement/attributes
+type EndUserLicenseAgreementAttributes struct {
+	AgreementText *string `json:"agreementText,omitempty"`
+}
+
+// EndUserLicenseAgreementRelationships defines model for EndUserLicenseAgreement.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreement/relationships
+type EndUserLicenseAgreementRelationships struct {
+	App         *Relationship      `json:"app,omitempty"`
+	Territories *PagedRelationship `json:"territories,omitempty"`
 }
 
 // EndUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.

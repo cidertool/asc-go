@@ -65,56 +65,71 @@ type AppStoreVersionUpdateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclaration
 type AgeRatingDeclaration struct {
-	Attributes *struct {
-		AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
-		GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
-		GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
-		HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
-		KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
-		MatureOrSuggestiveThemes                    *string      `json:"matureOrSuggestiveThemes,omitempty"`
-		MedicalOrTreatmentInformation               *string      `json:"medicalOrTreatmentInformation,omitempty"`
-		ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
-		SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
-		SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
-		UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
-		ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
-		ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
-		ViolenceRealisticProlongedGraphicOrSadistic *string      `json:"violenceRealisticProlongedGraphicOrSadistic,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *AgeRatingDeclarationAttributes `json:"attributes,omitempty"`
+	ID         string                          `json:"id"`
+	Links      ResourceLinks                   `json:"links"`
+	Type       string                          `json:"type"`
+}
+
+// AgeRatingDeclarationAttributes defines model for AgeRatingDeclaration.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclaration/attributes
+type AgeRatingDeclarationAttributes struct {
+	AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
+	GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
+	GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
+	HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
+	KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
+	MatureOrSuggestiveThemes                    *string      `json:"matureOrSuggestiveThemes,omitempty"`
+	MedicalOrTreatmentInformation               *string      `json:"medicalOrTreatmentInformation,omitempty"`
+	ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
+	SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
+	SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
+	UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
+	ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
+	ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
+	ViolenceRealisticProlongedGraphicOrSadistic *string      `json:"violenceRealisticProlongedGraphicOrSadistic,omitempty"`
 }
 
 // AppStoreVersion defines model for AppStoreVersion.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion
 type AppStoreVersion struct {
-	Attributes *struct {
-		AppStoreState       *AppStoreVersionState `json:"appStoreState,omitempty"`
-		Copyright           *string               `json:"copyright,omitempty"`
-		CreatedDate         *time.Time            `json:"createdDate,omitempty"`
-		Downloadable        *bool                 `json:"downloadable,omitempty"`
-		EarliestReleaseDate *time.Time            `json:"earliestReleaseDate,omitempty"`
-		Platform            *Platform             `json:"platform,omitempty"`
-		ReleaseType         *string               `json:"releaseType,omitempty"`
-		UsesIDFA            *bool                 `json:"usesIdfa,omitempty"`
-		VersionString       *string               `json:"versionString,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AgeRatingDeclaration         *Relationship      `json:"ageRatingDeclaration,omitempty"`
-		App                          *Relationship      `json:"app,omitempty"`
-		AppStoreReviewDetail         *Relationship      `json:"appStoreReviewDetail,omitempty"`
-		AppStoreVersionLocalizations *PagedRelationship `json:"appStoreVersionLocalizations,omitempty"`
-		AppStoreVersionPhasedRelease *Relationship      `json:"appStoreVersionPhasedRelease,omitempty"`
-		AppStoreVersionSubmission    *Relationship      `json:"appStoreVersionSubmission,omitempty"`
-		Build                        *Relationship      `json:"build,omitempty"`
-		IDFADeclaration              *Relationship      `json:"idfaDeclaration,omitempty"`
-		RoutingAppCoverage           *Relationship      `json:"routingAppCoverage,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppStoreVersionAttributes    `json:"attributes,omitempty"`
+	ID            string                        `json:"id"`
+	Links         ResourceLinks                 `json:"links"`
+	Relationships *AppStoreVersionRelationships `json:"relationships,omitempty"`
+	Type          string                        `json:"type"`
+}
+
+// AppStoreVersionAttributes defines model for AppStoreVersion.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion/attributes
+type AppStoreVersionAttributes struct {
+	AppStoreState       *AppStoreVersionState `json:"appStoreState,omitempty"`
+	Copyright           *string               `json:"copyright,omitempty"`
+	CreatedDate         *time.Time            `json:"createdDate,omitempty"`
+	Downloadable        *bool                 `json:"downloadable,omitempty"`
+	EarliestReleaseDate *time.Time            `json:"earliestReleaseDate,omitempty"`
+	Platform            *Platform             `json:"platform,omitempty"`
+	ReleaseType         *string               `json:"releaseType,omitempty"`
+	UsesIDFA            *bool                 `json:"usesIdfa,omitempty"`
+	VersionString       *string               `json:"versionString,omitempty"`
+}
+
+// AppStoreVersionRelationships defines model for AppStoreVersion.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion/relationships
+type AppStoreVersionRelationships struct {
+	AgeRatingDeclaration         *Relationship      `json:"ageRatingDeclaration,omitempty"`
+	App                          *Relationship      `json:"app,omitempty"`
+	AppStoreReviewDetail         *Relationship      `json:"appStoreReviewDetail,omitempty"`
+	AppStoreVersionLocalizations *PagedRelationship `json:"appStoreVersionLocalizations,omitempty"`
+	AppStoreVersionPhasedRelease *Relationship      `json:"appStoreVersionPhasedRelease,omitempty"`
+	AppStoreVersionSubmission    *Relationship      `json:"appStoreVersionSubmission,omitempty"`
+	Build                        *Relationship      `json:"build,omitempty"`
+	IDFADeclaration              *Relationship      `json:"idfaDeclaration,omitempty"`
+	RoutingAppCoverage           *Relationship      `json:"routingAppCoverage,omitempty"`
 }
 
 // AppStoreVersionResponse defines model for AppStoreVersionResponse.

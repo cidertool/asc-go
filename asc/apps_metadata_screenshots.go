@@ -9,22 +9,32 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshot
 type AppScreenshot struct {
-	Attributes *struct {
-		AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
-		AssetToken         *string             `json:"assetToken,omitempty"`
-		AssetType          *string             `json:"assetType,omitempty"`
-		FileName           *string             `json:"fileName,omitempty"`
-		FileSize           *int64              `json:"fileSize,omitempty"`
-		ImageAsset         *ImageAsset         `json:"imageAsset,omitempty"`
-		SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-		UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppScreenshotSet *Relationship `json:"appScreenshotSet,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppScreenshotAttributes    `json:"attributes,omitempty"`
+	ID            string                      `json:"id"`
+	Links         ResourceLinks               `json:"links"`
+	Relationships *AppScreenshotRelationships `json:"relationships,omitempty"`
+	Type          string                      `json:"type"`
+}
+
+// AppScreenshotAttributes defines model for AppScreenshot.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshot/attributes
+type AppScreenshotAttributes struct {
+	AssetDeliveryState *AppMediaAssetState `json:"assetDeliveryState,omitempty"`
+	AssetToken         *string             `json:"assetToken,omitempty"`
+	AssetType          *string             `json:"assetType,omitempty"`
+	FileName           *string             `json:"fileName,omitempty"`
+	FileSize           *int64              `json:"fileSize,omitempty"`
+	ImageAsset         *ImageAsset         `json:"imageAsset,omitempty"`
+	SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
+	UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
+}
+
+// AppScreenshotRelationships defines model for AppScreenshot.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshot/relationships
+type AppScreenshotRelationships struct {
+	AppScreenshotSet *Relationship `json:"appScreenshotSet,omitempty"`
 }
 
 // AppScreenshotCreateRequest defines model for AppScreenshotCreateRequest.

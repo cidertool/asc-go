@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"testing"
-	"time"
 )
 
 func TestListInvitations(t *testing.T) {
@@ -11,15 +10,7 @@ func TestListInvitations(t *testing.T) {
 	want := &UserInvitationsResponse{
 		Data: []UserInvitation{
 			{
-				Attributes: &struct {
-					AllAppsVisible      *bool       "json:\"allAppsVisible,omitempty\""
-					Email               *Email      "json:\"email,omitempty\""
-					ExpirationDate      *time.Time  "json:\"expirationDate,omitempty\""
-					FirstName           *string     "json:\"firstName,omitempty\""
-					LastName            *string     "json:\"lastName,omitempty\""
-					ProvisioningAllowed *bool       "json:\"provisioningAllowed,omitempty\""
-					Roles               *[]UserRole "json:\"roles,omitempty\""
-				}{
+				Attributes: &UserInvitationAttributes{
 					Email: &email,
 				},
 			},
@@ -34,15 +25,7 @@ func TestGetInvitation(t *testing.T) {
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
-			Attributes: &struct {
-				AllAppsVisible      *bool       "json:\"allAppsVisible,omitempty\""
-				Email               *Email      "json:\"email,omitempty\""
-				ExpirationDate      *time.Time  "json:\"expirationDate,omitempty\""
-				FirstName           *string     "json:\"firstName,omitempty\""
-				LastName            *string     "json:\"lastName,omitempty\""
-				ProvisioningAllowed *bool       "json:\"provisioningAllowed,omitempty\""
-				Roles               *[]UserRole "json:\"roles,omitempty\""
-			}{
+			Attributes: &UserInvitationAttributes{
 				Email: &email,
 			},
 		},
@@ -56,15 +39,7 @@ func TestCreateInvitation(t *testing.T) {
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
-			Attributes: &struct {
-				AllAppsVisible      *bool       "json:\"allAppsVisible,omitempty\""
-				Email               *Email      "json:\"email,omitempty\""
-				ExpirationDate      *time.Time  "json:\"expirationDate,omitempty\""
-				FirstName           *string     "json:\"firstName,omitempty\""
-				LastName            *string     "json:\"lastName,omitempty\""
-				ProvisioningAllowed *bool       "json:\"provisioningAllowed,omitempty\""
-				Roles               *[]UserRole "json:\"roles,omitempty\""
-			}{
+			Attributes: &UserInvitationAttributes{
 				Email: &email,
 			},
 		},

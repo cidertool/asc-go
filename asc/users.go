@@ -46,20 +46,30 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/user
 type User struct {
-	Attributes *struct {
-		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-		FirstName           *string     `json:"firstName,omitempty"`
-		LastName            *string     `json:"lastName,omitempty"`
-		ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-		Roles               *[]UserRole `json:"roles,omitempty"`
-		Username            *string     `json:"username,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		VisibleApps *PagedRelationship `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *UserAttributes    `json:"attributes,omitempty"`
+	ID            string             `json:"id"`
+	Links         ResourceLinks      `json:"links"`
+	Relationships *UserRelationships `json:"relationships,omitempty"`
+	Type          string             `json:"type"`
+}
+
+// UserAttributes defines model for User.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/user/attributes
+type UserAttributes struct {
+	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
+	FirstName           *string     `json:"firstName,omitempty"`
+	LastName            *string     `json:"lastName,omitempty"`
+	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
+	Roles               *[]UserRole `json:"roles,omitempty"`
+	Username            *string     `json:"username,omitempty"`
+}
+
+// UserRelationships defines model for User.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/user/relationships
+type UserRelationships struct {
+	VisibleApps *PagedRelationship `json:"visibleApps,omitempty"`
 }
 
 // UserUpdateRequest defines model for UserUpdateRequest.

@@ -17,30 +17,40 @@ type BuildsService service
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/build
 type Build struct {
-	Attributes *struct {
-		ExpirationDate          *time.Time  `json:"expirationDate,omitempty"`
-		Expired                 *bool       `json:"expired,omitempty"`
-		IconAssetToken          *ImageAsset `json:"iconAssetToken,omitempty"`
-		MinOsVersion            *string     `json:"minOsVersion,omitempty"`
-		ProcessingState         *string     `json:"processingState,omitempty"`
-		UploadedDate            *time.Time  `json:"uploadedDate,omitempty"`
-		UsesNonExemptEncryption *bool       `json:"usesNonExemptEncryption,omitempty"`
-		Version                 *string     `json:"version,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App                      *Relationship      `json:"app,omitempty"`
-		AppEncryptionDeclaration *Relationship      `json:"appEncryptionDeclaration,omitempty"`
-		AppStoreVersion          *Relationship      `json:"appStoreVersion,omitempty"`
-		BetaAppReviewSubmission  *Relationship      `json:"betaAppReviewSubmission,omitempty"`
-		BetaBuildLocalizations   *PagedRelationship `json:"betaBuildLocalizations,omitempty"`
-		BuildBetaDetail          *Relationship      `json:"buildBetaDetail,omitempty"`
-		Icons                    *PagedRelationship `json:"icons,omitempty"`
-		IndividualTesters        *PagedRelationship `json:"individualTesters,omitempty"`
-		PreReleaseVersion        *Relationship      `json:"preReleaseVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BuildAttributes    `json:"attributes,omitempty"`
+	ID            string              `json:"id"`
+	Links         ResourceLinks       `json:"links"`
+	Relationships *BuildRelationships `json:"relationships,omitempty"`
+	Type          string              `json:"type"`
+}
+
+// BuildAttributes defines model for Build.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/build/attributes
+type BuildAttributes struct {
+	ExpirationDate          *time.Time  `json:"expirationDate,omitempty"`
+	Expired                 *bool       `json:"expired,omitempty"`
+	IconAssetToken          *ImageAsset `json:"iconAssetToken,omitempty"`
+	MinOsVersion            *string     `json:"minOsVersion,omitempty"`
+	ProcessingState         *string     `json:"processingState,omitempty"`
+	UploadedDate            *time.Time  `json:"uploadedDate,omitempty"`
+	UsesNonExemptEncryption *bool       `json:"usesNonExemptEncryption,omitempty"`
+	Version                 *string     `json:"version,omitempty"`
+}
+
+// BuildRelationships defines model for Build.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/build/relationships
+type BuildRelationships struct {
+	App                      *Relationship      `json:"app,omitempty"`
+	AppEncryptionDeclaration *Relationship      `json:"appEncryptionDeclaration,omitempty"`
+	AppStoreVersion          *Relationship      `json:"appStoreVersion,omitempty"`
+	BetaAppReviewSubmission  *Relationship      `json:"betaAppReviewSubmission,omitempty"`
+	BetaBuildLocalizations   *PagedRelationship `json:"betaBuildLocalizations,omitempty"`
+	BuildBetaDetail          *Relationship      `json:"buildBetaDetail,omitempty"`
+	Icons                    *PagedRelationship `json:"icons,omitempty"`
+	IndividualTesters        *PagedRelationship `json:"individualTesters,omitempty"`
+	PreReleaseVersion        *Relationship      `json:"preReleaseVersion,omitempty"`
 }
 
 // BuildResponse defines model for BuildResponse.

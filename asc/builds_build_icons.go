@@ -23,13 +23,18 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildicon
 type BuildIcon struct {
-	Attributes *struct {
-		IconAsset *ImageAsset    `json:"iconAsset,omitempty"`
-		IconType  *IconAssetType `json:"iconType,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *BuildIconAttributes `json:"attributes,omitempty"`
+	ID         string               `json:"id"`
+	Links      ResourceLinks        `json:"links"`
+	Type       string               `json:"type"`
+}
+
+// BuildIconAttributes defines model for BuildIcon.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildicon/attributes
+type BuildIconAttributes struct {
+	IconAsset *ImageAsset    `json:"iconAsset,omitempty"`
+	IconType  *IconAssetType `json:"iconType,omitempty"`
 }
 
 // BuildIconsResponse defines model for BuildIconsResponse.

@@ -9,20 +9,30 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalization
 type BetaAppLocalization struct {
-	Attributes *struct {
-		Description       *string `json:"description,omitempty"`
-		FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
-		Locale            *string `json:"locale,omitempty"`
-		MarketingURL      *string `json:"marketingUrl,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App *Relationship `json:"app,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaAppLocalizationAttributes    `json:"attributes,omitempty"`
+	ID            string                            `json:"id"`
+	Links         ResourceLinks                     `json:"links"`
+	Relationships *BetaAppLocalizationRelationships `json:"relationships,omitempty"`
+	Type          string                            `json:"type"`
+}
+
+// BetaAppLocalizationAttributes defines model for BetaAppLocalization.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalization/attributes
+type BetaAppLocalizationAttributes struct {
+	Description       *string `json:"description,omitempty"`
+	FeedbackEmail     *string `json:"feedbackEmail,omitempty"`
+	Locale            *string `json:"locale,omitempty"`
+	MarketingURL      *string `json:"marketingUrl,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
+}
+
+// BetaAppLocalizationRelationships defines model for BetaAppLocalization.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalization/relationships
+type BetaAppLocalizationRelationships struct {
+	App *Relationship `json:"app,omitempty"`
 }
 
 // BetaAppLocalizationCreateRequest defines model for BetaAppLocalizationCreateRequest.

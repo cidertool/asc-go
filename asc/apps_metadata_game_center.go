@@ -9,18 +9,28 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversion
 type GameCenterEnabledVersion struct {
-	Attributes *struct {
-		IconAsset     *ImageAsset `json:"iconAsset,omitempty"`
-		Platform      *Platform   `json:"platform,omitempty"`
-		VersionString *string     `json:"versionString,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App                *Relationship      `json:"app,omitempty"`
-		CompatibleVersions *PagedRelationship `json:"compatibleVersions,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *GameCenterEnabledVersionAttributes    `json:"attributes,omitempty"`
+	ID            string                                 `json:"id"`
+	Links         ResourceLinks                          `json:"links"`
+	Relationships *GameCenterEnabledVersionRelationships `json:"relationships,omitempty"`
+	Type          string                                 `json:"type"`
+}
+
+// GameCenterEnabledVersionAttributes defines model for GameCenterEnabledVersion.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversion/attributes
+type GameCenterEnabledVersionAttributes struct {
+	IconAsset     *ImageAsset `json:"iconAsset,omitempty"`
+	Platform      *Platform   `json:"platform,omitempty"`
+	VersionString *string     `json:"versionString,omitempty"`
+}
+
+// GameCenterEnabledVersionRelationships defines model for GameCenterEnabledVersion.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversion/relationships
+type GameCenterEnabledVersionRelationships struct {
+	App                *Relationship      `json:"app,omitempty"`
+	CompatibleVersions *PagedRelationship `json:"compatibleVersions,omitempty"`
 }
 
 // GameCenterEnabledVersionCompatibleVersionsLinkagesResponse defines model for GameCenterEnabledVersionCompatibleVersionsLinkagesResponse.

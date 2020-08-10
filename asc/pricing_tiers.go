@@ -9,12 +9,17 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricetier
 type AppPriceTier struct {
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		PricePoints *PagedRelationship `json:"pricePoints,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	ID            string                     `json:"id"`
+	Links         ResourceLinks              `json:"links"`
+	Relationships *AppPriceTierRelationships `json:"relationships,omitempty"`
+	Type          string                     `json:"type"`
+}
+
+// AppPriceTierRelationships defines model for AppPriceTier.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricetier/relationships
+type AppPriceTierRelationships struct {
+	PricePoints *PagedRelationship `json:"pricePoints,omitempty"`
 }
 
 // AppPriceTierResponse defines model for AppPriceTierResponse.
@@ -40,17 +45,27 @@ type AppPriceTiersResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricepoint
 type AppPricePoint struct {
-	Attributes *struct {
-		CustomerPrice *string `json:"customerPrice,omitempty"`
-		Proceeds      *string `json:"proceeds,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		PriceTier *Relationship `json:"priceTier,omitempty"`
-		Territory *Relationship `json:"territory,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppPricePointAttributes    `json:"attributes,omitempty"`
+	ID            string                      `json:"id"`
+	Links         ResourceLinks               `json:"links"`
+	Relationships *AppPricePointRelationships `json:"relationships,omitempty"`
+	Type          string                      `json:"type"`
+}
+
+// AppPricePointAttributes defines model for AppPricePoint.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricepoint/attributes
+type AppPricePointAttributes struct {
+	CustomerPrice *string `json:"customerPrice,omitempty"`
+	Proceeds      *string `json:"proceeds,omitempty"`
+}
+
+// AppPricePointRelationships defines model for AppPricePoint.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/apppricepoint/relationships
+type AppPricePointRelationships struct {
+	PriceTier *Relationship `json:"priceTier,omitempty"`
+	Territory *Relationship `json:"territory,omitempty"`
 }
 
 // AppPricePointResponse defines model for AppPricePointResponse.

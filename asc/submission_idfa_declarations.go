@@ -9,18 +9,28 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclaration
 type IDFADeclaration struct {
-	Attributes *struct {
-		AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
-		AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`
-		HonorsLimitedAdTracking               *bool `json:"honorsLimitedAdTracking,omitempty"`
-		ServesAds                             *bool `json:"servesAds,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *IDFADeclarationAttributes    `json:"attributes,omitempty"`
+	ID            string                        `json:"id"`
+	Links         ResourceLinks                 `json:"links"`
+	Relationships *IDFADeclarationRelationships `json:"relationships,omitempty"`
+	Type          string                        `json:"type"`
+}
+
+// IDFADeclarationAttributes defines model for IDFADeclaration.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclaration/attributes
+type IDFADeclarationAttributes struct {
+	AttributesActionWithPreviousAd        *bool `json:"attributesActionWithPreviousAd,omitempty"`
+	AttributesAppInstallationToPreviousAd *bool `json:"attributesAppInstallationToPreviousAd,omitempty"`
+	HonorsLimitedAdTracking               *bool `json:"honorsLimitedAdTracking,omitempty"`
+	ServesAds                             *bool `json:"servesAds,omitempty"`
+}
+
+// IDFADeclarationRelationships defines model for IDFADeclaration.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclaration/relationships
+type IDFADeclarationRelationships struct {
+	AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 }
 
 // IDFADeclarationCreateRequest defines model for IDFADeclarationCreateRequest.

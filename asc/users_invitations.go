@@ -10,21 +10,31 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitation
 type UserInvitation struct {
-	Attributes *struct {
-		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-		Email               *Email      `json:"email,omitempty"`
-		ExpirationDate      *time.Time  `json:"expirationDate,omitempty"`
-		FirstName           *string     `json:"firstName,omitempty"`
-		LastName            *string     `json:"lastName,omitempty"`
-		ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-		Roles               *[]UserRole `json:"roles,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		VisibleApps *PagedRelationship `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *UserInvitationAttributes    `json:"attributes,omitempty"`
+	ID            string                       `json:"id"`
+	Links         ResourceLinks                `json:"links"`
+	Relationships *UserInvitationRelationships `json:"relationships,omitempty"`
+	Type          string                       `json:"type"`
+}
+
+// UserInvitationAttributes defines model for UserInvitation.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitation/attributes
+type UserInvitationAttributes struct {
+	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
+	Email               *Email      `json:"email,omitempty"`
+	ExpirationDate      *time.Time  `json:"expirationDate,omitempty"`
+	FirstName           *string     `json:"firstName,omitempty"`
+	LastName            *string     `json:"lastName,omitempty"`
+	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
+	Roles               *[]UserRole `json:"roles,omitempty"`
+}
+
+// UserInvitationRelationships defines model for UserInvitation.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitation/relationships
+type UserInvitationRelationships struct {
+	VisibleApps *PagedRelationship `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationCreateRequest defines model for UserInvitationCreateRequest.

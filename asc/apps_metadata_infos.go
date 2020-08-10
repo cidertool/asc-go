@@ -9,25 +9,35 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfo
 type AppInfo struct {
-	Attributes *struct {
-		AppStoreAgeRating *AppStoreAgeRating    `json:"appStoreAgeRating,omitempty"`
-		AppStoreState     *AppStoreVersionState `json:"appStoreState,omitempty"`
-		BrazilAgeRating   *BrazilAgeRating      `json:"brazilAgeRating,omitempty"`
-		KidsAgeBand       *KidsAgeBand          `json:"kidsAgeBand,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App                     *Relationship      `json:"app,omitempty"`
-		AppInfoLocalizations    *PagedRelationship `json:"appInfoLocalizations,omitempty"`
-		PrimaryCategory         *Relationship      `json:"primaryCategory,omitempty"`
-		PrimarySubcategoryOne   *Relationship      `json:"primarySubcategoryOne,omitempty"`
-		PrimarySubcategoryTwo   *Relationship      `json:"primarySubcategoryTwo,omitempty"`
-		SecondaryCategory       *Relationship      `json:"secondaryCategory,omitempty"`
-		SecondarySubcategoryOne *Relationship      `json:"secondarySubcategoryOne,omitempty"`
-		SecondarySubcategoryTwo *Relationship      `json:"secondarySubcategoryTwo,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppInfoAttributes    `json:"attributes,omitempty"`
+	ID            string                `json:"id"`
+	Links         ResourceLinks         `json:"links"`
+	Relationships *AppInfoRelationships `json:"relationships,omitempty"`
+	Type          string                `json:"type"`
+}
+
+// AppInfoAttributes defines model for AppInfo.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfo/attributes
+type AppInfoAttributes struct {
+	AppStoreAgeRating *AppStoreAgeRating    `json:"appStoreAgeRating,omitempty"`
+	AppStoreState     *AppStoreVersionState `json:"appStoreState,omitempty"`
+	BrazilAgeRating   *BrazilAgeRating      `json:"brazilAgeRating,omitempty"`
+	KidsAgeBand       *KidsAgeBand          `json:"kidsAgeBand,omitempty"`
+}
+
+// AppInfoRelationships defines model for AppInfo.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfo/relationships
+type AppInfoRelationships struct {
+	App                     *Relationship      `json:"app,omitempty"`
+	AppInfoLocalizations    *PagedRelationship `json:"appInfoLocalizations,omitempty"`
+	PrimaryCategory         *Relationship      `json:"primaryCategory,omitempty"`
+	PrimarySubcategoryOne   *Relationship      `json:"primarySubcategoryOne,omitempty"`
+	PrimarySubcategoryTwo   *Relationship      `json:"primarySubcategoryTwo,omitempty"`
+	SecondaryCategory       *Relationship      `json:"secondaryCategory,omitempty"`
+	SecondarySubcategoryOne *Relationship      `json:"secondarySubcategoryOne,omitempty"`
+	SecondarySubcategoryTwo *Relationship      `json:"secondarySubcategoryTwo,omitempty"`
 }
 
 // AppInfoResponse defines model for AppInfoResponse.

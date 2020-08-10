@@ -9,17 +9,27 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversion
 type PrereleaseVersion struct {
-	Attributes *struct {
-		Platform *Platform `json:"platform,omitempty"`
-		Version  *string   `json:"version,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App    *Relationship      `json:"app,omitempty"`
-		Builds *PagedRelationship `json:"builds,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *PrereleaseVersionAttributes    `json:"attributes,omitempty"`
+	ID            string                          `json:"id"`
+	Links         ResourceLinks                   `json:"links"`
+	Relationships *PrereleaseVersionRelationships `json:"relationships,omitempty"`
+	Type          string                          `json:"type"`
+}
+
+// PrereleaseVersionAttributes defines model for PrereleaseVersion.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversion/attributes
+type PrereleaseVersionAttributes struct {
+	Platform *Platform `json:"platform,omitempty"`
+	Version  *string   `json:"version,omitempty"`
+}
+
+// PrereleaseVersionRelationships defines model for PrereleaseVersion.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversion/relationships
+type PrereleaseVersionRelationships struct {
+	App    *Relationship      `json:"app,omitempty"`
+	Builds *PagedRelationship `json:"builds,omitempty"`
 }
 
 // PrereleaseVersionResponse defines model for PrereleaseVersionResponse.

@@ -20,20 +20,30 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatester
 type BetaTester struct {
-	Attributes *struct {
-		Email      *Email          `json:"email,omitempty"`
-		FirstName  *string         `json:"firstName,omitempty"`
-		InviteType *BetaInviteType `json:"inviteType,omitempty"`
-		LastName   *string         `json:"lastName,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Apps       *PagedRelationship `json:"apps,omitempty"`
-		BetaGroups *PagedRelationship `json:"betaGroups,omitempty"`
-		Builds     *PagedRelationship `json:"builds,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaTesterAttributes    `json:"attributes,omitempty"`
+	ID            string                   `json:"id"`
+	Links         ResourceLinks            `json:"links"`
+	Relationships *BetaTesterRelationships `json:"relationships,omitempty"`
+	Type          string                   `json:"type"`
+}
+
+// BetaTesterAttributes defines model for BetaTester.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatester/attributes
+type BetaTesterAttributes struct {
+	Email      *Email          `json:"email,omitempty"`
+	FirstName  *string         `json:"firstName,omitempty"`
+	InviteType *BetaInviteType `json:"inviteType,omitempty"`
+	LastName   *string         `json:"lastName,omitempty"`
+}
+
+// BetaTesterRelationships defines model for BetaTester.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betatester/relationships
+type BetaTesterRelationships struct {
+	Apps       *PagedRelationship `json:"apps,omitempty"`
+	BetaGroups *PagedRelationship `json:"betaGroups,omitempty"`
+	Builds     *PagedRelationship `json:"builds,omitempty"`
 }
 
 // BetaTesterAppsLinkagesResponse defines model for BetaTesterAppsLinkagesResponse.

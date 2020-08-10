@@ -9,15 +9,25 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreement
 type BetaLicenseAgreement struct {
-	Attributes *struct {
-		AgreementText *string `json:"agreementText,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App *Relationship `json:"app,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaLicenseAgreementAttributes    `json:"attributes,omitempty"`
+	ID            string                             `json:"id"`
+	Links         ResourceLinks                      `json:"links"`
+	Relationships *BetaLicenseAgreementRelationships `json:"relationships,omitempty"`
+	Type          string                             `json:"type"`
+}
+
+// BetaLicenseAgreementAttributes defines model for BetaLicenseAgreement.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreement/attributes
+type BetaLicenseAgreementAttributes struct {
+	AgreementText *string `json:"agreementText,omitempty"`
+}
+
+// BetaLicenseAgreementRelationships defines model for BetaLicenseAgreement.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreement/relationships
+type BetaLicenseAgreementRelationships struct {
+	App *Relationship `json:"app,omitempty"`
 }
 
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.

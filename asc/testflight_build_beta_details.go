@@ -46,17 +46,27 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetail
 type BuildBetaDetail struct {
-	Attributes *struct {
-		AutoNotifyEnabled  *bool              `json:"autoNotifyEnabled,omitempty"`
-		ExternalBuildState *ExternalBetaState `json:"externalBuildState,omitempty"`
-		InternalBuildState *InternalBetaState `json:"internalBuildState,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Build *Relationship `json:"build,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BuildBetaDetailAttributes    `json:"attributes,omitempty"`
+	ID            string                        `json:"id"`
+	Links         ResourceLinks                 `json:"links"`
+	Relationships *BuildBetaDetailRelationships `json:"relationships,omitempty"`
+	Type          string                        `json:"type"`
+}
+
+// BuildBetaDetailAttributes defines model for BuildBetaDetail.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetail/attributes
+type BuildBetaDetailAttributes struct {
+	AutoNotifyEnabled  *bool              `json:"autoNotifyEnabled,omitempty"`
+	ExternalBuildState *ExternalBetaState `json:"externalBuildState,omitempty"`
+	InternalBuildState *InternalBetaState `json:"internalBuildState,omitempty"`
+}
+
+// BuildBetaDetailRelationships defines model for BuildBetaDetail.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetail/relationships
+type BuildBetaDetailRelationships struct {
+	Build *Relationship `json:"build,omitempty"`
 }
 
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.

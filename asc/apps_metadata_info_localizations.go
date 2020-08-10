@@ -9,19 +9,29 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalization
 type AppInfoLocalization struct {
-	Attributes *struct {
-		Locale            *string `json:"locale,omitempty"`
-		Name              *string `json:"name,omitempty"`
-		PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
-		PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
-		Subtitle          *string `json:"subtitle,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppInfo *Relationship `json:"appInfo,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppInfoLocalizationAttributes    `json:"attributes,omitempty"`
+	ID            string                            `json:"id"`
+	Links         ResourceLinks                     `json:"links"`
+	Relationships *AppInfoLocalizationRelationships `json:"relationships,omitempty"`
+	Type          string                            `json:"type"`
+}
+
+// AppInfoLocalizationAttributes defines model for AppInfoLocalization.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalization/attributes
+type AppInfoLocalizationAttributes struct {
+	Locale            *string `json:"locale,omitempty"`
+	Name              *string `json:"name,omitempty"`
+	PrivacyPolicyText *string `json:"privacyPolicyText,omitempty"`
+	PrivacyPolicyURL  *string `json:"privacyPolicyUrl,omitempty"`
+	Subtitle          *string `json:"subtitle,omitempty"`
+}
+
+// AppInfoLocalizationRelationships defines model for AppInfoLocalization.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalization/relationships
+type AppInfoLocalizationRelationships struct {
+	AppInfo *Relationship `json:"appInfo,omitempty"`
 }
 
 // AppInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.

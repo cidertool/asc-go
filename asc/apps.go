@@ -27,34 +27,44 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/app
 type App struct {
-	Attributes *struct {
-		AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
-		BundleID                  *string `json:"bundleId,omitempty"`
-		ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
-		IsOrEverWasMadeForKids    *bool   `json:"isOrEverWasMadeForKids,omitempty"`
-		Name                      *string `json:"name,omitempty"`
-		PrimaryLocale             *string `json:"primaryLocale,omitempty"`
-		Sku                       *string `json:"sku,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppInfos                  *PagedRelationship `json:"appInfos,omitempty"`
-		AppStoreVersions          *PagedRelationship `json:"appStoreVersions,omitempty"`
-		AvailableTerritories      *PagedRelationship `json:"availableTerritories,omitempty"`
-		BetaAppLocalizations      *PagedRelationship `json:"betaAppLocalizations,omitempty"`
-		BetaAppReviewDetail       *Relationship      `json:"betaAppReviewDetail,omitempty"`
-		BetaGroups                *PagedRelationship `json:"betaGroups,omitempty"`
-		BetaLicenseAgreement      *Relationship      `json:"betaLicenseAgreement,omitempty"`
-		Builds                    *PagedRelationship `json:"builds,omitempty"`
-		EndUserLicenseAgreement   *Relationship      `json:"endUserLicenseAgreement,omitempty"`
-		GameCenterEnabledVersions *PagedRelationship `json:"gameCenterEnabledVersions,omitempty"`
-		InAppPurchases            *PagedRelationship `json:"inAppPurchases,omitempty"`
-		PreOrder                  *Relationship      `json:"preOrder,omitempty"`
-		PreReleaseVersions        *PagedRelationship `json:"preReleaseVersions,omitempty"`
-		Prices                    *PagedRelationship `json:"prices,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppAttributes    `json:"attributes,omitempty"`
+	ID            string            `json:"id"`
+	Links         ResourceLinks     `json:"links"`
+	Relationships *AppRelationships `json:"relationships,omitempty"`
+	Type          string            `json:"type"`
+}
+
+// AppAttributes defines model for App.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/app/attributes
+type AppAttributes struct {
+	AvailableInNewTerritories *bool   `json:"availableInNewTerritories,omitempty"`
+	BundleID                  *string `json:"bundleId,omitempty"`
+	ContentRightsDeclaration  *string `json:"contentRightsDeclaration,omitempty"`
+	IsOrEverWasMadeForKids    *bool   `json:"isOrEverWasMadeForKids,omitempty"`
+	Name                      *string `json:"name,omitempty"`
+	PrimaryLocale             *string `json:"primaryLocale,omitempty"`
+	Sku                       *string `json:"sku,omitempty"`
+}
+
+// AppRelationships defines model for App.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/app/relationships
+type AppRelationships struct {
+	AppInfos                  *PagedRelationship `json:"appInfos,omitempty"`
+	AppStoreVersions          *PagedRelationship `json:"appStoreVersions,omitempty"`
+	AvailableTerritories      *PagedRelationship `json:"availableTerritories,omitempty"`
+	BetaAppLocalizations      *PagedRelationship `json:"betaAppLocalizations,omitempty"`
+	BetaAppReviewDetail       *Relationship      `json:"betaAppReviewDetail,omitempty"`
+	BetaGroups                *PagedRelationship `json:"betaGroups,omitempty"`
+	BetaLicenseAgreement      *Relationship      `json:"betaLicenseAgreement,omitempty"`
+	Builds                    *PagedRelationship `json:"builds,omitempty"`
+	EndUserLicenseAgreement   *Relationship      `json:"endUserLicenseAgreement,omitempty"`
+	GameCenterEnabledVersions *PagedRelationship `json:"gameCenterEnabledVersions,omitempty"`
+	InAppPurchases            *PagedRelationship `json:"inAppPurchases,omitempty"`
+	PreOrder                  *Relationship      `json:"preOrder,omitempty"`
+	PreReleaseVersions        *PagedRelationship `json:"preReleaseVersions,omitempty"`
+	Prices                    *PagedRelationship `json:"prices,omitempty"`
 }
 
 // AppUpdateRequest defines model for AppUpdateRequest.
@@ -108,18 +118,28 @@ type AppsResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/inapppurchase
 type InAppPurchase struct {
-	Attributes *struct {
-		InAppPurchaseType *string `json:"inAppPurchaseType,omitempty"`
-		ProductID         *string `json:"productId,omitempty"`
-		ReferenceName     *string `json:"referenceName,omitempty"`
-		State             *string `json:"state,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Apps *PagedRelationship `json:"apps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *InAppPurchaseAttributes    `json:"attributes,omitempty"`
+	ID            string                      `json:"id"`
+	Links         ResourceLinks               `json:"links"`
+	Relationships *InAppPurchaseRelationships `json:"relationships,omitempty"`
+	Type          string                      `json:"type"`
+}
+
+// InAppPurchaseAttributes defines model for InAppPurchase.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/inapppurchase/attributes
+type InAppPurchaseAttributes struct {
+	InAppPurchaseType *string `json:"inAppPurchaseType,omitempty"`
+	ProductID         *string `json:"productId,omitempty"`
+	ReferenceName     *string `json:"referenceName,omitempty"`
+	State             *string `json:"state,omitempty"`
+}
+
+// InAppPurchaseRelationships defines model for InAppPurchase.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/inapppurchase/relationships
+type InAppPurchaseRelationships struct {
+	Apps *PagedRelationship `json:"apps,omitempty"`
 }
 
 // InAppPurchaseResponse defines model for InAppPurchaseResponse.

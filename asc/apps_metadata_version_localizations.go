@@ -9,23 +9,33 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalization
 type AppStoreVersionLocalization struct {
-	Attributes *struct {
-		Description     *string `json:"description,omitempty"`
-		Keywords        *string `json:"keywords,omitempty"`
-		Locale          *string `json:"locale,omitempty"`
-		MarketingURL    *string `json:"marketingUrl,omitempty"`
-		PromotionalText *string `json:"promotionalText,omitempty"`
-		SupportURL      *string `json:"supportUrl,omitempty"`
-		WhatsNew        *string `json:"whatsNew,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		AppPreviewSets    *PagedRelationship `json:"appPreviewSets,omitempty"`
-		AppScreenshotSets *PagedRelationship `json:"appScreenshotSets,omitempty"`
-		AppStoreVersion   *Relationship      `json:"appStoreVersion,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppStoreVersionLocalizationAttributes    `json:"attributes,omitempty"`
+	ID            string                                    `json:"id"`
+	Links         ResourceLinks                             `json:"links"`
+	Relationships *AppStoreVersionLocalizationRelationships `json:"relationships,omitempty"`
+	Type          string                                    `json:"type"`
+}
+
+// AppStoreVersionLocalizationAttributes defines model for AppStoreVersionLocalization.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalization/attributes
+type AppStoreVersionLocalizationAttributes struct {
+	Description     *string `json:"description,omitempty"`
+	Keywords        *string `json:"keywords,omitempty"`
+	Locale          *string `json:"locale,omitempty"`
+	MarketingURL    *string `json:"marketingUrl,omitempty"`
+	PromotionalText *string `json:"promotionalText,omitempty"`
+	SupportURL      *string `json:"supportUrl,omitempty"`
+	WhatsNew        *string `json:"whatsNew,omitempty"`
+}
+
+// AppStoreVersionLocalizationRelationships defines model for AppStoreVersionLocalization.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalization/relationships
+type AppStoreVersionLocalizationRelationships struct {
+	AppPreviewSets    *PagedRelationship `json:"appPreviewSets,omitempty"`
+	AppScreenshotSets *PagedRelationship `json:"appScreenshotSets,omitempty"`
+	AppStoreVersion   *Relationship      `json:"appStoreVersion,omitempty"`
 }
 
 // AppStoreVersionLocalizationCreateRequest defines model for AppStoreVersionLocalizationCreateRequest.

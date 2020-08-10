@@ -27,14 +27,19 @@ type DiagnosticLogsResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/diagnosticsignature
 type DiagnosticSignature struct {
-	Attributes *struct {
-		DiagnosticType *string  `json:"diagnosticType,omitempty"`
-		Signature      *string  `json:"signature,omitempty"`
-		Weight         *float32 `json:"weight,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *DiagnosticSignatureAttributes `json:"attributes,omitempty"`
+	ID         string                         `json:"id"`
+	Links      ResourceLinks                  `json:"links"`
+	Type       string                         `json:"type"`
+}
+
+// DiagnosticSignatureAttributes defines model for DiagnosticSignature.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/diagnosticsignature/attributes
+type DiagnosticSignatureAttributes struct {
+	DiagnosticType *string  `json:"diagnosticType,omitempty"`
+	Signature      *string  `json:"signature,omitempty"`
+	Weight         *float32 `json:"weight,omitempty"`
 }
 
 // DiagnosticSignaturesResponse defines model for DiagnosticSignaturesResponse.
@@ -51,14 +56,19 @@ type DiagnosticSignaturesResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/perfpowermetric
 type PerfPowerMetric struct {
-	Attributes *struct {
-		DeviceType *string `json:"deviceType,omitempty"`
-		MetricType *string `json:"metricType,omitempty"`
-		Platform   *string `json:"platform,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *PerfPowerMetricAttributes `json:"attributes,omitempty"`
+	ID         string                     `json:"id"`
+	Links      ResourceLinks              `json:"links"`
+	Type       string                     `json:"type"`
+}
+
+// PerfPowerMetricAttributes defines model for PerfPowerMetric.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/perfpowermetric/attributes
+type PerfPowerMetricAttributes struct {
+	DeviceType *string `json:"deviceType,omitempty"`
+	MetricType *string `json:"metricType,omitempty"`
+	Platform   *string `json:"platform,omitempty"`
 }
 
 // PerfPowerMetricsResponse defines model for PerfPowerMetricsResponse.

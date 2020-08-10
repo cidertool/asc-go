@@ -9,12 +9,17 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/territory
 type Territory struct {
-	Attributes *struct {
-		Currency *string `json:"currency,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *TerritoryAttributes `json:"attributes,omitempty"`
+	ID         string               `json:"id"`
+	Links      ResourceLinks        `json:"links"`
+	Type       string               `json:"type"`
+}
+
+// TerritoryAttributes defines model for Territory.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/territory/attributes
+type TerritoryAttributes struct {
+	Currency *string `json:"currency,omitempty"`
 }
 
 // TerritoryResponse defines model for TerritoryResponse.

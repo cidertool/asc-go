@@ -46,13 +46,18 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapability
 type BundleIDCapability struct {
-	Attributes *struct {
-		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
-		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *BundleIDCapabilityAttributes `json:"attributes,omitempty"`
+	ID         string                        `json:"id"`
+	Links      ResourceLinks                 `json:"links"`
+	Type       string                        `json:"type"`
+}
+
+// BundleIDCapabilityAttributes defines model for BundleIdCapability.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapability/attributes
+type BundleIDCapabilityAttributes struct {
+	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
+	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.

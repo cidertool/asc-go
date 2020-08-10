@@ -24,26 +24,36 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclaration
 type AppEncryptionDeclaration struct {
-	Attributes *struct {
-		AppEncryptionDeclarationState   *AppEncryptionDeclarationState `json:"appEncryptionDeclarationState,omitempty"`
-		AvailableOnFrenchStore          *bool                          `json:"availableOnFrenchStore,omitempty"`
-		CodeValue                       *string                        `json:"codeValue,omitempty"`
-		ContainsProprietaryCryptography *bool                          `json:"containsProprietaryCryptography,omitempty"`
-		ContainsThirdPartyCryptography  *bool                          `json:"containsThirdPartyCryptography,omitempty"`
-		DocumentName                    *string                        `json:"documentName,omitempty"`
-		DocumentType                    *string                        `json:"documentType,omitempty"`
-		DocumentURL                     *string                        `json:"documentUrl,omitempty"`
-		Exempt                          *bool                          `json:"exempt,omitempty"`
-		Platform                        *Platform                      `json:"platform,omitempty"`
-		UploadedDate                    *time.Time                     `json:"uploadedDate,omitempty"`
-		UsesEncryption                  *bool                          `json:"usesEncryption,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		App *Relationship `json:"app,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppEncryptionDeclarationAttributes    `json:"attributes,omitempty"`
+	ID            string                                 `json:"id"`
+	Links         ResourceLinks                          `json:"links"`
+	Relationships *AppEncryptionDeclarationRelationships `json:"relationships,omitempty"`
+	Type          string                                 `json:"type"`
+}
+
+// AppEncryptionDeclarationAttributes defines model for AppEncryptionDeclaration.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclaration/attributes
+type AppEncryptionDeclarationAttributes struct {
+	AppEncryptionDeclarationState   *AppEncryptionDeclarationState `json:"appEncryptionDeclarationState,omitempty"`
+	AvailableOnFrenchStore          *bool                          `json:"availableOnFrenchStore,omitempty"`
+	CodeValue                       *string                        `json:"codeValue,omitempty"`
+	ContainsProprietaryCryptography *bool                          `json:"containsProprietaryCryptography,omitempty"`
+	ContainsThirdPartyCryptography  *bool                          `json:"containsThirdPartyCryptography,omitempty"`
+	DocumentName                    *string                        `json:"documentName,omitempty"`
+	DocumentType                    *string                        `json:"documentType,omitempty"`
+	DocumentURL                     *string                        `json:"documentUrl,omitempty"`
+	Exempt                          *bool                          `json:"exempt,omitempty"`
+	Platform                        *Platform                      `json:"platform,omitempty"`
+	UploadedDate                    *time.Time                     `json:"uploadedDate,omitempty"`
+	UsesEncryption                  *bool                          `json:"usesEncryption,omitempty"`
+}
+
+// AppEncryptionDeclarationRelationships defines model for AppEncryptionDeclaration.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclaration/relationships
+type AppEncryptionDeclarationRelationships struct {
+	App *Relationship `json:"app,omitempty"`
 }
 
 // AppEncryptionDeclarationResponse defines model for AppEncryptionDeclarationResponse.

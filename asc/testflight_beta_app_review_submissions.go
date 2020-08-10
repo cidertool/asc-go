@@ -22,15 +22,25 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmission
 type BetaAppReviewSubmission struct {
-	Attributes *struct {
-		BetaReviewState *BetaReviewState `json:"betaReviewState,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Build *Relationship `json:"build,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *BetaAppReviewSubmissionAttributes    `json:"attributes,omitempty"`
+	ID            string                                `json:"id"`
+	Links         ResourceLinks                         `json:"links"`
+	Relationships *BetaAppReviewSubmissionRelationships `json:"relationships,omitempty"`
+	Type          string                                `json:"type"`
+}
+
+// BetaAppReviewSubmissionAttributes defines model for BetaAppReviewSubmission.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmission/attributes
+type BetaAppReviewSubmissionAttributes struct {
+	BetaReviewState *BetaReviewState `json:"betaReviewState,omitempty"`
+}
+
+// BetaAppReviewSubmissionRelationships defines model for BetaAppReviewSubmission.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmission/relationships
+type BetaAppReviewSubmissionRelationships struct {
+	Build *Relationship `json:"build,omitempty"`
 }
 
 // BetaAppReviewSubmissionCreateRequest defines model for BetaAppReviewSubmissionCreateRequest.

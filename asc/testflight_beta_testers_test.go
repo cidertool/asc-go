@@ -9,12 +9,7 @@ func TestCreateBetaTester(t *testing.T) {
 	email := Email("me@email.com")
 	want := &BetaTesterResponse{
 		Data: BetaTester{
-			Attributes: &struct {
-				Email      *Email          "json:\"email,omitempty\""
-				FirstName  *string         "json:\"firstName,omitempty\""
-				InviteType *BetaInviteType "json:\"inviteType,omitempty\""
-				LastName   *string         "json:\"lastName,omitempty\""
-			}{
+			Attributes: &BetaTesterAttributes{
 				Email: &email,
 			},
 		},

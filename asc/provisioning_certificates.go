@@ -28,18 +28,23 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/certificate
 type Certificate struct {
-	Attributes *struct {
-		CertificateContent *string           `json:"certificateContent,omitempty"`
-		CertificateType    *CertificateType  `json:"certificateType,omitempty"`
-		DisplayName        *string           `json:"displayName,omitempty"`
-		ExpirationDate     *time.Time        `json:"expirationDate,omitempty"`
-		Name               *string           `json:"name,omitempty"`
-		Platform           *BundleIDPlatform `json:"platform,omitempty"`
-		SerialNumber       *string           `json:"serialNumber,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *CertificateAttributes `json:"attributes,omitempty"`
+	ID         string                 `json:"id"`
+	Links      ResourceLinks          `json:"links"`
+	Type       string                 `json:"type"`
+}
+
+// CertificateAttributes defines model for Certificate.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/certificate/attributes
+type CertificateAttributes struct {
+	CertificateContent *string           `json:"certificateContent,omitempty"`
+	CertificateType    *CertificateType  `json:"certificateType,omitempty"`
+	DisplayName        *string           `json:"displayName,omitempty"`
+	ExpirationDate     *time.Time        `json:"expirationDate,omitempty"`
+	Name               *string           `json:"name,omitempty"`
+	Platform           *BundleIDPlatform `json:"platform,omitempty"`
+	SerialNumber       *string           `json:"serialNumber,omitempty"`
 }
 
 // CertificateCreateRequest defines model for CertificateCreateRequest.

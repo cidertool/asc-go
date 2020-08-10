@@ -9,16 +9,26 @@ import (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategory
 type AppCategory struct {
-	Attributes *struct {
-		Platforms *[]Platform `json:"platforms,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID            string        `json:"id"`
-	Links         ResourceLinks `json:"links"`
-	Relationships *struct {
-		Parent        *Relationship      `json:"parent,omitempty"`
-		Subcategories *PagedRelationship `json:"subcategories,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type string `json:"type"`
+	Attributes    *AppCategoryAttributes    `json:"attributes,omitempty"`
+	ID            string                    `json:"id"`
+	Links         ResourceLinks             `json:"links"`
+	Relationships *AppCategoryRelationships `json:"relationships,omitempty"`
+	Type          string                    `json:"type"`
+}
+
+// AppCategoryAttributes defines model for AppCategory.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appcategory/attributes
+type AppCategoryAttributes struct {
+	Platforms *[]Platform `json:"platforms,omitempty"`
+}
+
+// AppCategoryRelationships defines model for AppCategory.Relationships
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appcategory/relationships
+type AppCategoryRelationships struct {
+	Parent        *Relationship      `json:"parent,omitempty"`
+	Subcategories *PagedRelationship `json:"subcategories,omitempty"`
 }
 
 // AppCategoriesResponse defines model for AppCategoriesResponse.

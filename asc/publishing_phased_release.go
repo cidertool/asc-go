@@ -26,15 +26,20 @@ const (
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedrelease
 type AppStoreVersionPhasedRelease struct {
-	Attributes *struct {
-		CurrentDayNumber   *int                `json:"currentDayNumber,omitempty"`
-		PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-		StartDate          *time.Time          `json:"startDate,omitempty"`
-		TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
-	} `json:"attributes,omitempty"`
-	ID    string        `json:"id"`
-	Links ResourceLinks `json:"links"`
-	Type  string        `json:"type"`
+	Attributes *AppStoreVersionPhasedReleaseAttributes `json:"attributes,omitempty"`
+	ID         string                                  `json:"id"`
+	Links      ResourceLinks                           `json:"links"`
+	Type       string                                  `json:"type"`
+}
+
+// AppStoreVersionPhasedReleaseAttributes defines model for AppStoreVersionPhasedRelease.Attributes
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedrelease/attributes
+type AppStoreVersionPhasedReleaseAttributes struct {
+	CurrentDayNumber   *int                `json:"currentDayNumber,omitempty"`
+	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
+	StartDate          *time.Time          `json:"startDate,omitempty"`
+	TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
