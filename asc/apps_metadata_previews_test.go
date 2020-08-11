@@ -17,10 +17,8 @@ func TestCreateAppPreview(t *testing.T) {
 	})
 }
 
-func TestCreateAppPreviewNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppPreview(ctx, nil)
-	})
+func TestCreateAppPreviewApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestCommitAppPreview(t *testing.T) {
@@ -29,10 +27,8 @@ func TestCommitAppPreview(t *testing.T) {
 	})
 }
 
-func TestCommitAppPreviewNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitAppPreview(ctx, "10", nil)
-	})
+func TestCommitAppPreviewApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteAppPreview(t *testing.T) {

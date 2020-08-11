@@ -23,7 +23,7 @@ func TestCreateBetaTester(t *testing.T) {
 	})
 }
 
-func TestCreateBetaTesterNoRequest(t *testing.T) {
+func TestCreateBetaTesterApplyRequestTypes(t *testing.T) {
 	want := new(BetaTesterResponse)
 	testEndpointWithResponse(t, `null`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.CreateBetaTester(ctx, nil)
@@ -54,10 +54,8 @@ func TestAddBetaTesterToBetaGroups(t *testing.T) {
 	})
 }
 
-func TestAddBetaTesterToBetaGroupsNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", nil)
-	})
+func TestAddBetaTesterToBetaGroupsApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
@@ -66,10 +64,8 @@ func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
 	})
 }
 
-func TestRemoveBetaTesterFromBetaGroupsNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", nil)
-	})
+func TestRemoveBetaTesterFromBetaGroupsApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
@@ -78,10 +74,8 @@ func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
 	})
 }
 
-func TestAssignSingleBetaTesterToBuildsNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", nil)
-	})
+func TestAssignSingleBetaTesterToBuildsApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
@@ -90,10 +84,8 @@ func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
 	})
 }
 
-func TestUnassignSingleBetaTesterFromBuildsNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", nil)
-	})
+func TestUnassignSingleBetaTesterFromBuildsApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
@@ -102,10 +94,8 @@ func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
 	})
 }
 
-func TestRemoveSingleBetaTesterAccessAppsNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", nil)
-	})
+func TestRemoveSingleBetaTesterAccessAppsApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestListAppsForBetaTester(t *testing.T) {

@@ -11,10 +11,8 @@ func TestCreateProfile(t *testing.T) {
 	})
 }
 
-func TestCreateProfileNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateProfile(ctx, nil)
-	})
+func TestCreateProfileApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteProfile(t *testing.T) {

@@ -11,8 +11,6 @@ func TestCreateAvailableBuildNotification(t *testing.T) {
 	})
 }
 
-func TestCreateAvailableBuildNotificationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BuildBetaNotificationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateAvailableBuildNotification(ctx, nil)
-	})
+func TestCreateAvailableBuildNotificationApplyRequestTypes(t *testing.T) {
+
 }

@@ -23,10 +23,8 @@ func TestCreatePreOrder(t *testing.T) {
 	})
 }
 
-func TestCreatePreOrderNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.CreatePreOrder(ctx, nil)
-	})
+func TestCreatePreOrderApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdatePreOrder(t *testing.T) {
@@ -35,10 +33,8 @@ func TestUpdatePreOrder(t *testing.T) {
 	})
 }
 
-func TestUpdatePreOrderNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.UpdatePreOrder(ctx, "10", nil)
-	})
+func TestUpdatePreOrderApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeletePreOrder(t *testing.T) {

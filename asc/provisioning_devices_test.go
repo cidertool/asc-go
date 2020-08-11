@@ -11,10 +11,8 @@ func TestCreateDevice(t *testing.T) {
 	})
 }
 
-func TestCreateDeviceNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &DeviceResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateDevice(ctx, nil)
-	})
+func TestCreateDeviceApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestListDevices(t *testing.T) {
@@ -35,8 +33,6 @@ func TestUpdateDevice(t *testing.T) {
 	})
 }
 
-func TestUpdateDeviceNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &DeviceResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateDevice(ctx, "10", nil)
-	})
+func TestUpdateDeviceApplyRequestTypes(t *testing.T) {
+
 }

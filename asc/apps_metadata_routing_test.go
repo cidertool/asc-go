@@ -23,10 +23,8 @@ func TestCreateRoutingAppCoverage(t *testing.T) {
 	})
 }
 
-func TestCreateRoutingAppCoverageNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateRoutingAppCoverage(ctx, nil)
-	})
+func TestCreateRoutingAppCoverageApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestCommitRoutingAppCoverage(t *testing.T) {
@@ -35,10 +33,8 @@ func TestCommitRoutingAppCoverage(t *testing.T) {
 	})
 }
 
-func TestCommitRoutingAppCoverageNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitRoutingAppCoverage(ctx, "10", nil)
-	})
+func TestCommitRoutingAppCoverageApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteRoutingAppCoverage(t *testing.T) {

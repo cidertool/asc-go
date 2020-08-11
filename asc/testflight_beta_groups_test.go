@@ -11,10 +11,8 @@ func TestCreateBetaGroup(t *testing.T) {
 	})
 }
 
-func TestCreateBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaGroup(ctx, nil)
-	})
+func TestCreateBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateBetaGroup(t *testing.T) {
@@ -23,10 +21,8 @@ func TestUpdateBetaGroup(t *testing.T) {
 	})
 }
 
-func TestUpdateBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaGroup(ctx, "10", nil)
-	})
+func TestUpdateBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteBetaGroup(t *testing.T) {
@@ -65,10 +61,8 @@ func TestAddBetaTestersToBetaGroup(t *testing.T) {
 	})
 }
 
-func TestAddBetaTestersToBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", nil)
-	})
+func TestAddBetaTestersToBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
@@ -77,10 +71,8 @@ func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
 	})
 }
 
-func TestRemoveBetaTestersFromBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", nil)
-	})
+func TestRemoveBetaTestersFromBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestAddBuildsToBetaGroup(t *testing.T) {
@@ -89,10 +81,8 @@ func TestAddBuildsToBetaGroup(t *testing.T) {
 	})
 }
 
-func TestAddBuildsToBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", nil)
-	})
+func TestAddBuildsToBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveBuildsFromBetaGroup(t *testing.T) {
@@ -101,10 +91,8 @@ func TestRemoveBuildsFromBetaGroup(t *testing.T) {
 	})
 }
 
-func TestRemoveBuildsFromBetaGroupNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", nil)
-	})
+func TestRemoveBuildsFromBetaGroupApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestListBuildsForBetaGroup(t *testing.T) {

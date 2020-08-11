@@ -11,10 +11,8 @@ func TestCreateIDFADeclaration(t *testing.T) {
 	})
 }
 
-func TestCreateIDFADeclarationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateIDFADeclaration(ctx, nil)
-	})
+func TestCreateIDFADeclarationApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateIDFADeclaration(t *testing.T) {
@@ -23,10 +21,8 @@ func TestUpdateIDFADeclaration(t *testing.T) {
 	})
 }
 
-func TestUpdateIDFADeclarationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.UpdateIDFADeclaration(ctx, "10", nil)
-	})
+func TestUpdateIDFADeclarationApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteIDFADeclaration(t *testing.T) {

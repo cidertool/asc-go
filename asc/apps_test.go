@@ -23,10 +23,8 @@ func TestUpdateApp(t *testing.T) {
 	})
 }
 
-func TestUpdateAppNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateApp(ctx, "10", nil)
-	})
+func TestUpdateAppApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveBetaTestersFromApp(t *testing.T) {
@@ -35,10 +33,8 @@ func TestRemoveBetaTestersFromApp(t *testing.T) {
 	})
 }
 
-func TestRemoveBetaTestersFromAppNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", nil)
-	})
+func TestRemoveBetaTestersFromAppApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestListInAppPurchasesForApp(t *testing.T) {

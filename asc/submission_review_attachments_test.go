@@ -23,10 +23,8 @@ func TestCreateAttachment(t *testing.T) {
 	})
 }
 
-func TestCreateAttachmentNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateAttachment(ctx, nil)
-	})
+func TestCreateAttachmentApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestCommitAttachment(t *testing.T) {
@@ -35,10 +33,8 @@ func TestCommitAttachment(t *testing.T) {
 	})
 }
 
-func TestCommitAttachmentNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CommitAttachment(ctx, "10", nil)
-	})
+func TestCommitAttachmentApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteAttachment(t *testing.T) {

@@ -53,7 +53,7 @@ func TestCreateInvitation(t *testing.T) {
 	})
 }
 
-func TestCreateInvitationNoRequest(t *testing.T) {
+func TestCreateInvitationApplyRequestTypes(t *testing.T) {
 	want := new(UserInvitationResponse)
 	testEndpointWithResponse(t, "null", want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Users.CreateInvitation(ctx, nil)

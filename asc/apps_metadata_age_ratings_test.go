@@ -11,8 +11,6 @@ func TestUpdateAgeRatingDeclaration(t *testing.T) {
 	})
 }
 
-func TestUpdateAgeRatingDeclarationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AgeRatingDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateAgeRatingDeclaration(ctx, "10", nil)
-	})
+func TestUpdateAgeRatingDeclarationApplyRequestTypes(t *testing.T) {
+
 }

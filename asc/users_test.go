@@ -23,10 +23,8 @@ func TestUpdateUser(t *testing.T) {
 	})
 }
 
-func TestUpdateUserNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &UserResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Users.UpdateUser(ctx, "10", nil)
-	})
+func TestUpdateUserApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveUser(t *testing.T) {
@@ -53,10 +51,8 @@ func TestAddVisibleAppsForUser(t *testing.T) {
 	})
 }
 
-func TestAddVisibleAppsForUserNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.AddVisibleAppsForUser(ctx, "10", nil)
-	})
+func TestAddVisibleAppsForUserApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateVisibleAppsForUser(t *testing.T) {
@@ -65,10 +61,8 @@ func TestUpdateVisibleAppsForUser(t *testing.T) {
 	})
 }
 
-func TestUpdateVisibleAppsForUserNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.UpdateVisibleAppsForUser(ctx, "10", nil)
-	})
+func TestUpdateVisibleAppsForUserApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveVisibleAppsFromUser(t *testing.T) {
@@ -77,8 +71,6 @@ func TestRemoveVisibleAppsFromUser(t *testing.T) {
 	})
 }
 
-func TestRemoveVisibleAppsFromUserNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", nil)
-	})
+func TestRemoveVisibleAppsFromUserApplyRequestTypes(t *testing.T) {
+
 }

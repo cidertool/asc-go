@@ -29,10 +29,8 @@ func TestCreateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	})
 }
 
-func TestCreateCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.CreateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
-	})
+func TestCreateCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
@@ -41,10 +39,8 @@ func TestUpdateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	})
 }
 
-func TestUpdateCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
-	})
+func TestUpdateCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
@@ -53,8 +49,6 @@ func TestRemoveCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	})
 }
 
-func TestRemoveCompatibleVersionsForGameCenterEnabledVersionNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", nil)
-	})
+func TestRemoveCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
+
 }

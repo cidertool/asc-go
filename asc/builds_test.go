@@ -47,10 +47,8 @@ func TestUpdateBuild(t *testing.T) {
 	})
 }
 
-func TestUpdateBuildNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Builds.UpdateBuild(ctx, "10", nil)
-	})
+func TestUpdateBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateAppEncryptionDeclarationForBuild(t *testing.T) {
@@ -59,10 +57,8 @@ func TestUpdateAppEncryptionDeclarationForBuild(t *testing.T) {
 	})
 }
 
-func TestUpdateAppEncryptionDeclarationForBuildNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.UpdateAppEncryptionDeclarationForBuild(ctx, "10", nil)
-	})
+func TestUpdateAppEncryptionDeclarationForBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestCreateAccessForBetaGroupsToBuild(t *testing.T) {
@@ -71,10 +67,8 @@ func TestCreateAccessForBetaGroupsToBuild(t *testing.T) {
 	})
 }
 
-func TestCreateAccessForBetaGroupsToBuildNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.CreateAccessForBetaGroupsToBuild(ctx, "10", nil)
-	})
+func TestCreateAccessForBetaGroupsToBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveAccessForBetaGroupsFromBuild(t *testing.T) {
@@ -83,10 +77,8 @@ func TestRemoveAccessForBetaGroupsFromBuild(t *testing.T) {
 	})
 }
 
-func TestRemoveAccessForBetaGroupsFromBuildNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.RemoveAccessForBetaGroupsFromBuild(ctx, "10", nil)
-	})
+func TestRemoveAccessForBetaGroupsFromBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestCreateAccessForIndividualTestersToBuild(t *testing.T) {
@@ -95,10 +87,8 @@ func TestCreateAccessForIndividualTestersToBuild(t *testing.T) {
 	})
 }
 
-func TestCreateAccessForIndividualTestersToBuildNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.CreateAccessForIndividualTestersToBuild(ctx, "10", nil)
-	})
+func TestCreateAccessForIndividualTestersToBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestRemoveAccessForIndividualTestersFromBuild(t *testing.T) {
@@ -107,10 +97,8 @@ func TestRemoveAccessForIndividualTestersFromBuild(t *testing.T) {
 	})
 }
 
-func TestRemoveAccessForIndividualTestersFromBuildNoRequest(t *testing.T) {
-	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Builds.RemoveAccessForIndividualTestersFromBuild(ctx, "10", nil)
-	})
+func TestRemoveAccessForIndividualTestersFromBuildApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestListResourceIDsForIndividualTestersForBuild(t *testing.T) {

@@ -11,10 +11,8 @@ func TestEnableCapability(t *testing.T) {
 	})
 }
 
-func TestEnableCapabilityNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.EnableCapability(ctx, nil)
-	})
+func TestEnableCapabilityApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDisableCapability(t *testing.T) {
@@ -29,8 +27,6 @@ func TestUpdateCapability(t *testing.T) {
 	})
 }
 
-func TestUpdateCapabilityNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateCapability(ctx, "10", nil)
-	})
+func TestUpdateCapabilityApplyRequestTypes(t *testing.T) {
+
 }

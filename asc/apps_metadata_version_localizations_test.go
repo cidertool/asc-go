@@ -23,10 +23,8 @@ func TestCreateAppStoreVersionLocalization(t *testing.T) {
 	})
 }
 
-func TestCreateAppStoreVersionLocalizationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreVersionLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppStoreVersionLocalization(ctx, nil)
-	})
+func TestCreateAppStoreVersionLocalizationApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestUpdateAppStoreVersionLocalization(t *testing.T) {
@@ -35,10 +33,8 @@ func TestUpdateAppStoreVersionLocalization(t *testing.T) {
 	})
 }
 
-func TestUpdateAppStoreVersionLocalizationNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreVersionLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateAppStoreVersionLocalization(ctx, "10", nil)
-	})
+func TestUpdateAppStoreVersionLocalizationApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestDeleteAppStoreVersionLocalization(t *testing.T) {

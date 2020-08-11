@@ -11,10 +11,8 @@ func TestCreateReviewDetail(t *testing.T) {
 	})
 }
 
-func TestCreateReviewDetailNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateReviewDetail(ctx, nil)
-	})
+func TestCreateReviewDetailApplyRequestTypes(t *testing.T) {
+
 }
 
 func TestGetReviewDetail(t *testing.T) {
@@ -35,8 +33,6 @@ func TestUpdateReviewDetail(t *testing.T) {
 	})
 }
 
-func TestUpdateReviewDetailNoRequest(t *testing.T) {
-	testEndpointWithResponse(t, "{}", &AppStoreReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.UpdateReviewDetail(ctx, "10", nil)
-	})
+func TestUpdateReviewDetailApplyRequestTypes(t *testing.T) {
+
 }
