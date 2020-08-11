@@ -188,12 +188,12 @@ func (r *UserUpdateRequest) applyTypes() {
 	r.Relationships.VisibleApps.applyType("apps")
 }
 
-func (r *UserVisibleAppsLinkagesRequest) applyTypes() {
+func (r UserVisibleAppsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("apps")
+	for i := range r {
+		r[i].applyType("apps")
 	}
 }
 
@@ -257,14 +257,14 @@ func (s *UsersService) ListVisibleAppsByResourceIDForUser(ctx context.Context, i
 // AddVisibleAppsForUser gives a user on your team access to one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_visible_apps_to_a_user
-func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, linkages *UserVisibleAppsLinkagesRequest) (*Response, error) {
+func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, linkages UserVisibleAppsLinkagesRequest) (*Response, error) {
 	return s.client.post(ctx, "appStoreReviewDetails", linkages, nil)
 }
 
 // UpdateVisibleAppsForUser replaces the list of apps a user on your team can see.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_the_list_of_visible_apps_for_a_user
-func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, linkages *UserVisibleAppsLinkagesRequest) (*Response, error) {
+func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, linkages UserVisibleAppsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }
@@ -272,7 +272,7 @@ func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, 
 // RemoveVisibleAppsFromUser removes a user on your team’s access to one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_visible_apps_from_a_user
-func (s *UsersService) RemoveVisibleAppsFromUser(ctx context.Context, id string, linkages *UserVisibleAppsLinkagesRequest) (*Response, error) {
+func (s *UsersService) RemoveVisibleAppsFromUser(ctx context.Context, id string, linkages UserVisibleAppsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.client.delete(ctx, url, linkages)
 }

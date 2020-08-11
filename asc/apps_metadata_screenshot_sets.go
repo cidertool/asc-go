@@ -159,12 +159,12 @@ func (r *AppScreenshotSetCreateRequest) applyTypes() {
 	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
 }
 
-func (r *AppScreenshotSetAppScreenshotsLinkagesRequest) applyTypes() {
+func (r AppScreenshotSetAppScreenshotsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("appScreenshots")
+	for i := range r {
+		r[i].applyType("appScreenshots")
 	}
 }
 
@@ -218,7 +218,7 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_screenshots_for_an_app_screenshot_set
-func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages *AppScreenshotSetAppScreenshotsLinkagesRequest) (*Response, error) {
+func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages AppScreenshotSetAppScreenshotsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

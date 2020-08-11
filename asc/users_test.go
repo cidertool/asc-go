@@ -49,7 +49,7 @@ func TestListVisibleAppsByResourceIDForUser(t *testing.T) {
 
 func TestAddVisibleAppsForUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.AddVisibleAppsForUser(ctx, "10", &UserVisibleAppsLinkagesRequest{})
+		return client.Users.AddVisibleAppsForUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
 	})
 }
 
@@ -61,7 +61,7 @@ func TestAddVisibleAppsForUserNoRequest(t *testing.T) {
 
 func TestUpdateVisibleAppsForUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.UpdateVisibleAppsForUser(ctx, "10", &UserVisibleAppsLinkagesRequest{})
+		return client.Users.UpdateVisibleAppsForUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
 	})
 }
 
@@ -73,7 +73,7 @@ func TestUpdateVisibleAppsForUserNoRequest(t *testing.T) {
 
 func TestRemoveVisibleAppsFromUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", &UserVisibleAppsLinkagesRequest{})
+		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
 	})
 }
 

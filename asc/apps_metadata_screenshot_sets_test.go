@@ -43,7 +43,7 @@ func TestListAppScreenshotIDsForSet(t *testing.T) {
 
 func TestReplaceAppScreenshotsForSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", &AppScreenshotSetAppScreenshotsLinkagesRequest{})
+		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", AppScreenshotSetAppScreenshotsLinkagesRequest{})
 	})
 }
 

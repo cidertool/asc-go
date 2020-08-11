@@ -231,30 +231,30 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r *BetaTesterAppsLinkagesRequest) applyTypes() {
+func (r BetaTesterAppsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("apps")
+	for i := range r {
+		r[i].applyType("apps")
 	}
 }
 
-func (r *BetaTesterBetaGroupsLinkagesRequest) applyTypes() {
+func (r BetaTesterBetaGroupsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("betaGroups")
+	for i := range r {
+		r[i].applyType("betaGroups")
 	}
 }
 
-func (r *BetaTesterBuildsLinkagesRequest) applyTypes() {
+func (r BetaTesterBuildsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("builds")
+	for i := range r {
+		r[i].applyType("builds")
 	}
 }
 
@@ -311,7 +311,7 @@ func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params
 // AddBetaTesterToBetaGroups adds one or more beta testers to a specific beta group.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_a_beta_tester_to_beta_groups
-func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, linkages *BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, linkages BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -319,7 +319,7 @@ func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id st
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_from_beta_groups
-func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, linkages *BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, linkages BetaTesterBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -327,7 +327,7 @@ func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_assign_a_beta_tester_to_builds
-func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, linkages *BetaTesterBuildsLinkagesRequest) (*Response, error) {
+func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, linkages BetaTesterBuildsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -335,7 +335,7 @@ func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/individually_unassign_a_beta_tester_from_builds
-func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, linkages *BetaTesterBuildsLinkagesRequest) (*Response, error) {
+func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, linkages BetaTesterBuildsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -343,7 +343,7 @@ func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Conte
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_beta_tester_s_access_to_apps
-func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, linkages *BetaTesterAppsLinkagesRequest) (*Response, error) {
+func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, linkages BetaTesterAppsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	return s.client.delete(ctx, url, linkages)
 }

@@ -126,12 +126,12 @@ func (r *AppPreviewSetCreateRequest) applyTypes() {
 	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
 }
 
-func (r *AppPreviewSetAppPreviewsLinkagesRequest) applyTypes() {
+func (r AppPreviewSetAppPreviewsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("appPreviews")
+	for i := range r {
+		r[i].applyType("appPreviews")
 	}
 }
 
@@ -185,7 +185,7 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_previews_for_an_app_preview_set
-func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, linkages *AppPreviewSetAppPreviewsLinkagesRequest) (*Response, error) {
+func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, linkages AppPreviewSetAppPreviewsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

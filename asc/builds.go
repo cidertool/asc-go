@@ -253,21 +253,21 @@ func (r *BuildAppEncryptionDeclarationLinkageRequest) applyTypes() {
 	r.Type = "appEncryptionDeclarations"
 }
 
-func (r *BuildIndividualTestersLinkagesRequest) applyTypes() {
+func (r BuildIndividualTestersLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("betaTesters")
+	for i := range r {
+		r[i].applyType("betaTesters")
 	}
 }
 
-func (r *BuildBetaGroupsLinkagesRequest) applyTypes() {
+func (r BuildBetaGroupsLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("betaGroups")
+	for i := range r {
+		r[i].applyType("betaGroups")
 	}
 }
 
@@ -351,7 +351,7 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 // CreateAccessForBetaGroupsToBuild adds or creates a beta group to a build to enable testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_access_for_beta_groups_to_a_build
-func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, linkages *BuildBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, linkages BuildBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -359,7 +359,7 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_access_for_beta_groups_to_a_build
-func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, linkages *BuildBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, linkages BuildBetaGroupsLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -367,7 +367,7 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_individual_testers_to_a_build
-func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, linkages *BuildIndividualTestersLinkagesRequest) (*Response, error) {
+func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, linkages BuildIndividualTestersLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -375,7 +375,7 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_individual_testers_from_a_build
-func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, linkages *BuildIndividualTestersLinkagesRequest) (*Response, error) {
+func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, linkages BuildIndividualTestersLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

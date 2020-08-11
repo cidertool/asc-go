@@ -109,8 +109,9 @@ func (d *PagedRelationshipDeclaration) applyType(t string) {
 	if d == nil || d.Data == nil {
 		return
 	}
-	for _, data := range *d.Data {
-		data.applyType(t)
+	data := *d.Data
+	for i := range data {
+		data[i].applyType(t)
 	}
 }
 

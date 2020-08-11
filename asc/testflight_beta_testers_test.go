@@ -50,7 +50,7 @@ func TestGetBetaTester(t *testing.T) {
 
 func TestAddBetaTesterToBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", &BetaTesterBetaGroupsLinkagesRequest{})
+		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", BetaTesterBetaGroupsLinkagesRequest{})
 	})
 }
 
@@ -62,7 +62,7 @@ func TestAddBetaTesterToBetaGroupsNoRequest(t *testing.T) {
 
 func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", &BetaTesterBetaGroupsLinkagesRequest{})
+		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", BetaTesterBetaGroupsLinkagesRequest{})
 	})
 }
 
@@ -74,7 +74,7 @@ func TestRemoveBetaTesterFromBetaGroupsNoRequest(t *testing.T) {
 
 func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", &BetaTesterBuildsLinkagesRequest{})
+		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", BetaTesterBuildsLinkagesRequest{})
 	})
 }
 
@@ -86,7 +86,7 @@ func TestAssignSingleBetaTesterToBuildsNoRequest(t *testing.T) {
 
 func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", &BetaTesterBuildsLinkagesRequest{})
+		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", BetaTesterBuildsLinkagesRequest{})
 	})
 }
 
@@ -98,7 +98,7 @@ func TestUnassignSingleBetaTesterFromBuildsNoRequest(t *testing.T) {
 
 func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", &BetaTesterAppsLinkagesRequest{})
+		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", BetaTesterAppsLinkagesRequest{})
 	})
 }
 

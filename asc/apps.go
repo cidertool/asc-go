@@ -278,12 +278,12 @@ func (r *AppUpdateRequest) applyTypes() {
 	r.Relationships.Prices.applyType("appPrices")
 }
 
-func (r *AppBetaTestersLinkagesRequest) applyTypes() {
+func (r AppBetaTestersLinkagesRequest) applyTypes() {
 	if r == nil {
 		return
 	}
-	for _, rel := range *r {
-		rel.applyType("betaTesters")
+	for i := range r {
+		r[i].applyType("betaTesters")
 	}
 }
 
@@ -319,7 +319,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, body *AppUpdateR
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
-func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages *AppBetaTestersLinkagesRequest) (*Response, error) {
+func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages AppBetaTestersLinkagesRequest) (*Response, error) {
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }
