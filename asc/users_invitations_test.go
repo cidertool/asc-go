@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestListInvitations(t *testing.T) {
@@ -54,10 +56,46 @@ func TestCreateInvitation(t *testing.T) {
 }
 
 func TestCreateInvitationApplyRequestTypes(t *testing.T) {
-	want := new(UserInvitationResponse)
-	testEndpointWithResponse(t, "null", want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Users.CreateInvitation(ctx, nil)
-	})
+	var req *UserInvitationCreateRequest
+	req.applyTypes()
+	assert.Nil(t, req)
+
+	req = &UserInvitationCreateRequest{}
+	req.applyTypes()
+	assert.Equal(t, "userInvitations", req.Type)
+	assert.Nil(t, req.Relationships)
+
+	req = &UserInvitationCreateRequest{
+		Relationships: &UserInvitationCreateRequestRelationships{},
+	}
+	req.applyTypes()
+	assert.Nil(t, req.Relationships.VisibleApps)
+
+	req = &UserInvitationCreateRequest{
+		Relationships: &UserInvitationCreateRequestRelationships{
+			VisibleApps: &PagedRelationshipDeclaration{
+				&[]RelationshipData{
+					{},
+				},
+			},
+		},
+	}
+	req.applyTypes()
+	assert.Equal(t, "apps", (*req.Relationships.VisibleApps.Data)[0].Type)
+
+	req = &UserInvitationCreateRequest{
+		Type: "dog",
+		Relationships: &UserInvitationCreateRequestRelationships{
+			VisibleApps: &PagedRelationshipDeclaration{
+				&[]RelationshipData{
+					{Type: "dog"},
+				},
+			},
+		},
+	}
+	req.applyTypes()
+	assert.Equal(t, "dog", req.Type)
+	assert.Equal(t, "dog", (*req.Relationships.VisibleApps.Data)[0].Type)
 }
 
 func TestCancelInvitation(t *testing.T) {

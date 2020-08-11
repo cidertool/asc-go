@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestListBuildBetaDetails(t *testing.T) {
@@ -36,5 +38,15 @@ func TestUpdateBuildBetaDetail(t *testing.T) {
 }
 
 func TestUpdateBuildBetaDetailApplyRequestTypes(t *testing.T) {
+	var req *BuildBetaDetailUpdateRequest
+	req.applyTypes()
+	assert.Nil(t, req)
 
+	req = &BuildBetaDetailUpdateRequest{}
+	req.applyTypes()
+	assert.Equal(t, "buildBetaDetails", req.Type)
+
+	req = &BuildBetaDetailUpdateRequest{Type: "dog"}
+	req.applyTypes()
+	assert.Equal(t, "dog", req.Type)
 }

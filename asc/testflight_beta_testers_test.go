@@ -24,10 +24,7 @@ func TestCreateBetaTester(t *testing.T) {
 }
 
 func TestCreateBetaTesterApplyRequestTypes(t *testing.T) {
-	want := new(BetaTesterResponse)
-	testEndpointWithResponse(t, `null`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaTester(ctx, nil)
-	})
+
 }
 
 func TestDeleteBetaTester(t *testing.T) {
