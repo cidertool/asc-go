@@ -231,47 +231,6 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r BetaTesterAppsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("apps")
-	}
-}
-
-func (r BetaTesterBetaGroupsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("betaGroups")
-	}
-}
-
-func (r BetaTesterBuildsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("builds")
-	}
-}
-
-func (r *BetaTesterCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "betaTesters"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.BetaGroups.applyType("betaGroups")
-	r.Relationships.Builds.applyType("builds")
-}
-
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_tester

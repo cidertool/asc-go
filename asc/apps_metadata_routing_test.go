@@ -23,18 +23,10 @@ func TestCreateRoutingAppCoverage(t *testing.T) {
 	})
 }
 
-func TestCreateRoutingAppCoverageApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestCommitRoutingAppCoverage(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CommitRoutingAppCoverage(ctx, "10", &RoutingAppCoverageUpdateRequest{})
 	})
-}
-
-func TestCommitRoutingAppCoverageApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteRoutingAppCoverage(t *testing.T) {

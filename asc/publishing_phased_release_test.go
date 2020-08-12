@@ -11,18 +11,10 @@ func TestCreatePhasedRelease(t *testing.T) {
 	})
 }
 
-func TestCreatePhasedReleaseApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Publishing.UpdatePhasedRelease(ctx, "10", &AppStoreVersionPhasedReleaseUpdateRequest{})
 	})
-}
-
-func TestUpdatePhasedReleaseApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeletePhasedRelease(t *testing.T) {

@@ -105,30 +105,6 @@ type GetEULAForAppQuery struct {
 	FieldsEndUserLicenseAgreements []string `url:"fields[endUserLicenseAgreements],omitempty"`
 }
 
-func (r *EndUserLicenseAgreementCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "endUserLicenseAgreements"
-	}
-	r.Relationships.App.applyType("apps")
-	r.Relationships.Territories.applyType("territories")
-}
-
-func (r *EndUserLicenseAgreementUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "endUserLicenseAgreements"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.Territories.applyType("territories")
-}
-
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_end_user_license_agreement

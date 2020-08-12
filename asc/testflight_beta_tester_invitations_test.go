@@ -10,7 +10,3 @@ func TestCreateBetaTesterInvitation(t *testing.T) {
 		return client.TestFlight.CreateBetaTesterInvitation(ctx, &BetaTesterInvitationCreateRequest{})
 	})
 }
-
-func TestCreateBetaTesterInvitationApplyRequestTypes(t *testing.T) {
-
-}

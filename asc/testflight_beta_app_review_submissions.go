@@ -113,16 +113,6 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 	FieldsBetaAppReviewSubmissions []string `url:"fields[betaAppReviewSubmissions],omitempty"`
 }
 
-func (r *BetaAppReviewSubmissionCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "betaAppReviewSubmissions"
-	}
-	r.Relationships.Build.applyType("builds")
-}
-
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/submit_an_app_for_beta_review

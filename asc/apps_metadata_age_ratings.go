@@ -82,13 +82,6 @@ type AgeRatingDeclarationResponse struct {
 	Links DocumentLinks        `json:"links"`
 }
 
-func (r *AgeRatingDeclarationUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "ageRatingDeclarations"
-}
-
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_age_rating_declaration

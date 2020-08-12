@@ -11,10 +11,6 @@ func TestCreateSubmission(t *testing.T) {
 	})
 }
 
-func TestCreateSubmissionApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestDeleteSubmission(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Submission.DeleteSubmission(ctx, "10")

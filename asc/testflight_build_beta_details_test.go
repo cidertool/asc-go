@@ -3,8 +3,6 @@ package asc
 import (
 	"context"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestListBuildBetaDetails(t *testing.T) {
@@ -35,18 +33,4 @@ func TestUpdateBuildBetaDetail(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BuildBetaDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBuildBetaDetail(ctx, "10", &BuildBetaDetailUpdateRequest{})
 	})
-}
-
-func TestUpdateBuildBetaDetailApplyRequestTypes(t *testing.T) {
-	var req *BuildBetaDetailUpdateRequest
-	req.applyTypes()
-	assert.Nil(t, req)
-
-	req = &BuildBetaDetailUpdateRequest{}
-	req.applyTypes()
-	assert.Equal(t, "buildBetaDetails", req.Type)
-
-	req = &BuildBetaDetailUpdateRequest{Type: "dog"}
-	req.applyTypes()
-	assert.Equal(t, "dog", req.Type)
 }

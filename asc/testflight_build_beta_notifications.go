@@ -34,16 +34,6 @@ type BuildBetaNotificationResponse struct {
 	Links DocumentLinks         `json:"links"`
 }
 
-func (r *BuildBetaNotificationCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "buildBetaNotifications"
-	}
-	r.Relationships.Build.applyType("builds")
-}
-
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/send_notification_of_an_available_build

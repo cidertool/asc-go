@@ -51,6 +51,7 @@ func inviteUser(ctx context.Context, client *asc.Client) error {
 	}
 
 	invitation, _, err := client.Users.CreateInvitation(ctx, &asc.UserInvitationCreateRequest{
+		Type: "userInvitations",
 		Attributes: asc.UserInvitationCreateRequestAttributes{
 			FirstName:           *givenName,
 			LastName:            *familyName,

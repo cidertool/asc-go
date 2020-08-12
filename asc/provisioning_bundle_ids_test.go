@@ -11,18 +11,10 @@ func TestCreateBundleID(t *testing.T) {
 	})
 }
 
-func TestCreateBundleIDApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateBundleID(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.UpdateBundleID(ctx, "10", &BundleIDUpdateRequest{})
 	})
-}
-
-func TestUpdateBundleIDApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteBundleID(t *testing.T) {

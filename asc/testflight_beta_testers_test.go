@@ -23,10 +23,6 @@ func TestCreateBetaTester(t *testing.T) {
 	})
 }
 
-func TestCreateBetaTesterApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestDeleteBetaTester(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.DeleteBetaTester(ctx, "10")
@@ -51,18 +47,10 @@ func TestAddBetaTesterToBetaGroups(t *testing.T) {
 	})
 }
 
-func TestAddBetaTesterToBetaGroupsApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", BetaTesterBetaGroupsLinkagesRequest{})
 	})
-}
-
-func TestRemoveBetaTesterFromBetaGroupsApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
@@ -71,28 +59,16 @@ func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
 	})
 }
 
-func TestAssignSingleBetaTesterToBuildsApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", BetaTesterBuildsLinkagesRequest{})
 	})
 }
 
-func TestUnassignSingleBetaTesterFromBuildsApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", BetaTesterAppsLinkagesRequest{})
 	})
-}
-
-func TestRemoveSingleBetaTesterAccessAppsApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestListAppsForBetaTester(t *testing.T) {

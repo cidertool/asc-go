@@ -104,24 +104,6 @@ type ListAppInfosForAppQuery struct {
 	Cursor                     string   `url:"cursor,omitempty"`
 }
 
-func (r *AppInfoUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appInfos"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.PrimaryCategory.applyType("appCategories")
-	r.Relationships.PrimarySubcategoryOne.applyType("appCategories")
-	r.Relationships.PrimarySubcategoryTwo.applyType("appCategories")
-	r.Relationships.SecondaryCategory.applyType("appCategories")
-	r.Relationships.SecondarySubcategoryOne.applyType("appCategories")
-	r.Relationships.SecondarySubcategoryTwo.applyType("appCategories")
-}
-
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_information

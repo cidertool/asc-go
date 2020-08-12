@@ -35,18 +35,10 @@ func TestCreateBetaBuildLocalization(t *testing.T) {
 	})
 }
 
-func TestCreateBetaBuildLocalizationApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateBetaBuildLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaBuildLocalization(ctx, "10", &BetaBuildLocalizationUpdateRequest{})
 	})
-}
-
-func TestUpdateBetaBuildLocalizationApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteBetaBuildLocalization(t *testing.T) {

@@ -29,6 +29,7 @@ func main() {
 	client := asc.NewClient(auth.Client())
 
 	device, _, err := client.Provisioning.CreateDevice(ctx, &asc.DeviceCreateRequest{
+		Type: "devices",
 		Attributes: asc.DeviceCreateRequestAttributes{
 			Name:     *name,
 			Platform: asc.BundleIDPlatform(*platform),

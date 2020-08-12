@@ -93,23 +93,6 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 	FieldsIDFADeclarations *[]string `url:"fields[idfaDeclarations],omitempty"`
 }
 
-func (r *IDFADeclarationCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "idfaDeclarations"
-	}
-	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
-}
-
-func (r *IDFADeclarationUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "idfaDeclarations"
-}
-
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_idfa_declaration

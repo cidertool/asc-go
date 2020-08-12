@@ -28,7 +28,3 @@ func TestAssignBuildsToAppEncryptionDeclaration(t *testing.T) {
 		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", AppEncryptionDeclarationBuildsLinkagesRequest{})
 	})
 }
-
-func TestAssignBuildsToAppEncryptionDeclarationApplyRequestTypes(t *testing.T) {
-
-}

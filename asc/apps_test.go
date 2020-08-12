@@ -23,18 +23,10 @@ func TestUpdateApp(t *testing.T) {
 	})
 }
 
-func TestUpdateAppApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestRemoveBetaTestersFromApp(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", AppBetaTestersLinkagesRequest{})
 	})
-}
-
-func TestRemoveBetaTestersFromAppApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestListInAppPurchasesForApp(t *testing.T) {

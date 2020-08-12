@@ -34,7 +34,3 @@ func TestUpdateBetaLicenseAgreement(t *testing.T) {
 		return client.TestFlight.UpdateBetaLicenseAgreement(ctx, "10", &BetaLicenseAgreementUpdateRequest{})
 	})
 }
-
-func TestUpdateBetaLicenseAgreementApplyRequestTypes(t *testing.T) {
-
-}

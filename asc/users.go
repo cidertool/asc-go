@@ -175,28 +175,6 @@ type ListVisibleAppsByResourceIDQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r *UserUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "users"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.VisibleApps.applyType("apps")
-}
-
-func (r UserVisibleAppsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("apps")
-	}
-}
-
 // ListUsers gets a list of the users on your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_users

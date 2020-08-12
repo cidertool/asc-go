@@ -29,26 +29,14 @@ func TestCreateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	})
 }
 
-func TestCreateCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
 	})
 }
 
-func TestUpdateCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestRemoveCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
 	})
-}
-
-func TestRemoveCompatibleVersionsForGameCenterEnabledVersionApplyRequestTypes(t *testing.T) {
-
 }

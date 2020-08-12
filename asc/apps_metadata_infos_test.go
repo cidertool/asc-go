@@ -22,7 +22,3 @@ func TestUpdateAppInfo(t *testing.T) {
 		return client.Apps.UpdateAppInfo(ctx, "10", &AppInfoUpdateRequest{})
 	})
 }
-
-func TestUpdateAppInfoApplyRequestTypes(t *testing.T) {
-
-}

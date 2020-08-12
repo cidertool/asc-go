@@ -11,18 +11,10 @@ func TestCreateEULA(t *testing.T) {
 	})
 }
 
-func TestCreateEULAApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateEULA(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &EndUserLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateEULA(ctx, "10", &EndUserLicenseAgreementUpdateRequest{})
 	})
-}
-
-func TestUpdateEULAApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteEULA(t *testing.T) {

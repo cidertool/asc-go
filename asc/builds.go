@@ -233,44 +233,6 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 	FieldsAppEncryptionDeclarations []string `url:"fields[appEncryptionDeclarations],omitempty"`
 }
 
-func (r *BuildUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "builds"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.AppEncryptionDeclaration.applyType("appEncryptionDeclarations")
-}
-
-func (r *BuildAppEncryptionDeclarationLinkageRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "appEncryptionDeclarations"
-}
-
-func (r BuildIndividualTestersLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("betaTesters")
-	}
-}
-
-func (r BuildBetaGroupsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("betaGroups")
-	}
-}
-
 // ListBuilds finds and lists builds for all apps in App Store Connect.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_builds

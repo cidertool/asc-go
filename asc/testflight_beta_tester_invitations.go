@@ -35,17 +35,6 @@ type BetaTesterInvitationResponse struct {
 	Links DocumentLinks        `json:"links"`
 }
 
-func (r *BetaTesterInvitationCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "betaTesterInvitations"
-	}
-	r.Relationships.App.applyType("apps")
-	r.Relationships.BetaTester.applyType("betaTesters")
-}
-
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/send_an_invitation_to_a_beta_tester

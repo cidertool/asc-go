@@ -110,15 +110,6 @@ type GetAppForEncryptionDeclarationQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationbuildslinkagesrequest
 type AppEncryptionDeclarationBuildsLinkagesRequest []RelationshipData
 
-func (r AppEncryptionDeclarationBuildsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("builds")
-	}
-}
-
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_app_encryption_declarations

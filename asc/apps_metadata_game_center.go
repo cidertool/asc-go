@@ -94,15 +94,6 @@ type ListCompatibleVersionIDsForGameCenterEnabledVersionQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("gameCenterEnabledVersions")
-	}
-}
-
 // ListGameCenterEnabledVersionsForApp lists the versions for a given app that are enabled for Game Center
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_game_center_enabled_versions_for_an_app

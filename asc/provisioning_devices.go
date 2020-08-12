@@ -95,20 +95,6 @@ type ListDevicesQuery struct {
 	Cursor         string   `url:"cursor,omitempty"`
 }
 
-func (r *DeviceCreateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "devices"
-}
-
-func (r *DeviceUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "devices"
-}
-
 // GetDeviceQuery are query options for GetDevice
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_device_information

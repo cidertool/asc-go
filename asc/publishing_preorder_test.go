@@ -23,18 +23,10 @@ func TestCreatePreOrder(t *testing.T) {
 	})
 }
 
-func TestCreatePreOrderApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdatePreOrder(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Publishing.UpdatePreOrder(ctx, "10", &AppPreOrderUpdateRequest{})
 	})
-}
-
-func TestUpdatePreOrderApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeletePreOrder(t *testing.T) {

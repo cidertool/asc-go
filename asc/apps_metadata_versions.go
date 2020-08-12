@@ -239,37 +239,6 @@ type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
 	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
 }
 
-func (r *AppStoreVersionCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appStoreVersions"
-	}
-	r.Relationships.App.applyType("apps")
-	r.Relationships.Build.applyType("builds")
-}
-
-func (r *AppStoreVersionUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appStoreVersions"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.Build.applyType("builds")
-}
-
-func (r *AppStoreVersionBuildLinkageRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "builds"
-}
-
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_store_versions_for_an_app

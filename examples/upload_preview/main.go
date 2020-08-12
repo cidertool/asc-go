@@ -80,13 +80,15 @@ func main() {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
 		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
+			Type: "appStoreVersionLocalizations",
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
 			},
 			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
 				AppStoreVersion: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID: version.ID,
+						ID:   version.ID,
+						Type: "appStoreVersions",
 					},
 				},
 			},
@@ -116,13 +118,15 @@ func main() {
 		selectedPreviewSet = selectedPreviewSets[0]
 	} else {
 		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, &asc.AppPreviewSetCreateRequest{
+			Type: "appPreviewSets",
 			Attributes: asc.AppPreviewSetCreateRequestAttributes{
 				PreviewType: previewType,
 			},
 			Relationships: asc.AppPreviewSetCreateRequestRelationships{
 				AppStoreVersionLocalization: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID: selectedLocalization.ID,
+						ID:   selectedLocalization.ID,
+						Type: "appStoreVersionLocalizations",
 					},
 				},
 			},
@@ -146,6 +150,7 @@ func main() {
 	}
 	fmt.Println("Reserving space for a new app preview.")
 	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, &asc.AppPreviewCreateRequest{
+		Type: "appPreviews",
 		Attributes: asc.AppPreviewCreateRequestAttributes{
 			FileName: file.Name(),
 			FileSize: stat.Size(),
@@ -153,7 +158,8 @@ func main() {
 		Relationships: asc.AppPreviewCreateRequestRelationships{
 			AppPreviewSet: asc.RelationshipDeclaration{
 				Data: &asc.RelationshipData{
-					ID: selectedPreviewSet.ID,
+					ID:   selectedPreviewSet.ID,
+					Type: "appPreviewSets",
 				},
 			},
 		},
@@ -184,6 +190,7 @@ func main() {
 	}
 
 	client.Apps.CommitAppPreview(ctx, preview.ID, &asc.AppPreviewUpdateRequest{
+		Type: "appPreviews",
 		Attributes: &asc.AppPreviewUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,

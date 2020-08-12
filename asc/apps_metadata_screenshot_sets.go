@@ -149,25 +149,6 @@ type ListAppScreenshotIDsForSetQuery struct {
 	Limit int `url:"limit,omitempty"`
 }
 
-func (r *AppScreenshotSetCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appScreenshotSets"
-	}
-	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
-}
-
-func (r AppScreenshotSetAppScreenshotsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("appScreenshots")
-	}
-}
-
 // GetAppScreenshotSet gets an app screenshot set including its display target, language, and the screenshot it contains.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_screenshot_set_information

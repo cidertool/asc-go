@@ -17,10 +17,6 @@ func TestCreateAppScreenshotSet(t *testing.T) {
 	})
 }
 
-func TestCreateAppScreenshotSetApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestDeleteAppScreenshotSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppScreenshotSet(ctx, "10")
@@ -43,8 +39,4 @@ func TestReplaceAppScreenshotsForSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", AppScreenshotSetAppScreenshotsLinkagesRequest{})
 	})
-}
-
-func TestReplaceAppScreenshotsForSetApplyRequestTypes(t *testing.T) {
-
 }

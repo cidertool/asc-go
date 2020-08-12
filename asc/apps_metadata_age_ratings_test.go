@@ -10,7 +10,3 @@ func TestUpdateAgeRatingDeclaration(t *testing.T) {
 		return client.Apps.UpdateAgeRatingDeclaration(ctx, "10", &AgeRatingDeclarationUpdateRequest{})
 	})
 }
-
-func TestUpdateAgeRatingDeclarationApplyRequestTypes(t *testing.T) {
-
-}

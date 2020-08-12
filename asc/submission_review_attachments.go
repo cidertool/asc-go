@@ -111,23 +111,6 @@ type ListAttachmentQuery struct {
 	Cursor                          string   `url:"cursor,omitempty"`
 }
 
-func (r *AppStoreReviewAttachmentCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appStoreReviewAttachments"
-	}
-	r.Relationships.AppStoreReviewDetail.applyType("appStoreReviewDetails")
-}
-
-func (r *AppStoreReviewAttachmentUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "appStoreReviewAttachments"
-}
-
 // GetAttachment gets information about an App Store review attachment and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_store_review_attachment_information

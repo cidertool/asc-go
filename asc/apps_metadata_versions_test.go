@@ -23,18 +23,10 @@ func TestCreateAppStoreVersion(t *testing.T) {
 	})
 }
 
-func TestCreateAppStoreVersionApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppStoreVersion(ctx, "10", &AppStoreVersionUpdateRequest{})
 	})
-}
-
-func TestUpdateAppStoreVersionApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteAppStoreVersion(t *testing.T) {
@@ -53,10 +45,6 @@ func TestUpdateBuildForAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", &AppStoreVersionBuildLinkageRequest{})
 	})
-}
-
-func TestUpdateBuildForAppStoreVersionApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestGetAgeRatingDeclarationForAppStoreVersion(t *testing.T) {

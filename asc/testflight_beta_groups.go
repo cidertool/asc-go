@@ -224,43 +224,6 @@ type ListBetaTesterIDsForBetaGroupQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r *BetaGroupCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "betaGroups"
-	}
-	r.Relationships.App.applyType("apps")
-	r.Relationships.BetaTesters.applyType("betaTesters")
-	r.Relationships.Builds.applyType("builds")
-}
-
-func (r *BetaGroupUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "betaGroups"
-}
-
-func (r BetaGroupBuildsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("apps")
-	}
-}
-
-func (r BetaGroupBetaTestersLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("betaGroups")
-	}
-}
-
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_group

@@ -102,13 +102,6 @@ type GetCertificateQuery struct {
 	FieldsCertificates []string `url:"fields[certificates],omitempty"`
 }
 
-func (r *CertificateCreateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "certificates"
-}
-
 // CreateCertificate creates a new certificate using a certificate signing request.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate

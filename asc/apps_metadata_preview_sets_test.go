@@ -17,10 +17,6 @@ func TestCreateAppPreviewSet(t *testing.T) {
 	})
 }
 
-func TestCreateAppPreviewSetApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestDeleteAppPreviewSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppPreviewSet(ctx, "10")
@@ -43,8 +39,4 @@ func TestReplaceAppPreviewsForSet(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.ReplaceAppPreviewsForSet(ctx, "10", AppPreviewSetAppPreviewsLinkagesRequest{})
 	})
-}
-
-func TestReplaceAppPreviewsForSetApplyRequestTypes(t *testing.T) {
-
 }

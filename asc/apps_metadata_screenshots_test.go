@@ -17,18 +17,10 @@ func TestCreateAppScreenshot(t *testing.T) {
 	})
 }
 
-func TestCreateAppScreenshotApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestCommitAppScreenshot(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppScreenshotResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CommitAppScreenshot(ctx, "10", &AppScreenshotUpdateRequest{})
 	})
-}
-
-func TestCommitAppScreenshotApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteAppScreenshot(t *testing.T) {

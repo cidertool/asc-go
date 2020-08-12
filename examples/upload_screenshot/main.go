@@ -80,13 +80,15 @@ func main() {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
 		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
+			Type: "appStoreVersionLocalizations",
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
 			},
 			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
 				AppStoreVersion: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID: version.ID,
+						ID:   version.ID,
+						Type: "appStoreVersions",
 					},
 				},
 			},
@@ -116,13 +118,15 @@ func main() {
 		selectedScreenshotSet = selectedScreenshotSets[0]
 	} else {
 		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, &asc.AppScreenshotSetCreateRequest{
+			Type: "appScreenshotSets",
 			Attributes: asc.AppScreenshotSetCreateRequestAttributes{
 				ScreenshotDisplayType: screenshotType,
 			},
 			Relationships: asc.AppScreenshotSetCreateRequestRelationships{
 				AppStoreVersionLocalization: asc.RelationshipDeclaration{
 					Data: &asc.RelationshipData{
-						ID: selectedLocalization.ID,
+						ID:   selectedLocalization.ID,
+						Type: "appStoreVersionLocalizations",
 					},
 				},
 			},
@@ -146,6 +150,7 @@ func main() {
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
 	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, &asc.AppScreenshotCreateRequest{
+		Type: "appScreenshots",
 		Attributes: asc.AppScreenshotCreateRequestAttributes{
 			FileName: file.Name(),
 			FileSize: stat.Size(),
@@ -153,7 +158,8 @@ func main() {
 		Relationships: asc.AppScreenshotCreateRequestRelationships{
 			AppScreenshotSet: asc.RelationshipDeclaration{
 				Data: &asc.RelationshipData{
-					ID: selectedScreenshotSet.ID,
+					ID:   selectedScreenshotSet.ID,
+					Type: "appScreenshotSets",
 				},
 			},
 		},
@@ -184,6 +190,7 @@ func main() {
 	}
 
 	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, &asc.AppScreenshotUpdateRequest{
+		Type: "appScreenshots",
 		Attributes: &asc.AppScreenshotUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),
 			SourceFileChecksum: &checksum,

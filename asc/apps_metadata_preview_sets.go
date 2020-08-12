@@ -116,25 +116,6 @@ type ListAppPreviewIDsForSetQuery struct {
 	Cursor string `url:"cursor,omitempty"`
 }
 
-func (r *AppPreviewSetCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appPreviewSets"
-	}
-	r.Relationships.AppStoreVersionLocalization.applyType("appStoreVersionLocalizations")
-}
-
-func (r AppPreviewSetAppPreviewsLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("appPreviews")
-	}
-}
-
 // GetAppPreviewSet gets an app preview set including its display target, language, and the preview it contains.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_set_information

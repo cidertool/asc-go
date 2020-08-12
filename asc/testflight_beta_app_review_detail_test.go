@@ -34,7 +34,3 @@ func TestUpdateBetaAppReviewDetail(t *testing.T) {
 		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", &BetaAppReviewDetailUpdateRequest{})
 	})
 }
-
-func TestUpdateBetaAppReviewDetailApplyRequestTypes(t *testing.T) {
-
-}

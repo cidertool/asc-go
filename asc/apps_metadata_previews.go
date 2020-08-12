@@ -140,23 +140,6 @@ type GetAppPreviewQuery struct {
 	Include           []string `url:"include,omitempty"`
 }
 
-func (r *AppPreviewCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "appPreviews"
-	}
-	r.Relationships.AppPreviewSet.applyType("appPreviewSets")
-}
-
-func (r *AppPreviewUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "appPreviews"
-}
-
 // GetAppPreview gets information about an app preview and its upload and processing status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_preview_information

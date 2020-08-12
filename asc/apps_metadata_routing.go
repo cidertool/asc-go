@@ -115,23 +115,6 @@ type GetRoutingAppCoverageQuery struct {
 	Include                   []string `url:"include,omitempty"`
 }
 
-func (r *RoutingAppCoverageCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "routingAppCoverages"
-	}
-	r.Relationships.AppStoreVersion.applyType("appStoreVersions")
-}
-
-func (r *RoutingAppCoverageUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "routingAppCoverages"
-}
-
 // GetRoutingAppCoverageForAppStoreVersion gets the routing app coverage file that is associated with a specific App Store version
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_routing_app_coverage_information_of_an_app_store_version

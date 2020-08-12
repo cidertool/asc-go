@@ -264,29 +264,6 @@ type GetInAppPurchaseQuery struct {
 	LimitApps            int      `url:"limit[apps],omitempty"`
 }
 
-func (r *AppUpdateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "ageRatingDeclarations"
-	}
-	if r.Relationships == nil {
-		return
-	}
-	r.Relationships.AvailableTerritories.applyType("territories")
-	r.Relationships.Prices.applyType("appPrices")
-}
-
-func (r AppBetaTestersLinkagesRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	for i := range r {
-		r[i].applyType("betaTesters")
-	}
-}
-
 // ListApps finds and lists apps added in App Store Connect.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_apps

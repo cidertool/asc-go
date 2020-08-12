@@ -126,23 +126,6 @@ type ListBetaBuildLocalizationsForBuildQuery struct {
 	Limit                        int      `url:"limit,omitempty"`
 }
 
-func (r *BetaBuildLocalizationCreateRequest) applyTypes() {
-	if r == nil {
-		return
-	}
-	if r.Type == "" {
-		r.Type = "betaBuildLocalizations"
-	}
-	r.Relationships.Build.applyType("builds")
-}
-
-func (r *BetaBuildLocalizationUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "betaBuildLocalizations"
-}
-
 // ListBetaBuildLocalizations finds and lists beta build localizations for all builds and locales.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_beta_build_localizations

@@ -159,20 +159,6 @@ type ListCapabilitiesForBundleIDQuery struct {
 	Cursor                     string   `url:"cursor,omitempty"`
 }
 
-func (r *BundleIDCreateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "bundleIds"
-}
-
-func (r *BundleIDUpdateRequest) applyTypes() {
-	if r == nil || r.Type != "" {
-		return
-	}
-	r.Type = "bundleIds"
-}
-
 // CreateBundleID registers a new bundle ID for app development.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id

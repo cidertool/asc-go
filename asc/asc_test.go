@@ -35,8 +35,6 @@ type mockBody struct {
 	Field string `url:"field,omitempty"`
 }
 
-func (b *mockBody) applyTypes() {}
-
 func TestGet(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
 	client, server := newServer(marshaled)

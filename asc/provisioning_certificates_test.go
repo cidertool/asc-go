@@ -11,10 +11,6 @@ func TestCreateCertificate(t *testing.T) {
 	})
 }
 
-func TestCreateCertificateApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestListCertificates(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListCertificates(ctx, &ListCertificatesQuery{})

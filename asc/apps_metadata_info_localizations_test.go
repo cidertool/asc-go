@@ -23,18 +23,10 @@ func TestCreateAppInfoLocalization(t *testing.T) {
 	})
 }
 
-func TestCreateAppInfoLocalizationApplyRequestTypes(t *testing.T) {
-
-}
-
 func TestUpdateAppInfoLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppInfoLocalization(ctx, "10", &AppInfoLocalizationUpdateRequest{})
 	})
-}
-
-func TestUpdateAppInfoLocalizationApplyRequestTypes(t *testing.T) {
-
 }
 
 func TestDeleteAppInfoLocalization(t *testing.T) {
