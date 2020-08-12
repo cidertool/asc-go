@@ -63,7 +63,7 @@ type BetaAppReviewSubmissionCreateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissionresponse
 type BetaAppReviewSubmissionResponse struct {
 	Data     BetaAppReviewSubmission `json:"data"`
-	Included *[]Build                `json:"included,omitempty"`
+	Included []Build                 `json:"included,omitempty"`
 	Links    DocumentLinks           `json:"links"`
 }
 
@@ -72,7 +72,7 @@ type BetaAppReviewSubmissionResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissionsresponse
 type BetaAppReviewSubmissionsResponse struct {
 	Data     []BetaAppReviewSubmission `json:"data"`
-	Included *[]Build                  `json:"included,omitempty"`
+	Included []Build                   `json:"included,omitempty"`
 	Links    PagedDocumentLinks        `json:"links"`
 	Meta     *PagingInformation        `json:"meta,omitempty"`
 }

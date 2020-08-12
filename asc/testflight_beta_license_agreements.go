@@ -51,7 +51,7 @@ type BetaLicenseAgreementUpdateRequestAttributes struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementsresponse
 type BetaLicenseAgreementsResponse struct {
 	Data     []BetaLicenseAgreement `json:"data"`
-	Included *[]App                 `json:"included,omitempty"`
+	Included []App                  `json:"included,omitempty"`
 	Links    PagedDocumentLinks     `json:"links"`
 	Meta     *PagingInformation     `json:"meta,omitempty"`
 }
@@ -61,7 +61,7 @@ type BetaLicenseAgreementsResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementresponse
 type BetaLicenseAgreementResponse struct {
 	Data     BetaLicenseAgreement `json:"data"`
-	Included *[]App               `json:"included,omitempty"`
+	Included []App                `json:"included,omitempty"`
 	Links    DocumentLinks        `json:"links"`
 }
 

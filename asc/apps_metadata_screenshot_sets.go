@@ -93,7 +93,7 @@ type AppScreenshotSetCreateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetresponse
 type AppScreenshotSetResponse struct {
 	Data     AppScreenshotSet `json:"data"`
-	Included *[]AppScreenshot `json:"included,omitempty"`
+	Included []AppScreenshot  `json:"included,omitempty"`
 	Links    DocumentLinks    `json:"links"`
 }
 
@@ -102,7 +102,7 @@ type AppScreenshotSetResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetsresponse
 type AppScreenshotSetsResponse struct {
 	Data     []AppScreenshotSet `json:"data"`
-	Included *[]AppScreenshot   `json:"included,omitempty"`
+	Included []AppScreenshot    `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

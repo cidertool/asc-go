@@ -99,9 +99,9 @@ type AppUpdateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appresponse
 type AppResponse struct {
-	Data     App            `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     App           `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // AppsResponse defines model for AppsResponse.
@@ -109,7 +109,7 @@ type AppResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appsresponse
 type AppsResponse struct {
 	Data     []App              `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

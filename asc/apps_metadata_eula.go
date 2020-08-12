@@ -84,7 +84,7 @@ type EndUserLicenseAgreementUpdateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementresponse
 type EndUserLicenseAgreementResponse struct {
 	Data     EndUserLicenseAgreement `json:"data"`
-	Included *[]Territory            `json:"included,omitempty"`
+	Included []Territory             `json:"included,omitempty"`
 	Links    DocumentLinks           `json:"links"`
 }
 

@@ -59,7 +59,7 @@ type AppPreviewSetCreateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetresponse
 type AppPreviewSetResponse struct {
 	Data     AppPreviewSet `json:"data"`
-	Included *[]AppPreview `json:"included,omitempty"`
+	Included []AppPreview  `json:"included,omitempty"`
 	Links    DocumentLinks `json:"links"`
 }
 
@@ -68,7 +68,7 @@ type AppPreviewSetResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetsresponse
 type AppPreviewSetsResponse struct {
 	Data     []AppPreviewSet    `json:"data"`
-	Included *[]AppPreview      `json:"included,omitempty"`
+	Included []AppPreview       `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

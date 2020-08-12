@@ -137,7 +137,7 @@ type AppStoreVersionRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionresponse
 type AppStoreVersionResponse struct {
 	Data     AppStoreVersion `json:"data"`
-	Included *[]interface{}  `json:"included,omitempty"`
+	Included []interface{}   `json:"included,omitempty"`
 	Links    DocumentLinks   `json:"links"`
 }
 
@@ -146,7 +146,7 @@ type AppStoreVersionResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsresponse
 type AppStoreVersionsResponse struct {
 	Data     []AppStoreVersion  `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

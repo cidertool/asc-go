@@ -90,7 +90,7 @@ type IDFADeclarationResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_the_idfa_declaration_information_of_an_app_store_version
 type GetIDFADeclarationForAppStoreVersionQuery struct {
-	FieldsIDFADeclarations *[]string `url:"fields[idfaDeclarations],omitempty"`
+	FieldsIDFADeclarations []string `url:"fields[idfaDeclarations],omitempty"`
 }
 
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.

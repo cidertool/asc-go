@@ -85,9 +85,9 @@ type BundleIDUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidresponse
 type BundleIDResponse struct {
-	Data     BundleID       `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     BundleID      `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // BundleIDsResponse defines model for BundleIdsResponse.
@@ -95,7 +95,7 @@ type BundleIDResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidsresponse
 type BundleIDsResponse struct {
 	Data     []BundleID         `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

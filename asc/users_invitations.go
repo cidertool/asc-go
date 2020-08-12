@@ -21,13 +21,13 @@ type UserInvitation struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitation/attributes
 type UserInvitationAttributes struct {
-	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-	Email               *Email      `json:"email,omitempty"`
-	ExpirationDate      *time.Time  `json:"expirationDate,omitempty"`
-	FirstName           *string     `json:"firstName,omitempty"`
-	LastName            *string     `json:"lastName,omitempty"`
-	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-	Roles               *[]UserRole `json:"roles,omitempty"`
+	AllAppsVisible      *bool      `json:"allAppsVisible,omitempty"`
+	Email               *Email     `json:"email,omitempty"`
+	ExpirationDate      *time.Time `json:"expirationDate,omitempty"`
+	FirstName           *string    `json:"firstName,omitempty"`
+	LastName            *string    `json:"lastName,omitempty"`
+	ProvisioningAllowed *bool      `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole `json:"roles,omitempty"`
 }
 
 // UserInvitationRelationships defines model for UserInvitation.Relationships
@@ -70,7 +70,7 @@ type UserInvitationCreateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitationresponse
 type UserInvitationResponse struct {
 	Data     UserInvitation `json:"data"`
-	Included *[]App         `json:"included,omitempty"`
+	Included []App          `json:"included,omitempty"`
 	Links    DocumentLinks  `json:"links"`
 }
 
@@ -79,7 +79,7 @@ type UserInvitationResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitationsresponse
 type UserInvitationsResponse struct {
 	Data     []UserInvitation   `json:"data"`
-	Included *[]App             `json:"included,omitempty"`
+	Included []App              `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

@@ -87,9 +87,9 @@ type RoutingAppCoverageUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appmediastateerror
 type AppMediaAssetState struct {
-	Errors   *[]AppMediaStateError `json:"errors,omitempty"`
-	State    *string               `json:"state,omitempty"`
-	Warnings *[]AppMediaStateError `json:"warnings,omitempty"`
+	Errors   []AppMediaStateError `json:"errors,omitempty"`
+	State    *string              `json:"state,omitempty"`
+	Warnings []AppMediaStateError `json:"warnings,omitempty"`
 }
 
 // AppMediaStateError defines model for AppMediaStateError.

@@ -44,9 +44,9 @@ type AppInfoRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinforesponse
 type AppInfoResponse struct {
-	Data     AppInfo        `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     AppInfo       `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // AppInfosResponse defines model for AppInfosResponse.
@@ -54,7 +54,7 @@ type AppInfoResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfosresponse
 type AppInfosResponse struct {
 	Data     []AppInfo          `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

@@ -104,8 +104,8 @@ type Rate struct {
 // ErrorResponse contains information with error details that an API returns in the
 // response body whenever the API request is not successful.
 type ErrorResponse struct {
-	Response *http.Response        `json:"-"`
-	Errors   *[]ErrorResponseError `json:"errors,omitempty"`
+	Response *http.Response       `json:"-"`
+	Errors   []ErrorResponseError `json:"errors,omitempty"`
 }
 
 // ErrorResponseError is a model used in ErrorResponse to describe a single error from the API
@@ -387,7 +387,7 @@ func parseRate(r *http.Response) Rate {
 func (e ErrorResponse) Error() string {
 	report := strings.Builder{}
 	if e.Errors != nil {
-		for _, err := range *e.Errors {
+		for _, err := range e.Errors {
 			report.WriteString(fmt.Sprintf("* %s %s – %s\n\t%s\n", err.Status, err.Code, err.Title, err.Detail))
 		}
 	}

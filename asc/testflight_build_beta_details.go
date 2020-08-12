@@ -90,7 +90,7 @@ type BuildBetaDetailUpdateRequestAttributes struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailresponse
 type BuildBetaDetailResponse struct {
 	Data     BuildBetaDetail `json:"data"`
-	Included *[]Build        `json:"included,omitempty"`
+	Included []Build         `json:"included,omitempty"`
 	Links    DocumentLinks   `json:"links"`
 }
 
@@ -99,7 +99,7 @@ type BuildBetaDetailResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailsresponse
 type BuildBetaDetailsResponse struct {
 	Data     []BuildBetaDetail  `json:"data"`
-	Included *[]Build           `json:"included,omitempty"`
+	Included []Build            `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

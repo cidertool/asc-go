@@ -45,9 +45,9 @@ type BetaGroupRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupresponse
 type BetaGroupResponse struct {
-	Data     BetaGroup      `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     BetaGroup     `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
@@ -132,7 +132,7 @@ type BetaGroupBuildsLinkagesResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupsresponse
 type BetaGroupsResponse struct {
 	Data     []BetaGroup        `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

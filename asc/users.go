@@ -57,12 +57,12 @@ type User struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/user/attributes
 type UserAttributes struct {
-	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-	FirstName           *string     `json:"firstName,omitempty"`
-	LastName            *string     `json:"lastName,omitempty"`
-	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-	Roles               *[]UserRole `json:"roles,omitempty"`
-	Username            *string     `json:"username,omitempty"`
+	AllAppsVisible      *bool      `json:"allAppsVisible,omitempty"`
+	FirstName           *string    `json:"firstName,omitempty"`
+	LastName            *string    `json:"lastName,omitempty"`
+	ProvisioningAllowed *bool      `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole `json:"roles,omitempty"`
+	Username            *string    `json:"username,omitempty"`
 }
 
 // UserRelationships defines model for User.Relationships
@@ -86,9 +86,9 @@ type UserUpdateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest/data/attributes
 type UserUpdateRequestAttributes struct {
-	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-	Roles               *[]UserRole `json:"roles,omitempty"`
+	AllAppsVisible      *bool      `json:"allAppsVisible,omitempty"`
+	ProvisioningAllowed *bool      `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole `json:"roles,omitempty"`
 }
 
 // UserUpdateRequestRelationships are relationships for UserUpdateRequest
@@ -103,7 +103,7 @@ type UserUpdateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/userresponse
 type UserResponse struct {
 	Data     User          `json:"data"`
-	Included *[]App        `json:"included,omitempty"`
+	Included []App         `json:"included,omitempty"`
 	Links    DocumentLinks `json:"links"`
 }
 
@@ -112,7 +112,7 @@ type UserResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/usersresponse
 type UsersResponse struct {
 	Data     []User             `json:"data"`
-	Included *[]App             `json:"included,omitempty"`
+	Included []App              `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

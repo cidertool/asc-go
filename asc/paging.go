@@ -69,9 +69,9 @@ type Relationship struct {
 
 // PagedRelationship is a relationship to multiple resources that have paging information
 type PagedRelationship struct {
-	Data  *[]RelationshipData `json:"data,omitempty"`
-	Links *RelationshipLinks  `json:"links,omitempty"`
-	Meta  *PagingInformation  `json:"meta,omitempty"`
+	Data  []RelationshipData `json:"data,omitempty"`
+	Links *RelationshipLinks `json:"links,omitempty"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
 // RelationshipDeclaration represents a declared relationship to a single resource
@@ -81,7 +81,7 @@ type RelationshipDeclaration struct {
 
 // PagedRelationshipDeclaration represents a declared relationship to multiple resources
 type PagedRelationshipDeclaration struct {
-	Data *[]RelationshipData `json:"data"`
+	Data []RelationshipData `json:"data"`
 }
 
 // RelationshipData contains data on the given relationship

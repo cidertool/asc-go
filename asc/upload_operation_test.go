@@ -38,35 +38,35 @@ func TestMultipartUpload(t *testing.T) {
 			Offset:         Int(0),
 			Length:         Int(10),
 			Method:         String("PATCH"),
-			RequestHeaders: &[]UploadOperationHeader{},
+			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
 			URL:            String(client.BaseURL.String()),
 			Offset:         Int(10),
 			Length:         Int(10),
 			Method:         String("PATCH"),
-			RequestHeaders: &[]UploadOperationHeader{},
+			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
 			URL:            String(client.BaseURL.String()),
 			Offset:         Int(20),
 			Length:         Int(30),
 			Method:         String("PATCH"),
-			RequestHeaders: &[]UploadOperationHeader{},
+			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
 			URL:            String(client.BaseURL.String()),
 			Offset:         Int(50),
 			Length:         Int(10),
 			Method:         String("PATCH"),
-			RequestHeaders: &[]UploadOperationHeader{},
+			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
 			URL:            String(client.BaseURL.String()),
 			Offset:         Int(60),
 			Length:         Int(4),
 			Method:         String("PATCH"),
-			RequestHeaders: &[]UploadOperationHeader{},
+			RequestHeaders: []UploadOperationHeader{},
 		},
 	}
 
@@ -96,7 +96,7 @@ func TestUploadOperationChunk(t *testing.T) {
 		Offset:         Int(0),
 		Length:         Int(10),
 		Method:         String("PATCH"),
-		RequestHeaders: &[]UploadOperationHeader{},
+		RequestHeaders: []UploadOperationHeader{},
 	}
 
 	chunk, err := op.Chunk(file)

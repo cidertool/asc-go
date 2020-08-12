@@ -51,10 +51,10 @@ type GameCenterEnabledVersionCompatibleVersionsLinkagesResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/gamecenterenabledversionsresponse
 type GameCenterEnabledVersionsResponse struct {
-	Data     []GameCenterEnabledVersion  `json:"data"`
-	Included *[]GameCenterEnabledVersion `json:"included,omitempty"`
-	Links    PagedDocumentLinks          `json:"links"`
-	Meta     *PagingInformation          `json:"meta,omitempty"`
+	Data     []GameCenterEnabledVersion `json:"data"`
+	Included []GameCenterEnabledVersion `json:"included,omitempty"`
+	Links    PagedDocumentLinks         `json:"links"`
+	Meta     *PagingInformation         `json:"meta,omitempty"`
 }
 
 // ListGameCenterEnabledVersionsForAppQuery are query options for ListGameCenterEnabledVersionsForApp

@@ -18,11 +18,11 @@ type UploadOperations []UploadOperation
 // https://developer.apple.com/documentation/appstoreconnectapi/uploadoperation
 // https://developer.apple.com/documentation/appstoreconnectapi/uploading_assets_to_app_store_connect
 type UploadOperation struct {
-	Length         *int                     `json:"length,omitempty"`
-	Method         *string                  `json:"method,omitempty"`
-	Offset         *int                     `json:"offset,omitempty"`
-	RequestHeaders *[]UploadOperationHeader `json:"requestHeaders,omitempty"`
-	URL            *string                  `json:"url,omitempty"`
+	Length         *int                    `json:"length,omitempty"`
+	Method         *string                 `json:"method,omitempty"`
+	Offset         *int                    `json:"offset,omitempty"`
+	RequestHeaders []UploadOperationHeader `json:"requestHeaders,omitempty"`
+	URL            *string                 `json:"url,omitempty"`
 }
 
 // UploadOperationHeader defines model for UploadOperationHeader.
@@ -71,7 +71,7 @@ func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
 		return nil, err
 	}
 	if op.RequestHeaders != nil {
-		for _, h := range *op.RequestHeaders {
+		for _, h := range op.RequestHeaders {
 			if h.Name == nil || h.Value == nil {
 				continue
 			}

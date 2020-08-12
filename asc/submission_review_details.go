@@ -95,9 +95,9 @@ type AppStoreReviewDetailUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailresponse
 type AppStoreReviewDetailResponse struct {
-	Data     AppStoreReviewDetail        `json:"data"`
-	Included *[]AppStoreReviewAttachment `json:"included,omitempty"`
-	Links    DocumentLinks               `json:"links"`
+	Data     AppStoreReviewDetail       `json:"data"`
+	Included []AppStoreReviewAttachment `json:"included,omitempty"`
+	Links    DocumentLinks              `json:"links"`
 }
 
 // GetReviewDetailQuery are query options for GetReviewDetail

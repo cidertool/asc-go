@@ -118,9 +118,9 @@ type BetaTesterCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterresponse
 type BetaTesterResponse struct {
-	Data     BetaTester     `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     BetaTester    `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // BetaTestersResponse defines model for BetaTestersResponse.
@@ -128,7 +128,7 @@ type BetaTesterResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betatestersresponse
 type BetaTestersResponse struct {
 	Data     []BetaTester       `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

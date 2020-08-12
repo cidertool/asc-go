@@ -56,8 +56,8 @@ type BundleIDCapability struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapability/attributes
 type BundleIDCapabilityAttributes struct {
-	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
-	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	CapabilityType *CapabilityType     `json:"capabilityType,omitempty"`
+	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
@@ -73,8 +73,8 @@ type BundleIDCapabilityCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/attributes
 type BundleIDCapabilityCreateRequestAttributes struct {
-	CapabilityType CapabilityType       `json:"capabilityType"`
-	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	CapabilityType CapabilityType      `json:"capabilityType"`
+	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityCreateRequestRelationships are relationships for BundleIDCapabilityCreateRequest
@@ -97,8 +97,8 @@ type BundleIDCapabilityUpdateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest/data/attributes
 type BundleIDCapabilityUpdateRequestAttributes struct {
-	CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
-	Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	CapabilityType *CapabilityType     `json:"capabilityType,omitempty"`
+	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
 
 // BundleIDCapabilityResponse defines model for BundleIdCapabilityResponse.
@@ -134,14 +134,14 @@ type CapabilityOption struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/capabilitysetting
 type CapabilitySetting struct {
-	AllowedInstances *string             `json:"allowedInstances,omitempty"`
-	Description      *string             `json:"description,omitempty"`
-	EnabledByDefault *bool               `json:"enabledByDefault,omitempty"`
-	Key              *string             `json:"key,omitempty"`
-	MinInstances     *int                `json:"minInstances,omitempty"`
-	Name             *string             `json:"name,omitempty"`
-	Options          *[]CapabilityOption `json:"options,omitempty"`
-	Visible          *bool               `json:"visible,omitempty"`
+	AllowedInstances *string            `json:"allowedInstances,omitempty"`
+	Description      *string            `json:"description,omitempty"`
+	EnabledByDefault *bool              `json:"enabledByDefault,omitempty"`
+	Key              *string            `json:"key,omitempty"`
+	MinInstances     *int               `json:"minInstances,omitempty"`
+	Name             *string            `json:"name,omitempty"`
+	Options          []CapabilityOption `json:"options,omitempty"`
+	Visible          *bool              `json:"visible,omitempty"`
 }
 
 // EnableCapability enables a capability for a bundle ID.

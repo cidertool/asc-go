@@ -20,7 +20,7 @@ type AppCategory struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategory/attributes
 type AppCategoryAttributes struct {
-	Platforms *[]Platform `json:"platforms,omitempty"`
+	Platforms []Platform `json:"platforms,omitempty"`
 }
 
 // AppCategoryRelationships defines model for AppCategory.Relationships
@@ -36,7 +36,7 @@ type AppCategoryRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategoriesresponse
 type AppCategoriesResponse struct {
 	Data     []AppCategory      `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
@@ -45,9 +45,9 @@ type AppCategoriesResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategoryresponse
 type AppCategoryResponse struct {
-	Data     AppCategory    `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     AppCategory   `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // ListAppCategoriesQuery are query options for ListAppCategories

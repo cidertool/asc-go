@@ -65,7 +65,7 @@ type BetaAppReviewDetailUpdateRequestAttributes struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailresponse
 type BetaAppReviewDetailResponse struct {
 	Data     BetaAppReviewDetail `json:"data"`
-	Included *[]App              `json:"included,omitempty"`
+	Included []App               `json:"included,omitempty"`
 	Links    DocumentLinks       `json:"links"`
 }
 
@@ -74,7 +74,7 @@ type BetaAppReviewDetailResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailsresponse
 type BetaAppReviewDetailsResponse struct {
 	Data     []BetaAppReviewDetail `json:"data"`
-	Included *[]App                `json:"included,omitempty"`
+	Included []App                 `json:"included,omitempty"`
 	Links    PagedDocumentLinks    `json:"links"`
 	Meta     *PagingInformation    `json:"meta,omitempty"`
 }

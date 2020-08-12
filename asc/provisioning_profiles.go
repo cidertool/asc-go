@@ -70,9 +70,9 @@ type ProfileCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profileresponse
 type ProfileResponse struct {
-	Data     Profile        `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     Profile       `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // ProfilesResponse defines model for ProfilesResponse.
@@ -80,7 +80,7 @@ type ProfileResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/profilesresponse
 type ProfilesResponse struct {
 	Data     []Profile          `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

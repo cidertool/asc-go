@@ -37,7 +37,7 @@ type PrereleaseVersionRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionresponse
 type PrereleaseVersionResponse struct {
 	Data     PrereleaseVersion `json:"data"`
-	Included *[]interface{}    `json:"included,omitempty"`
+	Included []interface{}     `json:"included,omitempty"`
 	Links    DocumentLinks     `json:"links"`
 }
 
@@ -46,7 +46,7 @@ type PrereleaseVersionResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionsresponse
 type PrereleaseVersionsResponse struct {
 	Data     []PrereleaseVersion `json:"data"`
-	Included *[]interface{}      `json:"included,omitempty"`
+	Included []interface{}       `json:"included,omitempty"`
 	Links    PagedDocumentLinks  `json:"links"`
 	Meta     *PagingInformation  `json:"meta,omitempty"`
 }

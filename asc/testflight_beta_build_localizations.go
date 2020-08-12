@@ -36,7 +36,7 @@ type BetaBuildLocalizationRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationresponse
 type BetaBuildLocalizationResponse struct {
 	Data     BetaBuildLocalization `json:"data"`
-	Included *[]Build              `json:"included,omitempty"`
+	Included []Build               `json:"included,omitempty"`
 	Links    DocumentLinks         `json:"links"`
 }
 
@@ -85,7 +85,7 @@ type BetaBuildLocalizationUpdateRequestAttributes struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationsresponse
 type BetaBuildLocalizationsResponse struct {
 	Data     []BetaBuildLocalization `json:"data"`
-	Included *[]Build                `json:"included,omitempty"`
+	Included []Build                 `json:"included,omitempty"`
 	Links    PagedDocumentLinks      `json:"links"`
 	Meta     *PagingInformation      `json:"meta,omitempty"`
 }

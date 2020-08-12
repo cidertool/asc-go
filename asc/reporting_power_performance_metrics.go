@@ -47,7 +47,7 @@ type DiagnosticSignatureAttributes struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/diagnosticsignaturesresponse
 type DiagnosticSignaturesResponse struct {
 	Data     []DiagnosticSignature `json:"data"`
-	Included *[]DiagnosticLog      `json:"included,omitempty"`
+	Included []DiagnosticLog       `json:"included,omitempty"`
 	Links    PagedDocumentLinks    `json:"links"`
 	Meta     *PagingInformation    `json:"meta,omitempty"`
 }

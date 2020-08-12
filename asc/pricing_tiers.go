@@ -26,9 +26,9 @@ type AppPriceTierRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricetierresponse
 type AppPriceTierResponse struct {
-	Data     AppPriceTier     `json:"data"`
-	Included *[]AppPricePoint `json:"included,omitempty"`
-	Links    DocumentLinks    `json:"links"`
+	Data     AppPriceTier    `json:"data"`
+	Included []AppPricePoint `json:"included,omitempty"`
+	Links    DocumentLinks   `json:"links"`
 }
 
 // AppPriceTiersResponse defines model for AppPriceTiersResponse.
@@ -36,7 +36,7 @@ type AppPriceTierResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricetiersresponse
 type AppPriceTiersResponse struct {
 	Data     []AppPriceTier     `json:"data"`
-	Included *[]AppPricePoint   `json:"included,omitempty"`
+	Included []AppPricePoint    `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
@@ -73,7 +73,7 @@ type AppPricePointRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricepointresponse
 type AppPricePointResponse struct {
 	Data     AppPricePoint `json:"data"`
-	Included *[]Territory  `json:"included,omitempty"`
+	Included []Territory   `json:"included,omitempty"`
 	Links    DocumentLinks `json:"links"`
 }
 
@@ -82,7 +82,7 @@ type AppPricePointResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/apppricepointsresponse
 type AppPricePointsResponse struct {
 	Data     []AppPricePoint    `json:"data"`
-	Included *[]Territory       `json:"included,omitempty"`
+	Included []Territory        `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }

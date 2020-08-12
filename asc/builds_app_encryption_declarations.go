@@ -61,7 +61,7 @@ type AppEncryptionDeclarationRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationresponse
 type AppEncryptionDeclarationResponse struct {
 	Data     AppEncryptionDeclaration `json:"data"`
-	Included *[]App                   `json:"included,omitempty"`
+	Included []App                    `json:"included,omitempty"`
 	Links    DocumentLinks            `json:"links"`
 }
 
@@ -70,7 +70,7 @@ type AppEncryptionDeclarationResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationsresponse
 type AppEncryptionDeclarationsResponse struct {
 	Data     []AppEncryptionDeclaration `json:"data"`
-	Included *[]App                     `json:"included,omitempty"`
+	Included []App                      `json:"included,omitempty"`
 	Links    PagedDocumentLinks         `json:"links"`
 	Meta     *PagingInformation         `json:"meta,omitempty"`
 }

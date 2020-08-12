@@ -72,7 +72,7 @@ type AppStoreVersionLocalizationCreateRequestRelationships struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationresponse
 type AppStoreVersionLocalizationResponse struct {
 	Data     AppStoreVersionLocalization `json:"data"`
-	Included *[]interface{}              `json:"included,omitempty"`
+	Included []interface{}               `json:"included,omitempty"`
 	Links    DocumentLinks               `json:"links"`
 }
 
@@ -81,7 +81,7 @@ type AppStoreVersionLocalizationResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationsresponse
 type AppStoreVersionLocalizationsResponse struct {
 	Data     []AppStoreVersionLocalization `json:"data"`
-	Included *[]interface{}                `json:"included,omitempty"`
+	Included []interface{}                 `json:"included,omitempty"`
 	Links    PagedDocumentLinks            `json:"links"`
 	Meta     *PagingInformation            `json:"meta,omitempty"`
 }
