@@ -132,7 +132,7 @@ func (s *UsersService) GetInvitation(ctx context.Context, id string, params *Get
 // CreateInvitation invites a user with assigned user roles to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/invite_a_user
-func (s *UsersService) CreateInvitation(ctx context.Context, body *UserInvitationCreateRequest) (*UserInvitationResponse, *Response, error) {
+func (s *UsersService) CreateInvitation(ctx context.Context, body UserInvitationCreateRequest) (*UserInvitationResponse, *Response, error) {
 	res := new(UserInvitationResponse)
 	resp, err := s.client.post(ctx, "userInvitations", body, res)
 	return res, resp, err

@@ -182,7 +182,7 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(ctx context.Context, id s
 // UpdateBuildBetaDetail updates beta test details for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build_beta_detail
-func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, body *BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, body BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

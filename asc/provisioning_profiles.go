@@ -146,7 +146,7 @@ type ListDevicesInProfileQuery struct {
 // CreateProfile creates a new provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_profile
-func (s *ProvisioningService) CreateProfile(ctx context.Context, body *ProfileCreateRequest) (*ProfileResponse, *Response, error) {
+func (s *ProvisioningService) CreateProfile(ctx context.Context, body ProfileCreateRequest) (*ProfileResponse, *Response, error) {
 	res := new(ProfileResponse)
 	resp, err := s.client.post(ctx, "profiles", body, res)
 	return res, resp, err

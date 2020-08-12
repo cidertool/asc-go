@@ -116,7 +116,7 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/submit_an_app_for_beta_review
-func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, body *BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
+func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, body BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", body, res)
 	return res, resp, err

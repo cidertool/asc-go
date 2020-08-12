@@ -182,7 +182,7 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(ctx context.Context, 
 // CreateBetaAppLocalization creates localized descriptive information for an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_app_localization
-func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, body *BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *Response, error) {
+func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, body BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.post(ctx, url, body, res)
@@ -192,7 +192,7 @@ func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, body 
 // UpdateBetaAppLocalization updates the localized What’s New text for a specific app and locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_localization
-func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id string, body *BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id string, body BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

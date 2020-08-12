@@ -177,7 +177,7 @@ func (s *AppsService) GetAppStoreVersionLocalization(ctx context.Context, id str
 // CreateAppStoreVersionLocalization adds localized version-level information for a new locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_localization
-func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, body *AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
+func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, body AppStoreVersionLocalizationCreateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionLocalizations", body, res)
 	return res, resp, err
@@ -186,7 +186,7 @@ func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, bod
 // UpdateAppStoreVersionLocalization modifies localized version-level information for a particular language.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_localization
-func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id string, body *AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
+func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id string, body AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

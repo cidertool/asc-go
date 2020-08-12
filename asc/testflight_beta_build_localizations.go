@@ -168,7 +168,7 @@ func (s *TestflightService) ListBetaBuildLocalizationsForBuild(ctx context.Conte
 // CreateBetaBuildLocalization creates localized descriptive information for an build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_build_localization
-func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, body *BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
+func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, body BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.client.post(ctx, url, body, res)
@@ -178,7 +178,7 @@ func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, bod
 // UpdateBetaBuildLocalization updates the localized What’s New text for a specific build and locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_build_localization
-func (s *TestflightService) UpdateBetaBuildLocalization(ctx context.Context, id string, body *BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaBuildLocalization(ctx context.Context, id string, body BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

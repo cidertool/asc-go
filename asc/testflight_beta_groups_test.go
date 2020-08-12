@@ -7,13 +7,13 @@ import (
 
 func TestCreateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaGroup(ctx, &BetaGroupCreateRequest{})
+		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequest{})
 	})
 }
 
 func TestUpdateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaGroup(ctx, "10", &BetaGroupUpdateRequest{})
+		return client.TestFlight.UpdateBetaGroup(ctx, "10", BetaGroupUpdateRequest{})
 	})
 }
 

@@ -19,13 +19,13 @@ func TestGetPreOrderForApp(t *testing.T) {
 
 func TestCreatePreOrder(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.CreatePreOrder(ctx, &AppPreOrderCreateRequest{})
+		return client.Publishing.CreatePreOrder(ctx, AppPreOrderCreateRequest{})
 	})
 }
 
 func TestUpdatePreOrder(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreOrderResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.UpdatePreOrder(ctx, "10", &AppPreOrderUpdateRequest{})
+		return client.Publishing.UpdatePreOrder(ctx, "10", AppPreOrderUpdateRequest{})
 	})
 }
 

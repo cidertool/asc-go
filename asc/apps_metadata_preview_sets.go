@@ -129,7 +129,7 @@ func (s *AppsService) GetAppPreviewSet(ctx context.Context, id string, params *G
 // CreateAppPreviewSet adds a new preview set to an App Store version localization for a specific preview type and display size.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview_set
-func (s *AppsService) CreateAppPreviewSet(ctx context.Context, body *AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *Response, error) {
+func (s *AppsService) CreateAppPreviewSet(ctx context.Context, body AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *Response, error) {
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.post(ctx, "appPreviewSets", body, res)
 	return res, resp, err

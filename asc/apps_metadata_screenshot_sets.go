@@ -162,7 +162,7 @@ func (s *AppsService) GetAppScreenshotSet(ctx context.Context, id string, params
 // CreateAppScreenshotSet adds a new screenshot set to an App Store version localization for a specific screenshot type and display size.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_screenshot_set
-func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, body *AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *Response, error) {
+func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, body AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *Response, error) {
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.client.post(ctx, "appScreenshotSets", body, res)
 	return res, resp, err

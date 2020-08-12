@@ -197,7 +197,7 @@ func (s *UsersService) GetUser(ctx context.Context, id string, params *GetUserQu
 // UpdateUser changes a user's role, app visibility information, or other account details.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_user_account
-func (s *UsersService) UpdateUser(ctx context.Context, id string, body *UserUpdateRequest) (*UserResponse, *Response, error) {
+func (s *UsersService) UpdateUser(ctx context.Context, id string, body UserUpdateRequest) (*UserResponse, *Response, error) {
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

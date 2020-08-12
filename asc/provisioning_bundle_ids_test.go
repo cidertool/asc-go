@@ -7,13 +7,13 @@ import (
 
 func TestCreateBundleID(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateBundleID(ctx, &BundleIDCreateRequest{})
+		return client.Provisioning.CreateBundleID(ctx, BundleIDCreateRequest{})
 	})
 }
 
 func TestUpdateBundleID(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateBundleID(ctx, "10", &BundleIDUpdateRequest{})
+		return client.Provisioning.UpdateBundleID(ctx, "10", BundleIDUpdateRequest{})
 	})
 }
 

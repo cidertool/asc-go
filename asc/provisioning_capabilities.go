@@ -147,7 +147,7 @@ type CapabilitySetting struct {
 // EnableCapability enables a capability for a bundle ID.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enable_a_capability
-func (s *ProvisioningService) EnableCapability(ctx context.Context, body *BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) EnableCapability(ctx context.Context, body BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *Response, error) {
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.client.patch(ctx, "bundleIdCapabilities", body, res)
 	return res, resp, err
@@ -164,7 +164,7 @@ func (s *ProvisioningService) DisableCapability(ctx context.Context, id string) 
 // UpdateCapability updates the configuration of a specific capability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_capability_configuration
-func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, body *BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, body BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

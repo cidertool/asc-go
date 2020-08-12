@@ -96,7 +96,7 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_idfa_declaration
-func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, body *IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *Response, error) {
+func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, body IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *Response, error) {
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.post(ctx, "idfaDeclarations", body, res)
 	return res, resp, err
@@ -105,7 +105,7 @@ func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, body *IDF
 // UpdateIDFADeclaration updates your declared IDFA usage.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_idfa_declaration
-func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string, body *IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *Response, error) {
+func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string, body IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

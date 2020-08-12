@@ -7,13 +7,13 @@ import (
 
 func TestCreatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.CreatePhasedRelease(ctx, &AppStoreVersionPhasedReleaseCreateRequest{})
+		return client.Publishing.CreatePhasedRelease(ctx, AppStoreVersionPhasedReleaseCreateRequest{})
 	})
 }
 
 func TestUpdatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.UpdatePhasedRelease(ctx, "10", &AppStoreVersionPhasedReleaseUpdateRequest{})
+		return client.Publishing.UpdatePhasedRelease(ctx, "10", AppStoreVersionPhasedReleaseUpdateRequest{})
 	})
 }
 

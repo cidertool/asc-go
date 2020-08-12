@@ -13,13 +13,13 @@ func TestGetAppScreenshot(t *testing.T) {
 
 func TestCreateAppScreenshot(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppScreenshotResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppScreenshot(ctx, &AppScreenshotCreateRequest{})
+		return client.Apps.CreateAppScreenshot(ctx, AppScreenshotCreateRequest{})
 	})
 }
 
 func TestCommitAppScreenshot(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppScreenshotResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitAppScreenshot(ctx, "10", &AppScreenshotUpdateRequest{})
+		return client.Apps.CommitAppScreenshot(ctx, "10", AppScreenshotUpdateRequest{})
 	})
 }
 

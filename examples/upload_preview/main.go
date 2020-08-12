@@ -79,7 +79,7 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequest{
 			Type: "appStoreVersionLocalizations",
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
@@ -117,7 +117,7 @@ func main() {
 	if len(selectedPreviewSets) > 0 {
 		selectedPreviewSet = selectedPreviewSets[0]
 	} else {
-		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, &asc.AppPreviewSetCreateRequest{
+		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, asc.AppPreviewSetCreateRequest{
 			Type: "appPreviewSets",
 			Attributes: asc.AppPreviewSetCreateRequestAttributes{
 				PreviewType: previewType,
@@ -149,7 +149,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app preview.")
-	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, &asc.AppPreviewCreateRequest{
+	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, asc.AppPreviewCreateRequest{
 		Type: "appPreviews",
 		Attributes: asc.AppPreviewCreateRequestAttributes{
 			FileName: file.Name(),
@@ -189,7 +189,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppPreview(ctx, preview.ID, &asc.AppPreviewUpdateRequest{
+	client.Apps.CommitAppPreview(ctx, preview.ID, asc.AppPreviewUpdateRequest{
 		Type: "appPreviews",
 		Attributes: &asc.AppPreviewUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),

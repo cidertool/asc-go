@@ -142,7 +142,7 @@ func (s *TestflightService) GetBetaLicenseAgreementForApp(ctx context.Context, i
 // UpdateBetaLicenseAgreement updates the text for your beta license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_license_agreement
-func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id string, body *BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id string, body BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *Response, error) {
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

@@ -105,7 +105,7 @@ type GetCertificateQuery struct {
 // CreateCertificate creates a new certificate using a certificate signing request.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate
-func (s *ProvisioningService) CreateCertificate(ctx context.Context, body *CertificateCreateRequest) (*CertificateResponse, *Response, error) {
+func (s *ProvisioningService) CreateCertificate(ctx context.Context, body CertificateCreateRequest) (*CertificateResponse, *Response, error) {
 	res := new(CertificateResponse)
 	resp, err := s.client.post(ctx, "certificates", body, res)
 	return res, resp, err

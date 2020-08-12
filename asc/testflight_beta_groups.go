@@ -227,7 +227,7 @@ type ListBetaTesterIDsForBetaGroupQuery struct {
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_group
-func (s *TestflightService) CreateBetaGroup(ctx context.Context, body *BetaGroupCreateRequest) (*BetaGroupResponse, *Response, error) {
+func (s *TestflightService) CreateBetaGroup(ctx context.Context, body BetaGroupCreateRequest) (*BetaGroupResponse, *Response, error) {
 	res := new(BetaGroupResponse)
 	resp, err := s.client.post(ctx, "betaGroups", body, res)
 	return res, resp, err
@@ -236,7 +236,7 @@ func (s *TestflightService) CreateBetaGroup(ctx context.Context, body *BetaGroup
 // UpdateBetaGroup modifies a beta group's metadata, including changing its Testflight public link status.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_group
-func (s *TestflightService) UpdateBetaGroup(ctx context.Context, id string, body *BetaGroupUpdateRequest) (*BetaGroupResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaGroup(ctx context.Context, id string, body BetaGroupUpdateRequest) (*BetaGroupResponse, *Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

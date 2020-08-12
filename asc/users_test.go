@@ -19,7 +19,7 @@ func TestGetUser(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &UserResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Users.UpdateUser(ctx, "10", &UserUpdateRequest{})
+		return client.Users.UpdateUser(ctx, "10", UserUpdateRequest{})
 	})
 }
 

@@ -19,13 +19,13 @@ func TestGetAppStoreVersion(t *testing.T) {
 
 func TestCreateAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppStoreVersion(ctx, &AppStoreVersionCreateRequest{})
+		return client.Apps.CreateAppStoreVersion(ctx, AppStoreVersionCreateRequest{})
 	})
 }
 
 func TestUpdateAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateAppStoreVersion(ctx, "10", &AppStoreVersionUpdateRequest{})
+		return client.Apps.UpdateAppStoreVersion(ctx, "10", AppStoreVersionUpdateRequest{})
 	})
 }
 

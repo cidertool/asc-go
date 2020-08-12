@@ -140,7 +140,7 @@ func (s *AppsService) GetAppInfoLocalization(ctx context.Context, id string, par
 // CreateAppInfoLocalization adds app-level localized information for a new locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_info_localization
-func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, body *AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *Response, error) {
+func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, body AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *Response, error) {
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.post(ctx, "appInfoLocalizations", body, res)
 	return res, resp, err
@@ -149,7 +149,7 @@ func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, body *AppIn
 // UpdateAppInfoLocalization modifies localized app-level information for a particular language.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info_localization
-func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, body *AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *Response, error) {
+func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, body AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

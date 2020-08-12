@@ -19,7 +19,7 @@ func TestGetApp(t *testing.T) {
 
 func TestUpdateApp(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateApp(ctx, "10", &AppUpdateRequest{})
+		return client.Apps.UpdateApp(ctx, "10", AppUpdateRequest{})
 	})
 }
 

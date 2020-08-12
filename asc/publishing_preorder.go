@@ -114,7 +114,7 @@ func (s *PublishingService) GetPreOrderForApp(ctx context.Context, id string, pa
 // CreatePreOrder turns on pre-order and set the expected app release date.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_pre-order
-func (s *PublishingService) CreatePreOrder(ctx context.Context, body *AppPreOrderCreateRequest) (*AppPreOrderResponse, *Response, error) {
+func (s *PublishingService) CreatePreOrder(ctx context.Context, body AppPreOrderCreateRequest) (*AppPreOrderResponse, *Response, error) {
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.post(ctx, "appPreOrders", body, res)
 	return res, resp, err
@@ -123,7 +123,7 @@ func (s *PublishingService) CreatePreOrder(ctx context.Context, body *AppPreOrde
 // UpdatePreOrder updates the release date for your app pre-order.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_pre-order
-func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, body *AppPreOrderUpdateRequest) (*AppPreOrderResponse, *Response, error) {
+func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, body AppPreOrderUpdateRequest) (*AppPreOrderResponse, *Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

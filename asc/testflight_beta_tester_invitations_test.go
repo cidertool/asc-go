@@ -7,6 +7,6 @@ import (
 
 func TestCreateBetaTesterInvitation(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaTesterInvitationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaTesterInvitation(ctx, &BetaTesterInvitationCreateRequest{})
+		return client.TestFlight.CreateBetaTesterInvitation(ctx, BetaTesterInvitationCreateRequest{})
 	})
 }

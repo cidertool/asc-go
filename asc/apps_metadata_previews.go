@@ -153,7 +153,7 @@ func (s *AppsService) GetAppPreview(ctx context.Context, id string, params *GetA
 // CreateAppPreview adds a new preview to a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview
-func (s *AppsService) CreateAppPreview(ctx context.Context, body *AppPreviewCreateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CreateAppPreview(ctx context.Context, body AppPreviewCreateRequest) (*AppPreviewResponse, *Response, error) {
 	res := new(AppPreviewResponse)
 	resp, err := s.client.post(ctx, "appPreviews", body, res)
 	return res, resp, err
@@ -162,7 +162,7 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, body *AppPreviewCrea
 // CommitAppPreview commits an app preview after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_preview
-func (s *AppsService) CommitAppPreview(ctx context.Context, id string, body *AppPreviewUpdateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CommitAppPreview(ctx context.Context, id string, body AppPreviewUpdateRequest) (*AppPreviewResponse, *Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

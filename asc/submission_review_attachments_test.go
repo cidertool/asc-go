@@ -19,13 +19,13 @@ func TestListAttachmentsForReviewDetail(t *testing.T) {
 
 func TestCreateAttachment(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateAttachment(ctx, &AppStoreReviewAttachmentCreateRequest{})
+		return client.Submission.CreateAttachment(ctx, AppStoreReviewAttachmentCreateRequest{})
 	})
 }
 
 func TestCommitAttachment(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CommitAttachment(ctx, "10", &AppStoreReviewAttachmentUpdateRequest{})
+		return client.Submission.CommitAttachment(ctx, "10", AppStoreReviewAttachmentUpdateRequest{})
 	})
 }
 

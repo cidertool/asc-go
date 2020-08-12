@@ -156,7 +156,7 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(ctx context.Context, i
 // UpdateBetaAppReviewDetail updates the details for a specific app's beta app review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_review_detail
-func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id string, body *BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id string, body BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

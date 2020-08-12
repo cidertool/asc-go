@@ -85,7 +85,7 @@ type AgeRatingDeclarationResponse struct {
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_age_rating_declaration
-func (s *AppsService) UpdateAgeRatingDeclaration(ctx context.Context, id string, body *AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *Response, error) {
+func (s *AppsService) UpdateAgeRatingDeclaration(ctx context.Context, id string, body AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *Response, error) {
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

@@ -286,7 +286,7 @@ func (s *AppsService) GetApp(ctx context.Context, id string, params *GetAppQuery
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app
-func (s *AppsService) UpdateApp(ctx context.Context, id string, body *AppUpdateRequest) (*AppResponse, *Response, error) {
+func (s *AppsService) UpdateApp(ctx context.Context, id string, body AppUpdateRequest) (*AppResponse, *Response, error) {
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

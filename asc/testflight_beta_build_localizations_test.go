@@ -31,13 +31,13 @@ func TestListBetaBuildLocalizationsForBuild(t *testing.T) {
 
 func TestCreateBetaBuildLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaBuildLocalization(ctx, &BetaBuildLocalizationCreateRequest{})
+		return client.TestFlight.CreateBetaBuildLocalization(ctx, BetaBuildLocalizationCreateRequest{})
 	})
 }
 
 func TestUpdateBetaBuildLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaBuildLocalization(ctx, "10", &BetaBuildLocalizationUpdateRequest{})
+		return client.TestFlight.UpdateBetaBuildLocalization(ctx, "10", BetaBuildLocalizationUpdateRequest{})
 	})
 }
 

@@ -116,7 +116,7 @@ func (s *AppsService) GetAppScreenshot(ctx context.Context, id string, params *G
 // CreateAppScreenshot adds a new screenshot to a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_screenshot
-func (s *AppsService) CreateAppScreenshot(ctx context.Context, body *AppScreenshotCreateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CreateAppScreenshot(ctx context.Context, body AppScreenshotCreateRequest) (*AppScreenshotResponse, *Response, error) {
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.post(ctx, "appScreenshots", body, res)
 	return res, resp, err
@@ -125,7 +125,7 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, body *AppScreensh
 // CommitAppScreenshot commits an app screenshot after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_screenshot
-func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, body *AppScreenshotUpdateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, body AppScreenshotUpdateRequest) (*AppScreenshotResponse, *Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

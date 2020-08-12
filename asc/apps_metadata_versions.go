@@ -262,7 +262,7 @@ func (s *AppsService) GetAppStoreVersion(ctx context.Context, id string, params 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version
-func (s *AppsService) CreateAppStoreVersion(ctx context.Context, body *AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) CreateAppStoreVersion(ctx context.Context, body AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.post(ctx, url, body, res)
@@ -272,7 +272,7 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, body *AppStoreV
 // UpdateAppStoreVersion updates the app store version for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version
-func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, body *AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, body AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

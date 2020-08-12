@@ -123,7 +123,7 @@ type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 // CreateReviewDetail adds App Store review details to an App Store version, including contact and demo account information.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail
-func (s *SubmissionService) CreateReviewDetail(ctx context.Context, body *AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
+func (s *SubmissionService) CreateReviewDetail(ctx context.Context, body AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.post(ctx, "appStoreReviewDetails", body, res)
 	return res, resp, err
@@ -152,7 +152,7 @@ func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(ctx context.Conte
 // UpdateReviewDetail update the app store review details, including the contact information, demo account, and notes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_review_detail
-func (s *SubmissionService) UpdateReviewDetail(ctx context.Context, id string, body *AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
+func (s *SubmissionService) UpdateReviewDetail(ctx context.Context, id string, body AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

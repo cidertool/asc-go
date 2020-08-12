@@ -108,7 +108,7 @@ type GetEULAForAppQuery struct {
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_end_user_license_agreement
-func (s *AppsService) CreateEULA(ctx context.Context, body *EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
+func (s *AppsService) CreateEULA(ctx context.Context, body EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.post(ctx, "endUserLicenseAgreements", body, res)
 	return res, resp, err
@@ -117,7 +117,7 @@ func (s *AppsService) CreateEULA(ctx context.Context, body *EndUserLicenseAgreem
 // UpdateEULA updates the text or territories for your custom end user license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_end_user_license_agreement
-func (s *AppsService) UpdateEULA(ctx context.Context, id string, body *EndUserLicenseAgreementUpdateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
+func (s *AppsService) UpdateEULA(ctx context.Context, id string, body EndUserLicenseAgreementUpdateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

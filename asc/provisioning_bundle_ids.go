@@ -162,7 +162,7 @@ type ListCapabilitiesForBundleIDQuery struct {
 // CreateBundleID registers a new bundle ID for app development.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id
-func (s *ProvisioningService) CreateBundleID(ctx context.Context, body *BundleIDCreateRequest) (*BundleIDResponse, *Response, error) {
+func (s *ProvisioningService) CreateBundleID(ctx context.Context, body BundleIDCreateRequest) (*BundleIDResponse, *Response, error) {
 	res := new(BundleIDResponse)
 	resp, err := s.client.post(ctx, "bundleIds", body, res)
 	return res, resp, err
@@ -171,7 +171,7 @@ func (s *ProvisioningService) CreateBundleID(ctx context.Context, body *BundleID
 // UpdateBundleID updates a specific bundle ID’s name.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_bundle_id
-func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, body *BundleIDUpdateRequest) (*BundleIDResponse, *Response, error) {
+func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, body BundleIDUpdateRequest) (*BundleIDResponse, *Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

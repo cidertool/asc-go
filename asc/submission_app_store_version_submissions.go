@@ -57,7 +57,7 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
-func (s *SubmissionService) CreateSubmission(ctx context.Context, body *AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
+func (s *SubmissionService) CreateSubmission(ctx context.Context, body AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", body, res)
 	return res, resp, err

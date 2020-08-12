@@ -138,7 +138,7 @@ func (s *AppsService) GetRoutingAppCoverage(ctx context.Context, id string, para
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_routing_app_coverage
-func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, body *RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *Response, error) {
+func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, body RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *Response, error) {
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.post(ctx, "routingAppCoverages", body, res)
 	return res, resp, err
@@ -147,7 +147,7 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, body *Routin
 // CommitRoutingAppCoverage commits a routing app coverage file after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_routing_app_coverage
-func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, body *RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *Response, error) {
+func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, body RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

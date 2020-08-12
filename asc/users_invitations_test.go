@@ -45,7 +45,7 @@ func TestCreateInvitation(t *testing.T) {
 		},
 	}
 	testEndpointWithResponse(t, `{"data":{"attributes":{"email":"me@email.com"}}}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Users.CreateInvitation(ctx, &UserInvitationCreateRequest{
+		return client.Users.CreateInvitation(ctx, UserInvitationCreateRequest{
 			Attributes: UserInvitationCreateRequestAttributes{
 				Email: email,
 			},

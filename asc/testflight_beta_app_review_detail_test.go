@@ -31,6 +31,6 @@ func TestGetBetaAppReviewDetailsForApp(t *testing.T) {
 
 func TestUpdateBetaAppReviewDetail(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", &BetaAppReviewDetailUpdateRequest{})
+		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", BetaAppReviewDetailUpdateRequest{})
 	})
 }

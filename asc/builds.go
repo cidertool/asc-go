@@ -295,7 +295,7 @@ func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuild expires a build or changes its encryption exemption setting.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build
-func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body *BuildUpdateRequest) (*BuildResponse, *Response, error) {
+func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body BuildUpdateRequest) (*BuildResponse, *Response, error) {
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.client.post(ctx, url, body, res)

@@ -127,7 +127,7 @@ func (s *AppsService) ListAppInfosForApp(ctx context.Context, id string, params 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info
-func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, body *AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
+func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, body AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

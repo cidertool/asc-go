@@ -99,7 +99,7 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 // CreatePhasedRelease enables phased release for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_phased_release
-func (s *PublishingService) CreatePhasedRelease(ctx context.Context, body *AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+func (s *PublishingService) CreatePhasedRelease(ctx context.Context, body AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", body, res)
 	return res, resp, err
@@ -108,7 +108,7 @@ func (s *PublishingService) CreatePhasedRelease(ctx context.Context, body *AppSt
 // UpdatePhasedRelease pauses or resumes a phased release, or immediately release an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_phased_release
-func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, body *AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, body AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

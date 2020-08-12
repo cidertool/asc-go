@@ -134,7 +134,7 @@ func (s *SubmissionService) ListAttachmentsForReviewDetail(ctx context.Context, 
 // CreateAttachment attaches a document for App Review to an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_attachment
-func (s *SubmissionService) CreateAttachment(ctx context.Context, body *AppStoreReviewAttachmentCreateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) CreateAttachment(ctx context.Context, body AppStoreReviewAttachmentCreateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.post(ctx, "appStoreReviewAttachments", body, res)
 	return res, resp, err
@@ -143,7 +143,7 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, body *AppStore
 // CommitAttachment commits an app screenshot after uploading it to the App Store.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/commit_an_app_store_review_attachment
-func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, body *AppStoreReviewAttachmentUpdateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, body AppStoreReviewAttachmentUpdateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

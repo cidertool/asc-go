@@ -105,7 +105,7 @@ type GetDeviceQuery struct {
 // CreateDevice registers a new device for app development.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_device
-func (s *ProvisioningService) CreateDevice(ctx context.Context, body *DeviceCreateRequest) (*DeviceResponse, *Response, error) {
+func (s *ProvisioningService) CreateDevice(ctx context.Context, body DeviceCreateRequest) (*DeviceResponse, *Response, error) {
 	res := new(DeviceResponse)
 	resp, err := s.client.post(ctx, "devices", body, res)
 	return res, resp, err
@@ -133,7 +133,7 @@ func (s *ProvisioningService) GetDevice(ctx context.Context, id string, params *
 // UpdateDevice updates the name or status of a specific device.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_registered_device
-func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, body *DeviceUpdateRequest) (*DeviceResponse, *Response, error) {
+func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, body DeviceUpdateRequest) (*DeviceResponse, *Response, error) {
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.client.patch(ctx, url, body, res)

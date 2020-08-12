@@ -234,7 +234,7 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_tester
-func (s *TestflightService) CreateBetaTester(ctx context.Context, body *BetaTesterCreateRequest) (*BetaTesterResponse, *Response, error) {
+func (s *TestflightService) CreateBetaTester(ctx context.Context, body BetaTesterCreateRequest) (*BetaTesterResponse, *Response, error) {
 	res := new(BetaTesterResponse)
 	resp, err := s.client.post(ctx, "betaTesters", body, res)
 	return res, resp, err

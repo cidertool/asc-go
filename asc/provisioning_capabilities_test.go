@@ -7,7 +7,7 @@ import (
 
 func TestEnableCapability(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.EnableCapability(ctx, &BundleIDCapabilityCreateRequest{})
+		return client.Provisioning.EnableCapability(ctx, BundleIDCapabilityCreateRequest{})
 	})
 }
 
@@ -19,6 +19,6 @@ func TestDisableCapability(t *testing.T) {
 
 func TestUpdateCapability(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateCapability(ctx, "10", &BundleIDCapabilityUpdateRequest{})
+		return client.Provisioning.UpdateCapability(ctx, "10", BundleIDCapabilityUpdateRequest{})
 	})
 }

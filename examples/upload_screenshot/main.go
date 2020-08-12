@@ -79,7 +79,7 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, &asc.AppStoreVersionLocalizationCreateRequest{
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequest{
 			Type: "appStoreVersionLocalizations",
 			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
 				Locale: *locale,
@@ -117,7 +117,7 @@ func main() {
 	if len(selectedScreenshotSets) > 0 {
 		selectedScreenshotSet = selectedScreenshotSets[0]
 	} else {
-		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, &asc.AppScreenshotSetCreateRequest{
+		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, asc.AppScreenshotSetCreateRequest{
 			Type: "appScreenshotSets",
 			Attributes: asc.AppScreenshotSetCreateRequestAttributes{
 				ScreenshotDisplayType: screenshotType,
@@ -149,7 +149,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
-	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, &asc.AppScreenshotCreateRequest{
+	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, asc.AppScreenshotCreateRequest{
 		Type: "appScreenshots",
 		Attributes: asc.AppScreenshotCreateRequestAttributes{
 			FileName: file.Name(),
@@ -189,7 +189,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, &asc.AppScreenshotUpdateRequest{
+	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, asc.AppScreenshotUpdateRequest{
 		Type: "appScreenshots",
 		Attributes: &asc.AppScreenshotUpdateRequestAttributes{
 			Uploaded:           asc.Bool(true),
