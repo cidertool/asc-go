@@ -32,15 +32,15 @@ type DeviceAttributes struct {
 // DeviceCreateRequest defines model for DeviceCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest
-type DeviceCreateRequest struct {
-	Attributes DeviceCreateRequestAttributes `json:"attributes"`
+type deviceCreateRequest struct {
+	Attributes deviceCreateRequestAttributes `json:"attributes"`
 	Type       string                        `json:"type"`
 }
 
-// DeviceCreateRequestAttributes are attributes for DeviceCreateRequest
+// deviceCreateRequestAttributes are attributes for DeviceCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest/data/attributes
-type DeviceCreateRequestAttributes struct {
+type deviceCreateRequestAttributes struct {
 	Name     string           `json:"name"`
 	Platform BundleIDPlatform `json:"platform"`
 	UDID     string           `json:"udid"`
@@ -105,9 +105,17 @@ type GetDeviceQuery struct {
 // CreateDevice registers a new device for app development.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_device
-func (s *ProvisioningService) CreateDevice(ctx context.Context, body DeviceCreateRequest) (*DeviceResponse, *Response, error) {
+func (s *ProvisioningService) CreateDevice(ctx context.Context, name string, udid string, platform BundleIDPlatform) (*DeviceResponse, *Response, error) {
+	req := deviceCreateRequest{
+		Attributes: deviceCreateRequestAttributes{
+			Name:     name,
+			UDID:     udid,
+			Platform: platform,
+		},
+		Type: "devices",
+	}
 	res := new(DeviceResponse)
-	resp, err := s.client.post(ctx, "devices", body, res)
+	resp, err := s.client.post(ctx, "devices", req, res)
 	return res, resp, err
 }
 

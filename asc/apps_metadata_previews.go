@@ -65,16 +65,16 @@ type AppPreviewRelationships struct {
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest
-type AppPreviewCreateRequest struct {
-	Attributes    AppPreviewCreateRequestAttributes    `json:"attributes"`
-	Relationships AppPreviewCreateRequestRelationships `json:"relationships"`
+type appPreviewCreateRequest struct {
+	Attributes    appPreviewCreateRequestAttributes    `json:"attributes"`
+	Relationships appPreviewCreateRequestRelationships `json:"relationships"`
 	Type          string                               `json:"type"`
 }
 
 // AppPreviewCreateRequestAttributes are attributes for AppPreviewCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/attributes
-type AppPreviewCreateRequestAttributes struct {
+type appPreviewCreateRequestAttributes struct {
 	FileName             string  `json:"fileName"`
 	FileSize             int64   `json:"fileSize"`
 	MimeType             *string `json:"mimeType,omitempty"`
@@ -84,7 +84,7 @@ type AppPreviewCreateRequestAttributes struct {
 // AppPreviewCreateRequestRelationships are relationships for AppPreviewCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/relationships
-type AppPreviewCreateRequestRelationships struct {
+type appPreviewCreateRequestRelationships struct {
 	AppPreviewSet RelationshipDeclaration `json:"appPreviewSet"`
 }
 
@@ -153,9 +153,24 @@ func (s *AppsService) GetAppPreview(ctx context.Context, id string, params *GetA
 // CreateAppPreview adds a new preview to a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview
-func (s *AppsService) CreateAppPreview(ctx context.Context, body AppPreviewCreateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fileSize int64, appPreviewSetID string) (*AppPreviewResponse, *Response, error) {
+	req := appPreviewCreateRequest{
+		Attributes: appPreviewCreateRequestAttributes{
+			FileName: fileName,
+			FileSize: fileSize,
+		},
+		Relationships: appPreviewCreateRequestRelationships{
+			AppPreviewSet: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appPreviewSetID,
+					Type: "appPreviewSets",
+				},
+			},
+		},
+		Type: "appPreviews",
+	}
 	res := new(AppPreviewResponse)
-	resp, err := s.client.post(ctx, "appPreviews", body, res)
+	resp, err := s.client.post(ctx, "appPreviews", req, res)
 	return res, resp, err
 }
 

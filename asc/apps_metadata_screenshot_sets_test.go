@@ -13,7 +13,7 @@ func TestGetAppScreenshotSet(t *testing.T) {
 
 func TestCreateAppScreenshotSet(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppScreenshotSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppScreenshotSet(ctx, AppScreenshotSetCreateRequest{})
+		return client.Apps.CreateAppScreenshotSet(ctx, ScreenshotDisplayTypeAppiPadPro129, "")
 	})
 }
 

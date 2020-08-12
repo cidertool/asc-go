@@ -33,12 +33,12 @@ type IDFADeclarationRelationships struct {
 	AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 }
 
-// IDFADeclarationCreateRequest defines model for IDFADeclarationCreateRequest.
+// idfaDeclarationCreateRequest defines model for idfaDeclarationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest
-type IDFADeclarationCreateRequest struct {
+type idfaDeclarationCreateRequest struct {
 	Attributes    IDFADeclarationCreateRequestAttributes    `json:"attributes"`
-	Relationships IDFADeclarationCreateRequestRelationships `json:"relationships"`
+	Relationships idfaDeclarationCreateRequestRelationships `json:"relationships"`
 	Type          string                                    `json:"type"`
 }
 
@@ -52,10 +52,10 @@ type IDFADeclarationCreateRequestAttributes struct {
 	ServesAds                             bool `json:"servesAds"`
 }
 
-// IDFADeclarationCreateRequestRelationships are relationships for IDFADeclarationCreateRequest
+// idfaDeclarationCreateRequestRelationships are relationships for IDFADeclarationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data/relationships
-type IDFADeclarationCreateRequestRelationships struct {
+type idfaDeclarationCreateRequestRelationships struct {
 	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
@@ -96,9 +96,21 @@ type GetIDFADeclarationForAppStoreVersionQuery struct {
 // CreateIDFADeclaration declares the IDFA usage for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_idfa_declaration
-func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, body IDFADeclarationCreateRequest) (*IDFADeclarationResponse, *Response, error) {
+func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, attributes IDFADeclarationCreateRequestAttributes, appStoreVersionID string) (*IDFADeclarationResponse, *Response, error) {
+	req := idfaDeclarationCreateRequest{
+		Attributes: attributes,
+		Relationships: idfaDeclarationCreateRequestRelationships{
+			AppStoreVersion: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionID,
+					Type: "appStoreVersions",
+				},
+			},
+		},
+		Type: "idfaDeclarations",
+	}
 	res := new(IDFADeclarationResponse)
-	resp, err := s.client.post(ctx, "idfaDeclarations", body, res)
+	resp, err := s.client.post(ctx, "idfaDeclarations", req, res)
 	return res, resp, err
 }
 

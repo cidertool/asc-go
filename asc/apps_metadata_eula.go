@@ -34,8 +34,8 @@ type EndUserLicenseAgreementRelationships struct {
 // EndUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest
-type EndUserLicenseAgreementCreateRequest struct {
-	Attributes    EndUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
+type endUserLicenseAgreementCreateRequest struct {
+	Attributes    endUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
 	Relationships EndUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
 	Type          string                                            `json:"type"`
 }
@@ -43,7 +43,7 @@ type EndUserLicenseAgreementCreateRequest struct {
 // EndUserLicenseAgreementCreateRequestAttributes are attributes for EndUserLicenseAgreementCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data/attributes
-type EndUserLicenseAgreementCreateRequestAttributes struct {
+type endUserLicenseAgreementCreateRequestAttributes struct {
 	AgreementText string `json:"agreementText"`
 }
 
@@ -108,9 +108,16 @@ type GetEULAForAppQuery struct {
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_end_user_license_agreement
-func (s *AppsService) CreateEULA(ctx context.Context, body EndUserLicenseAgreementCreateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
+func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, relationships EndUserLicenseAgreementCreateRequestRelationships) (*EndUserLicenseAgreementResponse, *Response, error) {
+	req := endUserLicenseAgreementCreateRequest{
+		Attributes: endUserLicenseAgreementCreateRequestAttributes{
+			AgreementText: agreementText,
+		},
+		Relationships: relationships,
+		Type:          "endUserLicenseAgreements",
+	}
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.post(ctx, "endUserLicenseAgreements", body, res)
+	resp, err := s.client.post(ctx, "endUserLicenseAgreements", req, res)
 	return res, resp, err
 }
 

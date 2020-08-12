@@ -7,7 +7,7 @@ import (
 
 func TestCreateDevice(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &DeviceResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateDevice(ctx, DeviceCreateRequest{})
+		return client.Provisioning.CreateDevice(ctx, "", "", BundleIDPlatformiOS)
 	})
 }
 

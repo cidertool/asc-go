@@ -7,7 +7,7 @@ import (
 
 func TestCreateSubmission(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateSubmission(ctx, AppStoreVersionSubmissionCreateRequest{})
+		return client.Submission.CreateSubmission(ctx, "")
 	})
 }
 

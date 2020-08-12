@@ -37,9 +37,9 @@ type AppInfoLocalizationRelationships struct {
 // AppInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest
-type AppInfoLocalizationCreateRequest struct {
+type appInfoLocalizationCreateRequest struct {
 	Attributes    AppInfoLocalizationCreateRequestAttributes    `json:"attributes"`
-	Relationships AppInfoLocalizationCreateRequestRelationships `json:"relationships"`
+	Relationships appInfoLocalizationCreateRequestRelationships `json:"relationships"`
 	Type          string                                        `json:"type"`
 }
 
@@ -57,7 +57,7 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 // AppInfoLocalizationCreateRequestRelationships are relationships for AppInfoLocalizationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest/data/relationships
-type AppInfoLocalizationCreateRequestRelationships struct {
+type appInfoLocalizationCreateRequestRelationships struct {
 	AppInfo RelationshipDeclaration `json:"appInfo"`
 }
 
@@ -140,9 +140,21 @@ func (s *AppsService) GetAppInfoLocalization(ctx context.Context, id string, par
 // CreateAppInfoLocalization adds app-level localized information for a new locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_info_localization
-func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, body AppInfoLocalizationCreateRequest) (*AppInfoLocalizationResponse, *Response, error) {
+func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, attributes AppInfoLocalizationCreateRequestAttributes, appInfoID string) (*AppInfoLocalizationResponse, *Response, error) {
+	req := appInfoLocalizationCreateRequest{
+		Attributes: attributes,
+		Relationships: appInfoLocalizationCreateRequestRelationships{
+			AppInfo: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appInfoID,
+					Type: "appInfos",
+				},
+			},
+		},
+		Type: "appInfoLocalizations",
+	}
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.post(ctx, "appInfoLocalizations", body, res)
+	resp, err := s.client.post(ctx, "appInfoLocalizations", req, res)
 	return res, resp, err
 }
 

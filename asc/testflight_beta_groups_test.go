@@ -7,7 +7,7 @@ import (
 
 func TestCreateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequest{})
+		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequestAttributes{}, BetaGroupCreateRequestRelationships{})
 	})
 }
 

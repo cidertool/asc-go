@@ -154,7 +154,7 @@ type AppStoreVersionsResponse struct {
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest
-type AppStoreVersionCreateRequest struct {
+type appStoreVersionCreateRequest struct {
 	Attributes    AppStoreVersionCreateRequestAttributes    `json:"attributes"`
 	Relationships AppStoreVersionCreateRequestRelationships `json:"relationships"`
 	Type          string                                    `json:"type"`
@@ -262,10 +262,15 @@ func (s *AppsService) GetAppStoreVersion(ctx context.Context, id string, params 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version
-func (s *AppsService) CreateAppStoreVersion(ctx context.Context, body AppStoreVersionCreateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppStoreVersionCreateRequestAttributes, relationships AppStoreVersionCreateRequestRelationships) (*AppStoreVersionResponse, *Response, error) {
+	req := appStoreVersionCreateRequest{
+		Attributes:    attributes,
+		Relationships: relationships,
+		Type:          "appStoreVersions",
+	}
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.post(ctx, url, body, res)
+	resp, err := s.client.post(ctx, url, req, res)
 	return res, resp, err
 }
 

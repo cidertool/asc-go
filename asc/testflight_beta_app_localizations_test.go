@@ -31,7 +31,7 @@ func TestListBetaAppLocalizationsForApp(t *testing.T) {
 
 func TestCreateBetaAppLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaAppLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaAppLocalization(ctx, BetaAppLocalizationCreateRequest{})
+		return client.TestFlight.CreateBetaAppLocalization(ctx, BetaAppLocalizationCreateRequestAttributes{}, "")
 	})
 }
 

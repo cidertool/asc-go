@@ -79,20 +79,9 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequest{
-			Type: "appStoreVersionLocalizations",
-			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
-				Locale: *locale,
-			},
-			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
-				AppStoreVersion: asc.RelationshipDeclaration{
-					Data: &asc.RelationshipData{
-						ID:   version.ID,
-						Type: "appStoreVersions",
-					},
-				},
-			},
-		})
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequestAttributes{
+			Locale: *locale,
+		}, version.ID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -117,20 +106,7 @@ func main() {
 	if len(selectedScreenshotSets) > 0 {
 		selectedScreenshotSet = selectedScreenshotSets[0]
 	} else {
-		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, asc.AppScreenshotSetCreateRequest{
-			Type: "appScreenshotSets",
-			Attributes: asc.AppScreenshotSetCreateRequestAttributes{
-				ScreenshotDisplayType: screenshotType,
-			},
-			Relationships: asc.AppScreenshotSetCreateRequestRelationships{
-				AppStoreVersionLocalization: asc.RelationshipDeclaration{
-					Data: &asc.RelationshipData{
-						ID:   selectedLocalization.ID,
-						Type: "appStoreVersionLocalizations",
-					},
-				},
-			},
-		})
+		newScreenshotSet, _, err := client.Apps.CreateAppScreenshotSet(ctx, screenshotType, selectedLocalization.ID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -149,21 +125,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
-	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, asc.AppScreenshotCreateRequest{
-		Type: "appScreenshots",
-		Attributes: asc.AppScreenshotCreateRequestAttributes{
-			FileName: file.Name(),
-			FileSize: stat.Size(),
-		},
-		Relationships: asc.AppScreenshotCreateRequestRelationships{
-			AppScreenshotSet: asc.RelationshipDeclaration{
-				Data: &asc.RelationshipData{
-					ID:   selectedScreenshotSet.ID,
-					Type: "appScreenshotSets",
-				},
-			},
-		},
-	})
+	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, file.Name(), stat.Size(), selectedScreenshotSet.ID)
 	screenshot := reserveScreenshot.Data
 
 	// 9. Upload each part according to the returned upload operations.

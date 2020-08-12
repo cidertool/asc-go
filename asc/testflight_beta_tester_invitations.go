@@ -14,15 +14,15 @@ type BetaTesterInvitation struct {
 // BetaTesterInvitationCreateRequest defines model for BetaTesterInvitationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest
-type BetaTesterInvitationCreateRequest struct {
-	Relationships BetaTesterInvitationCreateRequestRelationships `json:"relationships"`
+type betaTesterInvitationCreateRequest struct {
+	Relationships betaTesterInvitationCreateRequestRelationships `json:"relationships"`
 	Type          string                                         `json:"type"`
 }
 
 // BetaTesterInvitationCreateRequestRelationships are relationships for BetaTesterInvitationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest/data/relationships
-type BetaTesterInvitationCreateRequestRelationships struct {
+type betaTesterInvitationCreateRequestRelationships struct {
 	App        RelationshipDeclaration `json:"app"`
 	BetaTester RelationshipDeclaration `json:"betaTester"`
 }
@@ -38,8 +38,25 @@ type BetaTesterInvitationResponse struct {
 // CreateBetaTesterInvitation sends or resends an invitation to a beta tester to test a specified app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/send_an_invitation_to_a_beta_tester
-func (s *TestflightService) CreateBetaTesterInvitation(ctx context.Context, body BetaTesterInvitationCreateRequest) (*BetaTesterInvitationResponse, *Response, error) {
+func (s *TestflightService) CreateBetaTesterInvitation(ctx context.Context, appID string, betaTesterID string) (*BetaTesterInvitationResponse, *Response, error) {
+	req := betaTesterInvitationCreateRequest{
+		Relationships: betaTesterInvitationCreateRequestRelationships{
+			App: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appID,
+					Type: "apps",
+				},
+			},
+			BetaTester: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   betaTesterID,
+					Type: "betaTesters",
+				},
+			},
+		},
+		Type: "betaTesterInvitations",
+	}
 	res := new(BetaTesterInvitationResponse)
-	resp, err := s.client.post(ctx, "betaTesterInvitations", body, res)
+	resp, err := s.client.post(ctx, "betaTesterInvitations", req, res)
 	return res, resp, err
 }

@@ -15,11 +15,7 @@ func TestCreateBetaTester(t *testing.T) {
 		},
 	}
 	testEndpointWithResponse(t, `{"data":{"attributes":{"email":"me@email.com"}}}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaTester(ctx, BetaTesterCreateRequest{
-			Attributes: BetaTesterCreateRequestAttributes{
-				Email: Email("me@email.com"),
-			},
-		})
+		return client.TestFlight.CreateBetaTester(ctx, BetaTesterCreateRequestAttributes{Email: Email("me@email.com")}, nil)
 	})
 }
 

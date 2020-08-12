@@ -7,7 +7,7 @@ import (
 
 func TestEnableCapability(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.EnableCapability(ctx, BundleIDCapabilityCreateRequest{})
+		return client.Provisioning.EnableCapability(ctx, CapabilityTypeAccessWifiInformation, []CapabilitySetting{}, "")
 	})
 }
 

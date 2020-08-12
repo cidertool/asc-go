@@ -42,26 +42,26 @@ type AppStoreVersionPhasedReleaseAttributes struct {
 	TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
 }
 
-// AppStoreVersionPhasedReleaseCreateRequest defines model for AppStoreVersionPhasedReleaseCreateRequest.
+// appStoreVersionPhasedReleaseCreateRequest defines model for appStoreVersionPhasedReleaseCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest
-type AppStoreVersionPhasedReleaseCreateRequest struct {
-	Attributes    *AppStoreVersionPhasedReleaseCreateRequestAttributes   `json:"attributes,omitempty"`
-	Relationships AppStoreVersionPhasedReleaseCreateRequestRelationships `json:"relationships"`
+type appStoreVersionPhasedReleaseCreateRequest struct {
+	Attributes    *appStoreVersionPhasedReleaseCreateRequestAttributes   `json:"attributes,omitempty"`
+	Relationships appStoreVersionPhasedReleaseCreateRequestRelationships `json:"relationships"`
 	Type          string                                                 `json:"type"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequestAttributes are attributes for AppStoreVersionPhasedReleaseCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/attributes
-type AppStoreVersionPhasedReleaseCreateRequestAttributes struct {
+type appStoreVersionPhasedReleaseCreateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
 // AppStoreVersionPhasedReleaseCreateRequestRelationships are relationships for AppStoreVersionPhasedReleaseCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/relationships
-type AppStoreVersionPhasedReleaseCreateRequestRelationships struct {
+type appStoreVersionPhasedReleaseCreateRequestRelationships struct {
 	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
@@ -99,9 +99,25 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 // CreatePhasedRelease enables phased release for an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_phased_release
-func (s *PublishingService) CreatePhasedRelease(ctx context.Context, body AppStoreVersionPhasedReleaseCreateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+func (s *PublishingService) CreatePhasedRelease(ctx context.Context, phasedReleaseState *PhasedReleaseState, appStoreVersionID string) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+	req := appStoreVersionPhasedReleaseCreateRequest{
+		Relationships: appStoreVersionPhasedReleaseCreateRequestRelationships{
+			AppStoreVersion: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionID,
+					Type: "appStoreVersions",
+				},
+			},
+		},
+		Type: "appStoreVersionPhasedReleases",
+	}
+	if phasedReleaseState != nil {
+		req.Attributes = &appStoreVersionPhasedReleaseCreateRequestAttributes{
+			PhasedReleaseState: phasedReleaseState,
+		}
+	}
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", body, res)
+	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", req, res)
 	return res, resp, err
 }
 

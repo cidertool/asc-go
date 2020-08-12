@@ -7,7 +7,7 @@ import (
 
 func TestCreateIDFADeclaration(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateIDFADeclaration(ctx, IDFADeclarationCreateRequest{})
+		return client.Submission.CreateIDFADeclaration(ctx, IDFADeclarationCreateRequestAttributes{}, "")
 	})
 }
 

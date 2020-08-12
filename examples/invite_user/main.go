@@ -50,17 +50,14 @@ func inviteUser(ctx context.Context, client *asc.Client) error {
 		userRoles = append(userRoles, asc.UserRole(role))
 	}
 
-	invitation, _, err := client.Users.CreateInvitation(ctx, asc.UserInvitationCreateRequest{
-		Type: "userInvitations",
-		Attributes: asc.UserInvitationCreateRequestAttributes{
-			FirstName:           *givenName,
-			LastName:            *familyName,
-			Email:               asc.Email(*email),
-			Roles:               userRoles,
-			AllAppsVisible:      allAppsVisible,
-			ProvisioningAllowed: provisioningAllowed,
-		},
-	})
+	invitation, _, err := client.Users.CreateInvitation(ctx, asc.UserInvitationCreateRequestAttributes{
+		FirstName:           *givenName,
+		LastName:            *familyName,
+		Email:               asc.Email(*email),
+		Roles:               userRoles,
+		AllAppsVisible:      allAppsVisible,
+		ProvisioningAllowed: provisioningAllowed,
+	}, nil)
 	if err != nil {
 		return err
 	}

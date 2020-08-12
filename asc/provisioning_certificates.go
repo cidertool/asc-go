@@ -2,7 +2,10 @@ package asc
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"time"
 )
 
@@ -47,18 +50,18 @@ type CertificateAttributes struct {
 	SerialNumber       *string           `json:"serialNumber,omitempty"`
 }
 
-// CertificateCreateRequest defines model for CertificateCreateRequest.
+// certificateCreateRequest defines model for certificateCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest
-type CertificateCreateRequest struct {
-	Attributes CertificateCreateRequestAttributes `json:"attributes"`
+type certificateCreateRequest struct {
+	Attributes certificateCreateRequestAttributes `json:"attributes"`
 	Type       string                             `json:"type"`
 }
 
-// CertificateCreateRequestAttributes are attributes for CertificateCreateRequest
+// certificateCreateRequestAttributes are attributes for CertificateCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest/data/attributes
-type CertificateCreateRequestAttributes struct {
+type certificateCreateRequestAttributes struct {
 	CertificateType CertificateType `json:"certificateType"`
 	CsrContent      string          `json:"csrContent"`
 }
@@ -105,9 +108,23 @@ type GetCertificateQuery struct {
 // CreateCertificate creates a new certificate using a certificate signing request.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate
-func (s *ProvisioningService) CreateCertificate(ctx context.Context, body CertificateCreateRequest) (*CertificateResponse, *Response, error) {
+func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificateType CertificateType, csrContent io.Reader) (*CertificateResponse, *Response, error) {
+	if csrContent == nil {
+		return nil, nil, errors.New("no csr content provided")
+	}
+	csrBytes, err := ioutil.ReadAll(csrContent)
+	if err != nil {
+		return nil, nil, err
+	}
+	req := certificateCreateRequest{
+		Attributes: certificateCreateRequestAttributes{
+			CertificateType: certificateType,
+			CsrContent:      string(csrBytes),
+		},
+		Type: "certificates",
+	}
 	res := new(CertificateResponse)
-	resp, err := s.client.post(ctx, "certificates", body, res)
+	resp, err := s.client.post(ctx, "certificates", req, res)
 	return res, resp, err
 }
 

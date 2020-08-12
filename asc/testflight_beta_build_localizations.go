@@ -43,16 +43,16 @@ type BetaBuildLocalizationResponse struct {
 // BetaBuildLocalizationCreateRequest defines model for BetaBuildLocalizationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest
-type BetaBuildLocalizationCreateRequest struct {
-	Attributes    BetaBuildLocalizationCreateRequestAttributes    `json:"attributes"`
-	Relationships BetaBuildLocalizationCreateRequestRelationships `json:"relationships"`
+type betaBuildLocalizationCreateRequest struct {
+	Attributes    betaBuildLocalizationCreateRequestAttributes    `json:"attributes"`
+	Relationships betaBuildLocalizationCreateRequestRelationships `json:"relationships"`
 	Type          string                                          `json:"type"`
 }
 
 // BetaBuildLocalizationCreateRequestAttributes are attributes for BetaBuildLocalizationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest/data/attributes
-type BetaBuildLocalizationCreateRequestAttributes struct {
+type betaBuildLocalizationCreateRequestAttributes struct {
 	Locale   string  `json:"locale"`
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }
@@ -60,7 +60,7 @@ type BetaBuildLocalizationCreateRequestAttributes struct {
 // BetaBuildLocalizationCreateRequestRelationships are relationships for BetaBuildLocalizationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest/data/relationships
-type BetaBuildLocalizationCreateRequestRelationships struct {
+type betaBuildLocalizationCreateRequestRelationships struct {
 	Build RelationshipDeclaration `json:"build"`
 }
 
@@ -168,10 +168,25 @@ func (s *TestflightService) ListBetaBuildLocalizationsForBuild(ctx context.Conte
 // CreateBetaBuildLocalization creates localized descriptive information for an build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_build_localization
-func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, body BetaBuildLocalizationCreateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
+func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, locale string, whatsNew *string, buildID string) (*BetaBuildLocalizationResponse, *Response, error) {
+	req := betaBuildLocalizationCreateRequest{
+		Attributes: betaBuildLocalizationCreateRequestAttributes{
+			Locale:   locale,
+			WhatsNew: whatsNew,
+		},
+		Relationships: betaBuildLocalizationCreateRequestRelationships{
+			Build: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   buildID,
+					Type: "builds",
+				},
+			},
+		},
+		Type: "betaBuildLocalizations",
+	}
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.post(ctx, url, body, res)
+	resp, err := s.client.post(ctx, url, req, res)
 	return res, resp, err
 }
 

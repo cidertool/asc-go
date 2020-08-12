@@ -43,18 +43,18 @@ type BetaAppReviewSubmissionRelationships struct {
 	Build *Relationship `json:"build,omitempty"`
 }
 
-// BetaAppReviewSubmissionCreateRequest defines model for BetaAppReviewSubmissionCreateRequest.
+// betaAppReviewSubmissionCreateRequest defines model for betaAppReviewSubmissionCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest
-type BetaAppReviewSubmissionCreateRequest struct {
-	Relationships BetaAppReviewSubmissionCreateRequestRelationships `json:"relationships"`
+type betaAppReviewSubmissionCreateRequest struct {
+	Relationships betaAppReviewSubmissionCreateRequestRelationships `json:"relationships"`
 	Type          string                                            `json:"type"`
 }
 
-// BetaAppReviewSubmissionCreateRequestRelationships are relationships for BetaAppReviewSubmissionCreateRequest
+// betaAppReviewSubmissionCreateRequestRelationships are relationships for BetaAppReviewSubmissionCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest/data/relationships
-type BetaAppReviewSubmissionCreateRequestRelationships struct {
+type betaAppReviewSubmissionCreateRequestRelationships struct {
 	Build RelationshipDeclaration `json:"build"`
 }
 
@@ -116,9 +116,20 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 // CreateBetaAppReviewSubmission submits an app for beta app review to allow external testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/submit_an_app_for_beta_review
-func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, body BetaAppReviewSubmissionCreateRequest) (*BetaAppReviewSubmissionResponse, *Response, error) {
+func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, buildID string) (*BetaAppReviewSubmissionResponse, *Response, error) {
+	req := betaAppReviewSubmissionCreateRequest{
+		Relationships: betaAppReviewSubmissionCreateRequestRelationships{
+			Build: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   buildID,
+					Type: "builds",
+				},
+			},
+		},
+		Type: "betaAppReviewSubmissions",
+	}
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", body, res)
+	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", req, res)
 	return res, resp, err
 }
 

@@ -35,12 +35,12 @@ type BetaAppLocalizationRelationships struct {
 	App *Relationship `json:"app,omitempty"`
 }
 
-// BetaAppLocalizationCreateRequest defines model for BetaAppLocalizationCreateRequest.
+// betaAppLocalizationCreateRequest defines model for betaAppLocalizationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest
-type BetaAppLocalizationCreateRequest struct {
+type betaAppLocalizationCreateRequest struct {
 	Attributes    BetaAppLocalizationCreateRequestAttributes    `json:"attributes"`
-	Relationships BetaAppLocalizationCreateRequestRelationships `json:"relationships"`
+	Relationships betaAppLocalizationCreateRequestRelationships `json:"relationships"`
 	Type          string                                        `json:"type"`
 }
 
@@ -56,10 +56,10 @@ type BetaAppLocalizationCreateRequestAttributes struct {
 	TVOSPrivacyPolicy *string `json:"tvOsPrivacyPolicy,omitempty"`
 }
 
-// BetaAppLocalizationCreateRequestRelationships are relationships for BetaAppLocalizationCreateRequest
+// betaAppLocalizationCreateRequestRelationships are relationships for BetaAppLocalizationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest/data/relationships
-type BetaAppLocalizationCreateRequestRelationships struct {
+type betaAppLocalizationCreateRequestRelationships struct {
 	App RelationshipDeclaration `json:"app"`
 }
 
@@ -182,10 +182,22 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(ctx context.Context, 
 // CreateBetaAppLocalization creates localized descriptive information for an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_app_localization
-func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, body BetaAppLocalizationCreateRequest) (*BetaAppLocalizationResponse, *Response, error) {
+func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, attributes BetaAppLocalizationCreateRequestAttributes, appID string) (*BetaAppLocalizationResponse, *Response, error) {
+	req := betaAppLocalizationCreateRequest{
+		Attributes: attributes,
+		Relationships: betaAppLocalizationCreateRequestRelationships{
+			App: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appID,
+					Type: "apps",
+				},
+			},
+		},
+		Type: "betaAppLocalizations",
+	}
 	url := fmt.Sprintf("betaAppLocalizations")
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.client.post(ctx, url, body, res)
+	resp, err := s.client.post(ctx, url, req, res)
 	return res, resp, err
 }
 

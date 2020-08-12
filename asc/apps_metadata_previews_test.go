@@ -13,7 +13,7 @@ func TestGetAppPreview(t *testing.T) {
 
 func TestCreateAppPreview(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppPreview(ctx, AppPreviewCreateRequest{})
+		return client.Apps.CreateAppPreview(ctx, "", 0, "")
 	})
 }
 

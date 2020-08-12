@@ -7,7 +7,7 @@ import (
 
 func TestCreateEULA(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &EndUserLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateEULA(ctx, EndUserLicenseAgreementCreateRequest{})
+		return client.Apps.CreateEULA(ctx, "", EndUserLicenseAgreementCreateRequestRelationships{})
 	})
 }
 

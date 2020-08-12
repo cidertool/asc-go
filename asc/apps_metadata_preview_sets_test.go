@@ -13,7 +13,7 @@ func TestGetAppPreviewSet(t *testing.T) {
 
 func TestCreateAppPreviewSet(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreviewSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppPreviewSet(ctx, AppPreviewSetCreateRequest{})
+		return client.Apps.CreateAppPreviewSet(ctx, PreviewTypeiPadPro129, "")
 	})
 }
 

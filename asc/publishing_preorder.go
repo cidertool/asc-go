@@ -34,21 +34,21 @@ type AppPreOrderRelationships struct {
 // AppPreOrderCreateRequest defines model for AppPreOrderCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest
-type AppPreOrderCreateRequest struct {
-	Attributes    *AppPreOrderCreateRequestAttributes   `json:"attributes,omitempty"`
-	Relationships AppPreOrderCreateRequestRelationships `json:"relationships"`
+type appPreOrderCreateRequest struct {
+	Attributes    *appPreOrderCreateRequestAttributes   `json:"attributes,omitempty"`
+	Relationships appPreOrderCreateRequestRelationships `json:"relationships"`
 	Type          string                                `json:"type"`
 }
 
 // AppPreOrderCreateRequestAttributes are attributes for AppPreOrderCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest/data/attributes
-type AppPreOrderCreateRequestAttributes struct {
+type appPreOrderCreateRequestAttributes struct {
 	AppReleaseDate *Date `json:"appReleaseDate,omitempty"`
 }
 
 // AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest
-type AppPreOrderCreateRequestRelationships struct {
+type appPreOrderCreateRequestRelationships struct {
 	App RelationshipDeclaration `json:"app"`
 }
 
@@ -114,9 +114,25 @@ func (s *PublishingService) GetPreOrderForApp(ctx context.Context, id string, pa
 // CreatePreOrder turns on pre-order and set the expected app release date.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_pre-order
-func (s *PublishingService) CreatePreOrder(ctx context.Context, body AppPreOrderCreateRequest) (*AppPreOrderResponse, *Response, error) {
+func (s *PublishingService) CreatePreOrder(ctx context.Context, appReleaseDate *Date, appID string) (*AppPreOrderResponse, *Response, error) {
+	req := appPreOrderCreateRequest{
+		Relationships: appPreOrderCreateRequestRelationships{
+			App: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appID,
+					Type: "apps",
+				},
+			},
+		},
+		Type: "appPreOrders",
+	}
+	if appReleaseDate != nil {
+		req.Attributes = &appPreOrderCreateRequestAttributes{
+			AppReleaseDate: appReleaseDate,
+		}
+	}
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.post(ctx, "appPreOrders", body, res)
+	resp, err := s.client.post(ctx, "appPreOrders", req, res)
 	return res, resp, err
 }
 

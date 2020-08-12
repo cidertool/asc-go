@@ -40,16 +40,16 @@ type AppScreenshotRelationships struct {
 // AppScreenshotCreateRequest defines model for AppScreenshotCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest
-type AppScreenshotCreateRequest struct {
-	Attributes    AppScreenshotCreateRequestAttributes    `json:"attributes"`
-	Relationships AppScreenshotCreateRequestRelationships `json:"relationships"`
+type appScreenshotCreateRequest struct {
+	Attributes    appScreenshotCreateRequestAttributes    `json:"attributes"`
+	Relationships appScreenshotCreateRequestRelationships `json:"relationships"`
 	Type          string                                  `json:"type"`
 }
 
 // AppScreenshotCreateRequestAttributes are attributes for AppScreenshotCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/attributes
-type AppScreenshotCreateRequestAttributes struct {
+type appScreenshotCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
@@ -57,7 +57,7 @@ type AppScreenshotCreateRequestAttributes struct {
 // AppScreenshotCreateRequestRelationships are relationships for AppScreenshotCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/relationships
-type AppScreenshotCreateRequestRelationships struct {
+type appScreenshotCreateRequestRelationships struct {
 	AppScreenshotSet RelationshipDeclaration `json:"appScreenshotSet"`
 }
 
@@ -116,9 +116,24 @@ func (s *AppsService) GetAppScreenshot(ctx context.Context, id string, params *G
 // CreateAppScreenshot adds a new screenshot to a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_screenshot
-func (s *AppsService) CreateAppScreenshot(ctx context.Context, body AppScreenshotCreateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, fileSize int64, appScreenshotSetID string) (*AppScreenshotResponse, *Response, error) {
+	req := appScreenshotCreateRequest{
+		Attributes: appScreenshotCreateRequestAttributes{
+			FileName: fileName,
+			FileSize: fileSize,
+		},
+		Relationships: appScreenshotCreateRequestRelationships{
+			AppScreenshotSet: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appScreenshotSetID,
+					Type: "appScreenshotSets",
+				},
+			},
+		},
+		Type: "appScreenshots",
+	}
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.post(ctx, "appScreenshots", body, res)
+	resp, err := s.client.post(ctx, "appScreenshots", req, res)
 	return res, resp, err
 }
 

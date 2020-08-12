@@ -79,20 +79,9 @@ func main() {
 	if len(selectedLocalizations) > 0 {
 		selectedLocalization = selectedLocalizations[0]
 	} else {
-		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequest{
-			Type: "appStoreVersionLocalizations",
-			Attributes: asc.AppStoreVersionLocalizationCreateRequestAttributes{
-				Locale: *locale,
-			},
-			Relationships: asc.AppStoreVersionLocalizationCreateRequestRelationships{
-				AppStoreVersion: asc.RelationshipDeclaration{
-					Data: &asc.RelationshipData{
-						ID:   version.ID,
-						Type: "appStoreVersions",
-					},
-				},
-			},
-		})
+		newLocalization, _, err := client.Apps.CreateAppStoreVersionLocalization(ctx, asc.AppStoreVersionLocalizationCreateRequestAttributes{
+			Locale: *locale,
+		}, version.ID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -117,20 +106,7 @@ func main() {
 	if len(selectedPreviewSets) > 0 {
 		selectedPreviewSet = selectedPreviewSets[0]
 	} else {
-		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, asc.AppPreviewSetCreateRequest{
-			Type: "appPreviewSets",
-			Attributes: asc.AppPreviewSetCreateRequestAttributes{
-				PreviewType: previewType,
-			},
-			Relationships: asc.AppPreviewSetCreateRequestRelationships{
-				AppStoreVersionLocalization: asc.RelationshipDeclaration{
-					Data: &asc.RelationshipData{
-						ID:   selectedLocalization.ID,
-						Type: "appStoreVersionLocalizations",
-					},
-				},
-			},
-		})
+		newPreviewSet, _, err := client.Apps.CreateAppPreviewSet(ctx, previewType, selectedLocalization.ID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -149,21 +125,7 @@ func main() {
 		log.Fatalf("file could not be read: %s", err)
 	}
 	fmt.Println("Reserving space for a new app preview.")
-	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, asc.AppPreviewCreateRequest{
-		Type: "appPreviews",
-		Attributes: asc.AppPreviewCreateRequestAttributes{
-			FileName: file.Name(),
-			FileSize: stat.Size(),
-		},
-		Relationships: asc.AppPreviewCreateRequestRelationships{
-			AppPreviewSet: asc.RelationshipDeclaration{
-				Data: &asc.RelationshipData{
-					ID:   selectedPreviewSet.ID,
-					Type: "appPreviewSets",
-				},
-			},
-		},
-	})
+	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, file.Name(), stat.Size(), selectedPreviewSet.ID)
 	preview := reservePreview.Data
 
 	// 9. Upload each part according to the returned upload operations.

@@ -28,14 +28,7 @@ func main() {
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
 
-	device, _, err := client.Provisioning.CreateDevice(ctx, asc.DeviceCreateRequest{
-		Type: "devices",
-		Attributes: asc.DeviceCreateRequestAttributes{
-			Name:     *name,
-			Platform: asc.BundleIDPlatform(*platform),
-			UDID:     *udid,
-		},
-	})
+	device, _, err := client.Provisioning.CreateDevice(ctx, *name, *udid, asc.BundleIDPlatform(*platform))
 
 	if err != nil {
 		log.Fatal(err)

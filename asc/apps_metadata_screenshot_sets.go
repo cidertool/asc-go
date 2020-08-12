@@ -65,26 +65,26 @@ type AppScreenshotSetRelationships struct {
 	AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 }
 
-// AppScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
+// appScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest
-type AppScreenshotSetCreateRequest struct {
-	Attributes    AppScreenshotSetCreateRequestAttributes    `json:"attributes"`
-	Relationships AppScreenshotSetCreateRequestRelationships `json:"relationships"`
+type appScreenshotSetCreateRequest struct {
+	Attributes    appScreenshotSetCreateRequestAttributes    `json:"attributes"`
+	Relationships appScreenshotSetCreateRequestRelationships `json:"relationships"`
 	Type          string                                     `json:"type"`
 }
 
-// AppScreenshotSetCreateRequestAttributes are attributes for AppScreenshotSetCreateRequest
+// appScreenshotSetCreateRequestAttributes are attributes for AppScreenshotSetCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/attributes
-type AppScreenshotSetCreateRequestAttributes struct {
+type appScreenshotSetCreateRequestAttributes struct {
 	ScreenshotDisplayType ScreenshotDisplayType `json:"screenshotDisplayType"`
 }
 
-// AppScreenshotSetCreateRequestRelationships are relationships for AppScreenshotSetCreateRequest
+// appScreenshotSetCreateRequestRelationships are relationships for AppScreenshotSetCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/relationships
-type AppScreenshotSetCreateRequestRelationships struct {
+type appScreenshotSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
@@ -162,9 +162,23 @@ func (s *AppsService) GetAppScreenshotSet(ctx context.Context, id string, params
 // CreateAppScreenshotSet adds a new screenshot set to an App Store version localization for a specific screenshot type and display size.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_screenshot_set
-func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, body AppScreenshotSetCreateRequest) (*AppScreenshotSetResponse, *Response, error) {
+func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, screenshotDisplayType ScreenshotDisplayType, appStoreVersionLocalizationID string) (*AppScreenshotSetResponse, *Response, error) {
+	req := appScreenshotSetCreateRequest{
+		Attributes: appScreenshotSetCreateRequestAttributes{
+			ScreenshotDisplayType: screenshotDisplayType,
+		},
+		Relationships: appScreenshotSetCreateRequestRelationships{
+			AppStoreVersionLocalization: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionLocalizationID,
+					Type: "appStoreVersionLocalizations",
+				},
+			},
+		},
+		Type: "appScreenshotSets",
+	}
 	res := new(AppScreenshotSetResponse)
-	resp, err := s.client.post(ctx, "appScreenshotSets", body, res)
+	resp, err := s.client.post(ctx, "appScreenshotSets", req, res)
 	return res, resp, err
 }
 

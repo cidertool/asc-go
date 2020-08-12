@@ -50,7 +50,7 @@ type BundleIDRelationships struct {
 // BundleIDCreateRequest defines model for BundleIdCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcreaterequest
-type BundleIDCreateRequest struct {
+type bundleIDCreateRequest struct {
 	Attributes BundleIDCreateRequestAttributes `json:"attributes"`
 	Type       string                          `json:"type"`
 }
@@ -162,9 +162,13 @@ type ListCapabilitiesForBundleIDQuery struct {
 // CreateBundleID registers a new bundle ID for app development.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_bundle_id
-func (s *ProvisioningService) CreateBundleID(ctx context.Context, body BundleIDCreateRequest) (*BundleIDResponse, *Response, error) {
+func (s *ProvisioningService) CreateBundleID(ctx context.Context, attributes BundleIDCreateRequestAttributes) (*BundleIDResponse, *Response, error) {
+	req := bundleIDCreateRequest{
+		Attributes: attributes,
+		Type:       "bundleIds",
+	}
 	res := new(BundleIDResponse)
-	resp, err := s.client.post(ctx, "bundleIds", body, res)
+	resp, err := s.client.post(ctx, "bundleIds", req, res)
 	return res, resp, err
 }
 

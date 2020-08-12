@@ -22,18 +22,18 @@ type AppStoreVersionSubmissionRelationships struct {
 	AppStoreVersion *Relationship `json:"appStoreVersion,omitempty"`
 }
 
-// AppStoreVersionSubmissionCreateRequest defines model for AppStoreVersionSubmissionCreateRequest.
+// appStoreVersionSubmissionCreateRequest defines model for appStoreVersionSubmissionCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissioncreaterequest
-type AppStoreVersionSubmissionCreateRequest struct {
-	Relationships AppStoreVersionSubmissionCreateRequestRelationships `json:"relationships"`
+type appStoreVersionSubmissionCreateRequest struct {
+	Relationships appStoreVersionSubmissionCreateRequestRelationships `json:"relationships"`
 	Type          string                                              `json:"type"`
 }
 
-// AppStoreVersionSubmissionCreateRequestRelationships are attributes for AppStoreVersionSubmissionCreateRequest
+// appStoreVersionSubmissionCreateRequestRelationships are attributes for AppStoreVersionSubmissionCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissioncreaterequest/data/relationships
-type AppStoreVersionSubmissionCreateRequestRelationships struct {
+type appStoreVersionSubmissionCreateRequestRelationships struct {
 	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
@@ -57,9 +57,20 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 // CreateSubmission submits an App Store version to App Review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_submission
-func (s *SubmissionService) CreateSubmission(ctx context.Context, body AppStoreVersionSubmissionCreateRequest) (*AppStoreVersionSubmissionResponse, *Response, error) {
+func (s *SubmissionService) CreateSubmission(ctx context.Context, appStoreVersionID string) (*AppStoreVersionSubmissionResponse, *Response, error) {
+	req := appStoreVersionSubmissionCreateRequest{
+		Relationships: appStoreVersionSubmissionCreateRequestRelationships{
+			AppStoreVersion: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionID,
+					Type: "appStoreVersions",
+				},
+			},
+		},
+		Type: "appStoreVersionSubmissions",
+	}
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", body, res)
+	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", req, res)
 	return res, resp, err
 }
 

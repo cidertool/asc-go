@@ -53,7 +53,7 @@ type BetaGroupResponse struct {
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest
-type BetaGroupCreateRequest struct {
+type betaGroupCreateRequest struct {
 	Attributes    BetaGroupCreateRequestAttributes    `json:"attributes"`
 	Relationships BetaGroupCreateRequestRelationships `json:"relationships"`
 	Type          string                              `json:"type"`
@@ -227,9 +227,14 @@ type ListBetaTesterIDsForBetaGroupQuery struct {
 // CreateBetaGroup creates a beta group associated with an app, optionally enabling TestFlight public links.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_group
-func (s *TestflightService) CreateBetaGroup(ctx context.Context, body BetaGroupCreateRequest) (*BetaGroupResponse, *Response, error) {
+func (s *TestflightService) CreateBetaGroup(ctx context.Context, attributes BetaGroupCreateRequestAttributes, relationships BetaGroupCreateRequestRelationships) (*BetaGroupResponse, *Response, error) {
+	req := betaGroupCreateRequest{
+		Attributes:    attributes,
+		Relationships: relationships,
+		Type:          "betaGroups",
+	}
 	res := new(BetaGroupResponse)
-	resp, err := s.client.post(ctx, "betaGroups", body, res)
+	resp, err := s.client.post(ctx, "betaGroups", req, res)
 	return res, resp, err
 }
 

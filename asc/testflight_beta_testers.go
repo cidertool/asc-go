@@ -88,10 +88,10 @@ type BetaTesterBuildsLinkagesResponse struct {
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
-// BetaTesterCreateRequest defines model for BetaTesterCreateRequest.
+// betaTesterCreateRequest defines model for betaTesterCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest
-type BetaTesterCreateRequest struct {
+type betaTesterCreateRequest struct {
 	Attributes    BetaTesterCreateRequestAttributes     `json:"attributes"`
 	Relationships *BetaTesterCreateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                `json:"type"`
@@ -234,9 +234,14 @@ type ListBetaGroupIDsForBetaTesterQuery struct {
 // CreateBetaTester creates a beta tester assigned to a group, a build, or an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_beta_tester
-func (s *TestflightService) CreateBetaTester(ctx context.Context, body BetaTesterCreateRequest) (*BetaTesterResponse, *Response, error) {
+func (s *TestflightService) CreateBetaTester(ctx context.Context, attributes BetaTesterCreateRequestAttributes, relationships *BetaTesterCreateRequestRelationships) (*BetaTesterResponse, *Response, error) {
+	req := betaTesterCreateRequest{
+		Attributes:    attributes,
+		Relationships: relationships,
+		Type:          "betaTesters",
+	}
 	res := new(BetaTesterResponse)
-	resp, err := s.client.post(ctx, "betaTesters", body, res)
+	resp, err := s.client.post(ctx, "betaTesters", req, res)
 	return res, resp, err
 }
 

@@ -60,27 +60,27 @@ type BundleIDCapabilityAttributes struct {
 	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
 
-// BundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
+// bundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest
-type BundleIDCapabilityCreateRequest struct {
-	Attributes    BundleIDCapabilityCreateRequestAttributes    `json:"attributes"`
-	Relationships BundleIDCapabilityCreateRequestRelationships `json:"relationships"`
+type bundleIDCapabilityCreateRequest struct {
+	Attributes    bundleIDCapabilityCreateRequestAttributes    `json:"attributes"`
+	Relationships bundleIDCapabilityCreateRequestRelationships `json:"relationships"`
 	Type          string                                       `json:"type"`
 }
 
-// BundleIDCapabilityCreateRequestAttributes are attributes for BundleIDCapabilityCreateRequest
+// bundleIDCapabilityCreateRequestAttributes are attributes for BundleIDCapabilityCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/attributes
-type BundleIDCapabilityCreateRequestAttributes struct {
+type bundleIDCapabilityCreateRequestAttributes struct {
 	CapabilityType CapabilityType      `json:"capabilityType"`
 	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
 
-// BundleIDCapabilityCreateRequestRelationships are relationships for BundleIDCapabilityCreateRequest
+// bundleIDCapabilityCreateRequestRelationships are relationships for BundleIDCapabilityCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/relationships
-type BundleIDCapabilityCreateRequestRelationships struct {
+type bundleIDCapabilityCreateRequestRelationships struct {
 	BundleID RelationshipDeclaration `json:"bundleId"`
 }
 
@@ -147,9 +147,24 @@ type CapabilitySetting struct {
 // EnableCapability enables a capability for a bundle ID.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enable_a_capability
-func (s *ProvisioningService) EnableCapability(ctx context.Context, body BundleIDCapabilityCreateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) EnableCapability(ctx context.Context, capabilityType CapabilityType, capabilitySettings []CapabilitySetting, bundleIDRelationship string) (*BundleIDCapabilityResponse, *Response, error) {
+	req := bundleIDCapabilityCreateRequest{
+		Attributes: bundleIDCapabilityCreateRequestAttributes{
+			CapabilityType: capabilityType,
+			Settings:       capabilitySettings,
+		},
+		Relationships: bundleIDCapabilityCreateRequestRelationships{
+			BundleID: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   bundleIDRelationship,
+					Type: "bundleIds",
+				},
+			},
+		},
+		Type: "bundleIdCapabilities",
+	}
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.patch(ctx, "bundleIdCapabilities", body, res)
+	resp, err := s.client.patch(ctx, "bundleIdCapabilities", req, res)
 	return res, resp, err
 }
 

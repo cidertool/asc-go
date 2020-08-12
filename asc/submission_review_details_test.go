@@ -7,7 +7,7 @@ import (
 
 func TestCreateReviewDetail(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CreateReviewDetail(ctx, AppStoreReviewDetailCreateRequest{})
+		return client.Submission.CreateReviewDetail(ctx, &AppStoreReviewDetailCreateRequestAttributes{}, "")
 	})
 }
 

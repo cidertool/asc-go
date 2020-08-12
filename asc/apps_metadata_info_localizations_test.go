@@ -19,7 +19,7 @@ func TestGetAppInfoLocalization(t *testing.T) {
 
 func TestCreateAppInfoLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CreateAppInfoLocalization(ctx, AppInfoLocalizationCreateRequest{})
+		return client.Apps.CreateAppInfoLocalization(ctx, AppInfoLocalizationCreateRequestAttributes{}, "")
 	})
 }
 

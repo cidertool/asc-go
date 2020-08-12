@@ -7,7 +7,7 @@ import (
 
 func TestCreateBetaAppReviewSubmission(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaAppReviewSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaAppReviewSubmission(ctx, BetaAppReviewSubmissionCreateRequest{})
+		return client.TestFlight.CreateBetaAppReviewSubmission(ctx, "")
 	})
 }
 

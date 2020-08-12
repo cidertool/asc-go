@@ -31,26 +31,26 @@ type AppPreviewSetRelationships struct {
 	AppStoreVersionLocalization *Relationship      `json:"appStoreVersionLocalization,omitempty"`
 }
 
-// AppPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.
+// appPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest
-type AppPreviewSetCreateRequest struct {
-	Attributes    AppPreviewSetCreateRequestAttributes    `json:"attributes"`
-	Relationships AppPreviewSetCreateRequestRelationships `json:"relationships"`
+type appPreviewSetCreateRequest struct {
+	Attributes    appPreviewSetCreateRequestAttributes    `json:"attributes"`
+	Relationships appPreviewSetCreateRequestRelationships `json:"relationships"`
 	Type          string                                  `json:"type"`
 }
 
-// AppPreviewSetCreateRequestAttributes are attributes for AppPreviewSetCreateRequest
+// appPreviewSetCreateRequestAttributes are attributes for AppPreviewSetCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/attributes
-type AppPreviewSetCreateRequestAttributes struct {
+type appPreviewSetCreateRequestAttributes struct {
 	PreviewType PreviewType `json:"previewType"`
 }
 
-// AppPreviewSetCreateRequestRelationships are relationships for AppPreviewSetCreateRequest
+// appPreviewSetCreateRequestRelationships are relationships for AppPreviewSetCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/relationships
-type AppPreviewSetCreateRequestRelationships struct {
+type appPreviewSetCreateRequestRelationships struct {
 	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
@@ -129,9 +129,23 @@ func (s *AppsService) GetAppPreviewSet(ctx context.Context, id string, params *G
 // CreateAppPreviewSet adds a new preview set to an App Store version localization for a specific preview type and display size.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_preview_set
-func (s *AppsService) CreateAppPreviewSet(ctx context.Context, body AppPreviewSetCreateRequest) (*AppPreviewSetResponse, *Response, error) {
+func (s *AppsService) CreateAppPreviewSet(ctx context.Context, previewType PreviewType, appStoreVersionLocalizationID string) (*AppPreviewSetResponse, *Response, error) {
+	req := appPreviewSetCreateRequest{
+		Attributes: appPreviewSetCreateRequestAttributes{
+			PreviewType: previewType,
+		},
+		Relationships: appPreviewSetCreateRequestRelationships{
+			AppStoreVersionLocalization: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionLocalizationID,
+					Type: "appStoreVersionLocalizations",
+				},
+			},
+		},
+		Type: "appPreviewSets",
+	}
 	res := new(AppPreviewSetResponse)
-	resp, err := s.client.post(ctx, "appPreviewSets", body, res)
+	resp, err := s.client.post(ctx, "appPreviewSets", req, res)
 	return res, resp, err
 }
 

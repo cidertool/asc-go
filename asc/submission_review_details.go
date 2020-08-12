@@ -41,9 +41,9 @@ type AppStoreReviewDetailRelationships struct {
 // AppStoreReviewDetailCreateRequest defines model for AppStoreReviewDetailCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest
-type AppStoreReviewDetailCreateRequest struct {
+type appStoreReviewDetailCreateRequest struct {
 	Attributes    *AppStoreReviewDetailCreateRequestAttributes   `json:"attributes,omitempty"`
-	Relationships AppStoreReviewDetailCreateRequestRelationships `json:"relationships"`
+	Relationships appStoreReviewDetailCreateRequestRelationships `json:"relationships"`
 	Type          string                                         `json:"type"`
 }
 
@@ -64,7 +64,7 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 // AppStoreReviewDetailCreateRequestRelationships are relationships for AppStoreReviewDetailCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data/relationships
-type AppStoreReviewDetailCreateRequestRelationships struct {
+type appStoreReviewDetailCreateRequestRelationships struct {
 	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
@@ -123,9 +123,21 @@ type GetAppStoreReviewDetailsForAppStoreVersionQuery struct {
 // CreateReviewDetail adds App Store review details to an App Store version, including contact and demo account information.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail
-func (s *SubmissionService) CreateReviewDetail(ctx context.Context, body AppStoreReviewDetailCreateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
+func (s *SubmissionService) CreateReviewDetail(ctx context.Context, attributes *AppStoreReviewDetailCreateRequestAttributes, appStoreVersionID string) (*AppStoreReviewDetailResponse, *Response, error) {
+	req := appStoreReviewDetailCreateRequest{
+		Attributes: attributes,
+		Relationships: appStoreReviewDetailCreateRequestRelationships{
+			AppStoreVersion: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionID,
+					Type: "appStoreVersions",
+				},
+			},
+		},
+		Type: "appStoreReviewDetails",
+	}
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.post(ctx, "appStoreReviewDetails", body, res)
+	resp, err := s.client.post(ctx, "appStoreReviewDetails", req, res)
 	return res, resp, err
 }
 

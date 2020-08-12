@@ -1,13 +1,14 @@
 package asc
 
 import (
+	"bytes"
 	"context"
 	"testing"
 )
 
 func TestCreateCertificate(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateCertificate(ctx, CertificateCreateRequest{})
+		return client.Provisioning.CreateCertificate(ctx, CertificateTypeDevelopment, &bytes.Buffer{})
 	})
 }
 

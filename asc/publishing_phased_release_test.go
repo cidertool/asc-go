@@ -7,7 +7,8 @@ import (
 
 func TestCreatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.CreatePhasedRelease(ctx, AppStoreVersionPhasedReleaseCreateRequest{})
+		state := PhasedReleaseStateActive
+		return client.Publishing.CreatePhasedRelease(ctx, &state, "")
 	})
 }
 

@@ -37,16 +37,16 @@ type RoutingAppCoverageRelationships struct {
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest
-type RoutingAppCoverageCreateRequest struct {
-	Attributes    RoutingAppCoverageCreateRequestAttributes    `json:"attributes"`
-	Relationships RoutingAppCoverageCreateRequestRelationships `json:"relationships"`
+type routingAppCoverageCreateRequest struct {
+	Attributes    routingAppCoverageCreateRequestAttributes    `json:"attributes"`
+	Relationships routingAppCoverageCreateRequestRelationships `json:"relationships"`
 	Type          string                                       `json:"type"`
 }
 
 // RoutingAppCoverageCreateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/attributes
-type RoutingAppCoverageCreateRequestAttributes struct {
+type routingAppCoverageCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
@@ -54,7 +54,7 @@ type RoutingAppCoverageCreateRequestAttributes struct {
 // RoutingAppCoverageCreateRequestRelationships are relationships for RoutingAppCoverageCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/relationships
-type RoutingAppCoverageCreateRequestRelationships struct {
+type routingAppCoverageCreateRequestRelationships struct {
 	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
 }
 
@@ -138,9 +138,24 @@ func (s *AppsService) GetRoutingAppCoverage(ctx context.Context, id string, para
 // CreateRoutingAppCoverage attaches a routing app coverage file to an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_routing_app_coverage
-func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, body RoutingAppCoverageCreateRequest) (*RoutingAppCoverageResponse, *Response, error) {
+func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName string, fileSize int64, appStoreVersionID string) (*RoutingAppCoverageResponse, *Response, error) {
+	req := routingAppCoverageCreateRequest{
+		Attributes: routingAppCoverageCreateRequestAttributes{
+			FileName: fileName,
+			FileSize: fileSize,
+		},
+		Relationships: routingAppCoverageCreateRequestRelationships{
+			AppStoreVersion: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreVersionID,
+					Type: "appStoreVersions",
+				},
+			},
+		},
+		Type: "routingAppCoverages",
+	}
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.post(ctx, "routingAppCoverages", body, res)
+	resp, err := s.client.post(ctx, "routingAppCoverages", req, res)
 	return res, resp, err
 }
 

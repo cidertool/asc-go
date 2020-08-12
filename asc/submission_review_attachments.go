@@ -34,27 +34,27 @@ type AppStoreReviewAttachmentRelationships struct {
 	AppStoreReviewDetail *Relationship `json:"appStoreReviewDetail,omitempty"`
 }
 
-// AppStoreReviewAttachmentCreateRequest defines model for AppStoreReviewAttachmentCreateRequest.
+// appStoreReviewAttachmentCreateRequest defines model for appStoreReviewAttachmentCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest
-type AppStoreReviewAttachmentCreateRequest struct {
-	Attributes    AppStoreReviewAttachmentCreateRequestAttributes    `json:"attributes"`
-	Relationships AppStoreReviewAttachmentCreateRequestRelationships `json:"relationships"`
+type appStoreReviewAttachmentCreateRequest struct {
+	Attributes    appStoreReviewAttachmentCreateRequestAttributes    `json:"attributes"`
+	Relationships appStoreReviewAttachmentCreateRequestRelationships `json:"relationships"`
 	Type          string                                             `json:"type"`
 }
 
-// AppStoreReviewAttachmentCreateRequestAttributes are attributes for AppStoreReviewAttachmentCreateRequest
+// appStoreReviewAttachmentCreateRequestAttributes are attributes for AppStoreReviewAttachmentCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/attributes
-type AppStoreReviewAttachmentCreateRequestAttributes struct {
+type appStoreReviewAttachmentCreateRequestAttributes struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`
 }
 
-// AppStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest
+// appStoreReviewAttachmentCreateRequestRelationships are relationships for AppStoreReviewAttachmentCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/relationships
-type AppStoreReviewAttachmentCreateRequestRelationships struct {
+type appStoreReviewAttachmentCreateRequestRelationships struct {
 	AppStoreReviewDetail RelationshipDeclaration `json:"appStoreReviewDetail"`
 }
 
@@ -134,9 +134,24 @@ func (s *SubmissionService) ListAttachmentsForReviewDetail(ctx context.Context, 
 // CreateAttachment attaches a document for App Review to an App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_attachment
-func (s *SubmissionService) CreateAttachment(ctx context.Context, body AppStoreReviewAttachmentCreateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName string, fileSize int64, appStoreReviewDetailID string) (*AppStoreReviewAttachmentResponse, *Response, error) {
+	req := appStoreReviewAttachmentCreateRequest{
+		Attributes: appStoreReviewAttachmentCreateRequestAttributes{
+			FileName: fileName,
+			FileSize: fileSize,
+		},
+		Relationships: appStoreReviewAttachmentCreateRequestRelationships{
+			AppStoreReviewDetail: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   appStoreReviewDetailID,
+					Type: "appStoreReviewDetails",
+				},
+			},
+		},
+		Type: "appStoreReviewAttachments",
+	}
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.post(ctx, "appStoreReviewAttachments", body, res)
+	resp, err := s.client.post(ctx, "appStoreReviewAttachments", req, res)
 	return res, resp, err
 }
 

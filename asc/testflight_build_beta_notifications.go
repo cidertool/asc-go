@@ -11,18 +11,18 @@ type BuildBetaNotification struct {
 	Type  string        `json:"type"`
 }
 
-// BuildBetaNotificationCreateRequest defines model for BuildBetaNotificationCreateRequest.
+// buildBetaNotificationCreateRequest defines model for buildBetaNotificationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest
-type BuildBetaNotificationCreateRequest struct {
-	Relationships BuildBetaNotificationCreateRequestRelationships `json:"relationships"`
+type buildBetaNotificationCreateRequest struct {
+	Relationships buildBetaNotificationCreateRequestRelationships `json:"relationships"`
 	Type          string                                          `json:"type"`
 }
 
-// BuildBetaNotificationCreateRequestRelationships are relationships for BuildBetaNotificationCreateRequest
+// buildBetaNotificationCreateRequestRelationships are relationships for BuildBetaNotificationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest/data/relationships
-type BuildBetaNotificationCreateRequestRelationships struct {
+type buildBetaNotificationCreateRequestRelationships struct {
 	Build RelationshipDeclaration `json:"build"`
 }
 
@@ -37,8 +37,19 @@ type BuildBetaNotificationResponse struct {
 // CreateAvailableBuildNotification sends a notification to all assigned beta testers that a build is available for testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/send_notification_of_an_available_build
-func (s *TestflightService) CreateAvailableBuildNotification(ctx context.Context, body BuildBetaNotificationCreateRequest) (*BuildBetaNotificationResponse, *Response, error) {
+func (s *TestflightService) CreateAvailableBuildNotification(ctx context.Context, buildID string) (*BuildBetaNotificationResponse, *Response, error) {
+	req := buildBetaNotificationCreateRequest{
+		Relationships: buildBetaNotificationCreateRequestRelationships{
+			Build: RelationshipDeclaration{
+				Data: &RelationshipData{
+					ID:   buildID,
+					Type: "builds",
+				},
+			},
+		},
+		Type: "buildBetaNotifications",
+	}
 	res := new(BuildBetaNotificationResponse)
-	resp, err := s.client.post(ctx, "buildBetaNotifications", body, res)
+	resp, err := s.client.post(ctx, "buildBetaNotifications", req, res)
 	return res, resp, err
 }
