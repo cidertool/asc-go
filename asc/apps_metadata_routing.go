@@ -36,7 +36,7 @@ type RoutingAppCoverageRelationships struct {
 
 // RoutingAppCoverageCreateRequest defines model for RoutingAppCoverageCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data
 type routingAppCoverageCreateRequest struct {
 	Attributes    routingAppCoverageCreateRequestAttributes    `json:"attributes"`
 	Relationships routingAppCoverageCreateRequestRelationships `json:"relationships"`
@@ -68,7 +68,7 @@ type RoutingAppCoverageResponse struct {
 
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest/data
 type routingAppCoverageUpdateRequest struct {
 	Attributes *RoutingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`

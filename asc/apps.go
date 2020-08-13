@@ -69,11 +69,11 @@ type AppRelationships struct {
 
 // AppUpdateRequest defines model for AppUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data
 type appUpdateRequest struct {
 	Attributes    *AppUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                         `json:"id"`
-	Relationships *AppUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *appUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                         `json:"type"`
 }
 
@@ -87,10 +87,10 @@ type AppUpdateRequestAttributes struct {
 	PrimaryLocale             *string `json:"primaryLocale,omitempty"`
 }
 
-// AppUpdateRequestRelationships are relationships for AppUpdateRequest
+// appUpdateRequestRelationships are relationships for AppUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data/relationships
-type AppUpdateRequestRelationships struct {
+type appUpdateRequestRelationships struct {
 	AvailableTerritories *pagedRelationshipDeclaration `json:"availableTerritories,omitempty"`
 	Prices               *pagedRelationshipDeclaration `json:"prices,omitempty"`
 }
@@ -290,7 +290,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 	anyTerritories := len(availableTerritoryIDs) > 0
 	anyPrices := len(priceIDs) > 0
 	if anyTerritories || anyPrices {
-		req.Relationships = &AppUpdateRequestRelationships{}
+		req.Relationships = &appUpdateRequestRelationships{}
 		if anyTerritories {
 			relationships := newRelationships(availableTerritoryIDs, "territories")
 			req.Relationships.AvailableTerritories = &relationships

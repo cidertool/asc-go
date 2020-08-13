@@ -40,7 +40,7 @@ type AppStoreVersionLocalizationRelationships struct {
 
 // AppStoreVersionLocalizationCreateRequest defines model for AppStoreVersionLocalizationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest/data
 type appStoreVersionLocalizationCreateRequest struct {
 	Attributes    AppStoreVersionLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships appStoreVersionLocalizationCreateRequestRelationships `json:"relationships"`
@@ -88,7 +88,7 @@ type AppStoreVersionLocalizationsResponse struct {
 
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationupdaterequest/data
 type appStoreVersionLocalizationUpdateRequest struct {
 	Attributes *AppStoreVersionLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                              `json:"id"`

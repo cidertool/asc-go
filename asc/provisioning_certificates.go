@@ -52,7 +52,7 @@ type CertificateAttributes struct {
 
 // certificateCreateRequest defines model for certificateCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/certificatecreaterequest/data
 type certificateCreateRequest struct {
 	Attributes certificateCreateRequestAttributes `json:"attributes"`
 	Type       string                             `json:"type"`

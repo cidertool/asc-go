@@ -74,11 +74,11 @@ type BuildsResponse struct {
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data
 type buildUpdateRequest struct {
 	Attributes    *BuildUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                           `json:"id"`
-	Relationships *BuildUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *buildUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                           `json:"type"`
 }
 
@@ -90,10 +90,10 @@ type BuildUpdateRequestAttributes struct {
 	UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
 }
 
-// BuildUpdateRequestRelationships are relationships for BuildUpdateRequest
+// buildUpdateRequestRelationships are relationships for BuildUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data/relationships
-type BuildUpdateRequestRelationships struct {
+type buildUpdateRequestRelationships struct {
 	AppEncryptionDeclaration *relationshipDeclaration `json:"appEncryptionDeclaration,omitempty"`
 }
 
@@ -287,7 +287,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, attributes *
 		Type:       "builds",
 	}
 	if appEncryptionDeclarationID != nil {
-		req.Relationships = &BuildUpdateRequestRelationships{
+		req.Relationships = &buildUpdateRequestRelationships{
 			AppEncryptionDeclaration: newRelationship(appEncryptionDeclarationID, "appEncryptionDeclarations"),
 		}
 	}

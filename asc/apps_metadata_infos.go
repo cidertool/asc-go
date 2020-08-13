@@ -61,7 +61,7 @@ type AppInfosResponse struct {
 
 // appInfoUpdateRequest defines model for AppInfoUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest/data
 type appInfoUpdateRequest struct {
 	ID            string                             `json:"id"`
 	Relationships *appInfoUpdateRequestRelationships `json:"relationships,omitempty"`

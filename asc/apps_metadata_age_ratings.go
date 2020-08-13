@@ -47,7 +47,7 @@ const (
 
 // ageRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest/data
 type ageRatingDeclarationUpdateRequest struct {
 	Attributes *AgeRatingDeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`

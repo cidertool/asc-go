@@ -33,7 +33,7 @@ type EndUserLicenseAgreementRelationships struct {
 
 // endUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data
 type endUserLicenseAgreementCreateRequest struct {
 	Attributes    endUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
 	Relationships endUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
@@ -57,11 +57,11 @@ type endUserLicenseAgreementCreateRequestRelationships struct {
 
 // endUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data
 type endUserLicenseAgreementUpdateRequest struct {
 	Attributes    *endUserLicenseAgreementUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                             `json:"id"`
-	Relationships *EndUserLicenseAgreementUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *endUserLicenseAgreementUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                             `json:"type"`
 }
 
@@ -72,10 +72,10 @@ type endUserLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
-// EndUserLicenseAgreementUpdateRequestRelationships are relationships for EndUserLicenseAgreementUpdateRequest
+// endUserLicenseAgreementUpdateRequestRelationships are relationships for EndUserLicenseAgreementUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/relationships
-type EndUserLicenseAgreementUpdateRequestRelationships struct {
+type endUserLicenseAgreementUpdateRequestRelationships struct {
 	Territories *pagedRelationshipDeclaration `json:"territories,omitempty"`
 }
 
@@ -139,7 +139,7 @@ func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *
 	}
 	if len(territoryIDs) > 0 {
 		relationships := newRelationships(territoryIDs, "territories")
-		req.Relationships = &EndUserLicenseAgreementUpdateRequestRelationships{
+		req.Relationships = &endUserLicenseAgreementUpdateRequestRelationships{
 			Territories: &relationships,
 		}
 	}

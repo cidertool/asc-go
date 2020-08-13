@@ -75,10 +75,10 @@ type BetaTesterBuildsLinkagesResponse struct {
 
 // betaTesterCreateRequest defines model for betaTesterCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest/data
 type betaTesterCreateRequest struct {
 	Attributes    BetaTesterCreateRequestAttributes     `json:"attributes"`
-	Relationships *BetaTesterCreateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *betaTesterCreateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                `json:"type"`
 }
 
@@ -91,10 +91,10 @@ type BetaTesterCreateRequestAttributes struct {
 	LastName  *string `json:"lastName,omitempty"`
 }
 
-// BetaTesterCreateRequestRelationships are relationships for BetaTesterCreateRequest
+// betaTesterCreateRequestRelationships are relationships for BetaTesterCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatestercreaterequest/data/relationships
-type BetaTesterCreateRequestRelationships struct {
+type betaTesterCreateRequestRelationships struct {
 	BetaGroups *pagedRelationshipDeclaration `json:"betaGroups,omitempty"`
 	Builds     *pagedRelationshipDeclaration `json:"builds,omitempty"`
 }
@@ -227,7 +227,7 @@ func (s *TestflightService) CreateBetaTester(ctx context.Context, attributes Bet
 	anyBetaGroups := len(betaGroupIDs) > 0
 	anyBuilds := len(buildIDs) > 0
 	if anyBetaGroups || anyBuilds {
-		req.Relationships = &BetaTesterCreateRequestRelationships{}
+		req.Relationships = &betaTesterCreateRequestRelationships{}
 		if anyBetaGroups {
 			relationships := newRelationships(betaGroupIDs, "betaGroups")
 			req.Relationships.BetaGroups = &relationships

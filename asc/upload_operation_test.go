@@ -99,7 +99,7 @@ func TestUploadOperationChunk(t *testing.T) {
 		RequestHeaders: []UploadOperationHeader{},
 	}
 
-	chunk, err := op.Chunk(file)
+	chunk, err := op.chunk(file)
 	assert.NoError(t, err)
 
 	buf := &bytes.Buffer{}

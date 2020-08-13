@@ -62,7 +62,7 @@ type BundleIDCapabilityAttributes struct {
 
 // bundleIDCapabilityCreateRequest defines model for BundleIdCapabilityCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data
 type bundleIDCapabilityCreateRequest struct {
 	Attributes    bundleIDCapabilityCreateRequestAttributes    `json:"attributes"`
 	Relationships bundleIDCapabilityCreateRequestRelationships `json:"relationships"`
@@ -86,7 +86,7 @@ type bundleIDCapabilityCreateRequestRelationships struct {
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest/data
 type bundleIDCapabilityUpdateRequest struct {
 	Attributes *BundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`

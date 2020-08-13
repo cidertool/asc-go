@@ -13,7 +13,7 @@ type BetaTesterInvitation struct {
 
 // BetaTesterInvitationCreateRequest defines model for BetaTesterInvitationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest/data
 type betaTesterInvitationCreateRequest struct {
 	Relationships betaTesterInvitationCreateRequestRelationships `json:"relationships"`
 	Type          string                                         `json:"type"`

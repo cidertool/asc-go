@@ -42,7 +42,7 @@ type ProfileRelationships struct {
 
 // ProfileCreateRequest defines model for ProfileCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data
 type profileCreateRequest struct {
 	Attributes    profileCreateRequestAttributes    `json:"attributes"`
 	Relationships profileCreateRequestRelationships `json:"relationships"`

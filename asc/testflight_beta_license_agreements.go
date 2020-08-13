@@ -32,7 +32,7 @@ type BetaLicenseAgreementRelationships struct {
 
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest/data
 type betaLicenseAgreementUpdateRequest struct {
 	Attributes *BetaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`

@@ -31,7 +31,7 @@ type DeviceAttributes struct {
 
 // DeviceCreateRequest defines model for DeviceCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/devicecreaterequest/data
 type deviceCreateRequest struct {
 	Attributes deviceCreateRequestAttributes `json:"attributes"`
 	Type       string                        `json:"type"`
@@ -48,7 +48,7 @@ type deviceCreateRequestAttributes struct {
 
 // DeviceUpdateRequest defines model for DeviceUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest/data
 type deviceUpdateRequest struct {
 	Attributes *DeviceUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                         `json:"id"`

@@ -64,7 +64,7 @@ type AppPreviewRelationships struct {
 
 // AppPreviewCreateRequest defines model for AppPreviewCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data
 type appPreviewCreateRequest struct {
 	Attributes    appPreviewCreateRequestAttributes    `json:"attributes"`
 	Relationships appPreviewCreateRequestRelationships `json:"relationships"`
@@ -90,7 +90,7 @@ type appPreviewCreateRequestRelationships struct {
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest/data
 type appPreviewUpdateRequest struct {
 	Attributes *AppPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                             `json:"id"`

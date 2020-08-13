@@ -39,7 +39,7 @@ type AppScreenshotRelationships struct {
 
 // AppScreenshotCreateRequest defines model for AppScreenshotCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data
 type appScreenshotCreateRequest struct {
 	Attributes    appScreenshotCreateRequestAttributes    `json:"attributes"`
 	Relationships appScreenshotCreateRequestRelationships `json:"relationships"`
@@ -63,7 +63,7 @@ type appScreenshotCreateRequestRelationships struct {
 
 // AppScreenshotUpdateRequest defines model for AppScreenshotUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest/data
 type appScreenshotUpdateRequest struct {
 	Attributes *AppScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                `json:"id"`

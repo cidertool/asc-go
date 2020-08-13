@@ -13,7 +13,7 @@ type BuildBetaNotification struct {
 
 // buildBetaNotificationCreateRequest defines model for buildBetaNotificationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest/data
 type buildBetaNotificationCreateRequest struct {
 	Relationships buildBetaNotificationCreateRequestRelationships `json:"relationships"`
 	Type          string                                          `json:"type"`

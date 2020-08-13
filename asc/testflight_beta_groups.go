@@ -52,7 +52,7 @@ type BetaGroupResponse struct {
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupcreaterequest/data
 type betaGroupCreateRequest struct {
 	Attributes    BetaGroupCreateRequestAttributes    `json:"attributes"`
 	Relationships betaGroupCreateRequestRelationships `json:"relationships"`
@@ -81,7 +81,7 @@ type betaGroupCreateRequestRelationships struct {
 
 // BetaGroupUpdateRequest defines model for BetaGroupUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betagroupupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betagroupupdaterequest/data
 type betaGroupUpdateRequest struct {
 	Attributes *BetaGroupUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                            `json:"id"`

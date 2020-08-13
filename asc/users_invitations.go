@@ -39,10 +39,10 @@ type UserInvitationRelationships struct {
 
 // userInvitationCreateRequest defines model for userInvitationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data
 type userInvitationCreateRequest struct {
 	Attributes    UserInvitationCreateRequestAttributes     `json:"attributes"`
-	Relationships *UserInvitationCreateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *userInvitationCreateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                    `json:"type"`
 }
 
@@ -58,10 +58,10 @@ type UserInvitationCreateRequestAttributes struct {
 	Roles               []UserRole `json:"roles"`
 }
 
-// UserInvitationCreateRequestRelationships are relationships for UserInvitationCreateRequest
+// userInvitationCreateRequestRelationships are relationships for UserInvitationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data/relationships
-type UserInvitationCreateRequestRelationships struct {
+type userInvitationCreateRequestRelationships struct {
 	VisibleApps *pagedRelationshipDeclaration `json:"visibleApps,omitempty"`
 }
 
@@ -139,7 +139,7 @@ func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvi
 	}
 	if len(visibleAppIDs) > 0 {
 		relationships := newRelationships(visibleAppIDs, "apps")
-		req.Relationships = &UserInvitationCreateRequestRelationships{
+		req.Relationships = &userInvitationCreateRequestRelationships{
 			VisibleApps: &relationships,
 		}
 	}

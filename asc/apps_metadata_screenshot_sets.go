@@ -67,7 +67,7 @@ type AppScreenshotSetRelationships struct {
 
 // appScreenshotSetCreateRequest defines model for AppScreenshotSetCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data
 type appScreenshotSetCreateRequest struct {
 	Attributes    appScreenshotSetCreateRequestAttributes    `json:"attributes"`
 	Relationships appScreenshotSetCreateRequestRelationships `json:"relationships"`

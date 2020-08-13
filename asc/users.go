@@ -74,11 +74,11 @@ type UserRelationships struct {
 
 // UserUpdateRequest defines model for UserUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest/data
 type userUpdateRequest struct {
 	Attributes    *UserUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                          `json:"id"`
-	Relationships *UserUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *userUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                          `json:"type"`
 }
 
@@ -91,10 +91,10 @@ type UserUpdateRequestAttributes struct {
 	Roles               []UserRole `json:"roles,omitempty"`
 }
 
-// UserUpdateRequestRelationships are relationships for UserUpdateRequest
+// userUpdateRequestRelationships are relationships for UserUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userupdaterequest/data/relationships
-type UserUpdateRequestRelationships struct {
+type userUpdateRequestRelationships struct {
 	VisibleApps *pagedRelationshipDeclaration `json:"visibleApps,omitempty"`
 }
 
@@ -200,7 +200,7 @@ func (s *UsersService) UpdateUser(ctx context.Context, id string, attributes *Us
 	}
 	if len(visibleAppIDs) > 0 {
 		relationships := newRelationships(visibleAppIDs, "apps")
-		req.Relationships = &UserUpdateRequestRelationships{
+		req.Relationships = &userUpdateRequestRelationships{
 			VisibleApps: &relationships,
 		}
 	}

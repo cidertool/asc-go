@@ -44,8 +44,8 @@ func (e UploadOperationError) Error() string {
 	return e.Err.Error()
 }
 
-// Chunk returns the bytes in the file from the given offset and with the given length
-func (op *UploadOperation) Chunk(f *os.File) (io.Reader, error) {
+// chunk returns the bytes in the file from the given offset and with the given length
+func (op *UploadOperation) chunk(f *os.File) (io.Reader, error) {
 	if op.Offset == nil || op.Length == nil {
 		return nil, errors.New("could not establish bounds of upload operation")
 	}
@@ -61,8 +61,8 @@ func (op *UploadOperation) Chunk(f *os.File) (io.Reader, error) {
 	return bytes.NewBuffer(data), nil
 }
 
-// Request creates a new http.Request instance from the given UploadOperation and buffer
-func (op *UploadOperation) Request(data io.Reader) (*http.Request, error) {
+// request creates a new http.request instance from the given UploadOperation and buffer
+func (op *UploadOperation) request(data io.Reader) (*http.Request, error) {
 	if op.Method == nil || op.URL == nil {
 		return nil, errors.New("could not establish destination of upload operation")
 	}
@@ -87,7 +87,7 @@ func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *C
 	errs := make(chan UploadOperationError)
 
 	for i, operation := range ops {
-		chunk, err := operation.Chunk(file)
+		chunk, err := operation.chunk(file)
 		if err != nil {
 			errs <- UploadOperationError{
 				Operation: operation,
@@ -113,7 +113,7 @@ func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *C
 
 func (c *Client) sendChunk(ctx context.Context, op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
 	defer wg.Done()
-	req, err := op.Request(chunk)
+	req, err := op.request(chunk)
 	if err != nil {
 		errs <- UploadOperationError{
 			Operation: op,

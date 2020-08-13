@@ -71,7 +71,7 @@ type BuildBetaDetailRelationships struct {
 
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest/data
 type buildBetaDetailUpdateRequest struct {
 	Attributes *BuildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`

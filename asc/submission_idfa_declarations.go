@@ -35,7 +35,7 @@ type IDFADeclarationRelationships struct {
 
 // idfaDeclarationCreateRequest defines model for idfaDeclarationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data
 type idfaDeclarationCreateRequest struct {
 	Attributes    IDFADeclarationCreateRequestAttributes    `json:"attributes"`
 	Relationships idfaDeclarationCreateRequestRelationships `json:"relationships"`
@@ -61,7 +61,7 @@ type idfaDeclarationCreateRequestRelationships struct {
 
 // IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationupdaterequest/data
 type idfaDeclarationUpdateRequest struct {
 	Attributes *IDFADeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`

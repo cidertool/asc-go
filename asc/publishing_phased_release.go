@@ -44,7 +44,7 @@ type AppStoreVersionPhasedReleaseAttributes struct {
 
 // appStoreVersionPhasedReleaseCreateRequest defines model for appStoreVersionPhasedReleaseCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data
 type appStoreVersionPhasedReleaseCreateRequest struct {
 	Attributes    *appStoreVersionPhasedReleaseCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships appStoreVersionPhasedReleaseCreateRequestRelationships `json:"relationships"`
@@ -75,7 +75,7 @@ type AppStoreVersionPhasedReleaseResponse struct {
 
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest/data
 type appStoreVersionPhasedReleaseUpdateRequest struct {
 	Attributes *AppStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                               `json:"id"`

@@ -33,7 +33,7 @@ type AppPreviewSetRelationships struct {
 
 // appPreviewSetCreateRequest defines model for AppPreviewSetCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data
 type appPreviewSetCreateRequest struct {
 	Attributes    appPreviewSetCreateRequestAttributes    `json:"attributes"`
 	Relationships appPreviewSetCreateRequestRelationships `json:"relationships"`

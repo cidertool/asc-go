@@ -33,7 +33,7 @@ type AppPreOrderRelationships struct {
 
 // AppPreOrderCreateRequest defines model for AppPreOrderCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreordercreaterequest/data
 type appPreOrderCreateRequest struct {
 	Attributes    *appPreOrderCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships appPreOrderCreateRequestRelationships `json:"relationships"`
@@ -54,7 +54,7 @@ type appPreOrderCreateRequestRelationships struct {
 
 // AppPreOrderUpdateRequest defines model for AppPreOrderUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest/data
 type appPreOrderUpdateRequest struct {
 	Attributes *appPreOrderUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                              `json:"id"`

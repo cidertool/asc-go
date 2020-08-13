@@ -45,7 +45,7 @@ type BetaAppReviewSubmissionRelationships struct {
 
 // betaAppReviewSubmissionCreateRequest defines model for betaAppReviewSubmissionCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest/data
 type betaAppReviewSubmissionCreateRequest struct {
 	Relationships betaAppReviewSubmissionCreateRequestRelationships `json:"relationships"`
 	Type          string                                            `json:"type"`

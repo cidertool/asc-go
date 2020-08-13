@@ -39,7 +39,7 @@ type BetaAppReviewDetailRelationships struct {
 
 // BetaAppReviewDetailUpdateRequest defines model for BetaAppReviewDetailUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailupdaterequest/data
 type betaAppReviewDetailUpdateRequest struct {
 	Attributes *BetaAppReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`

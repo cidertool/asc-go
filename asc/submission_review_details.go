@@ -40,7 +40,7 @@ type AppStoreReviewDetailRelationships struct {
 
 // AppStoreReviewDetailCreateRequest defines model for AppStoreReviewDetailCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data
 type appStoreReviewDetailCreateRequest struct {
 	Attributes    *AppStoreReviewDetailCreateRequestAttributes   `json:"attributes,omitempty"`
 	Relationships appStoreReviewDetailCreateRequestRelationships `json:"relationships"`
@@ -70,7 +70,7 @@ type appStoreReviewDetailCreateRequestRelationships struct {
 
 // AppStoreReviewDetailUpdateRequest defines model for AppStoreReviewDetailUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailupdaterequest/data
 type appStoreReviewDetailUpdateRequest struct {
 	Attributes *AppStoreReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`

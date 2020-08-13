@@ -34,11 +34,11 @@ const (
 
 // AppStoreVersionUpdateRequest defines model for AppStoreVersionUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data
 type appStoreVersionUpdateRequest struct {
 	Attributes    *AppStoreVersionUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                     `json:"id"`
-	Relationships *AppStoreVersionUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *appStoreVersionUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                     `json:"type"`
 }
 
@@ -54,10 +54,10 @@ type AppStoreVersionUpdateRequestAttributes struct {
 	VersionString       *string    `json:"versionString,omitempty"`
 }
 
-// AppStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
+// appStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/relationships
-type AppStoreVersionUpdateRequestRelationships struct {
+type appStoreVersionUpdateRequestRelationships struct {
 	Build *relationshipDeclaration `json:"build,omitempty"`
 }
 
@@ -153,7 +153,7 @@ type AppStoreVersionsResponse struct {
 
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data
 type appStoreVersionCreateRequest struct {
 	Attributes    AppStoreVersionCreateRequestAttributes    `json:"attributes"`
 	Relationships appStoreVersionCreateRequestRelationships `json:"relationships"`
@@ -284,7 +284,7 @@ func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attr
 		Type:       "appStoreVersions",
 	}
 	if buildID != nil {
-		req.Relationships = &AppStoreVersionUpdateRequestRelationships{
+		req.Relationships = &appStoreVersionUpdateRequestRelationships{
 			Build: newRelationship(buildID, "builds"),
 		}
 	}

@@ -37,7 +37,7 @@ type BetaAppLocalizationRelationships struct {
 
 // betaAppLocalizationCreateRequest defines model for betaAppLocalizationCreateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest/data
 type betaAppLocalizationCreateRequest struct {
 	Attributes    BetaAppLocalizationCreateRequestAttributes    `json:"attributes"`
 	Relationships betaAppLocalizationCreateRequestRelationships `json:"relationships"`
@@ -74,7 +74,7 @@ type BetaAppLocalizationResponse struct {
 
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
 //
-// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationupdaterequest
+// https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationupdaterequest/data
 type betaAppLocalizationUpdateRequest struct {
 	Attributes *BetaAppLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
