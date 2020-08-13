@@ -28,16 +28,24 @@ type mockPayload struct {
 }
 
 type mockParams struct {
-	Field string `url:"field,omitempty"`
+	Field    string  `url:"field,omitempty"`
+	NilField *string `url:"nil_field,omitempty"`
 }
 
 type mockBody struct {
 	Field string `url:"field,omitempty"`
 }
 
+func TestContextErrors(t *testing.T) {
+	client, server := newServer("", false)
+	defer server.Close()
+	_, err := client.get(nil, "test", nil, nil)
+	assert.Error(t, err)
+}
+
 func TestGet(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -50,10 +58,13 @@ func TestGet(t *testing.T) {
 
 func TestGetWithQuery(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
-	params := mockParams{"TEST"}
+	params := mockParams{
+		Field:    "TEST",
+		NilField: nil,
+	}
 
 	var unmarshaled mockPayload
 	// Testing absolute URL path
@@ -66,7 +77,7 @@ func TestGetWithQuery(t *testing.T) {
 
 func TestGetError(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -79,7 +90,7 @@ func TestGetError(t *testing.T) {
 
 func TestPost(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -94,7 +105,7 @@ func TestPost(t *testing.T) {
 
 func TestPatch(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -109,7 +120,7 @@ func TestPatch(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled)
+	client, server := newServer(marshaled, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -152,8 +163,11 @@ func mustParseURL(t *testing.T, u string) url.URL {
 	return *parsed
 }
 
-func newServer(raw string) (*Client, *httptest.Server) {
+func newServer(raw string, addRateLimit bool) (*Client, *httptest.Server) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if addRateLimit {
+			w.Header().Add("X-Rate-Limit", "user-hour-lim:2500;user-hour-rem:10;hank:dean:venture;rusty:jr;;")
+		}
 		fmt.Fprintln(w, raw)
 	}))
 	base, _ := url.Parse(server.URL)
@@ -179,7 +193,7 @@ func newServer(raw string) (*Client, *httptest.Server) {
 }
 
 func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface{}, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
-	client, server := newServer(marshalledGot)
+	client, server := newServer(marshalledGot, true)
 	defer server.Close()
 
 	got, resp, err := endpoint(context.Background(), client)
@@ -192,7 +206,7 @@ func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface
 }
 
 func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, client *Client) (*Response, error)) {
-	client, server := newServer("")
+	client, server := newServer("", false)
 	defer server.Close()
 
 	resp, err := endpoint(context.Background(), client)
