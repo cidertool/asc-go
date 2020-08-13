@@ -214,3 +214,13 @@ func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
 }
+
+func testEndpointExpectingError(t *testing.T, marshalledGot string, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
+	client, server := newServer(marshalledGot, true)
+	defer server.Close()
+
+	got, _, err := endpoint(context.Background(), client)
+
+	assert.Error(t, err)
+	assert.Nil(t, got)
+}

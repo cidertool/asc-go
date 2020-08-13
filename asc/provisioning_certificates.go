@@ -110,7 +110,7 @@ type GetCertificateQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate
 func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificateType CertificateType, csrContent io.Reader) (*CertificateResponse, *Response, error) {
 	if csrContent == nil {
-		return nil, nil, errors.New("no csr content provided")
+		return nil, nil, errors.New("no csr content provided, could not send request")
 	}
 	csrBytes, err := ioutil.ReadAll(csrContent)
 	if err != nil {

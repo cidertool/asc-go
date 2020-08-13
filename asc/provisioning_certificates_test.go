@@ -7,6 +7,9 @@ import (
 )
 
 func TestCreateCertificate(t *testing.T) {
+	testEndpointExpectingError(t, "{}", func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Provisioning.CreateCertificate(ctx, CertificateTypeDevelopment, nil)
+	})
 	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.CreateCertificate(ctx, CertificateTypeDevelopment, &bytes.Buffer{})
 	})
