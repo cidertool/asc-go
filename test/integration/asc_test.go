@@ -3,9 +3,8 @@
 package integration
 
 import (
-	"errors"
+	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"time"
 
@@ -24,33 +23,38 @@ var (
 )
 
 func init() {
-	token, err := tokenConfig()
-	if err != nil {
-		log.Fatal(err)
+	token := tokenConfig()
+	if token == nil {
+		return
 	}
 	client = asc.NewClient(token.Client())
 }
 
 // TokenConfig creates the auth transport using the required information
-func tokenConfig() (auth *asc.AuthTransport, err error) {
-	var secret []byte
+func tokenConfig() *asc.AuthTransport {
+	var privateKey []byte
+	var err error
 	if key := os.Getenv(envPrivateKey); key != "" {
-		secret = []byte(key)
+		privateKey = []byte(key)
 	} else if keyPath := os.Getenv(envPrivateKeyPath); keyPath != "" {
 		// Read private key file as []byte
-		secret, err = ioutil.ReadFile(keyPath)
+		privateKey, err = ioutil.ReadFile(keyPath)
 		if err != nil {
-			return nil, err
+			fmt.Println(err)
+			return nil
 		}
 	} else {
-		return nil, errors.New("no private key provided to either the ASC_INTEGRATION_PRIVATE_KEY or ASC_INTEGRATION_PRIVATE_KEY_PATH environment variables")
+		fmt.Println("no private key provided to either the ASC_INTEGRATION_PRIVATE_KEY or ASC_INTEGRATION_PRIVATE_KEY_PATH environment variables")
+		return nil
 	}
 	keyID := os.Getenv(envKeyID)
 	issuerID := os.Getenv(envIssuerID)
+	expiryDuration := 20 * time.Minute
 	// Create the token using the required information
-	auth, err = asc.NewTokenConfig(keyID, issuerID, 20*time.Minute, secret)
+	auth, err := asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
+		return nil
 	}
-	return auth, nil
+	return auth
 }
