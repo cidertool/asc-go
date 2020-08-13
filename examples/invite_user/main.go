@@ -75,6 +75,9 @@ func cancelUserInvitation(ctx context.Context, client *asc.Client) error {
 	invitations, _, err := client.Users.ListInvitations(ctx, &asc.ListInvitationsQuery{
 		FilterEmail: []string{*email},
 	})
+	if err != nil {
+		fmt.Println(err)
+	}
 	var invitation asc.UserInvitation
 	if len(invitations.Data) > 0 {
 		invitation = invitations.Data[0]

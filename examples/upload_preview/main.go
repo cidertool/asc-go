@@ -65,6 +65,9 @@ func main() {
 
 	// 4. Get all localizations for the version and look for the requested locale.
 	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(ctx, version.ID, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 	var selectedLocalizations []asc.AppStoreVersionLocalization
 	for _, loc := range localizations.Data {
 		if *loc.Attributes.Locale == *locale {
@@ -93,6 +96,9 @@ func main() {
 	//    Otherwise, make a new one.
 	var previewSets asc.AppPreviewSetsResponse
 	_, err = client.FollowReference(ctx, selectedLocalization.Relationships.AppPreviewSets.Links.Related, &previewSets)
+	if err != nil {
+		fmt.Println(err)
+	}
 	previewType := asc.PreviewType(*previewTypeString)
 	var selectedPreviewSets []asc.AppPreviewSet
 	for _, set := range previewSets.Data {
@@ -126,6 +132,9 @@ func main() {
 	}
 	fmt.Println("Reserving space for a new app preview.")
 	reservePreview, _, err := client.Apps.CreateAppPreview(ctx, file.Name(), stat.Size(), selectedPreviewSet.ID)
+	if err != nil {
+		fmt.Println(err)
+	}
 	preview := reservePreview.Data
 
 	// 9. Upload each part according to the returned upload operations.

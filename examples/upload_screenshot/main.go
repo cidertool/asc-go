@@ -65,6 +65,9 @@ func main() {
 
 	// 4. Get all localizations for the version and look for the requested locale.
 	localizations, _, err := client.Apps.ListLocalizationsForAppStoreVersion(ctx, version.ID, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 	var selectedLocalizations []asc.AppStoreVersionLocalization
 	for _, loc := range localizations.Data {
 		if *loc.Attributes.Locale == *locale {
@@ -93,6 +96,9 @@ func main() {
 	//    Otherwise, make a new one.
 	var screenshotSets asc.AppScreenshotSetsResponse
 	_, err = client.FollowReference(ctx, selectedLocalization.Relationships.AppScreenshotSets.Links.Related, &screenshotSets)
+	if err != nil {
+		fmt.Println(err)
+	}
 	screenshotType := asc.ScreenshotDisplayType(*screenshotTypeString)
 	var selectedScreenshotSets []asc.AppScreenshotSet
 	for _, set := range screenshotSets.Data {
@@ -126,6 +132,9 @@ func main() {
 	}
 	fmt.Println("Reserving space for a new app screenshot.")
 	reserveScreenshot, _, err := client.Apps.CreateAppScreenshot(ctx, file.Name(), stat.Size(), selectedScreenshotSet.ID)
+	if err != nil {
+		fmt.Println(err)
+	}
 	screenshot := reserveScreenshot.Data
 
 	// 9. Upload each part according to the returned upload operations.
