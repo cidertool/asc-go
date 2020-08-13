@@ -134,8 +134,8 @@ func main() {
 	//     Note: To speed up the process, upload multiple parts asynchronously
 	//     if you have the bandwidth.
 	uploadOperations := screenshot.Attributes.UploadOperations
-	fmt.Printf("Uploading %d screenshot components\n", len(*uploadOperations))
-	err = uploadOperations.Upload(ctx, file, client)
+	fmt.Printf("Uploading %d screenshot components\n", len(uploadOperations))
+	err = client.Upload(ctx, uploadOperations, file)
 	if err != nil {
 		log.Fatalf("file could not be read: %s", err)
 	}

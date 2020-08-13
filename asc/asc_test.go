@@ -75,6 +75,17 @@ func TestGetWithQuery(t *testing.T) {
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
 }
 
+func TestGetWithQuery_Error(t *testing.T) {
+	client, server := newServer("", true)
+	defer server.Close()
+
+	badQueryValue := []string{"horses"}
+	resp, err := client.get(context.Background(), server.URL, &badQueryValue, nil)
+
+	assert.Error(t, err)
+	assert.Nil(t, resp)
+}
+
 func TestGetError(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
 	client, server := newServer(marshaled, true)
@@ -153,6 +164,29 @@ func TestCheckBadResponse(t *testing.T) {
 	assert.IsType(t, new(ErrorResponse), err)
 	assert.Equal(t, resp.Response, err.(*ErrorResponse).Response)
 	assert.NotZero(t, len(err.Error()))
+}
+
+func TestAppendingQueryOptions(t *testing.T) {
+	got, err := appendingQueryOptions("dog", nil)
+	assert.NoError(t, err)
+	assert.Equal(t, "dog", got)
+
+	got, err = appendingQueryOptions("dog", &mockParams{})
+	assert.NoError(t, err)
+	assert.Equal(t, "dog", got)
+
+	got, err = appendingQueryOptions("dog", &mockParams{Field: "cat"})
+	assert.NoError(t, err)
+	assert.Equal(t, "dog?field=cat", got)
+
+	// bad url
+	got, err = appendingQueryOptions(":", nil)
+	assert.Error(t, err)
+
+	// invalid input to query.Values
+	badQueryValue := []string{"horses"}
+	_, err = appendingQueryOptions("dog", badQueryValue)
+	assert.Error(t, err)
 }
 
 func mustParseURL(t *testing.T, u string) url.URL {

@@ -27,7 +27,7 @@ type AppScreenshotAttributes struct {
 	FileSize           *int64              `json:"fileSize,omitempty"`
 	ImageAsset         *ImageAsset         `json:"imageAsset,omitempty"`
 	SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-	UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
+	UploadOperations   []UploadOperation   `json:"uploadOperations,omitempty"`
 }
 
 // AppScreenshotRelationships defines model for AppScreenshot.Relationships

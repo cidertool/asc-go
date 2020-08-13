@@ -10,9 +10,6 @@ import (
 	"sync"
 )
 
-// UploadOperations is a slice of UploadOperation instances
-type UploadOperations []UploadOperation
-
 // UploadOperation defines model for UploadOperation.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/uploadoperation
@@ -62,11 +59,11 @@ func (op *UploadOperation) chunk(f *os.File) (io.Reader, error) {
 }
 
 // request creates a new http.request instance from the given UploadOperation and buffer
-func (op *UploadOperation) request(data io.Reader) (*http.Request, error) {
+func (op *UploadOperation) request(ctx context.Context, data io.Reader) (*http.Request, error) {
 	if op.Method == nil || op.URL == nil {
 		return nil, errors.New("could not establish destination of upload operation")
 	}
-	req, err := http.NewRequest(*op.Method, *op.URL, data)
+	req, err := http.NewRequestWithContext(ctx, *op.Method, *op.URL, data)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +79,7 @@ func (op *UploadOperation) request(data io.Reader) (*http.Request, error) {
 }
 
 // Upload takes a file path and concurrently uploads each part of the file to App Store Connect
-func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *Client) error {
+func (c *Client) Upload(ctx context.Context, ops []UploadOperation, file *os.File) error {
 	var wg sync.WaitGroup
 	errs := make(chan UploadOperationError)
 
@@ -96,7 +93,7 @@ func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *C
 			continue
 		}
 		wg.Add(1)
-		go client.sendChunk(ctx, ops[i], chunk, errs, &wg)
+		go c.uploadChunk(ctx, ops[i], chunk, errs, &wg)
 	}
 
 	go func() {
@@ -111,9 +108,9 @@ func (ops UploadOperations) Upload(ctx context.Context, file *os.File, client *C
 	return nil
 }
 
-func (c *Client) sendChunk(ctx context.Context, op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
+func (c *Client) uploadChunk(ctx context.Context, op UploadOperation, chunk io.Reader, errs chan<- UploadOperationError, wg *sync.WaitGroup) {
 	defer wg.Done()
-	req, err := op.request(chunk)
+	req, err := op.request(ctx, chunk)
 	if err != nil {
 		errs <- UploadOperationError{
 			Operation: op,
@@ -121,7 +118,6 @@ func (c *Client) sendChunk(ctx context.Context, op UploadOperation, chunk io.Rea
 		}
 		return
 	}
-	req = req.WithContext(ctx)
 	_, err = c.do(ctx, req, nil)
 	if err != nil {
 		errs <- UploadOperationError{

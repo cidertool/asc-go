@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -171,17 +170,39 @@ func withContentType(typ string) requestOption {
 	}
 }
 
+// AddOptions adds the parameters in opt as URL query parameters to s.  opt
+// must be a struct whose fields may contain "url" tags.
+func appendingQueryOptions(s string, opt interface{}) (string, error) {
+	v := reflect.ValueOf(opt)
+	if v.Kind() == reflect.Ptr && v.IsNil() {
+		return s, nil
+	}
+
+	u, err := url.Parse(s)
+	if err != nil {
+		return s, err
+	}
+
+	qs, err := query.Values(opt)
+	if err != nil {
+		return s, err
+	}
+
+	u.RawQuery = qs.Encode()
+	return u.String(), nil
+}
+
 // get sends a GET request to the API as configured
 func (c *Client) get(ctx context.Context, url string, query interface{}, v interface{}, options ...requestOption) (*Response, error) {
 	var err error
 	if query != nil {
-		url, err = c.addOptions(url, query)
+		url, err = appendingQueryOptions(url, query)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	req, err := c.newRequest("GET", url, nil, options...)
+	req, err := c.newRequest(ctx, "GET", url, nil, options...)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +216,7 @@ func (c *Client) get(ctx context.Context, url string, query interface{}, v inter
 
 // post sends a POST request to the API as configured
 func (c *Client) post(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
-	req, err := c.newRequest("POST", url, body, withContentType("application/json"))
+	req, err := c.newRequest(ctx, "POST", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +229,7 @@ func (c *Client) post(ctx context.Context, url string, body interface{}, v inter
 
 // patch sends a PATCH request to the API as configured
 func (c *Client) patch(ctx context.Context, url string, body interface{}, v interface{}) (*Response, error) {
-	req, err := c.newRequest("PATCH", url, body, withContentType("application/json"))
+	req, err := c.newRequest(ctx, "PATCH", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
@@ -221,14 +242,14 @@ func (c *Client) patch(ctx context.Context, url string, body interface{}, v inte
 
 // delete sends a DELETE request to the API as configured
 func (c *Client) delete(ctx context.Context, url string, body interface{}) (*Response, error) {
-	req, err := c.newRequest("DELETE", url, body, withContentType("application/json"))
+	req, err := c.newRequest(ctx, "DELETE", url, body, withContentType("application/json"))
 	if err != nil {
 		return nil, err
 	}
 	return c.do(ctx, req, nil)
 }
 
-func (c *Client) newRequest(method, path string, body interface{}, options ...requestOption) (*http.Request, error) {
+func (c *Client) newRequest(ctx context.Context, method string, path string, body interface{}, options ...requestOption) (*http.Request, error) {
 	rel, err := url.Parse(path)
 	if err != nil {
 		return nil, err
@@ -250,7 +271,7 @@ func (c *Client) newRequest(method, path string, body interface{}, options ...re
 		}
 	}
 
-	req, err := http.NewRequest(method, u.String(), buf)
+	req, err := http.NewRequestWithContext(ctx, method, u.String(), buf)
 	if err != nil {
 		return nil, err
 	}
@@ -266,34 +287,7 @@ func (c *Client) newRequest(method, path string, body interface{}, options ...re
 	return req, nil
 }
 
-// AddOptions adds the parameters in opt as URL query parameters to s.  opt
-// must be a struct whose fields may contain "url" tags.
-func (c *Client) addOptions(s string, opt interface{}) (string, error) {
-	v := reflect.ValueOf(opt)
-	if v.Kind() == reflect.Ptr && v.IsNil() {
-		return s, nil
-	}
-
-	u, err := url.Parse(s)
-	if err != nil {
-		return s, err
-	}
-
-	qs, err := query.Values(opt)
-	if err != nil {
-		return s, err
-	}
-
-	u.RawQuery = qs.Encode()
-	return u.String(), nil
-}
-
 func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
-	if ctx == nil {
-		return nil, errors.New("context must be non-nil")
-	}
-	req = req.WithContext(ctx)
-
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
 		resp, err := c.client.Do(req)

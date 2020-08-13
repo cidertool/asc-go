@@ -32,7 +32,7 @@ func TestMultipartUpload(t *testing.T) {
 	client, server := newServer("", false)
 	defer server.Close()
 
-	operations := UploadOperations{
+	operations := []UploadOperation{
 		{
 			URL:    String(client.baseURL.String()),
 			Offset: Int(0),
@@ -81,7 +81,7 @@ func TestMultipartUpload(t *testing.T) {
 		},
 	}
 
-	err = operations.Upload(context.Background(), file, client)
+	err = client.Upload(context.Background(), operations, file)
 	assert.NoError(t, err)
 }
 
@@ -141,7 +141,7 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 	client, server := newServer("", false)
 	defer server.Close()
 
-	operations := UploadOperations{
+	operations := []UploadOperation{
 		{
 			URL:            String(client.baseURL.String()),
 			Offset:         Int(0),
@@ -150,6 +150,6 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 		},
 	}
 
-	err = operations.Upload(context.Background(), file, client)
+	err = client.Upload(context.Background(), operations, file)
 	assert.Error(t, err)
 }

@@ -24,7 +24,7 @@ type RoutingAppCoverageAttributes struct {
 	FileName           *string             `json:"fileName,omitempty"`
 	FileSize           *int64              `json:"fileSize,omitempty"`
 	SourceFileChecksum *string             `json:"sourceFileChecksum,omitempty"`
-	UploadOperations   *UploadOperations   `json:"uploadOperations,omitempty"`
+	UploadOperations   []UploadOperation   `json:"uploadOperations,omitempty"`
 }
 
 // RoutingAppCoverageRelationships defines model for RoutingAppCoverage.Relationships
