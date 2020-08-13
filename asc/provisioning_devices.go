@@ -49,7 +49,7 @@ type deviceCreateRequestAttributes struct {
 // DeviceUpdateRequest defines model for DeviceUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest
-type DeviceUpdateRequest struct {
+type deviceUpdateRequest struct {
 	Attributes *DeviceUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                         `json:"id"`
 	Type       string                         `json:"type"`
@@ -141,9 +141,19 @@ func (s *ProvisioningService) GetDevice(ctx context.Context, id string, params *
 // UpdateDevice updates the name or status of a specific device.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_registered_device
-func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, body DeviceUpdateRequest) (*DeviceResponse, *Response, error) {
+func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, name *string, status *string) (*DeviceResponse, *Response, error) {
+	req := deviceUpdateRequest{
+		ID:   id,
+		Type: "devices",
+	}
+	if name != nil || status != nil {
+		req.Attributes = &DeviceUpdateRequestAttributes{
+			Name:   name,
+			Status: status,
+		}
+	}
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

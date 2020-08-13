@@ -68,7 +68,7 @@ type BundleIDCreateRequestAttributes struct {
 // BundleIDUpdateRequest defines model for BundleIdUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidupdaterequest
-type BundleIDUpdateRequest struct {
+type bundleIDUpdateRequest struct {
 	Attributes *BundleIDUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                           `json:"id"`
 	Type       string                           `json:"type"`
@@ -175,10 +175,19 @@ func (s *ProvisioningService) CreateBundleID(ctx context.Context, attributes Bun
 // UpdateBundleID updates a specific bundle ID’s name.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_bundle_id
-func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, body BundleIDUpdateRequest) (*BundleIDResponse, *Response, error) {
+func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, name *string) (*BundleIDResponse, *Response, error) {
+	req := bundleIDUpdateRequest{
+		ID:   id,
+		Type: "bundleIds",
+	}
+	if name != nil {
+		req.Attributes = &BundleIDUpdateRequestAttributes{
+			Name: name,
+		}
+	}
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

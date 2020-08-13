@@ -34,7 +34,7 @@ type appStoreVersionSubmissionCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsubmissioncreaterequest/data/relationships
 type appStoreVersionSubmissionCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreVersionSubmissionResponse defines model for AppStoreVersionSubmissionResponse.
@@ -60,8 +60,8 @@ type GetAppStoreVersionSubmissionForAppStoreVersionQuery struct {
 func (s *SubmissionService) CreateSubmission(ctx context.Context, appStoreVersionID string) (*AppStoreVersionSubmissionResponse, *Response, error) {
 	req := appStoreVersionSubmissionCreateRequest{
 		Relationships: appStoreVersionSubmissionCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},

@@ -51,7 +51,7 @@ type appPreviewSetCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetcreaterequest/data/relationships
 type appPreviewSetCreateRequestRelationships struct {
-	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
+	AppStoreVersionLocalization relationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
 // AppPreviewSetResponse defines model for AppPreviewSetResponse.
@@ -72,11 +72,6 @@ type AppPreviewSetsResponse struct {
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
-
-// AppPreviewSetAppPreviewsLinkagesRequest is a list of relationships to AppPreview objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/apppreviewsetapppreviewslinkagesrequest
-type AppPreviewSetAppPreviewsLinkagesRequest []RelationshipData
 
 // AppPreviewSetAppPreviewsLinkagesResponse defines model for AppPreviewSetAppPreviewsLinkagesResponse.
 //
@@ -135,8 +130,8 @@ func (s *AppsService) CreateAppPreviewSet(ctx context.Context, previewType Previ
 			PreviewType: previewType,
 		},
 		Relationships: appPreviewSetCreateRequestRelationships{
-			AppStoreVersionLocalization: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersionLocalization: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionLocalizationID,
 					Type: "appStoreVersionLocalizations",
 				},
@@ -180,7 +175,8 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 // ReplaceAppPreviewsForSet changes the order of the previews in a preview set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_previews_for_an_app_preview_set
-func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, linkages AppPreviewSetAppPreviewsLinkagesRequest) (*Response, error) {
+func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, appPreviewIDs []string) (*Response, error) {
+	linkages := newRelationships(appPreviewIDs, "appPreviews")
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

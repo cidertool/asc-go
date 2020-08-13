@@ -14,7 +14,8 @@ func TestCreatePhasedRelease(t *testing.T) {
 
 func TestUpdatePhasedRelease(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Publishing.UpdatePhasedRelease(ctx, "10", AppStoreVersionPhasedReleaseUpdateRequest{})
+		state := PhasedReleaseStateActive
+		return client.Publishing.UpdatePhasedRelease(ctx, "10", &state)
 	})
 }
 

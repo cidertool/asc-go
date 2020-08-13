@@ -72,7 +72,7 @@ type BuildBetaDetailRelationships struct {
 // BuildBetaDetailUpdateRequest defines model for BuildBetaDetailUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest
-type BuildBetaDetailUpdateRequest struct {
+type buildBetaDetailUpdateRequest struct {
 	Attributes *BuildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`
 	Type       string                                  `json:"type"`
@@ -182,9 +182,14 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(ctx context.Context, id s
 // UpdateBuildBetaDetail updates beta test details for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build_beta_detail
-func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, body BuildBetaDetailUpdateRequest) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, attributes *BuildBetaDetailUpdateRequestAttributes) (*BuildBetaDetailResponse, *Response, error) {
+	req := buildBetaDetailUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "buildBetaDetails",
+	}
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

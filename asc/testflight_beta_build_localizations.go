@@ -61,14 +61,14 @@ type betaBuildLocalizationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationcreaterequest/data/relationships
 type betaBuildLocalizationCreateRequestRelationships struct {
-	Build RelationshipDeclaration `json:"build"`
+	Build relationshipDeclaration `json:"build"`
 }
 
 // BetaBuildLocalizationUpdateRequest defines model for BetaBuildLocalizationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationupdaterequest
-type BetaBuildLocalizationUpdateRequest struct {
-	Attributes *BetaBuildLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
+type betaBuildLocalizationUpdateRequest struct {
+	Attributes *betaBuildLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                        `json:"id"`
 	Type       string                                        `json:"type"`
 }
@@ -76,7 +76,7 @@ type BetaBuildLocalizationUpdateRequest struct {
 // BetaBuildLocalizationUpdateRequestAttributes are attributes for BetaBuildLocalizationUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalizationupdaterequest/data/attributes
-type BetaBuildLocalizationUpdateRequestAttributes struct {
+type betaBuildLocalizationUpdateRequestAttributes struct {
 	WhatsNew *string `json:"whatsNew,omitempty"`
 }
 
@@ -175,8 +175,8 @@ func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, loc
 			WhatsNew: whatsNew,
 		},
 		Relationships: betaBuildLocalizationCreateRequestRelationships{
-			Build: RelationshipDeclaration{
-				Data: &RelationshipData{
+			Build: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   buildID,
 					Type: "builds",
 				},
@@ -193,10 +193,19 @@ func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, loc
 // UpdateBetaBuildLocalization updates the localized What’s New text for a specific build and locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_build_localization
-func (s *TestflightService) UpdateBetaBuildLocalization(ctx context.Context, id string, body BetaBuildLocalizationUpdateRequest) (*BetaBuildLocalizationResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaBuildLocalization(ctx context.Context, id string, whatsNew *string) (*BetaBuildLocalizationResponse, *Response, error) {
+	req := betaBuildLocalizationUpdateRequest{
+		ID:   id,
+		Type: "betaBuildLocalizations",
+	}
+	if whatsNew != nil {
+		req.Attributes = &betaBuildLocalizationUpdateRequestAttributes{
+			WhatsNew: whatsNew,
+		}
+	}
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

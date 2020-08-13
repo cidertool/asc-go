@@ -19,6 +19,7 @@ func TestDisableCapability(t *testing.T) {
 
 func TestUpdateCapability(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDCapabilityResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateCapability(ctx, "10", BundleIDCapabilityUpdateRequest{})
+		capability := CapabilityTypeAppGroups
+		return client.Provisioning.UpdateCapability(ctx, "10", &capability, []CapabilitySetting{})
 	})
 }

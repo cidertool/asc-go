@@ -62,7 +62,7 @@ type appStoreVersionPhasedReleaseCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleasecreaterequest/data/relationships
 type appStoreVersionPhasedReleaseCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreVersionPhasedReleaseResponse defines model for AppStoreVersionPhasedReleaseResponse.
@@ -76,7 +76,7 @@ type AppStoreVersionPhasedReleaseResponse struct {
 // AppStoreVersionPhasedReleaseUpdateRequest defines model for AppStoreVersionPhasedReleaseUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest
-type AppStoreVersionPhasedReleaseUpdateRequest struct {
+type appStoreVersionPhasedReleaseUpdateRequest struct {
 	Attributes *AppStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                               `json:"id"`
 	Type       string                                               `json:"type"`
@@ -102,8 +102,8 @@ type GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery struct {
 func (s *PublishingService) CreatePhasedRelease(ctx context.Context, phasedReleaseState *PhasedReleaseState, appStoreVersionID string) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
 	req := appStoreVersionPhasedReleaseCreateRequest{
 		Relationships: appStoreVersionPhasedReleaseCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},
@@ -124,10 +124,19 @@ func (s *PublishingService) CreatePhasedRelease(ctx context.Context, phasedRelea
 // UpdatePhasedRelease pauses or resumes a phased release, or immediately release an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_phased_release
-func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, body AppStoreVersionPhasedReleaseUpdateRequest) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, state *PhasedReleaseState) (*AppStoreVersionPhasedReleaseResponse, *Response, error) {
+	req := appStoreVersionPhasedReleaseUpdateRequest{
+		ID:   id,
+		Type: "appStoreVersionPhasedReleases",
+	}
+	if state != nil {
+		req.Attributes = &AppStoreVersionPhasedReleaseUpdateRequestAttributes{
+			PhasedReleaseState: state,
+		}
+	}
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

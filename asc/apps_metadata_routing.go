@@ -55,7 +55,7 @@ type routingAppCoverageCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoveragecreaterequest/data/relationships
 type routingAppCoverageCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // RoutingAppCoverageResponse defines model for RoutingAppCoverageResponse.
@@ -69,7 +69,7 @@ type RoutingAppCoverageResponse struct {
 // RoutingAppCoverageUpdateRequest defines model for RoutingAppCoverageUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest
-type RoutingAppCoverageUpdateRequest struct {
+type routingAppCoverageUpdateRequest struct {
 	Attributes *RoutingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
 	Type       string                                     `json:"type"`
@@ -145,8 +145,8 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName str
 			FileSize: fileSize,
 		},
 		Relationships: routingAppCoverageCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},
@@ -162,10 +162,15 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName str
 // CommitRoutingAppCoverage commits a routing app coverage file after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_routing_app_coverage
-func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, body RoutingAppCoverageUpdateRequest) (*RoutingAppCoverageResponse, *Response, error) {
+func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, attributes *RoutingAppCoverageUpdateRequestAttributes) (*RoutingAppCoverageResponse, *Response, error) {
+	req := routingAppCoverageUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "routingAppCoverages",
+	}
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

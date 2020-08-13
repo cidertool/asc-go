@@ -34,7 +34,7 @@ type AppInfoLocalizationRelationships struct {
 	AppInfo *Relationship `json:"appInfo,omitempty"`
 }
 
-// AppInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.
+// appInfoLocalizationCreateRequest defines model for AppInfoLocalizationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest
 type appInfoLocalizationCreateRequest struct {
@@ -58,7 +58,7 @@ type AppInfoLocalizationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationcreaterequest/data/relationships
 type appInfoLocalizationCreateRequestRelationships struct {
-	AppInfo RelationshipDeclaration `json:"appInfo"`
+	AppInfo relationshipDeclaration `json:"appInfo"`
 }
 
 // AppInfoLocalizationResponse defines model for AppInfoLocalizationResponse.
@@ -69,10 +69,10 @@ type AppInfoLocalizationResponse struct {
 	Links DocumentLinks       `json:"links"`
 }
 
-// AppInfoLocalizationUpdateRequest defines model for AppInfoLocalizationUpdateRequest.
+// appInfoLocalizationUpdateRequest defines model for AppInfoLocalizationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfolocalizationupdaterequest
-type AppInfoLocalizationUpdateRequest struct {
+type appInfoLocalizationUpdateRequest struct {
 	Attributes *AppInfoLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
 	Type       string                                      `json:"type"`
@@ -144,8 +144,8 @@ func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, attributes 
 	req := appInfoLocalizationCreateRequest{
 		Attributes: attributes,
 		Relationships: appInfoLocalizationCreateRequestRelationships{
-			AppInfo: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppInfo: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appInfoID,
 					Type: "appInfos",
 				},
@@ -161,10 +161,15 @@ func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, attributes 
 // UpdateAppInfoLocalization modifies localized app-level information for a particular language.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info_localization
-func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, body AppInfoLocalizationUpdateRequest) (*AppInfoLocalizationResponse, *Response, error) {
+func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, attributes *AppInfoLocalizationUpdateRequestAttributes) (*AppInfoLocalizationResponse, *Response, error) {
+	req := appInfoLocalizationUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appInfoLocalizations",
+	}
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

@@ -45,10 +45,10 @@ const (
 	KidsAgeBandSixToEight   KidsAgeBand = "SIX_TO_EIGHT"
 )
 
-// AgeRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.
+// ageRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest
-type AgeRatingDeclarationUpdateRequest struct {
+type ageRatingDeclarationUpdateRequest struct {
 	Attributes *AgeRatingDeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
 	Type       string                                       `json:"type"`
@@ -85,9 +85,14 @@ type AgeRatingDeclarationResponse struct {
 // UpdateAgeRatingDeclaration provides age-related information so the App Store can determine the age rating for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_age_rating_declaration
-func (s *AppsService) UpdateAgeRatingDeclaration(ctx context.Context, id string, body AgeRatingDeclarationUpdateRequest) (*AgeRatingDeclarationResponse, *Response, error) {
+func (s *AppsService) UpdateAgeRatingDeclaration(ctx context.Context, id string, attributes *AgeRatingDeclarationUpdateRequestAttributes) (*AgeRatingDeclarationResponse, *Response, error) {
+	req := ageRatingDeclarationUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "ageRatingDeclarations",
+	}
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

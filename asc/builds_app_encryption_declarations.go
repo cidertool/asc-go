@@ -105,11 +105,6 @@ type GetAppForEncryptionDeclarationQuery struct {
 	FieldsApps []string `url:"fields[apps],omitempty"`
 }
 
-// AppEncryptionDeclarationBuildsLinkagesRequest is a list of relationships to Build objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationbuildslinkagesrequest
-type AppEncryptionDeclarationBuildsLinkagesRequest []RelationshipData
-
 // ListAppEncryptionDeclarations finds and lists all available app encryption declarations.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_app_encryption_declarations
@@ -142,7 +137,8 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 // AssignBuildsToAppEncryptionDeclaration assigns one or more builds to an app encryption declaration.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_builds_to_an_app_encryption_declaration
-func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, linkages AppEncryptionDeclarationBuildsLinkagesRequest) (*Response, error) {
+func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, buildIDs []string) (*Response, error) {
+	linkages := newRelationships(buildIDs, "builds")
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.client.post(ctx, url, linkages, nil)
 }

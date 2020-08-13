@@ -60,7 +60,7 @@ type BetaAppLocalizationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationcreaterequest/data/relationships
 type betaAppLocalizationCreateRequestRelationships struct {
-	App RelationshipDeclaration `json:"app"`
+	App relationshipDeclaration `json:"app"`
 }
 
 // BetaAppLocalizationResponse defines model for BetaAppLocalizationResponse.
@@ -75,7 +75,7 @@ type BetaAppLocalizationResponse struct {
 // BetaAppLocalizationUpdateRequest defines model for BetaAppLocalizationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaapplocalizationupdaterequest
-type BetaAppLocalizationUpdateRequest struct {
+type betaAppLocalizationUpdateRequest struct {
 	Attributes *BetaAppLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
 	Type       string                                      `json:"type"`
@@ -186,8 +186,8 @@ func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, attri
 	req := betaAppLocalizationCreateRequest{
 		Attributes: attributes,
 		Relationships: betaAppLocalizationCreateRequestRelationships{
-			App: RelationshipDeclaration{
-				Data: &RelationshipData{
+			App: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appID,
 					Type: "apps",
 				},
@@ -204,10 +204,15 @@ func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, attri
 // UpdateBetaAppLocalization updates the localized What’s New text for a specific app and locale.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_localization
-func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id string, body BetaAppLocalizationUpdateRequest) (*BetaAppLocalizationResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id string, attributes *BetaAppLocalizationUpdateRequestAttributes) (*BetaAppLocalizationResponse, *Response, error) {
+	req := betaAppLocalizationUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "betaAppLocalizations",
+	}
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

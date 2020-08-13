@@ -40,7 +40,7 @@ type BetaAppReviewDetailRelationships struct {
 // BetaAppReviewDetailUpdateRequest defines model for BetaAppReviewDetailUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewdetailupdaterequest
-type BetaAppReviewDetailUpdateRequest struct {
+type betaAppReviewDetailUpdateRequest struct {
 	Attributes *BetaAppReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                      `json:"id"`
 	Type       string                                      `json:"type"`
@@ -156,9 +156,14 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(ctx context.Context, i
 // UpdateBetaAppReviewDetail updates the details for a specific app's beta app review.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_app_review_detail
-func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id string, body BetaAppReviewDetailUpdateRequest) (*BetaAppReviewDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id string, attributes *BetaAppReviewDetailUpdateRequestAttributes) (*BetaAppReviewDetailResponse, *Response, error) {
+	req := betaAppReviewDetailUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "betaAppReviewDetails",
+	}
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

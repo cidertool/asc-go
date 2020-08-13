@@ -23,7 +23,7 @@ type buildBetaNotificationCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetanotificationcreaterequest/data/relationships
 type buildBetaNotificationCreateRequestRelationships struct {
-	Build RelationshipDeclaration `json:"build"`
+	Build relationshipDeclaration `json:"build"`
 }
 
 // BuildBetaNotificationResponse defines model for BuildBetaNotificationResponse.
@@ -40,8 +40,8 @@ type BuildBetaNotificationResponse struct {
 func (s *TestflightService) CreateAvailableBuildNotification(ctx context.Context, buildID string) (*BuildBetaNotificationResponse, *Response, error) {
 	req := buildBetaNotificationCreateRequest{
 		Relationships: buildBetaNotificationCreateRequestRelationships{
-			Build: RelationshipDeclaration{
-				Data: &RelationshipData{
+			Build: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   buildID,
 					Type: "builds",
 				},

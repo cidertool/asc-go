@@ -49,14 +49,14 @@ type appPreOrderCreateRequestAttributes struct {
 
 // AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest
 type appPreOrderCreateRequestRelationships struct {
-	App RelationshipDeclaration `json:"app"`
+	App relationshipDeclaration `json:"app"`
 }
 
 // AppPreOrderUpdateRequest defines model for AppPreOrderUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest
-type AppPreOrderUpdateRequest struct {
-	Attributes *AppPreOrderUpdateRequestAttributes `json:"attributes,omitempty"`
+type appPreOrderUpdateRequest struct {
+	Attributes *appPreOrderUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                              `json:"id"`
 	Type       string                              `json:"type"`
 }
@@ -64,7 +64,7 @@ type AppPreOrderUpdateRequest struct {
 // AppPreOrderUpdateRequestAttributes are attributes for AppPreOrderUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreorderupdaterequest/data/attributes
-type AppPreOrderUpdateRequestAttributes struct {
+type appPreOrderUpdateRequestAttributes struct {
 	AppReleaseDate *Date `json:"appReleaseDate,omitempty"`
 }
 
@@ -117,8 +117,8 @@ func (s *PublishingService) GetPreOrderForApp(ctx context.Context, id string, pa
 func (s *PublishingService) CreatePreOrder(ctx context.Context, appReleaseDate *Date, appID string) (*AppPreOrderResponse, *Response, error) {
 	req := appPreOrderCreateRequest{
 		Relationships: appPreOrderCreateRequestRelationships{
-			App: RelationshipDeclaration{
-				Data: &RelationshipData{
+			App: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appID,
 					Type: "apps",
 				},
@@ -139,10 +139,19 @@ func (s *PublishingService) CreatePreOrder(ctx context.Context, appReleaseDate *
 // UpdatePreOrder updates the release date for your app pre-order.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_pre-order
-func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, body AppPreOrderUpdateRequest) (*AppPreOrderResponse, *Response, error) {
+func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, appReleaseDate *Date) (*AppPreOrderResponse, *Response, error) {
+	req := appPreOrderUpdateRequest{
+		ID:   id,
+		Type: "appPreOrders",
+	}
+	if appReleaseDate != nil {
+		req.Attributes = &appPreOrderUpdateRequestAttributes{
+			AppReleaseDate: appReleaseDate,
+		}
+	}
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

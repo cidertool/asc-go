@@ -75,7 +75,7 @@ type BuildsResponse struct {
 // BuildUpdateRequest defines model for BuildUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest
-type BuildUpdateRequest struct {
+type buildUpdateRequest struct {
 	Attributes    *BuildUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                           `json:"id"`
 	Relationships *BuildUpdateRequestRelationships `json:"relationships,omitempty"`
@@ -94,13 +94,8 @@ type BuildUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data/relationships
 type BuildUpdateRequestRelationships struct {
-	AppEncryptionDeclaration *RelationshipDeclaration `json:"appEncryptionDeclaration,omitempty"`
+	AppEncryptionDeclaration *relationshipDeclaration `json:"appEncryptionDeclaration,omitempty"`
 }
-
-// BuildAppEncryptionDeclarationLinkageRequest is a list of relationships to a AppEncryptionDeclaration object
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/buildappencryptiondeclarationlinkagerequest
-type BuildAppEncryptionDeclarationLinkageRequest RelationshipData
 
 // BuildAppEncryptionDeclarationLinkageResponse defines model for BuildAppEncryptionDeclarationLinkageResponse.
 //
@@ -110,11 +105,6 @@ type BuildAppEncryptionDeclarationLinkageResponse struct {
 	Links DocumentLinks    `json:"links"`
 }
 
-// BuildIndividualTestersLinkagesRequest is a list of relationships to BetaTester objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/buildindividualtesterslinkagesrequest
-type BuildIndividualTestersLinkagesRequest []RelationshipData
-
 // BuildIndividualTestersLinkagesResponse defines model for BuildIndividualTestersLinkagesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildindividualtesterslinkagesresponse
@@ -123,11 +113,6 @@ type BuildIndividualTestersLinkagesResponse struct {
 	Links PagedDocumentLinks `json:"links"`
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
-
-// BuildBetaGroupsLinkagesRequest is a list of relationships to BetaGroup objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/buildbetagroupslinkagesrequest
-type BuildBetaGroupsLinkagesRequest []RelationshipData
 
 // ListBuildsQuery are query options for ListBuilds
 //
@@ -295,17 +280,28 @@ func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuild expires a build or changes its encryption exemption setting.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build
-func (s *BuildsService) UpdateBuild(ctx context.Context, id string, body BuildUpdateRequest) (*BuildResponse, *Response, error) {
+func (s *BuildsService) UpdateBuild(ctx context.Context, id string, attributes *BuildUpdateRequestAttributes, appEncryptionDeclarationID *string) (*BuildResponse, *Response, error) {
+	req := buildUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "builds",
+	}
+	if appEncryptionDeclarationID != nil {
+		req.Relationships = &BuildUpdateRequestRelationships{
+			AppEncryptionDeclaration: newRelationship(appEncryptionDeclarationID, "appEncryptionDeclarations"),
+		}
+	}
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.post(ctx, url, body, res)
+	resp, err := s.client.post(ctx, url, req, res)
 	return res, resp, err
 }
 
 // UpdateAppEncryptionDeclarationForBuild assigns an app encryption declaration to a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_the_app_encryption_declaration_for_a_build
-func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, linkage *BuildAppEncryptionDeclarationLinkageRequest) (*Response, error) {
+func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, appEncryptionDeclarationID *string) (*Response, error) {
+	linkage := newRelationship(appEncryptionDeclarationID, "builds")
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	return s.client.patch(ctx, url, linkage, nil)
 }
@@ -313,7 +309,8 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 // CreateAccessForBetaGroupsToBuild adds or creates a beta group to a build to enable testing.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_access_for_beta_groups_to_a_build
-func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, linkages BuildBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
+	linkages := newRelationships(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -321,7 +318,8 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_access_for_beta_groups_to_a_build
-func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, linkages BuildBetaGroupsLinkagesRequest) (*Response, error) {
+func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
+	linkages := newRelationships(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -329,7 +327,8 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_individual_testers_to_a_build
-func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, linkages BuildIndividualTestersLinkagesRequest) (*Response, error) {
+func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
+	linkages := newRelationships(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -337,7 +336,8 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_individual_testers_from_a_build
-func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, linkages BuildIndividualTestersLinkagesRequest) (*Response, error) {
+func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
+	linkages := newRelationships(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

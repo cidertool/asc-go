@@ -151,13 +151,9 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppPreview(ctx, preview.ID, asc.AppPreviewUpdateRequest{
-		Type: "appPreviews",
-		Attributes: &asc.AppPreviewUpdateRequestAttributes{
-			Uploaded:           asc.Bool(true),
-			SourceFileChecksum: &checksum,
-		},
-		ID: preview.ID,
+	client.Apps.CommitAppPreview(ctx, preview.ID, &asc.AppPreviewUpdateRequestAttributes{
+		Uploaded:           asc.Bool(true),
+		SourceFileChecksum: &checksum,
 	})
 
 	// Report success to the caller.

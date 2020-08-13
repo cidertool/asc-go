@@ -85,13 +85,13 @@ type appPreviewCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewcreaterequest/data/relationships
 type appPreviewCreateRequestRelationships struct {
-	AppPreviewSet RelationshipDeclaration `json:"appPreviewSet"`
+	AppPreviewSet relationshipDeclaration `json:"appPreviewSet"`
 }
 
 // AppPreviewUpdateRequest defines model for AppPreviewUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest
-type AppPreviewUpdateRequest struct {
+type appPreviewUpdateRequest struct {
 	Attributes *AppPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                             `json:"id"`
 	Type       string                             `json:"type"`
@@ -160,8 +160,8 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fil
 			FileSize: fileSize,
 		},
 		Relationships: appPreviewCreateRequestRelationships{
-			AppPreviewSet: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppPreviewSet: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appPreviewSetID,
 					Type: "appPreviewSets",
 				},
@@ -177,10 +177,15 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fil
 // CommitAppPreview commits an app preview after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_preview
-func (s *AppsService) CommitAppPreview(ctx context.Context, id string, body AppPreviewUpdateRequest) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CommitAppPreview(ctx context.Context, id string, attributes *AppPreviewUpdateRequestAttributes) (*AppPreviewResponse, *Response, error) {
+	req := appPreviewUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appPreviews",
+	}
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

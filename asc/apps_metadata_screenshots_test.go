@@ -19,7 +19,7 @@ func TestCreateAppScreenshot(t *testing.T) {
 
 func TestCommitAppScreenshot(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppScreenshotResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitAppScreenshot(ctx, "10", AppScreenshotUpdateRequest{})
+		return client.Apps.CommitAppScreenshot(ctx, "10", &AppScreenshotUpdateRequestAttributes{})
 	})
 }
 

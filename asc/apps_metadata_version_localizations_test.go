@@ -25,7 +25,7 @@ func TestCreateAppStoreVersionLocalization(t *testing.T) {
 
 func TestUpdateAppStoreVersionLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateAppStoreVersionLocalization(ctx, "10", AppStoreVersionLocalizationUpdateRequest{})
+		return client.Apps.UpdateAppStoreVersionLocalization(ctx, "10", &AppStoreVersionLocalizationUpdateRequestAttributes{})
 	})
 }
 

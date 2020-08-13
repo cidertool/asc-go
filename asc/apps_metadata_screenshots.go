@@ -58,13 +58,13 @@ type appScreenshotCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotcreaterequest/data/relationships
 type appScreenshotCreateRequestRelationships struct {
-	AppScreenshotSet RelationshipDeclaration `json:"appScreenshotSet"`
+	AppScreenshotSet relationshipDeclaration `json:"appScreenshotSet"`
 }
 
 // AppScreenshotUpdateRequest defines model for AppScreenshotUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest
-type AppScreenshotUpdateRequest struct {
+type appScreenshotUpdateRequest struct {
 	Attributes *AppScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                `json:"id"`
 	Type       string                                `json:"type"`
@@ -123,8 +123,8 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, 
 			FileSize: fileSize,
 		},
 		Relationships: appScreenshotCreateRequestRelationships{
-			AppScreenshotSet: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppScreenshotSet: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appScreenshotSetID,
 					Type: "appScreenshotSets",
 				},
@@ -140,10 +140,15 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, 
 // CommitAppScreenshot commits an app screenshot after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_screenshot
-func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, body AppScreenshotUpdateRequest) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, attributes *AppScreenshotUpdateRequestAttributes) (*AppScreenshotResponse, *Response, error) {
+	req := appScreenshotUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appScreenshots",
+	}
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

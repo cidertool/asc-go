@@ -7,7 +7,7 @@ import (
 
 func TestCreateProfile(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.CreateProfile(ctx, "", "", ProfileCreateRequestRelationships{})
+		return client.Provisioning.CreateProfile(ctx, "", "", "", []string{"10"}, []string{"10"})
 	})
 }
 

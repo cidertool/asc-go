@@ -85,7 +85,7 @@ type appScreenshotSetCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetcreaterequest/data/relationships
 type appScreenshotSetCreateRequestRelationships struct {
-	AppStoreVersionLocalization RelationshipDeclaration `json:"appStoreVersionLocalization"`
+	AppStoreVersionLocalization relationshipDeclaration `json:"appStoreVersionLocalization"`
 }
 
 // AppScreenshotSetResponse defines model for AppScreenshotSetResponse.
@@ -106,11 +106,6 @@ type AppScreenshotSetsResponse struct {
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
-
-// AppScreenshotSetAppScreenshotsLinkagesRequest is a list of relationships to AppScreenshot objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotsetappscreenshotslinkagesrequest
-type AppScreenshotSetAppScreenshotsLinkagesRequest []RelationshipData
 
 // AppScreenshotSetAppScreenshotsLinkagesResponse defines model for AppScreenshotSetAppScreenshotsLinkagesResponse.
 //
@@ -168,8 +163,8 @@ func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, screenshotDisp
 			ScreenshotDisplayType: screenshotDisplayType,
 		},
 		Relationships: appScreenshotSetCreateRequestRelationships{
-			AppStoreVersionLocalization: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersionLocalization: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionLocalizationID,
 					Type: "appStoreVersionLocalizations",
 				},
@@ -213,7 +208,8 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 // ReplaceAppScreenshotsForSet changes the order of the screenshots in a screenshot set.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_screenshots_for_an_app_screenshot_set
-func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, linkages AppScreenshotSetAppScreenshotsLinkagesRequest) (*Response, error) {
+func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, appScreenshotIDs []string) (*Response, error) {
+	linkages := newRelationships(appScreenshotIDs, "appScreenshots")
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

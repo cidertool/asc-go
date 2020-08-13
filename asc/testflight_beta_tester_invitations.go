@@ -23,8 +23,8 @@ type betaTesterInvitationCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betatesterinvitationcreaterequest/data/relationships
 type betaTesterInvitationCreateRequestRelationships struct {
-	App        RelationshipDeclaration `json:"app"`
-	BetaTester RelationshipDeclaration `json:"betaTester"`
+	App        relationshipDeclaration `json:"app"`
+	BetaTester relationshipDeclaration `json:"betaTester"`
 }
 
 // BetaTesterInvitationResponse defines model for BetaTesterInvitationResponse.
@@ -41,14 +41,14 @@ type BetaTesterInvitationResponse struct {
 func (s *TestflightService) CreateBetaTesterInvitation(ctx context.Context, appID string, betaTesterID string) (*BetaTesterInvitationResponse, *Response, error) {
 	req := betaTesterInvitationCreateRequest{
 		Relationships: betaTesterInvitationCreateRequestRelationships{
-			App: RelationshipDeclaration{
-				Data: &RelationshipData{
+			App: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appID,
 					Type: "apps",
 				},
 			},
-			BetaTester: RelationshipDeclaration{
-				Data: &RelationshipData{
+			BetaTester: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   betaTesterID,
 					Type: "betaTesters",
 				},

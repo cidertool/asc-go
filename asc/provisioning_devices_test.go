@@ -25,6 +25,6 @@ func TestGetDevice(t *testing.T) {
 
 func TestUpdateDevice(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &DeviceResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Provisioning.UpdateDevice(ctx, "10", DeviceUpdateRequest{})
+		return client.Provisioning.UpdateDevice(ctx, "10", String(""), String(""))
 	})
 }

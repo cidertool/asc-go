@@ -19,6 +19,6 @@ func TestListAppInfosForApp(t *testing.T) {
 
 func TestUpdateAppInfo(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppInfoResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.UpdateAppInfo(ctx, "10", AppInfoUpdateRequest{})
+		return client.Apps.UpdateAppInfo(ctx, "10", &AppInfoUpdateRequestRelationships{})
 	})
 }

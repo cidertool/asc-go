@@ -62,7 +62,7 @@ type UserInvitationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/userinvitationcreaterequest/data/relationships
 type UserInvitationCreateRequestRelationships struct {
-	VisibleApps *PagedRelationshipDeclaration `json:"visibleApps,omitempty"`
+	VisibleApps *pagedRelationshipDeclaration `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationResponse defines model for UserInvitationResponse.
@@ -132,11 +132,16 @@ func (s *UsersService) GetInvitation(ctx context.Context, id string, params *Get
 // CreateInvitation invites a user with assigned user roles to join your team.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/invite_a_user
-func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvitationCreateRequestAttributes, relationships *UserInvitationCreateRequestRelationships) (*UserInvitationResponse, *Response, error) {
+func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvitationCreateRequestAttributes, visibleAppIDs []string) (*UserInvitationResponse, *Response, error) {
 	req := userInvitationCreateRequest{
-		Attributes:    attributes,
-		Relationships: relationships,
-		Type:          "userInvitations",
+		Attributes: attributes,
+		Type:       "userInvitations",
+	}
+	if len(visibleAppIDs) > 0 {
+		relationships := newRelationships(visibleAppIDs, "apps")
+		req.Relationships = &UserInvitationCreateRequestRelationships{
+			VisibleApps: &relationships,
+		}
 	}
 	res := new(UserInvitationResponse)
 	resp, err := s.client.post(ctx, "userInvitations", req, res)

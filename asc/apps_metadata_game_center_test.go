@@ -25,18 +25,18 @@ func TestListCompatibleVersionIDsForGameCenterEnabledVersion(t *testing.T) {
 
 func TestCreateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.CreateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
+		return client.Apps.CreateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", []string{"10"})
 	})
 }
 
 func TestUpdateCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
+		return client.Apps.UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveCompatibleVersionsForGameCenterEnabledVersion(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", GameCenterEnabledVersionCompatibleVersionsLinkagesRequest{})
+		return client.Apps.RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx, "10", []string{"10"})
 	})
 }

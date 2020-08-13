@@ -33,7 +33,7 @@ type BetaLicenseAgreementRelationships struct {
 // BetaLicenseAgreementUpdateRequest defines model for BetaLicenseAgreementUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest
-type BetaLicenseAgreementUpdateRequest struct {
+type betaLicenseAgreementUpdateRequest struct {
 	Attributes *BetaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
 	Type       string                                       `json:"type"`
@@ -142,9 +142,18 @@ func (s *TestflightService) GetBetaLicenseAgreementForApp(ctx context.Context, i
 // UpdateBetaLicenseAgreement updates the text for your beta license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_beta_license_agreement
-func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id string, body BetaLicenseAgreementUpdateRequest) (*BetaLicenseAgreementResponse, *Response, error) {
+func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id string, agreementText *string) (*BetaLicenseAgreementResponse, *Response, error) {
+	req := betaLicenseAgreementUpdateRequest{
+		ID:   id,
+		Type: "betaLicenseAgreements",
+	}
+	if agreementText != nil {
+		req.Attributes = &BetaLicenseAgreementUpdateRequestAttributes{
+			AgreementText: agreementText,
+		}
+	}
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

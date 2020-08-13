@@ -41,9 +41,9 @@ type AppStoreVersionLocalizationRelationships struct {
 // AppStoreVersionLocalizationCreateRequest defines model for AppStoreVersionLocalizationCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest
-type AppStoreVersionLocalizationCreateRequest struct {
+type appStoreVersionLocalizationCreateRequest struct {
 	Attributes    AppStoreVersionLocalizationCreateRequestAttributes    `json:"attributes"`
-	Relationships AppStoreVersionLocalizationCreateRequestRelationships `json:"relationships"`
+	Relationships appStoreVersionLocalizationCreateRequestRelationships `json:"relationships"`
 	Type          string                                                `json:"type"`
 }
 
@@ -63,8 +63,8 @@ type AppStoreVersionLocalizationCreateRequestAttributes struct {
 // AppStoreVersionLocalizationCreateRequestRelationships are relationships for AppStoreVersionLocalizationCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationcreaterequest/data/relationships
-type AppStoreVersionLocalizationCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+type appStoreVersionLocalizationCreateRequestRelationships struct {
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreVersionLocalizationResponse defines model for AppStoreVersionLocalizationResponse.
@@ -89,7 +89,7 @@ type AppStoreVersionLocalizationsResponse struct {
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationupdaterequest
-type AppStoreVersionLocalizationUpdateRequest struct {
+type appStoreVersionLocalizationUpdateRequest struct {
 	Attributes *AppStoreVersionLocalizationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                              `json:"id"`
 	Type       string                                              `json:"type"`
@@ -178,11 +178,11 @@ func (s *AppsService) GetAppStoreVersionLocalization(ctx context.Context, id str
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version_localization
 func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, attributes AppStoreVersionLocalizationCreateRequestAttributes, appStoreVersionID string) (*AppStoreVersionLocalizationResponse, *Response, error) {
-	req := AppStoreVersionLocalizationCreateRequest{
+	req := appStoreVersionLocalizationCreateRequest{
 		Attributes: attributes,
-		Relationships: AppStoreVersionLocalizationCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+		Relationships: appStoreVersionLocalizationCreateRequestRelationships{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},
@@ -198,10 +198,15 @@ func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, att
 // UpdateAppStoreVersionLocalization modifies localized version-level information for a particular language.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version_localization
-func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id string, body AppStoreVersionLocalizationUpdateRequest) (*AppStoreVersionLocalizationResponse, *Response, error) {
+func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id string, attributes *AppStoreVersionLocalizationUpdateRequestAttributes) (*AppStoreVersionLocalizationResponse, *Response, error) {
+	req := appStoreVersionLocalizationUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appStoreVersionLocalizations",
+	}
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

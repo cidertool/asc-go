@@ -74,13 +74,13 @@ type PagedRelationship struct {
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
-// RelationshipDeclaration represents a declared relationship to a single resource
-type RelationshipDeclaration struct {
-	Data *RelationshipData `json:"data"`
+// relationshipDeclaration represents a declared relationship to a single resource
+type relationshipDeclaration struct {
+	Data RelationshipData `json:"data"`
 }
 
-// PagedRelationshipDeclaration represents a declared relationship to multiple resources
-type PagedRelationshipDeclaration struct {
+// pagedRelationshipDeclaration represents a declared relationship to multiple resources
+type pagedRelationshipDeclaration struct {
 	Data []RelationshipData `json:"data"`
 }
 
@@ -94,4 +94,27 @@ type RelationshipData struct {
 type RelationshipLinks struct {
 	Related *Reference `json:"related,omitempty"`
 	Self    *Reference `json:"self,omitempty"`
+}
+
+func newRelationship(id *string, relationshipType string) *relationshipDeclaration {
+	if id == nil {
+		return nil
+	}
+	return &relationshipDeclaration{
+		Data: RelationshipData{
+			ID:   *id,
+			Type: relationshipType,
+		},
+	}
+}
+
+func newRelationships(ids []string, relationshipType string) pagedRelationshipDeclaration {
+	datas := []RelationshipData{}
+	for _, id := range ids {
+		datas = append(datas, RelationshipData{
+			ID:   id,
+			Type: relationshipType,
+		})
+	}
+	return pagedRelationshipDeclaration{Data: datas}
 }

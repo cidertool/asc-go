@@ -13,7 +13,7 @@ func TestCreateIDFADeclaration(t *testing.T) {
 
 func TestUpdateIDFADeclaration(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &IDFADeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.UpdateIDFADeclaration(ctx, "10", IDFADeclarationUpdateRequest{})
+		return client.Submission.UpdateIDFADeclaration(ctx, "10", &IDFADeclarationUpdateRequestAttributes{})
 	})
 }
 

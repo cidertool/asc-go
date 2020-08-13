@@ -31,6 +31,6 @@ func TestGetBetaLicenseAgreementForApp(t *testing.T) {
 
 func TestUpdateBetaLicenseAgreement(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaLicenseAgreementResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaLicenseAgreement(ctx, "10", BetaLicenseAgreementUpdateRequest{})
+		return client.TestFlight.UpdateBetaLicenseAgreement(ctx, "10", String(""))
 	})
 }

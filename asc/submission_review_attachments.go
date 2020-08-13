@@ -55,7 +55,7 @@ type appStoreReviewAttachmentCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentcreaterequest/data/relationships
 type appStoreReviewAttachmentCreateRequestRelationships struct {
-	AppStoreReviewDetail RelationshipDeclaration `json:"appStoreReviewDetail"`
+	AppStoreReviewDetail relationshipDeclaration `json:"appStoreReviewDetail"`
 }
 
 // AppStoreReviewAttachmentResponse defines model for AppStoreReviewAttachmentResponse.
@@ -69,7 +69,7 @@ type AppStoreReviewAttachmentResponse struct {
 // AppStoreReviewAttachmentUpdateRequest defines model for AppStoreReviewAttachmentUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentupdaterequest
-type AppStoreReviewAttachmentUpdateRequest struct {
+type appStoreReviewAttachmentUpdateRequest struct {
 	Attributes *AppStoreReviewAttachmentUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                           `json:"id"`
 	Type       string                                           `json:"type"`
@@ -141,8 +141,8 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName strin
 			FileSize: fileSize,
 		},
 		Relationships: appStoreReviewAttachmentCreateRequestRelationships{
-			AppStoreReviewDetail: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreReviewDetail: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreReviewDetailID,
 					Type: "appStoreReviewDetails",
 				},
@@ -158,10 +158,15 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName strin
 // CommitAttachment commits an app screenshot after uploading it to the App Store.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/commit_an_app_store_review_attachment
-func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, body AppStoreReviewAttachmentUpdateRequest) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, attributes *AppStoreReviewAttachmentUpdateRequestAttributes) (*AppStoreReviewAttachmentResponse, *Response, error) {
+	req := appStoreReviewAttachmentUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appStoreReviewAttachments",
+	}
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

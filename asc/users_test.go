@@ -19,7 +19,7 @@ func TestGetUser(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &UserResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Users.UpdateUser(ctx, "10", UserUpdateRequest{})
+		return client.Users.UpdateUser(ctx, "10", &UserUpdateRequestAttributes{}, []string{"10"})
 	})
 }
 
@@ -43,18 +43,18 @@ func TestListVisibleAppsByResourceIDForUser(t *testing.T) {
 
 func TestAddVisibleAppsForUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.AddVisibleAppsForUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
+		return client.Users.AddVisibleAppsForUser(ctx, "10", []string{"10"})
 	})
 }
 
 func TestUpdateVisibleAppsForUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.UpdateVisibleAppsForUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
+		return client.Users.UpdateVisibleAppsForUser(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveVisibleAppsFromUser(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", UserVisibleAppsLinkagesRequest{})
+		return client.Users.RemoveVisibleAppsFromUser(ctx, "10", []string{"10"})
 	})
 }

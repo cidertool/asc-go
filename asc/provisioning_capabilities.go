@@ -81,13 +81,13 @@ type bundleIDCapabilityCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilitycreaterequest/data/relationships
 type bundleIDCapabilityCreateRequestRelationships struct {
-	BundleID RelationshipDeclaration `json:"bundleId"`
+	BundleID relationshipDeclaration `json:"bundleId"`
 }
 
 // BundleIDCapabilityUpdateRequest defines model for BundleIdCapabilityUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest
-type BundleIDCapabilityUpdateRequest struct {
+type bundleIDCapabilityUpdateRequest struct {
 	Attributes *BundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
 	Type       string                                     `json:"type"`
@@ -154,8 +154,8 @@ func (s *ProvisioningService) EnableCapability(ctx context.Context, capabilityTy
 			Settings:       capabilitySettings,
 		},
 		Relationships: bundleIDCapabilityCreateRequestRelationships{
-			BundleID: RelationshipDeclaration{
-				Data: &RelationshipData{
+			BundleID: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   bundleIDRelationship,
 					Type: "bundleIds",
 				},
@@ -179,9 +179,19 @@ func (s *ProvisioningService) DisableCapability(ctx context.Context, id string) 
 // UpdateCapability updates the configuration of a specific capability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_capability_configuration
-func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, body BundleIDCapabilityUpdateRequest) (*BundleIDCapabilityResponse, *Response, error) {
+func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, capabilityType *CapabilityType, settings []CapabilitySetting) (*BundleIDCapabilityResponse, *Response, error) {
+	req := bundleIDCapabilityUpdateRequest{
+		ID:   id,
+		Type: "bundleIdCapabilities",
+	}
+	if capabilityType != nil || settings != nil {
+		req.Attributes = &BundleIDCapabilityUpdateRequestAttributes{
+			CapabilityType: capabilityType,
+			Settings:       settings,
+		}
+	}
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

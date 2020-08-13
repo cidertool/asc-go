@@ -65,13 +65,13 @@ type AppStoreReviewDetailCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailcreaterequest/data/relationships
 type appStoreReviewDetailCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // AppStoreReviewDetailUpdateRequest defines model for AppStoreReviewDetailUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewdetailupdaterequest
-type AppStoreReviewDetailUpdateRequest struct {
+type appStoreReviewDetailUpdateRequest struct {
 	Attributes *AppStoreReviewDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
 	Type       string                                       `json:"type"`
@@ -127,8 +127,8 @@ func (s *SubmissionService) CreateReviewDetail(ctx context.Context, attributes *
 	req := appStoreReviewDetailCreateRequest{
 		Attributes: attributes,
 		Relationships: appStoreReviewDetailCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},
@@ -164,9 +164,14 @@ func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(ctx context.Conte
 // UpdateReviewDetail update the app store review details, including the contact information, demo account, and notes.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_review_detail
-func (s *SubmissionService) UpdateReviewDetail(ctx context.Context, id string, body AppStoreReviewDetailUpdateRequest) (*AppStoreReviewDetailResponse, *Response, error) {
+func (s *SubmissionService) UpdateReviewDetail(ctx context.Context, id string, attributes *AppStoreReviewDetailUpdateRequestAttributes) (*AppStoreReviewDetailResponse, *Response, error) {
+	req := appStoreReviewDetailUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appStoreReviewDetails",
+	}
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

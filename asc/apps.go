@@ -70,7 +70,7 @@ type AppRelationships struct {
 // AppUpdateRequest defines model for AppUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest
-type AppUpdateRequest struct {
+type appUpdateRequest struct {
 	Attributes    *AppUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                         `json:"id"`
 	Relationships *AppUpdateRequestRelationships `json:"relationships,omitempty"`
@@ -91,8 +91,8 @@ type AppUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appupdaterequest/data/relationships
 type AppUpdateRequestRelationships struct {
-	AvailableTerritories *PagedRelationshipDeclaration `json:"availableTerritories,omitempty"`
-	Prices               *PagedRelationshipDeclaration `json:"prices,omitempty"`
+	AvailableTerritories *pagedRelationshipDeclaration `json:"availableTerritories,omitempty"`
+	Prices               *pagedRelationshipDeclaration `json:"prices,omitempty"`
 }
 
 // AppResponse defines model for AppResponse.
@@ -158,11 +158,6 @@ type InAppPurchasesResponse struct {
 	Links PagedDocumentLinks `json:"links"`
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
-
-// AppBetaTestersLinkagesRequest is a list of relationships to BetaTester objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/appbetatesterslinkagesrequest
-type AppBetaTestersLinkagesRequest []RelationshipData
 
 // ListAppsQuery are query options for ListApps
 //
@@ -286,17 +281,36 @@ func (s *AppsService) GetApp(ctx context.Context, id string, params *GetAppQuery
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app
-func (s *AppsService) UpdateApp(ctx context.Context, id string, body AppUpdateRequest) (*AppResponse, *Response, error) {
+func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppUpdateRequestAttributes, availableTerritoryIDs []string, priceIDs []string) (*AppResponse, *Response, error) {
+	req := appUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "apps",
+	}
+	anyTerritories := len(availableTerritoryIDs) > 0
+	anyPrices := len(priceIDs) > 0
+	if anyTerritories || anyPrices {
+		req.Relationships = &AppUpdateRequestRelationships{}
+		if anyTerritories {
+			relationships := newRelationships(availableTerritoryIDs, "territories")
+			req.Relationships.AvailableTerritories = &relationships
+		}
+		if anyPrices {
+			relationships := newRelationships(priceIDs, "appPrices")
+			req.Relationships.Prices = &relationships
+		}
+	}
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 
 // RemoveBetaTestersFromApp removes one or more beta testers' access to test any builds of a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
-func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, linkages AppBetaTestersLinkagesRequest) (*Response, error) {
+func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
+	linkages := newRelationships(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

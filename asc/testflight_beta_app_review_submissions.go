@@ -55,7 +55,7 @@ type betaAppReviewSubmissionCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betaappreviewsubmissioncreaterequest/data/relationships
 type betaAppReviewSubmissionCreateRequestRelationships struct {
-	Build RelationshipDeclaration `json:"build"`
+	Build relationshipDeclaration `json:"build"`
 }
 
 // BetaAppReviewSubmissionResponse defines model for BetaAppReviewSubmissionResponse.
@@ -119,8 +119,8 @@ type GetBetaAppReviewSubmissionForBuildQuery struct {
 func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, buildID string) (*BetaAppReviewSubmissionResponse, *Response, error) {
 	req := betaAppReviewSubmissionCreateRequest{
 		Relationships: betaAppReviewSubmissionCreateRequestRelationships{
-			Build: RelationshipDeclaration{
-				Data: &RelationshipData{
+			Build: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   buildID,
 					Type: "builds",
 				},

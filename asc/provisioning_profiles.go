@@ -43,16 +43,16 @@ type ProfileRelationships struct {
 // ProfileCreateRequest defines model for ProfileCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest
-type ProfileCreateRequest struct {
-	Attributes    ProfileCreateRequestAttributes    `json:"attributes"`
-	Relationships ProfileCreateRequestRelationships `json:"relationships"`
+type profileCreateRequest struct {
+	Attributes    profileCreateRequestAttributes    `json:"attributes"`
+	Relationships profileCreateRequestRelationships `json:"relationships"`
 	Type          string                            `json:"type"`
 }
 
 // ProfileCreateRequestAttributes are attributes for ProfileCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data/attributes
-type ProfileCreateRequestAttributes struct {
+type profileCreateRequestAttributes struct {
 	Name        string `json:"name"`
 	ProfileType string `json:"profileType"`
 }
@@ -60,10 +60,10 @@ type ProfileCreateRequestAttributes struct {
 // ProfileCreateRequestRelationships are relationships for ProfileCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profilecreaterequest/data/relationships
-type ProfileCreateRequestRelationships struct {
-	BundleID     RelationshipDeclaration       `json:"bundleId"`
-	Certificates PagedRelationshipDeclaration  `json:"certificates"`
-	Devices      *PagedRelationshipDeclaration `json:"devices,omitempty"`
+type profileCreateRequestRelationships struct {
+	BundleID     relationshipDeclaration       `json:"bundleId"`
+	Certificates pagedRelationshipDeclaration  `json:"certificates"`
+	Devices      *pagedRelationshipDeclaration `json:"devices,omitempty"`
 }
 
 // ProfileResponse defines model for ProfileResponse.
@@ -146,14 +146,21 @@ type ListDevicesInProfileQuery struct {
 // CreateProfile creates a new provisioning profile.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_profile
-func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, profileType string, relationships ProfileCreateRequestRelationships) (*ProfileResponse, *Response, error) {
-	req := ProfileCreateRequest{
-		Attributes: ProfileCreateRequestAttributes{
+func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, profileType string, bundleIDRelationship string, certificateIDs []string, deviceIDs []string) (*ProfileResponse, *Response, error) {
+	req := profileCreateRequest{
+		Attributes: profileCreateRequestAttributes{
 			Name:        name,
 			ProfileType: profileType,
 		},
-		Relationships: relationships,
-		Type:          "profiles",
+		Relationships: profileCreateRequestRelationships{
+			BundleID:     *newRelationship(&bundleIDRelationship, "bundleIds"),
+			Certificates: newRelationships(certificateIDs, "certificates"),
+		},
+		Type: "profiles",
+	}
+	if len(deviceIDs) > 0 {
+		relationships := newRelationships(deviceIDs, "devices")
+		req.Relationships.Devices = &relationships
 	}
 	res := new(ProfileResponse)
 	resp, err := s.client.post(ctx, "profiles", req, res)

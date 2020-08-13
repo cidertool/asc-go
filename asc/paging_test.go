@@ -36,3 +36,20 @@ func TestReferenceBadUnmarshal(t *testing.T) {
 	err = json.Unmarshal([]byte(marshaledNoURL), &links)
 	assert.Error(t, err)
 }
+
+func TestNewRelationships(t *testing.T) {
+	var rel *relationshipDeclaration
+	rel = newRelationship(nil, "dog")
+	assert.Nil(t, rel)
+	id := "10"
+	rel = newRelationship(&id, "dog")
+	assert.Equal(t, &relationshipDeclaration{RelationshipData{"10", "dog"}}, rel)
+
+	var rels pagedRelationshipDeclaration
+	rels = newRelationships(nil, "dog")
+	assert.Empty(t, rels.Data)
+	rels = newRelationships([]string{}, "dog")
+	assert.Empty(t, rels.Data)
+	rels = newRelationships([]string{"10", "20", "30"}, "dog")
+	assert.Equal(t, pagedRelationshipDeclaration{[]RelationshipData{{"10", "dog"}, {"20", "dog"}, {"30", "dog"}}}, rels)
+}

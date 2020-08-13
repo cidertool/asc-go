@@ -56,13 +56,13 @@ type IDFADeclarationCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationcreaterequest/data/relationships
 type idfaDeclarationCreateRequestRelationships struct {
-	AppStoreVersion RelationshipDeclaration `json:"appStoreVersion"`
+	AppStoreVersion relationshipDeclaration `json:"appStoreVersion"`
 }
 
 // IDFADeclarationUpdateRequest defines model for IDFADeclarationUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/idfadeclarationupdaterequest
-type IDFADeclarationUpdateRequest struct {
+type idfaDeclarationUpdateRequest struct {
 	Attributes *IDFADeclarationUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`
 	Type       string                                  `json:"type"`
@@ -100,8 +100,8 @@ func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, attribute
 	req := idfaDeclarationCreateRequest{
 		Attributes: attributes,
 		Relationships: idfaDeclarationCreateRequestRelationships{
-			AppStoreVersion: RelationshipDeclaration{
-				Data: &RelationshipData{
+			AppStoreVersion: relationshipDeclaration{
+				Data: RelationshipData{
 					ID:   appStoreVersionID,
 					Type: "appStoreVersions",
 				},
@@ -117,10 +117,15 @@ func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, attribute
 // UpdateIDFADeclaration updates your declared IDFA usage.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_idfa_declaration
-func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string, body IDFADeclarationUpdateRequest) (*IDFADeclarationResponse, *Response, error) {
+func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string, attributes *IDFADeclarationUpdateRequestAttributes) (*IDFADeclarationResponse, *Response, error) {
+	req := idfaDeclarationUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "idfaDeclarations",
+	}
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

@@ -31,12 +31,12 @@ type EndUserLicenseAgreementRelationships struct {
 	Territories *PagedRelationship `json:"territories,omitempty"`
 }
 
-// EndUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
+// endUserLicenseAgreementCreateRequest defines model for EndUserLicenseAgreementCreateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest
 type endUserLicenseAgreementCreateRequest struct {
 	Attributes    endUserLicenseAgreementCreateRequestAttributes    `json:"attributes"`
-	Relationships EndUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
+	Relationships endUserLicenseAgreementCreateRequestRelationships `json:"relationships"`
 	Type          string                                            `json:"type"`
 }
 
@@ -50,16 +50,16 @@ type endUserLicenseAgreementCreateRequestAttributes struct {
 // EndUserLicenseAgreementCreateRequestRelationships are relationships for EndUserLicenseAgreementCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementcreaterequest/data/relationships
-type EndUserLicenseAgreementCreateRequestRelationships struct {
-	App         RelationshipDeclaration      `json:"app"`
-	Territories PagedRelationshipDeclaration `json:"territories"`
+type endUserLicenseAgreementCreateRequestRelationships struct {
+	App         relationshipDeclaration      `json:"app"`
+	Territories pagedRelationshipDeclaration `json:"territories"`
 }
 
-// EndUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
+// endUserLicenseAgreementUpdateRequest defines model for EndUserLicenseAgreementUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest
-type EndUserLicenseAgreementUpdateRequest struct {
-	Attributes    *EndUserLicenseAgreementUpdateRequestAttributes    `json:"attributes,omitempty"`
+type endUserLicenseAgreementUpdateRequest struct {
+	Attributes    *endUserLicenseAgreementUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                             `json:"id"`
 	Relationships *EndUserLicenseAgreementUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                                             `json:"type"`
@@ -68,7 +68,7 @@ type EndUserLicenseAgreementUpdateRequest struct {
 // EndUserLicenseAgreementUpdateRequestAttributes are attributes for EndUserLicenseAgreementUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/attributes
-type EndUserLicenseAgreementUpdateRequestAttributes struct {
+type endUserLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
@@ -76,7 +76,7 @@ type EndUserLicenseAgreementUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/enduserlicenseagreementupdaterequest/data/relationships
 type EndUserLicenseAgreementUpdateRequestRelationships struct {
-	Territories *PagedRelationshipDeclaration `json:"territories,omitempty"`
+	Territories *pagedRelationshipDeclaration `json:"territories,omitempty"`
 }
 
 // EndUserLicenseAgreementResponse defines model for EndUserLicenseAgreementResponse.
@@ -108,13 +108,16 @@ type GetEULAForAppQuery struct {
 // CreateEULA adds a custom end user license agreement (EULA) to an app and configure the territories to which it applies.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_end_user_license_agreement
-func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, relationships EndUserLicenseAgreementCreateRequestRelationships) (*EndUserLicenseAgreementResponse, *Response, error) {
+func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, appID string, territoryIDs []string) (*EndUserLicenseAgreementResponse, *Response, error) {
 	req := endUserLicenseAgreementCreateRequest{
 		Attributes: endUserLicenseAgreementCreateRequestAttributes{
 			AgreementText: agreementText,
 		},
-		Relationships: relationships,
-		Type:          "endUserLicenseAgreements",
+		Relationships: endUserLicenseAgreementCreateRequestRelationships{
+			App:         *newRelationship(&appID, "apps"),
+			Territories: newRelationships(territoryIDs, "territories"),
+		},
+		Type: "endUserLicenseAgreements",
 	}
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.post(ctx, "endUserLicenseAgreements", req, res)
@@ -124,10 +127,25 @@ func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, rela
 // UpdateEULA updates the text or territories for your custom end user license agreement.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_end_user_license_agreement
-func (s *AppsService) UpdateEULA(ctx context.Context, id string, body EndUserLicenseAgreementUpdateRequest) (*EndUserLicenseAgreementResponse, *Response, error) {
+func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *string, territoryIDs []string) (*EndUserLicenseAgreementResponse, *Response, error) {
+	req := endUserLicenseAgreementUpdateRequest{
+		ID:   id,
+		Type: "endUserLicenseAgreements",
+	}
+	if agreementText != nil {
+		req.Attributes = &endUserLicenseAgreementUpdateRequestAttributes{
+			AgreementText: agreementText,
+		}
+	}
+	if len(territoryIDs) > 0 {
+		relationships := newRelationships(territoryIDs, "territories")
+		req.Relationships = &EndUserLicenseAgreementUpdateRequestRelationships{
+			Territories: &relationships,
+		}
+	}
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 

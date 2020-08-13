@@ -59,25 +59,35 @@ type AppInfosResponse struct {
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
 
-// AppInfoUpdateRequest defines model for AppInfoUpdateRequest.
+// appInfoUpdateRequest defines model for AppInfoUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest
-type AppInfoUpdateRequest struct {
+type appInfoUpdateRequest struct {
 	ID            string                             `json:"id"`
-	Relationships *AppInfoUpdateRequestRelationships `json:"relationships,omitempty"`
+	Relationships *appInfoUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                             `json:"type"`
 }
 
 // AppInfoUpdateRequestRelationships are relationships for AppInfoUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfoupdaterequest/data/relationships
+type appInfoUpdateRequestRelationships struct {
+	PrimaryCategory         *relationshipDeclaration `json:"primaryCategory,omitempty"`
+	PrimarySubcategoryOne   *relationshipDeclaration `json:"primarySubcategoryOne,omitempty"`
+	PrimarySubcategoryTwo   *relationshipDeclaration `json:"primarySubcategoryTwo,omitempty"`
+	SecondaryCategory       *relationshipDeclaration `json:"secondaryCategory,omitempty"`
+	SecondarySubcategoryOne *relationshipDeclaration `json:"secondarySubcategoryOne,omitempty"`
+	SecondarySubcategoryTwo *relationshipDeclaration `json:"secondarySubcategoryTwo,omitempty"`
+}
+
+// AppInfoUpdateRequestRelationships is a public-facing options object for AppInfoUpdateRequest relationships
 type AppInfoUpdateRequestRelationships struct {
-	PrimaryCategory         *RelationshipDeclaration `json:"primaryCategory,omitempty"`
-	PrimarySubcategoryOne   *RelationshipDeclaration `json:"primarySubcategoryOne,omitempty"`
-	PrimarySubcategoryTwo   *RelationshipDeclaration `json:"primarySubcategoryTwo,omitempty"`
-	SecondaryCategory       *RelationshipDeclaration `json:"secondaryCategory,omitempty"`
-	SecondarySubcategoryOne *RelationshipDeclaration `json:"secondarySubcategoryOne,omitempty"`
-	SecondarySubcategoryTwo *RelationshipDeclaration `json:"secondarySubcategoryTwo,omitempty"`
+	PrimaryCategoryID         *string
+	PrimarySubcategoryOneID   *string
+	PrimarySubcategoryTwoID   *string
+	SecondaryCategoryID       *string
+	SecondarySubcategoryOneID *string
+	SecondarySubcategoryTwoID *string
 }
 
 // GetAppInfoQuery are query options for GetAppInfo
@@ -127,9 +137,23 @@ func (s *AppsService) ListAppInfosForApp(ctx context.Context, id string, params 
 // UpdateAppInfo updates the App Store categories and sub-categories for your app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_info
-func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, body AppInfoUpdateRequest) (*AppInfoResponse, *Response, error) {
+func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationships *AppInfoUpdateRequestRelationships) (*AppInfoResponse, *Response, error) {
+	req := appInfoUpdateRequest{
+		ID:   id,
+		Type: "appInfos",
+	}
+	if relationships != nil {
+		req.Relationships = &appInfoUpdateRequestRelationships{
+			PrimaryCategory:         newRelationship(relationships.PrimaryCategoryID, "appCategories"),
+			PrimarySubcategoryOne:   newRelationship(relationships.PrimarySubcategoryOneID, "appCategories"),
+			PrimarySubcategoryTwo:   newRelationship(relationships.PrimarySubcategoryTwoID, "appCategories"),
+			SecondaryCategory:       newRelationship(relationships.SecondaryCategoryID, "appCategories"),
+			SecondarySubcategoryOne: newRelationship(relationships.SecondarySubcategoryOneID, "appCategories"),
+			SecondarySubcategoryTwo: newRelationship(relationships.SecondarySubcategoryTwoID, "appCategories"),
+		}
+	}
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }

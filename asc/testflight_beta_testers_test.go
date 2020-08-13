@@ -15,7 +15,7 @@ func TestCreateBetaTester(t *testing.T) {
 		},
 	}
 	testEndpointWithResponse(t, `{"data":{"attributes":{"email":"me@email.com"}}}`, want, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaTester(ctx, BetaTesterCreateRequestAttributes{Email: Email("me@email.com")}, nil)
+		return client.TestFlight.CreateBetaTester(ctx, BetaTesterCreateRequestAttributes{Email: Email("me@email.com")}, []string{"10"}, []string{"10"})
 	})
 }
 
@@ -39,31 +39,31 @@ func TestGetBetaTester(t *testing.T) {
 
 func TestAddBetaTesterToBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", BetaTesterBetaGroupsLinkagesRequest{})
+		return client.TestFlight.AddBetaTesterToBetaGroups(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveBetaTesterFromBetaGroups(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", BetaTesterBetaGroupsLinkagesRequest{})
+		return client.TestFlight.RemoveBetaTesterFromBetaGroups(ctx, "10", []string{"10"})
 	})
 }
 
 func TestAssignSingleBetaTesterToBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", BetaTesterBuildsLinkagesRequest{})
+		return client.TestFlight.AssignSingleBetaTesterToBuilds(ctx, "10", []string{"10"})
 	})
 }
 
 func TestUnassignSingleBetaTesterFromBuilds(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", BetaTesterBuildsLinkagesRequest{})
+		return client.TestFlight.UnassignSingleBetaTesterFromBuilds(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveSingleBetaTesterAccessApps(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", BetaTesterAppsLinkagesRequest{})
+		return client.TestFlight.RemoveSingleBetaTesterAccessApps(ctx, "10", []string{"10"})
 	})
 }
 

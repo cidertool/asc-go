@@ -7,13 +7,13 @@ import (
 
 func TestCreateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequestAttributes{}, BetaGroupCreateRequestRelationships{})
+		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequestAttributes{}, "", []string{"10"}, []string{"10"})
 	})
 }
 
 func TestUpdateBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.TestFlight.UpdateBetaGroup(ctx, "10", BetaGroupUpdateRequest{})
+		return client.TestFlight.UpdateBetaGroup(ctx, "10", &BetaGroupUpdateRequestAttributes{})
 	})
 }
 
@@ -49,25 +49,25 @@ func TestListBetaGroupsForApp(t *testing.T) {
 
 func TestAddBetaTestersToBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", BetaGroupBetaTestersLinkagesRequest{})
+		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", BetaGroupBetaTestersLinkagesRequest{})
+		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestAddBuildsToBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", BetaGroupBuildsLinkagesRequest{})
+		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveBuildsFromBetaGroup(t *testing.T) {
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
-		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", BetaGroupBuildsLinkagesRequest{})
+		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 

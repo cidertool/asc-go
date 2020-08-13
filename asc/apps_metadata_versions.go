@@ -35,7 +35,7 @@ const (
 // AppStoreVersionUpdateRequest defines model for AppStoreVersionUpdateRequest.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest
-type AppStoreVersionUpdateRequest struct {
+type appStoreVersionUpdateRequest struct {
 	Attributes    *AppStoreVersionUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                                     `json:"id"`
 	Relationships *AppStoreVersionUpdateRequestRelationships `json:"relationships,omitempty"`
@@ -58,7 +58,7 @@ type AppStoreVersionUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/relationships
 type AppStoreVersionUpdateRequestRelationships struct {
-	Build *RelationshipDeclaration `json:"build,omitempty"`
+	Build *relationshipDeclaration `json:"build,omitempty"`
 }
 
 // AgeRatingDeclaration defines model for AgeRatingDeclaration.
@@ -156,7 +156,7 @@ type AppStoreVersionsResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest
 type appStoreVersionCreateRequest struct {
 	Attributes    AppStoreVersionCreateRequestAttributes    `json:"attributes"`
-	Relationships AppStoreVersionCreateRequestRelationships `json:"relationships"`
+	Relationships appStoreVersionCreateRequestRelationships `json:"relationships"`
 	Type          string                                    `json:"type"`
 }
 
@@ -175,15 +175,10 @@ type AppStoreVersionCreateRequestAttributes struct {
 // AppStoreVersionCreateRequestRelationships are relationships for AppStoreVersionCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data/relationships
-type AppStoreVersionCreateRequestRelationships struct {
-	App   RelationshipDeclaration  `json:"app"`
-	Build *RelationshipDeclaration `json:"build,omitempty"`
+type appStoreVersionCreateRequestRelationships struct {
+	App   relationshipDeclaration  `json:"app"`
+	Build *relationshipDeclaration `json:"build,omitempty"`
 }
-
-// AppStoreVersionBuildLinkageRequest is a list of relationships to Build objects
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionbuildlinkagerequest
-type AppStoreVersionBuildLinkageRequest RelationshipData
 
 // AppStoreVersionBuildLinkageResponse defines model for AppStoreVersionBuildLinkageResponse.
 //
@@ -262,11 +257,16 @@ func (s *AppsService) GetAppStoreVersion(ctx context.Context, id string, params 
 // CreateAppStoreVersion adds a new App Store version or platform to an app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_version
-func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppStoreVersionCreateRequestAttributes, relationships AppStoreVersionCreateRequestRelationships) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppStoreVersionCreateRequestAttributes, appID string, buildID *string) (*AppStoreVersionResponse, *Response, error) {
 	req := appStoreVersionCreateRequest{
-		Attributes:    attributes,
-		Relationships: relationships,
-		Type:          "appStoreVersions",
+		Attributes: attributes,
+		Relationships: appStoreVersionCreateRequestRelationships{
+			App: *newRelationship(&appID, "apps"),
+		},
+		Type: "appStoreVersions",
+	}
+	if buildID != nil {
+		req.Relationships.Build = newRelationship(buildID, "builds")
 	}
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
@@ -277,10 +277,20 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppS
 // UpdateAppStoreVersion updates the app store version for a specific app.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_store_version
-func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, body AppStoreVersionUpdateRequest) (*AppStoreVersionResponse, *Response, error) {
+func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attributes *AppStoreVersionUpdateRequestAttributes, buildID *string) (*AppStoreVersionResponse, *Response, error) {
+	req := appStoreVersionUpdateRequest{
+		Attributes: attributes,
+		ID:         id,
+		Type:       "appStoreVersions",
+	}
+	if buildID != nil {
+		req.Relationships = &AppStoreVersionUpdateRequestRelationships{
+			Build: newRelationship(buildID, "builds"),
+		}
+	}
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.patch(ctx, url, body, res)
+	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
 }
 
@@ -305,7 +315,8 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuildForAppStoreVersion changes the build that is attached to a specific App Store version.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
-func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, linkage *AppStoreVersionBuildLinkageRequest) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, buildID *string) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
+	linkage := newRelationship(buildID, "builds")
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, linkage, res)
