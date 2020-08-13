@@ -180,7 +180,7 @@ func TestAppendingQueryOptions(t *testing.T) {
 	assert.Equal(t, "dog?field=cat", got)
 
 	// bad url
-	got, err = appendingQueryOptions(":", nil)
+	_, err = appendingQueryOptions(":", nil)
 	assert.Error(t, err)
 
 	// invalid input to query.Values
