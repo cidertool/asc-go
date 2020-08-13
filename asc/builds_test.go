@@ -43,7 +43,7 @@ func TestGetBuildForAppStoreVersion(t *testing.T) {
 
 func TestUpdateBuild(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Builds.UpdateBuild(ctx, "10", &BuildUpdateRequestAttributes{}, String("10"))
+		return client.Builds.UpdateBuild(ctx, "10", Bool(true), nil, String("10"))
 	})
 }
 

@@ -69,7 +69,7 @@ type BundleIDCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidupdaterequest/data
 type bundleIDUpdateRequest struct {
-	Attributes *BundleIDUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *bundleIDUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                           `json:"id"`
 	Type       string                           `json:"type"`
 }
@@ -77,7 +77,7 @@ type bundleIDUpdateRequest struct {
 // BundleIDUpdateRequestAttributes are attributes for BundleIDUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidupdaterequest/data/attributes
-type BundleIDUpdateRequestAttributes struct {
+type bundleIDUpdateRequestAttributes struct {
 	Name *string `json:"name,omitempty"`
 }
 
@@ -181,7 +181,7 @@ func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, nam
 		Type: "bundleIds",
 	}
 	if name != nil {
-		req.Attributes = &BundleIDUpdateRequestAttributes{
+		req.Attributes = &bundleIDUpdateRequestAttributes{
 			Name: name,
 		}
 	}

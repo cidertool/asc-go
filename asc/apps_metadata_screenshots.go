@@ -65,7 +65,7 @@ type appScreenshotCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest/data
 type appScreenshotUpdateRequest struct {
-	Attributes *AppScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *appScreenshotUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                `json:"id"`
 	Type       string                                `json:"type"`
 }
@@ -73,7 +73,7 @@ type appScreenshotUpdateRequest struct {
 // AppScreenshotUpdateRequestAttributes are attributes for AppScreenshotUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appscreenshotupdaterequest/data/attributes
-type AppScreenshotUpdateRequestAttributes struct {
+type appScreenshotUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
@@ -140,11 +140,16 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, 
 // CommitAppScreenshot commits an app screenshot after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_screenshot
-func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, attributes *AppScreenshotUpdateRequestAttributes) (*AppScreenshotResponse, *Response, error) {
+func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, uploaded *bool, sourceFileChecksum *string) (*AppScreenshotResponse, *Response, error) {
 	req := appScreenshotUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "appScreenshots",
+		ID:   id,
+		Type: "appScreenshots",
+	}
+	if uploaded != nil || sourceFileChecksum != nil {
+		req.Attributes = &appScreenshotUpdateRequestAttributes{
+			Uploaded:           uploaded,
+			SourceFileChecksum: sourceFileChecksum,
+		}
 	}
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)

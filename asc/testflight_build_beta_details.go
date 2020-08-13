@@ -73,7 +73,7 @@ type BuildBetaDetailRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest/data
 type buildBetaDetailUpdateRequest struct {
-	Attributes *BuildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *buildBetaDetailUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                  `json:"id"`
 	Type       string                                  `json:"type"`
 }
@@ -81,7 +81,7 @@ type buildBetaDetailUpdateRequest struct {
 // BuildBetaDetailUpdateRequestAttributes are attributes for BuildBetaDetailUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildbetadetailupdaterequest/data/attributes
-type BuildBetaDetailUpdateRequestAttributes struct {
+type buildBetaDetailUpdateRequestAttributes struct {
 	AutoNotifyEnabled *bool `json:"autoNotifyEnabled,omitempty"`
 }
 
@@ -182,11 +182,15 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(ctx context.Context, id s
 // UpdateBuildBetaDetail updates beta test details for a specific build.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build_beta_detail
-func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, attributes *BuildBetaDetailUpdateRequestAttributes) (*BuildBetaDetailResponse, *Response, error) {
+func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string, autoNotifyEnabled *bool) (*BuildBetaDetailResponse, *Response, error) {
 	req := buildBetaDetailUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "buildBetaDetails",
+		ID:   id,
+		Type: "buildBetaDetails",
+	}
+	if autoNotifyEnabled != nil {
+		req.Attributes = &buildBetaDetailUpdateRequestAttributes{
+			AutoNotifyEnabled: autoNotifyEnabled,
+		}
 	}
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)

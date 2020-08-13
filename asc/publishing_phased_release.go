@@ -77,7 +77,7 @@ type AppStoreVersionPhasedReleaseResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest/data
 type appStoreVersionPhasedReleaseUpdateRequest struct {
-	Attributes *AppStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *appStoreVersionPhasedReleaseUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                               `json:"id"`
 	Type       string                                               `json:"type"`
 }
@@ -85,7 +85,7 @@ type appStoreVersionPhasedReleaseUpdateRequest struct {
 // AppStoreVersionPhasedReleaseUpdateRequestAttributes are attributes for AppStoreVersionPhasedReleaseUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionphasedreleaseupdaterequest/data/attributes
-type AppStoreVersionPhasedReleaseUpdateRequestAttributes struct {
+type appStoreVersionPhasedReleaseUpdateRequestAttributes struct {
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
 }
 
@@ -130,7 +130,7 @@ func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, 
 		Type: "appStoreVersionPhasedReleases",
 	}
 	if state != nil {
-		req.Attributes = &AppStoreVersionPhasedReleaseUpdateRequestAttributes{
+		req.Attributes = &appStoreVersionPhasedReleaseUpdateRequestAttributes{
 			PhasedReleaseState: state,
 		}
 	}

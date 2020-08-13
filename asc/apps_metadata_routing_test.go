@@ -25,7 +25,7 @@ func TestCreateRoutingAppCoverage(t *testing.T) {
 
 func TestCommitRoutingAppCoverage(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &RoutingAppCoverageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitRoutingAppCoverage(ctx, "10", &RoutingAppCoverageUpdateRequestAttributes{})
+		return client.Apps.CommitRoutingAppCoverage(ctx, "10", Bool(true), String("10"))
 	})
 }
 

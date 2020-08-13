@@ -88,7 +88,7 @@ type bundleIDCapabilityCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest/data
 type bundleIDCapabilityUpdateRequest struct {
-	Attributes *BundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *bundleIDCapabilityUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
 	Type       string                                     `json:"type"`
 }
@@ -96,7 +96,7 @@ type bundleIDCapabilityUpdateRequest struct {
 // BundleIDCapabilityUpdateRequestAttributes are attributes for BundleIDCapabilityUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidcapabilityupdaterequest/data/attributes
-type BundleIDCapabilityUpdateRequestAttributes struct {
+type bundleIDCapabilityUpdateRequestAttributes struct {
 	CapabilityType *CapabilityType     `json:"capabilityType,omitempty"`
 	Settings       []CapabilitySetting `json:"settings,omitempty"`
 }
@@ -185,7 +185,7 @@ func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, c
 		Type: "bundleIdCapabilities",
 	}
 	if capabilityType != nil || settings != nil {
-		req.Attributes = &BundleIDCapabilityUpdateRequestAttributes{
+		req.Attributes = &bundleIDCapabilityUpdateRequestAttributes{
 			CapabilityType: capabilityType,
 			Settings:       settings,
 		}

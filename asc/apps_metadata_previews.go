@@ -92,7 +92,7 @@ type appPreviewCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest/data
 type appPreviewUpdateRequest struct {
-	Attributes *AppPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *appPreviewUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                             `json:"id"`
 	Type       string                             `json:"type"`
 }
@@ -100,7 +100,7 @@ type appPreviewUpdateRequest struct {
 // AppPreviewUpdateRequestAttributes are attributes for AppPreviewUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/apppreviewupdaterequest/data/attributes
-type AppPreviewUpdateRequestAttributes struct {
+type appPreviewUpdateRequestAttributes struct {
 	PreviewFrameTimeCode *string `json:"previewFrameTimeCode,omitempty"`
 	SourceFileChecksum   *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded             *bool   `json:"uploaded,omitempty"`
@@ -177,11 +177,17 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fil
 // CommitAppPreview commits an app preview after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app_preview
-func (s *AppsService) CommitAppPreview(ctx context.Context, id string, attributes *AppPreviewUpdateRequestAttributes) (*AppPreviewResponse, *Response, error) {
+func (s *AppsService) CommitAppPreview(ctx context.Context, id string, uploaded *bool, sourceFileChecksum *string, previewFrameTimeCode *string) (*AppPreviewResponse, *Response, error) {
 	req := appPreviewUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "appPreviews",
+		ID:   id,
+		Type: "appPreviews",
+	}
+	if uploaded != nil || sourceFileChecksum != nil || previewFrameTimeCode != nil {
+		req.Attributes = &appPreviewUpdateRequestAttributes{
+			Uploaded:             uploaded,
+			SourceFileChecksum:   sourceFileChecksum,
+			PreviewFrameTimeCode: previewFrameTimeCode,
+		}
 	}
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)

@@ -34,7 +34,7 @@ type BetaLicenseAgreementRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest/data
 type betaLicenseAgreementUpdateRequest struct {
-	Attributes *BetaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *betaLicenseAgreementUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                       `json:"id"`
 	Type       string                                       `json:"type"`
 }
@@ -42,7 +42,7 @@ type betaLicenseAgreementUpdateRequest struct {
 // BetaLicenseAgreementUpdateRequestAttributes are attributes for BetaLicenseAgreementUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betalicenseagreementupdaterequest/data/attributes
-type BetaLicenseAgreementUpdateRequestAttributes struct {
+type betaLicenseAgreementUpdateRequestAttributes struct {
 	AgreementText *string `json:"agreementText,omitempty"`
 }
 
@@ -148,7 +148,7 @@ func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id s
 		Type: "betaLicenseAgreements",
 	}
 	if agreementText != nil {
-		req.Attributes = &BetaLicenseAgreementUpdateRequestAttributes{
+		req.Attributes = &betaLicenseAgreementUpdateRequestAttributes{
 			AgreementText: agreementText,
 		}
 	}

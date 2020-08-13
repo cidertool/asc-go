@@ -151,10 +151,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppPreview(ctx, preview.ID, &asc.AppPreviewUpdateRequestAttributes{
-		Uploaded:           asc.Bool(true),
-		SourceFileChecksum: &checksum,
-	})
+	client.Apps.CommitAppPreview(ctx, preview.ID, asc.Bool(true), &checksum, nil)
 
 	// Report success to the caller.
 	fmt.Printf("\nApp Preview successfully uploaded to:\n%s\nYou can verify success in App Store Connect or using the API.\n\n", previewURL.String())

@@ -19,7 +19,7 @@ func TestCreateAppPreview(t *testing.T) {
 
 func TestCommitAppPreview(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.CommitAppPreview(ctx, "10", &AppPreviewUpdateRequestAttributes{})
+		return client.Apps.CommitAppPreview(ctx, "10", Bool(true), String("10"), nil)
 	})
 }
 

@@ -50,7 +50,7 @@ type deviceCreateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest/data
 type deviceUpdateRequest struct {
-	Attributes *DeviceUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *deviceUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                         `json:"id"`
 	Type       string                         `json:"type"`
 }
@@ -58,7 +58,7 @@ type deviceUpdateRequest struct {
 // DeviceUpdateRequestAttributes are attributes for DeviceUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/deviceupdaterequest/attributes
-type DeviceUpdateRequestAttributes struct {
+type deviceUpdateRequestAttributes struct {
 	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 }
@@ -147,7 +147,7 @@ func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, name 
 		Type: "devices",
 	}
 	if name != nil || status != nil {
-		req.Attributes = &DeviceUpdateRequestAttributes{
+		req.Attributes = &deviceUpdateRequestAttributes{
 			Name:   name,
 			Status: status,
 		}

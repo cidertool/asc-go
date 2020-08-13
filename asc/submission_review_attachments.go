@@ -70,7 +70,7 @@ type AppStoreReviewAttachmentResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentupdaterequest/data
 type appStoreReviewAttachmentUpdateRequest struct {
-	Attributes *AppStoreReviewAttachmentUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *appStoreReviewAttachmentUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                           `json:"id"`
 	Type       string                                           `json:"type"`
 }
@@ -78,7 +78,7 @@ type appStoreReviewAttachmentUpdateRequest struct {
 // AppStoreReviewAttachmentUpdateRequestAttributes are attributes for AppStoreReviewAttachmentUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstorereviewattachmentupdaterequest/data/attributes
-type AppStoreReviewAttachmentUpdateRequestAttributes struct {
+type appStoreReviewAttachmentUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
@@ -158,11 +158,16 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName strin
 // CommitAttachment commits an app screenshot after uploading it to the App Store.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/commit_an_app_store_review_attachment
-func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, attributes *AppStoreReviewAttachmentUpdateRequestAttributes) (*AppStoreReviewAttachmentResponse, *Response, error) {
+func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, uploaded *bool, sourceFileChecksum *string) (*AppStoreReviewAttachmentResponse, *Response, error) {
 	req := appStoreReviewAttachmentUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "appStoreReviewAttachments",
+		ID:   id,
+		Type: "appStoreReviewAttachments",
+	}
+	if uploaded != nil || sourceFileChecksum != nil {
+		req.Attributes = &appStoreReviewAttachmentUpdateRequestAttributes{
+			Uploaded:           uploaded,
+			SourceFileChecksum: sourceFileChecksum,
+		}
 	}
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)

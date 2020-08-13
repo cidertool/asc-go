@@ -76,7 +76,7 @@ type BuildsResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data
 type buildUpdateRequest struct {
-	Attributes    *BuildUpdateRequestAttributes    `json:"attributes,omitempty"`
+	Attributes    *buildUpdateRequestAttributes    `json:"attributes,omitempty"`
 	ID            string                           `json:"id"`
 	Relationships *buildUpdateRequestRelationships `json:"relationships,omitempty"`
 	Type          string                           `json:"type"`
@@ -85,7 +85,7 @@ type buildUpdateRequest struct {
 // BuildUpdateRequestAttributes are attributes for BuildUpdateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildupdaterequest/data/attributes
-type BuildUpdateRequestAttributes struct {
+type buildUpdateRequestAttributes struct {
 	Expired                 *bool `json:"expired,omitempty"`
 	UsesNonExemptEncryption *bool `json:"usesNonExemptEncryption,omitempty"`
 }
@@ -280,11 +280,16 @@ func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id strin
 // UpdateBuild expires a build or changes its encryption exemption setting.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_build
-func (s *BuildsService) UpdateBuild(ctx context.Context, id string, attributes *BuildUpdateRequestAttributes, appEncryptionDeclarationID *string) (*BuildResponse, *Response, error) {
+func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *bool, usesNonExemptEncryption *bool, appEncryptionDeclarationID *string) (*BuildResponse, *Response, error) {
 	req := buildUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "builds",
+		ID:   id,
+		Type: "builds",
+	}
+	if expired != nil || usesNonExemptEncryption != nil {
+		req.Attributes = &buildUpdateRequestAttributes{
+			Expired:                 expired,
+			UsesNonExemptEncryption: usesNonExemptEncryption,
+		}
 	}
 	if appEncryptionDeclarationID != nil {
 		req.Relationships = &buildUpdateRequestRelationships{

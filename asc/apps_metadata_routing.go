@@ -70,7 +70,7 @@ type RoutingAppCoverageResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest/data
 type routingAppCoverageUpdateRequest struct {
-	Attributes *RoutingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *routingAppCoverageUpdateRequestAttributes `json:"attributes,omitempty"`
 	ID         string                                     `json:"id"`
 	Type       string                                     `json:"type"`
 }
@@ -78,7 +78,7 @@ type routingAppCoverageUpdateRequest struct {
 // RoutingAppCoverageUpdateRequestAttributes are attributes for RoutingAppCoverageCreateRequest
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/routingappcoverageupdaterequest/data/attributes
-type RoutingAppCoverageUpdateRequestAttributes struct {
+type routingAppCoverageUpdateRequestAttributes struct {
 	SourceFileChecksum *string `json:"sourceFileChecksum,omitempty"`
 	Uploaded           *bool   `json:"uploaded,omitempty"`
 }
@@ -162,11 +162,16 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName str
 // CommitRoutingAppCoverage commits a routing app coverage file after uploading it.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_a_routing_app_coverage
-func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, attributes *RoutingAppCoverageUpdateRequestAttributes) (*RoutingAppCoverageResponse, *Response, error) {
+func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, uploaded *bool, sourceFileChecksum *string) (*RoutingAppCoverageResponse, *Response, error) {
 	req := routingAppCoverageUpdateRequest{
-		Attributes: attributes,
-		ID:         id,
-		Type:       "routingAppCoverages",
+		ID:   id,
+		Type: "routingAppCoverages",
+	}
+	if uploaded != nil || sourceFileChecksum != nil {
+		req.Attributes = &routingAppCoverageUpdateRequestAttributes{
+			Uploaded:           uploaded,
+			SourceFileChecksum: sourceFileChecksum,
+		}
 	}
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)

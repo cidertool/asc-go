@@ -151,10 +151,7 @@ func main() {
 		log.Fatalf("file checksum could not be calculated: %s", err)
 	}
 
-	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, &asc.AppScreenshotUpdateRequestAttributes{
-		Uploaded:           asc.Bool(true),
-		SourceFileChecksum: &checksum,
-	})
+	client.Apps.CommitAppScreenshot(ctx, screenshot.ID, asc.Bool(true), &checksum)
 
 	// Report success to the caller.
 	fmt.Printf("\nApp Screenshot successfully uploaded to:\n%s\nYou can verify success in App Store Connect or using the API.\n\n", screenshotURL.String())

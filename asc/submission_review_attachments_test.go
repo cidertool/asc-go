@@ -25,7 +25,7 @@ func TestCreateAttachment(t *testing.T) {
 
 func TestCommitAttachment(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreReviewAttachmentResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Submission.CommitAttachment(ctx, "10", &AppStoreReviewAttachmentUpdateRequestAttributes{})
+		return client.Submission.CommitAttachment(ctx, "10", Bool(true), String("10"))
 	})
 }
 
