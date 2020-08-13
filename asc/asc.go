@@ -38,7 +38,7 @@ var (
 // Client is the root instance of the App Store Connect API
 type Client struct {
 	client    *http.Client
-	BaseURL   *url.URL
+	baseURL   *url.URL
 	UserAgent string
 
 	common service
@@ -63,7 +63,7 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c := &Client{
 		client:    httpClient,
-		BaseURL:   baseURL,
+		baseURL:   baseURL,
 		UserAgent: userAgent,
 	}
 
@@ -238,7 +238,7 @@ func (c *Client) newRequest(method, path string, body interface{}, options ...re
 	if rel.IsAbs() {
 		u = rel
 	} else {
-		u = c.BaseURL.ResolveReference(rel)
+		u = c.baseURL.ResolveReference(rel)
 	}
 
 	buf := new(bytes.Buffer)

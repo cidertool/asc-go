@@ -16,7 +16,7 @@ import (
 func TestNewClient(t *testing.T) {
 	c := NewClient(nil)
 
-	assert.Equal(t, defaultBaseURL, c.BaseURL.String())
+	assert.Equal(t, defaultBaseURL, c.baseURL.String())
 	assert.Equal(t, userAgent, c.UserAgent)
 
 	c2 := NewClient(nil)
@@ -173,7 +173,7 @@ func newServer(raw string, addRateLimit bool) (*Client, *httptest.Server) {
 	base, _ := url.Parse(server.URL)
 	client := &Client{
 		client:    server.Client(),
-		BaseURL:   base,
+		baseURL:   base,
 		UserAgent: "asc-go",
 	}
 

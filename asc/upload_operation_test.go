@@ -34,7 +34,7 @@ func TestMultipartUpload(t *testing.T) {
 
 	operations := UploadOperations{
 		{
-			URL:    String(client.BaseURL.String()),
+			URL:    String(client.baseURL.String()),
 			Offset: Int(0),
 			Length: Int(10),
 			Method: String("PATCH"),
@@ -52,28 +52,28 @@ func TestMultipartUpload(t *testing.T) {
 			},
 		},
 		{
-			URL:            String(client.BaseURL.String()),
+			URL:            String(client.baseURL.String()),
 			Offset:         Int(10),
 			Length:         Int(10),
 			Method:         String("PATCH"),
 			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
-			URL:            String(client.BaseURL.String()),
+			URL:            String(client.baseURL.String()),
 			Offset:         Int(20),
 			Length:         Int(30),
 			Method:         String("PATCH"),
 			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
-			URL:            String(client.BaseURL.String()),
+			URL:            String(client.baseURL.String()),
 			Offset:         Int(50),
 			Length:         Int(10),
 			Method:         String("PATCH"),
 			RequestHeaders: []UploadOperationHeader{},
 		},
 		{
-			URL:            String(client.BaseURL.String()),
+			URL:            String(client.baseURL.String()),
 			Offset:         Int(60),
 			Length:         Int(4),
 			Method:         String("PATCH"),
@@ -143,7 +143,7 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 
 	operations := UploadOperations{
 		{
-			URL:            String(client.BaseURL.String()),
+			URL:            String(client.baseURL.String()),
 			Offset:         Int(0),
 			Length:         Int(64),
 			RequestHeaders: []UploadOperationHeader{},
