@@ -153,13 +153,13 @@ func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, pr
 			ProfileType: profileType,
 		},
 		Relationships: profileCreateRequestRelationships{
-			BundleID:     *newRelationship(&bundleIDRelationship, "bundleIds"),
-			Certificates: newRelationships(certificateIDs, "certificates"),
+			BundleID:     *newRelationshipDeclaration(&bundleIDRelationship, "bundleIds"),
+			Certificates: newPagedRelationshipDeclaration(certificateIDs, "certificates"),
 		},
 		Type: "profiles",
 	}
 	if len(deviceIDs) > 0 {
-		relationships := newRelationships(deviceIDs, "devices")
+		relationships := newPagedRelationshipDeclaration(deviceIDs, "devices")
 		req.Relationships.Devices = &relationships
 	}
 	res := new(ProfileResponse)

@@ -209,7 +209,7 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_screenshots_for_an_app_screenshot_set
 func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, appScreenshotIDs []string) (*Response, error) {
-	linkages := newRelationships(appScreenshotIDs, "appScreenshots")
+	linkages := newPagedRelationshipDeclaration(appScreenshotIDs, "appScreenshots")
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

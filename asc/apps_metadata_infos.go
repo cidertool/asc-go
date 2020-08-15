@@ -144,12 +144,12 @@ func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationship
 	}
 	if relationships != nil {
 		req.Relationships = &appInfoUpdateRequestRelationships{
-			PrimaryCategory:         newRelationship(relationships.PrimaryCategoryID, "appCategories"),
-			PrimarySubcategoryOne:   newRelationship(relationships.PrimarySubcategoryOneID, "appCategories"),
-			PrimarySubcategoryTwo:   newRelationship(relationships.PrimarySubcategoryTwoID, "appCategories"),
-			SecondaryCategory:       newRelationship(relationships.SecondaryCategoryID, "appCategories"),
-			SecondarySubcategoryOne: newRelationship(relationships.SecondarySubcategoryOneID, "appCategories"),
-			SecondarySubcategoryTwo: newRelationship(relationships.SecondarySubcategoryTwoID, "appCategories"),
+			PrimaryCategory:         newRelationshipDeclaration(relationships.PrimaryCategoryID, "appCategories"),
+			PrimarySubcategoryOne:   newRelationshipDeclaration(relationships.PrimarySubcategoryOneID, "appCategories"),
+			PrimarySubcategoryTwo:   newRelationshipDeclaration(relationships.PrimarySubcategoryTwoID, "appCategories"),
+			SecondaryCategory:       newRelationshipDeclaration(relationships.SecondaryCategoryID, "appCategories"),
+			SecondarySubcategoryOne: newRelationshipDeclaration(relationships.SecondarySubcategoryOneID, "appCategories"),
+			SecondarySubcategoryTwo: newRelationshipDeclaration(relationships.SecondarySubcategoryTwoID, "appCategories"),
 		}
 	}
 	url := fmt.Sprintf("appInfos/%s", id)

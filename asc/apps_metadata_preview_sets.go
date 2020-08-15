@@ -176,7 +176,7 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_app_previews_for_an_app_preview_set
 func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, appPreviewIDs []string) (*Response, error) {
-	linkages := newRelationships(appPreviewIDs, "appPreviews")
+	linkages := newPagedRelationshipDeclaration(appPreviewIDs, "appPreviews")
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }

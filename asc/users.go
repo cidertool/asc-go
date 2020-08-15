@@ -199,7 +199,7 @@ func (s *UsersService) UpdateUser(ctx context.Context, id string, attributes *Us
 		Type:       "users",
 	}
 	if len(visibleAppIDs) > 0 {
-		relationships := newRelationships(visibleAppIDs, "apps")
+		relationships := newPagedRelationshipDeclaration(visibleAppIDs, "apps")
 		req.Relationships = &userUpdateRequestRelationships{
 			VisibleApps: &relationships,
 		}
@@ -242,7 +242,7 @@ func (s *UsersService) ListVisibleAppsByResourceIDForUser(ctx context.Context, i
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_visible_apps_to_a_user
 func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
-	linkages := newRelationships(appIDs, "apps")
+	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	return s.client.post(ctx, "appStoreReviewDetails", linkages, nil)
 }
 
@@ -250,7 +250,7 @@ func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, app
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_the_list_of_visible_apps_for_a_user
 func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
-	linkages := newRelationships(appIDs, "apps")
+	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }
@@ -259,7 +259,7 @@ func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, 
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_visible_apps_from_a_user
 func (s *UsersService) RemoveVisibleAppsFromUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
-	linkages := newRelationships(appIDs, "apps")
+	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	return s.client.delete(ctx, url, linkages)
 }

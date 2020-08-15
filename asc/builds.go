@@ -57,9 +57,9 @@ type BuildRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildresponse
 type BuildResponse struct {
-	Data     Build          `json:"data"`
-	Included *[]interface{} `json:"included,omitempty"`
-	Links    DocumentLinks  `json:"links"`
+	Data     Build         `json:"data"`
+	Included []interface{} `json:"included,omitempty"`
+	Links    DocumentLinks `json:"links"`
 }
 
 // BuildsResponse defines model for BuildsResponse.
@@ -67,7 +67,7 @@ type BuildResponse struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/buildsresponse
 type BuildsResponse struct {
 	Data     []Build            `json:"data"`
-	Included *[]interface{}     `json:"included,omitempty"`
+	Included []interface{}      `json:"included,omitempty"`
 	Links    PagedDocumentLinks `json:"links"`
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
@@ -293,7 +293,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 	}
 	if appEncryptionDeclarationID != nil {
 		req.Relationships = &buildUpdateRequestRelationships{
-			AppEncryptionDeclaration: newRelationship(appEncryptionDeclarationID, "appEncryptionDeclarations"),
+			AppEncryptionDeclaration: newRelationshipDeclaration(appEncryptionDeclarationID, "appEncryptionDeclarations"),
 		}
 	}
 	url := fmt.Sprintf("builds/%s", id)
@@ -306,7 +306,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_the_app_encryption_declaration_for_a_build
 func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, appEncryptionDeclarationID *string) (*Response, error) {
-	linkage := newRelationship(appEncryptionDeclarationID, "builds")
+	linkage := newRelationshipDeclaration(appEncryptionDeclarationID, "builds")
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	return s.client.patch(ctx, url, linkage, nil)
 }
@@ -315,7 +315,7 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_access_for_beta_groups_to_a_build
 func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
-	linkages := newRelationships(betaGroupIDs, "betaGroups")
+	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -324,7 +324,7 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_access_for_beta_groups_to_a_build
 func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
-	linkages := newRelationships(betaGroupIDs, "betaGroups")
+	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
 	return s.client.delete(ctx, url, linkages)
 }
@@ -333,7 +333,7 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_individual_testers_to_a_build
 func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
-	linkages := newRelationships(betaTesterIDs, "betaTesters")
+	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -342,7 +342,7 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_individual_testers_from_a_build
 func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
-	linkages := newRelationships(betaTesterIDs, "betaTesters")
+	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

@@ -261,12 +261,12 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppS
 	req := appStoreVersionCreateRequest{
 		Attributes: attributes,
 		Relationships: appStoreVersionCreateRequestRelationships{
-			App: *newRelationship(&appID, "apps"),
+			App: *newRelationshipDeclaration(&appID, "apps"),
 		},
 		Type: "appStoreVersions",
 	}
 	if buildID != nil {
-		req.Relationships.Build = newRelationship(buildID, "builds")
+		req.Relationships.Build = newRelationshipDeclaration(buildID, "builds")
 	}
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
@@ -285,7 +285,7 @@ func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attr
 	}
 	if buildID != nil {
 		req.Relationships = &appStoreVersionUpdateRequestRelationships{
-			Build: newRelationship(buildID, "builds"),
+			Build: newRelationshipDeclaration(buildID, "builds"),
 		}
 	}
 	url := fmt.Sprintf("appStoreVersions/%s", id)
@@ -316,7 +316,7 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id strin
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_the_build_for_an_app_store_version
 func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id string, buildID *string) (*AppStoreVersionBuildLinkageResponse, *Response, error) {
-	linkage := newRelationship(buildID, "builds")
+	linkage := newRelationshipDeclaration(buildID, "builds")
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, linkage, res)

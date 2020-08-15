@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	appName = flag.String("app", "", "App to list builds for")
+	bundleID = flag.String("bundleid", "", "Bundle ID for an app")
 )
 
 func main() {
@@ -26,30 +26,31 @@ func main() {
 	// Create the App Store Connect client
 	client := asc.NewClient(auth.Client())
 	app, err := util.GetApp(ctx, client, &asc.ListAppsQuery{
-		FilterName: []string{*appName},
+		FilterBundleID: []string{*bundleID},
 	})
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
 
 	var cursor string
-	params := asc.ListBuildsForAppQuery{}
+	params := asc.ListBuildsQuery{
+		FilterApp: []string{app.ID},
+	}
 	for {
 		if cursor != "" {
 			params.Cursor = cursor
 		}
-		b, _, err := client.Builds.ListBuildsForApp(ctx, app.ID, &params)
+		builds, _, err := client.Builds.ListBuilds(ctx, &params)
 		if err != nil {
 			log.Fatal(err)
-			break
 		}
 
-		for _, user := range b.Data {
-			fmt.Println(*user.Attributes.Version)
+		for _, build := range builds.Data {
+			fmt.Println(*build.Attributes.Version)
 		}
 
-		if b.Links.Next != nil {
-			cursor = b.Links.Next.Cursor()
+		if builds.Links.Next != nil {
+			cursor = builds.Links.Next.Cursor()
 		}
 		if cursor == "" {
 			break

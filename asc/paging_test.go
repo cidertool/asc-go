@@ -39,17 +39,17 @@ func TestReferenceBadUnmarshal(t *testing.T) {
 
 func TestNewRelationships(t *testing.T) {
 	var rel *relationshipDeclaration
-	rel = newRelationship(nil, "dog")
+	rel = newRelationshipDeclaration(nil, "dog")
 	assert.Nil(t, rel)
 	id := "10"
-	rel = newRelationship(&id, "dog")
+	rel = newRelationshipDeclaration(&id, "dog")
 	assert.Equal(t, &relationshipDeclaration{RelationshipData{"10", "dog"}}, rel)
 
 	var rels pagedRelationshipDeclaration
-	rels = newRelationships(nil, "dog")
+	rels = newPagedRelationshipDeclaration(nil, "dog")
 	assert.Empty(t, rels.Data)
-	rels = newRelationships([]string{}, "dog")
+	rels = newPagedRelationshipDeclaration([]string{}, "dog")
 	assert.Empty(t, rels.Data)
-	rels = newRelationships([]string{"10", "20", "30"}, "dog")
+	rels = newPagedRelationshipDeclaration([]string{"10", "20", "30"}, "dog")
 	assert.Equal(t, pagedRelationshipDeclaration{[]RelationshipData{{"10", "dog"}, {"20", "dog"}, {"30", "dog"}}}, rels)
 }

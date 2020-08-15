@@ -292,11 +292,11 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 	if anyTerritories || anyPrices {
 		req.Relationships = &appUpdateRequestRelationships{}
 		if anyTerritories {
-			relationships := newRelationships(availableTerritoryIDs, "territories")
+			relationships := newPagedRelationshipDeclaration(availableTerritoryIDs, "territories")
 			req.Relationships.AvailableTerritories = &relationships
 		}
 		if anyPrices {
-			relationships := newRelationships(priceIDs, "appPrices")
+			relationships := newPagedRelationshipDeclaration(priceIDs, "appPrices")
 			req.Relationships.Prices = &relationships
 		}
 	}
@@ -310,7 +310,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_beta_testers_from_all_groups_and_builds_of_an_app
 func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
-	linkages := newRelationships(betaTesterIDs, "betaTesters")
+	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
 	return s.client.delete(ctx, url, linkages)
 }

@@ -138,7 +138,7 @@ func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvi
 		Type:       "userInvitations",
 	}
 	if len(visibleAppIDs) > 0 {
-		relationships := newRelationships(visibleAppIDs, "apps")
+		relationships := newPagedRelationshipDeclaration(visibleAppIDs, "apps")
 		req.Relationships = &userInvitationCreateRequestRelationships{
 			VisibleApps: &relationships,
 		}

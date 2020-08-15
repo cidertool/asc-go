@@ -123,7 +123,7 @@ func (s *AppsService) ListCompatibleVersionIDsForGameCenterEnabledVersion(ctx co
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/add_compatible_versions_to_a_game_center_enabled_version
 func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
-	linkages := newRelationships(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
+	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
@@ -132,7 +132,7 @@ func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/replace_all_compatible_versions_for_a_game_center_enabled_version
 func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
-	linkages := newRelationships(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
+	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.patch(ctx, url, linkages, nil)
 }
@@ -141,7 +141,7 @@ func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_compatible_versions_from_a_game_center_enabled_version
 func (s *AppsService) RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
-	linkages := newRelationships(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
+	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	return s.client.delete(ctx, url, linkages)
 }

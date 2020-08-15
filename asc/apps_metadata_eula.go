@@ -114,8 +114,8 @@ func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, appI
 			AgreementText: agreementText,
 		},
 		Relationships: endUserLicenseAgreementCreateRequestRelationships{
-			App:         *newRelationship(&appID, "apps"),
-			Territories: newRelationships(territoryIDs, "territories"),
+			App:         *newRelationshipDeclaration(&appID, "apps"),
+			Territories: newPagedRelationshipDeclaration(territoryIDs, "territories"),
 		},
 		Type: "endUserLicenseAgreements",
 	}
@@ -138,7 +138,7 @@ func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *
 		}
 	}
 	if len(territoryIDs) > 0 {
-		relationships := newRelationships(territoryIDs, "territories")
+		relationships := newPagedRelationshipDeclaration(territoryIDs, "territories")
 		req.Relationships = &endUserLicenseAgreementUpdateRequestRelationships{
 			Territories: &relationships,
 		}

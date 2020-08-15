@@ -138,7 +138,7 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/assign_builds_to_an_app_encryption_declaration
 func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, buildIDs []string) (*Response, error) {
-	linkages := newRelationships(buildIDs, "builds")
+	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
 	return s.client.post(ctx, url, linkages, nil)
 }
