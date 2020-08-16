@@ -85,20 +85,24 @@ type bundleIDUpdateRequestAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidresponse
 type BundleIDResponse struct {
-	Data     BundleID      `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     BundleID                   `json:"data"`
+	Included []BundleIDResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks              `json:"links"`
 }
 
 // BundleIDsResponse defines model for BundleIdsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/bundleidsresponse
 type BundleIDsResponse struct {
-	Data     []BundleID         `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []BundleID                 `json:"data"`
+	Included []BundleIDResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks         `json:"links"`
+	Meta     *PagingInformation         `json:"meta,omitempty"`
 }
+
+// BundleIDResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a BundleIDResponse or BundleIDsResponse.
+type BundleIDResponseIncluded included
 
 // ListBundleIDsQuery are query options for ListBundleIDs
 //
@@ -246,4 +250,27 @@ func (s *ProvisioningService) ListCapabilitiesForBundleID(ctx context.Context, i
 	res := new(BundleIDCapabilitiesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in BundleIDResponseIncluded.
+func (i *BundleIDResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// Profile returns the Profile stored within, if one is present.
+func (i *BundleIDResponseIncluded) Profile() *Profile {
+	return extractIncludedProfile(i.inner)
+}
+
+// BundleIDCapability returns the BundleIDCapability stored within, if one is present.
+func (i *BundleIDResponseIncluded) BundleIDCapability() *BundleIDCapability {
+	return extractIncludedBundleIDCapability(i.inner)
+}
+
+// App returns the App stored within, if one is present.
+func (i *BundleIDResponseIncluded) App() *App {
+	return extractIncludedApp(i.inner)
 }

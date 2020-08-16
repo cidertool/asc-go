@@ -57,20 +57,24 @@ type BuildRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildresponse
 type BuildResponse struct {
-	Data     Build         `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     Build                   `json:"data"`
+	Included []BuildResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks           `json:"links"`
 }
 
 // BuildsResponse defines model for BuildsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/buildsresponse
 type BuildsResponse struct {
-	Data     []Build            `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []Build                 `json:"data"`
+	Included []BuildResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks      `json:"links"`
+	Meta     *PagingInformation      `json:"meta,omitempty"`
 }
+
+// BuildResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a BuildResponse or BuildsResponse.
+type BuildResponseIncluded included
 
 // BuildUpdateRequest defines model for BuildUpdateRequest.
 //
@@ -375,4 +379,67 @@ func (s *BuildsService) GetAppEncryptionDeclarationIDForBuild(ctx context.Contex
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
 	resp, err := s.client.get(ctx, url, nil, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in BuildResponseIncluded.
+func (i *BuildResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// PrereleaseVersion returns the PrereleaseVersion stored within, if one is present.
+func (i *BuildResponseIncluded) PrereleaseVersion() *PrereleaseVersion {
+	return extractIncludedPrereleaseVersion(i.inner)
+}
+
+// BetaTester returns the BetaTester stored within, if one is present.
+func (i *BuildResponseIncluded) BetaTester() *BetaTester {
+	return extractIncludedBetaTester(i.inner)
+}
+
+// BetaBuildLocalization returns the BetaBuildLocalization stored within, if one is present.
+func (i *BuildResponseIncluded) BetaBuildLocalization() *BetaBuildLocalization {
+	return extractIncludedBetaBuildLocalization(i.inner)
+}
+
+// AppEncryptionDeclaration returns the AppEncryptionDeclaration stored within, if one is present.
+func (i *BuildResponseIncluded) AppEncryptionDeclaration() *AppEncryptionDeclaration {
+	return extractIncludedAppEncryptionDeclaration(i.inner)
+}
+
+// BetaAppReviewSubmission returns the BetaAppReviewSubmission stored within, if one is present.
+func (i *BuildResponseIncluded) BetaAppReviewSubmission() *BetaAppReviewSubmission {
+	return extractIncludedBetaAppReviewSubmission(i.inner)
+}
+
+// App returns the App stored within, if one is present.
+func (i *BuildResponseIncluded) App() *App {
+	return extractIncludedApp(i.inner)
+}
+
+// BuildBetaDetail returns the BuildBetaDetail stored within, if one is present.
+func (i *BuildResponseIncluded) BuildBetaDetail() *BuildBetaDetail {
+	return extractIncludedBuildBetaDetail(i.inner)
+}
+
+// AppStoreVersion returns the AppStoreVersion stored within, if one is present.
+func (i *BuildResponseIncluded) AppStoreVersion() *AppStoreVersion {
+	return extractIncludedAppStoreVersion(i.inner)
+}
+
+// BuildIcon returns the BuildIcon stored within, if one is present.
+func (i *BuildResponseIncluded) BuildIcon() *BuildIcon {
+	return extractIncludedBuildIcon(i.inner)
+}
+
+// PerfPowerMetric returns the PerfPowerMetric stored within, if one is present.
+func (i *BuildResponseIncluded) PerfPowerMetric() *PerfPowerMetric {
+	return extractIncludedPerfPowerMetric(i.inner)
+}
+
+// DiagnosticSignature returns the DiagnosticSignature stored within, if one is present.
+func (i *BuildResponseIncluded) DiagnosticSignature() *DiagnosticSignature {
+	return extractIncludedDiagnosticSignature(i.inner)
 }

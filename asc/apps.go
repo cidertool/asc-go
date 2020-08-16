@@ -99,20 +99,24 @@ type appUpdateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appresponse
 type AppResponse struct {
-	Data     App           `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     App                   `json:"data"`
+	Included []AppResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks         `json:"links"`
 }
 
 // AppsResponse defines model for AppsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appsresponse
 type AppsResponse struct {
-	Data     []App              `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []App                 `json:"data"`
+	Included []AppResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks    `json:"links"`
+	Meta     *PagingInformation    `json:"meta,omitempty"`
 }
+
+// AppResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in an AppResponse or AppsResponse.
+type AppResponseIncluded included
 
 // InAppPurchase defines model for InAppPurchase.
 //
@@ -333,4 +337,87 @@ func (s *AppsService) GetInAppPurchase(ctx context.Context, id string, params *G
 	res := new(InAppPurchaseResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in AppResponseIncluded.
+func (i *AppResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// BetaGroup returns the BetaGroup stored within, if one is present.
+func (i *AppResponseIncluded) BetaGroup() *BetaGroup {
+	return extractIncludedBetaGroup(i.inner)
+}
+
+// AppStoreVersion returns the AppStoreVersion stored within, if one is present.
+func (i *AppResponseIncluded) AppStoreVersion() *AppStoreVersion {
+	return extractIncludedAppStoreVersion(i.inner)
+}
+
+// PrereleaseVersion returns the PrereleaseVersion stored within, if one is present.
+func (i *AppResponseIncluded) PrereleaseVersion() *PrereleaseVersion {
+	return extractIncludedPrereleaseVersion(i.inner)
+}
+
+// BetaAppLocalization returns the BetaAppLocalization stored within, if one is present.
+func (i *AppResponseIncluded) BetaAppLocalization() *BetaAppLocalization {
+	return extractIncludedBetaAppLocalization(i.inner)
+}
+
+// Build returns the Build stored within, if one is present.
+func (i *AppResponseIncluded) Build() *Build {
+	return extractIncludedBuild(i.inner)
+}
+
+// BetaLicenseAgreement returns the BetaLicenseAgreement stored within, if one is present.
+func (i *AppResponseIncluded) BetaLicenseAgreement() *BetaLicenseAgreement {
+	return extractIncludedBetaLicenseAgreement(i.inner)
+}
+
+// BetaAppReviewDetail returns the BetaAppReviewDetail stored within, if one is present.
+func (i *AppResponseIncluded) BetaAppReviewDetail() *BetaAppReviewDetail {
+	return extractIncludedBetaAppReviewDetail(i.inner)
+}
+
+// AppInfo returns the AppInfo stored within, if one is present.
+func (i *AppResponseIncluded) AppInfo() *AppInfo {
+	return extractIncludedAppInfo(i.inner)
+}
+
+// EndUserLicenseAgreement returns the EndUserLicenseAgreement stored within, if one is present.
+func (i *AppResponseIncluded) EndUserLicenseAgreement() *EndUserLicenseAgreement {
+	return extractIncludedEndUserLicenseAgreement(i.inner)
+}
+
+// AppPreOrder returns the AppPreOrder stored within, if one is present.
+func (i *AppResponseIncluded) AppPreOrder() *AppPreOrder {
+	return extractIncludedAppPreOrder(i.inner)
+}
+
+// AppPrice returns the AppPrice stored within, if one is present.
+func (i *AppResponseIncluded) AppPrice() *AppPrice {
+	return extractIncludedAppPrice(i.inner)
+}
+
+// Territory returns the Territory stored within, if one is present.
+func (i *AppResponseIncluded) Territory() *Territory {
+	return extractIncludedTerritory(i.inner)
+}
+
+// InAppPurchase returns the InAppPurchase stored within, if one is present.
+func (i *AppResponseIncluded) InAppPurchase() *InAppPurchase {
+	return extractIncludedInAppPurchase(i.inner)
+}
+
+// GameCenterEnabledVersion returns the GameCenterEnabledVersion stored within, if one is present.
+func (i *AppResponseIncluded) GameCenterEnabledVersion() *GameCenterEnabledVersion {
+	return extractIncludedGameCenterEnabledVersion(i.inner)
+}
+
+// PerfPowerMetric returns the PerfPowerMetric stored within, if one is present.
+func (i *AppResponseIncluded) PerfPowerMetric() *PerfPowerMetric {
+	return extractIncludedPerfPowerMetric(i.inner)
 }

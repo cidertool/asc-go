@@ -70,20 +70,24 @@ type profileCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profileresponse
 type ProfileResponse struct {
-	Data     Profile       `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     Profile                   `json:"data"`
+	Included []ProfileResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks             `json:"links"`
 }
 
 // ProfilesResponse defines model for ProfilesResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profilesresponse
 type ProfilesResponse struct {
-	Data     []Profile          `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []Profile                 `json:"data"`
+	Included []ProfileResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks        `json:"links"`
+	Meta     *PagingInformation        `json:"meta,omitempty"`
 }
+
+// ProfileResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a ProfileResponse or ProfilesResponse.
+type ProfileResponseIncluded included
 
 // ListProfilesQuery are query options for ListProfile
 //
@@ -222,4 +226,27 @@ func (s *ProvisioningService) ListDevicesInProfile(ctx context.Context, id strin
 	res := new(DevicesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in ProfileResponseIncluded.
+func (i *ProfileResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// BundleID returns the BundleID stored within, if one is present.
+func (i *ProfileResponseIncluded) BundleID() *BundleID {
+	return extractIncludedBundleID(i.inner)
+}
+
+// Device returns the Device stored within, if one is present.
+func (i *ProfileResponseIncluded) Device() *Device {
+	return extractIncludedDevice(i.inner)
+}
+
+// Certificate returns the Certificate stored within, if one is present.
+func (i *ProfileResponseIncluded) Certificate() *Certificate {
+	return extractIncludedCertificate(i.inner)
 }

@@ -36,20 +36,24 @@ type PrereleaseVersionRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionresponse
 type PrereleaseVersionResponse struct {
-	Data     PrereleaseVersion `json:"data"`
-	Included []interface{}     `json:"included,omitempty"`
-	Links    DocumentLinks     `json:"links"`
+	Data     PrereleaseVersion                   `json:"data"`
+	Included []PrereleaseVersionResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks                       `json:"links"`
 }
 
 // PrereleaseVersionsResponse defines model for PreReleaseVersionsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/prereleaseversionsresponse
 type PrereleaseVersionsResponse struct {
-	Data     []PrereleaseVersion `json:"data"`
-	Included []interface{}       `json:"included,omitempty"`
-	Links    PagedDocumentLinks  `json:"links"`
-	Meta     *PagingInformation  `json:"meta,omitempty"`
+	Data     []PrereleaseVersion                 `json:"data"`
+	Included []PrereleaseVersionResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks                  `json:"links"`
+	Meta     *PagingInformation                  `json:"meta,omitempty"`
 }
+
+// PrereleaseVersionResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a PrereleaseVersionResponse or PrereleaseVersionsResponse.
+type PrereleaseVersionResponseIncluded included
 
 // ListPrereleaseVersionsQuery defines model for ListPrereleaseVersions
 //
@@ -171,4 +175,22 @@ func (s *TestflightService) GetPrereleaseVersionForBuild(ctx context.Context, id
 	res := new(PrereleaseVersionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in PrereleaseVersionResponseIncluded.
+func (i *PrereleaseVersionResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// Build returns the Build stored within, if one is present.
+func (i *PrereleaseVersionResponseIncluded) Build() *Build {
+	return extractIncludedBuild(i.inner)
+}
+
+// App returns the App stored within, if one is present.
+func (i *PrereleaseVersionResponseIncluded) App() *App {
+	return extractIncludedApp(i.inner)
 }

@@ -35,20 +35,24 @@ type AppCategoryRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategoriesresponse
 type AppCategoriesResponse struct {
-	Data     []AppCategory      `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []AppCategory                 `json:"data"`
+	Included []AppCategoryResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks            `json:"links"`
+	Meta     *PagingInformation            `json:"meta,omitempty"`
 }
 
 // AppCategoryResponse defines model for AppCategoryResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appcategoryresponse
 type AppCategoryResponse struct {
-	Data     AppCategory   `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     AppCategory                   `json:"data"`
+	Included []AppCategoryResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks                 `json:"links"`
 }
+
+// AppCategoryResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a AppCategoryResponse or AppCategoriesResponse.
+type AppCategoryResponseIncluded included
 
 // ListAppCategoriesQuery are query options for ListAppCategories
 //
@@ -191,4 +195,17 @@ func (s *AppsService) GetSecondarySubcategoryTwoForAppInfo(ctx context.Context, 
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in AppCategoryResponseIncluded.
+func (i *AppCategoryResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// AppCategory returns the AppCategory stored within, if one is present.
+func (i *AppCategoryResponseIncluded) AppCategory() *AppCategory {
+	return extractIncludedAppCategory(i.inner)
 }

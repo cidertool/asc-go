@@ -44,20 +44,24 @@ type AppInfoRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinforesponse
 type AppInfoResponse struct {
-	Data     AppInfo       `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     AppInfo                   `json:"data"`
+	Included []AppInfoResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks             `json:"links"`
 }
 
 // AppInfosResponse defines model for AppInfosResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appinfosresponse
 type AppInfosResponse struct {
-	Data     []AppInfo          `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []AppInfo                 `json:"data"`
+	Included []AppInfoResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks        `json:"links"`
+	Meta     *PagingInformation        `json:"meta,omitempty"`
 }
+
+// AppInfoResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a AppInfoResponse or AppInfosResponse.
+type AppInfoResponseIncluded included
 
 // appInfoUpdateRequest defines model for AppInfoUpdateRequest.
 //
@@ -156,4 +160,22 @@ func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationship
 	res := new(AppInfoResponse)
 	resp, err := s.client.patch(ctx, url, req, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in AppInfoResponseIncluded.
+func (i *AppInfoResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// AppInfoLocalization returns the AppInfoLocalization stored within, if one is present.
+func (i *AppInfoResponseIncluded) AppInfoLocalization() *AppInfoLocalization {
+	return extractIncludedAppInfoLocalization(i.inner)
+}
+
+// AppCategory returns the AppCategory stored within, if one is present.
+func (i *AppInfoResponseIncluded) AppCategory() *AppCategory {
+	return extractIncludedAppCategory(i.inner)
 }

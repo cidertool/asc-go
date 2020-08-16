@@ -45,10 +45,14 @@ type BetaGroupRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupresponse
 type BetaGroupResponse struct {
-	Data     BetaGroup     `json:"data"`
-	Included []interface{} `json:"included,omitempty"`
-	Links    DocumentLinks `json:"links"`
+	Data     BetaGroup                   `json:"data"`
+	Included []BetaGroupResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks               `json:"links"`
 }
+
+// BetaGroupResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a BetaGroupResponse or BetaGroupsResponse.
+type BetaGroupResponseIncluded included
 
 // BetaGroupCreateRequest defines model for BetaGroupCreateRequest.
 //
@@ -121,10 +125,10 @@ type BetaGroupBuildsLinkagesResponse struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroupsresponse
 type BetaGroupsResponse struct {
-	Data     []BetaGroup        `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []BetaGroup                 `json:"data"`
+	Included []BetaGroupResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks          `json:"links"`
+	Meta     *PagingInformation          `json:"meta,omitempty"`
 }
 
 // ListBetaGroupsQuery defines model for ListBetaGroups
@@ -374,4 +378,27 @@ func (s *TestflightService) ListBetaTesterIDsForBetaGroup(ctx context.Context, i
 	res := new(BetaGroupBetaTestersLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in BetaGroupResponseIncluded.
+func (i *BetaGroupResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// App returns the App stored within, if one is present.
+func (i *BetaGroupResponseIncluded) App() *App {
+	return extractIncludedApp(i.inner)
+}
+
+// Build returns the Build stored within, if one is present.
+func (i *BetaGroupResponseIncluded) Build() *Build {
+	return extractIncludedBuild(i.inner)
+}
+
+// BetaTester returns the BetaTester stored within, if one is present.
+func (i *BetaGroupResponseIncluded) BetaTester() *BetaTester {
+	return extractIncludedBetaTester(i.inner)
 }

@@ -71,20 +71,24 @@ type appStoreVersionLocalizationCreateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationresponse
 type AppStoreVersionLocalizationResponse struct {
-	Data     AppStoreVersionLocalization `json:"data"`
-	Included []interface{}               `json:"included,omitempty"`
-	Links    DocumentLinks               `json:"links"`
+	Data     AppStoreVersionLocalization                   `json:"data"`
+	Included []AppStoreVersionLocalizationResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks                                 `json:"links"`
 }
 
 // AppStoreVersionLocalizationsResponse defines model for AppStoreVersionLocalizationsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionlocalizationsresponse
 type AppStoreVersionLocalizationsResponse struct {
-	Data     []AppStoreVersionLocalization `json:"data"`
-	Included []interface{}                 `json:"included,omitempty"`
-	Links    PagedDocumentLinks            `json:"links"`
-	Meta     *PagingInformation            `json:"meta,omitempty"`
+	Data     []AppStoreVersionLocalization                 `json:"data"`
+	Included []AppStoreVersionLocalizationResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks                            `json:"links"`
+	Meta     *PagingInformation                            `json:"meta,omitempty"`
 }
+
+// AppStoreVersionLocalizationResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a AppStoreVersionLocalizationResponse or AppStoreVersionLocalizationsResponse.
+type AppStoreVersionLocalizationResponseIncluded included
 
 // AppStoreVersionLocalizationUpdateRequest defines model for AppStoreVersionLocalizationUpdateRequest.
 //
@@ -236,4 +240,22 @@ func (s *AppsService) ListAppPreviewSetsForAppStoreVersionLocalization(ctx conte
 	res := new(AppPreviewSetsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in AppStoreVersionLocalizationResponseIncluded.
+func (i *AppStoreVersionLocalizationResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// AppScreenshotSet returns the AppScreenshotSet stored within, if one is present.
+func (i *AppStoreVersionLocalizationResponseIncluded) AppScreenshotSet() *AppScreenshotSet {
+	return extractIncludedAppScreenshotSet(i.inner)
+}
+
+// AppPreviewSet returns the AppPreviewSet stored within, if one is present.
+func (i *AppStoreVersionLocalizationResponseIncluded) AppPreviewSet() *AppPreviewSet {
+	return extractIncludedAppPreviewSet(i.inner)
 }

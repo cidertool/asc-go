@@ -136,20 +136,24 @@ type AppStoreVersionRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionresponse
 type AppStoreVersionResponse struct {
-	Data     AppStoreVersion `json:"data"`
-	Included []interface{}   `json:"included,omitempty"`
-	Links    DocumentLinks   `json:"links"`
+	Data     AppStoreVersion                   `json:"data"`
+	Included []AppStoreVersionResponseIncluded `json:"included,omitempty"`
+	Links    DocumentLinks                     `json:"links"`
 }
 
 // AppStoreVersionsResponse defines model for AppStoreVersionsResponse.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionsresponse
 type AppStoreVersionsResponse struct {
-	Data     []AppStoreVersion  `json:"data"`
-	Included []interface{}      `json:"included,omitempty"`
-	Links    PagedDocumentLinks `json:"links"`
-	Meta     *PagingInformation `json:"meta,omitempty"`
+	Data     []AppStoreVersion                 `json:"data"`
+	Included []AppStoreVersionResponseIncluded `json:"included,omitempty"`
+	Links    PagedDocumentLinks                `json:"links"`
+	Meta     *PagingInformation                `json:"meta,omitempty"`
 }
+
+// AppStoreVersionResponseIncluded is a heterogenous wrapper for the possible types that can be returned
+// in a AppStoreVersionResponse or AppStoreVersionsResponse.
+type AppStoreVersionResponseIncluded included
 
 // AppStoreVersionCreateRequest defines model for AppStoreVersionCreateRequest.
 //
@@ -331,4 +335,52 @@ func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(ctx context.Cont
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
 	return res, resp, err
+}
+
+// UnmarshalJSON is a custom unmarshaller for the heterogenous data stored in AppStoreVersionResponseIncluded.
+func (i *AppStoreVersionResponseIncluded) UnmarshalJSON(b []byte) error {
+	typeName, inner, err := unmarshalInclude(b)
+	i.Type = typeName
+	i.inner = inner
+	return err
+}
+
+// AgeRatingDeclaration returns the AgeRatingDeclaration stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) AgeRatingDeclaration() *AgeRatingDeclaration {
+	return extractIncludedAgeRatingDeclaration(i.inner)
+}
+
+// AppStoreVersionLocalization returns the AppStoreVersionLocalization stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) AppStoreVersionLocalization() *AppStoreVersionLocalization {
+	return extractIncludedAppStoreVersionLocalization(i.inner)
+}
+
+// Build returns the Build stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) Build() *Build {
+	return extractIncludedBuild(i.inner)
+}
+
+// AppStoreVersionPhasedRelease returns the AppStoreVersionPhasedRelease stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) AppStoreVersionPhasedRelease() *AppStoreVersionPhasedRelease {
+	return extractIncludedAppStoreVersionPhasedRelease(i.inner)
+}
+
+// RoutingAppCoverage returns the RoutingAppCoverage stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) RoutingAppCoverage() *RoutingAppCoverage {
+	return extractIncludedRoutingAppCoverage(i.inner)
+}
+
+// AppStoreReviewDetail returns the AppStoreReviewDetail stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) AppStoreReviewDetail() *AppStoreReviewDetail {
+	return extractIncludedAppStoreReviewDetail(i.inner)
+}
+
+// AppStoreVersionSubmission returns the AppStoreVersionSubmission stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) AppStoreVersionSubmission() *AppStoreVersionSubmission {
+	return extractIncludedAppStoreVersionSubmission(i.inner)
+}
+
+// IDFADeclaration returns the IDFADeclaration stored within, if one is present.
+func (i *AppStoreVersionResponseIncluded) IDFADeclaration() *IDFADeclaration {
+	return extractIncludedIDFADeclaration(i.inner)
 }
