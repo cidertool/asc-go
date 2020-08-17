@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestListAppStoreVersionsForApp(t *testing.T) {
@@ -14,6 +16,37 @@ func TestListAppStoreVersionsForApp(t *testing.T) {
 func TestGetAppStoreVersion(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppStoreVersion(ctx, "10", &GetAppStoreVersionQuery{})
+	})
+}
+
+func TestGetAppStoreVersionIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[
+		{"type":"ageRatingDeclarations"},{"type":"appStoreVersionLocalizations"},
+		{"type":"builds"},{"type":"appStoreVersionPhasedReleases"},
+		{"type":"routingAppCoverages"},{"type":"appStoreReviewDetails"},
+		{"type":"appStoreVersionSubmissions"},{"type":"idfaDeclarations"}
+		]}`, func(ctx context.Context, client *Client) {
+		version, _, err := client.Apps.GetAppStoreVersion(ctx, "10", &GetAppStoreVersionQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, version.Included)
+
+		assert.NotNil(t, version.Included[0].AgeRatingDeclaration())
+		assert.NotNil(t, version.Included[1].AppStoreVersionLocalization())
+		assert.NotNil(t, version.Included[2].Build())
+		assert.NotNil(t, version.Included[3].AppStoreVersionPhasedRelease())
+		assert.NotNil(t, version.Included[4].RoutingAppCoverage())
+		assert.NotNil(t, version.Included[5].AppStoreReviewDetail())
+		assert.NotNil(t, version.Included[6].AppStoreVersionSubmission())
+		assert.NotNil(t, version.Included[7].IDFADeclaration())
+
+		assert.Nil(t, version.Included[0].AppStoreVersionLocalization())
+		assert.Nil(t, version.Included[0].Build())
+		assert.Nil(t, version.Included[0].AppStoreVersionPhasedRelease())
+		assert.Nil(t, version.Included[0].RoutingAppCoverage())
+		assert.Nil(t, version.Included[0].AppStoreReviewDetail())
+		assert.Nil(t, version.Included[0].AppStoreVersionSubmission())
+		assert.Nil(t, version.Included[0].IDFADeclaration())
+		assert.Nil(t, version.Included[1].AgeRatingDeclaration())
 	})
 }
 

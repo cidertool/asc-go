@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestListBuilds(t *testing.T) {
@@ -20,6 +22,42 @@ func TestListBuildsForApp(t *testing.T) {
 func TestGetBuild(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetBuild(ctx, "10", &GetBuildQuery{})
+	})
+}
+
+func TestGetBuildIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[
+		{"type":"preReleaseVersions"},{"type":"betaTesters"},{"type":"betaBuildLocalizations"},
+		{"type":"appEncryptionDeclarations"},{"type":"betaAppReviewSubmissions"},{"type":"apps"},
+		{"type":"buildBetaDetails"},{"type":"appStoreVersions"},{"type":"buildIcons"},
+		{"type":"perfPowerMetrics"},{"type":"diagnosticSignatures"}
+		]}`, func(ctx context.Context, client *Client) {
+		build, _, err := client.Builds.GetBuild(ctx, "10", &GetBuildQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, build.Included)
+
+		assert.NotNil(t, build.Included[0].PrereleaseVersion())
+		assert.NotNil(t, build.Included[1].BetaTester())
+		assert.NotNil(t, build.Included[2].BetaBuildLocalization())
+		assert.NotNil(t, build.Included[3].AppEncryptionDeclaration())
+		assert.NotNil(t, build.Included[4].BetaAppReviewSubmission())
+		assert.NotNil(t, build.Included[5].App())
+		assert.NotNil(t, build.Included[6].BuildBetaDetail())
+		assert.NotNil(t, build.Included[7].AppStoreVersion())
+		assert.NotNil(t, build.Included[8].BuildIcon())
+		assert.NotNil(t, build.Included[9].PerfPowerMetric())
+		assert.NotNil(t, build.Included[10].DiagnosticSignature())
+
+		assert.Nil(t, build.Included[0].BetaTester())
+		assert.Nil(t, build.Included[0].BetaBuildLocalization())
+		assert.Nil(t, build.Included[0].AppEncryptionDeclaration())
+		assert.Nil(t, build.Included[0].BetaAppReviewSubmission())
+		assert.Nil(t, build.Included[0].App())
+		assert.Nil(t, build.Included[0].BuildBetaDetail())
+		assert.Nil(t, build.Included[0].AppStoreVersion())
+		assert.Nil(t, build.Included[0].BuildIcon())
+		assert.Nil(t, build.Included[0].PerfPowerMetric())
+		assert.Nil(t, build.Included[0].DiagnosticSignature())
 	})
 }
 

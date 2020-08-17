@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateProfile(t *testing.T) {
@@ -26,6 +28,22 @@ func TestListProfiles(t *testing.T) {
 func TestGetProfile(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.GetProfile(ctx, "10", &GetProfileQuery{})
+	})
+}
+
+func TestGetProfileIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[{"type":"bundleIds"},{"type":"certificates"},{"type":"devices"}]}`, func(ctx context.Context, client *Client) {
+		profile, _, err := client.Provisioning.GetProfile(ctx, "10", &GetProfileQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, profile.Included)
+
+		assert.NotNil(t, profile.Included[0].BundleID())
+		assert.NotNil(t, profile.Included[1].Certificate())
+		assert.NotNil(t, profile.Included[2].Device())
+
+		assert.Nil(t, profile.Included[0].Certificate())
+		assert.Nil(t, profile.Included[0].Device())
+		assert.Nil(t, profile.Included[1].BundleID())
 	})
 }
 

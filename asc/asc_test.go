@@ -258,3 +258,9 @@ func testEndpointExpectingError(t *testing.T, marshalledGot string, endpoint fun
 	assert.Error(t, err)
 	assert.Nil(t, got)
 }
+
+func testEndpointCustomBehavior(marshalledGot string, behavior func(ctx context.Context, client *Client)) {
+	client, server := newServer(marshalledGot, true)
+	defer server.Close()
+	behavior(context.Background(), client)
+}

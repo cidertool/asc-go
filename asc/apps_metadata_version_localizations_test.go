@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestListLocalizationsForAppStoreVersion(t *testing.T) {
@@ -14,6 +16,20 @@ func TestListLocalizationsForAppStoreVersion(t *testing.T) {
 func TestGetAppStoreVersionLocalization(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &AppStoreVersionLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppStoreVersionLocalization(ctx, "10", &GetAppStoreVersionLocalizationQuery{})
+	})
+}
+
+func TestGetAppStoreVersionLocalizationIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[{"type":"appScreenshotSets"},{"type":"appPreviewSets"}]}`, func(ctx context.Context, client *Client) {
+		localization, _, err := client.Apps.GetAppStoreVersionLocalization(ctx, "10", &GetAppStoreVersionLocalizationQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, localization.Included)
+
+		assert.NotNil(t, localization.Included[0].AppScreenshotSet())
+		assert.NotNil(t, localization.Included[1].AppPreviewSet())
+
+		assert.Nil(t, localization.Included[0].AppPreviewSet())
+		assert.Nil(t, localization.Included[1].AppScreenshotSet())
 	})
 }
 

@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateBetaGroup(t *testing.T) {
@@ -32,6 +34,21 @@ func TestListBetaGroups(t *testing.T) {
 func TestGetBetaGroup(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBetaGroup(ctx, "10", &GetBetaGroupQuery{})
+	})
+}
+
+func TestGetBetaGroupIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[{"type":"apps"},{"type":"builds"},{"type":"betaTesters"}]}`, func(ctx context.Context, client *Client) {
+		group, _, err := client.TestFlight.GetBetaGroup(ctx, "10", &GetBetaGroupQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, group.Included)
+
+		assert.NotNil(t, group.Included[0].App())
+		assert.NotNil(t, group.Included[1].Build())
+		assert.NotNil(t, group.Included[2].BetaTester())
+
+		assert.Nil(t, group.Included[0].Build())
+		assert.Nil(t, group.Included[0].BetaTester())
 	})
 }
 

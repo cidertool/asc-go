@@ -3,6 +3,8 @@ package asc
 import (
 	"context"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateBundleID(t *testing.T) {
@@ -32,6 +34,22 @@ func TestListBundleIDs(t *testing.T) {
 func TestGetBundleID(t *testing.T) {
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.GetBundleID(ctx, "10", &GetBundleIDQuery{})
+	})
+}
+
+func TestGetBundleIDIncludeds(t *testing.T) {
+	testEndpointCustomBehavior(`{"included":[{"type":"profiles"},{"type":"bundleIdCapabilities"},{"type":"apps"}]}`, func(ctx context.Context, client *Client) {
+		bundleID, _, err := client.Provisioning.GetBundleID(ctx, "10", &GetBundleIDQuery{})
+		assert.NoError(t, err)
+		assert.NotEmpty(t, bundleID.Included)
+
+		assert.NotNil(t, bundleID.Included[0].Profile())
+		assert.NotNil(t, bundleID.Included[1].BundleIDCapability())
+		assert.NotNil(t, bundleID.Included[2].App())
+
+		assert.Nil(t, bundleID.Included[0].BundleIDCapability())
+		assert.Nil(t, bundleID.Included[0].App())
+		assert.Nil(t, bundleID.Included[1].Profile())
 	})
 }
 
