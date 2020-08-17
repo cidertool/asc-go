@@ -283,173 +283,223 @@ func extractIncludedTerritory(i interface{}) *Territory {
 	return nil
 }
 
-func unmarshalInclude(b []byte) (typeName string, i interface{}, err error) {
+func unmarshalInclude(b []byte) (string, interface{}, error) {
 	var typeRef struct {
 		Type string `json:"type"`
 	}
-	err = json.Unmarshal(b, &typeRef)
+	err := json.Unmarshal(b, &typeRef)
 	if err != nil {
 		return "", nil, err
 	}
-	switch typeRef.Type {
-	case "ageRatingDeclarations":
-		var v AgeRatingDeclaration
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "apps":
-		var v App
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appCategories":
-		var v AppCategory
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appEncryptionDeclarations":
-		var v AppEncryptionDeclaration
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appInfos":
-		var v AppInfo
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appInfoLocalizations":
-		var v AppInfoLocalization
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appPreOrders":
-		var v AppPreOrder
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appPreviewSets":
-		var v AppPreviewSet
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appPrices":
-		var v AppPrice
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appScreenshotSets":
-		var v AppScreenshotSet
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appStoreReviewDetails":
-		var v AppStoreReviewDetail
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appStoreVersions":
-		var v AppStoreVersion
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appStoreVersionLocalizations":
-		var v AppStoreVersionLocalization
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appStoreVersionPhasedReleases":
-		var v AppStoreVersionPhasedRelease
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "appStoreVersionSubmissions":
-		var v AppStoreVersionSubmission
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaAppLocalizations":
-		var v BetaAppLocalization
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaAppReviewDetails":
-		var v BetaAppReviewDetail
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaAppReviewSubmissions":
-		var v BetaAppReviewSubmission
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaBuildLocalizations":
-		var v BetaBuildLocalization
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaGroups":
-		var v BetaGroup
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaLicenseAgreements":
-		var v BetaLicenseAgreement
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "betaTesters":
-		var v BetaTester
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "builds":
-		var v Build
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "buildBetaDetails":
-		var v BuildBetaDetail
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "buildIcons":
-		var v BuildIcon
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "bundleIds":
-		var v BundleID
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "bundleIdCapabilities":
-		var v BundleIDCapability
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "certificates":
-		var v Certificate
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "devices":
-		var v Device
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "diagnosticSignatures":
-		var v DiagnosticSignature
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "endUserLicenseAgreements":
-		var v EndUserLicenseAgreement
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "gameCenterEnabledVersions":
-		var v GameCenterEnabledVersion
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "idfaDeclarations":
-		var v IDFADeclaration
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "inAppPurchases":
-		var v InAppPurchase
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "perfPowerMetrics":
-		var v PerfPowerMetric
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "preReleaseVersions":
-		var v PrereleaseVersion
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "profiles":
-		var v Profile
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "routingAppCoverages":
-		var v RoutingAppCoverage
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	case "territories":
-		var v Territory
-		err := json.Unmarshal(b, &v)
-		return typeRef.Type, v, err
-	default:
-		return typeRef.Type, nil, fmt.Errorf("type %s not recognized as includable model", typeRef.Type)
+	typeName := typeRef.Type
+	return supportedIncludeTypes()(typeName, b)
+}
+
+type includeTypeUnmarshallers map[string]func([]byte) (string, interface{}, error)
+
+func supportedIncludeTypes() func(string, []byte) (string, interface{}, error) {
+	allCases := includeTypeUnmarshallers{
+		"ageRatingDeclarations": func(b []byte) (string, interface{}, error) {
+			var v AgeRatingDeclaration
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"apps": func(b []byte) (string, interface{}, error) {
+			var v App
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appCategories": func(b []byte) (string, interface{}, error) {
+			var v AppCategory
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appEncryptionDeclarations": func(b []byte) (string, interface{}, error) {
+			var v AppEncryptionDeclaration
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appInfos": func(b []byte) (string, interface{}, error) {
+			var v AppInfo
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appInfoLocalizations": func(b []byte) (string, interface{}, error) {
+			var v AppInfoLocalization
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appPreOrders": func(b []byte) (string, interface{}, error) {
+			var v AppPreOrder
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appPreviewSets": func(b []byte) (string, interface{}, error) {
+			var v AppPreviewSet
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appPrices": func(b []byte) (string, interface{}, error) {
+			var v AppPrice
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appScreenshotSets": func(b []byte) (string, interface{}, error) {
+			var v AppScreenshotSet
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appStoreReviewDetails": func(b []byte) (string, interface{}, error) {
+			var v AppStoreReviewDetail
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appStoreVersions": func(b []byte) (string, interface{}, error) {
+			var v AppStoreVersion
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appStoreVersionLocalizations": func(b []byte) (string, interface{}, error) {
+			var v AppStoreVersionLocalization
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appStoreVersionPhasedReleases": func(b []byte) (string, interface{}, error) {
+			var v AppStoreVersionPhasedRelease
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"appStoreVersionSubmissions": func(b []byte) (string, interface{}, error) {
+			var v AppStoreVersionSubmission
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaAppLocalizations": func(b []byte) (string, interface{}, error) {
+			var v BetaAppLocalization
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaAppReviewDetails": func(b []byte) (string, interface{}, error) {
+			var v BetaAppReviewDetail
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaAppReviewSubmissions": func(b []byte) (string, interface{}, error) {
+			var v BetaAppReviewSubmission
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaBuildLocalizations": func(b []byte) (string, interface{}, error) {
+			var v BetaBuildLocalization
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaGroups": func(b []byte) (string, interface{}, error) {
+			var v BetaGroup
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaLicenseAgreements": func(b []byte) (string, interface{}, error) {
+			var v BetaLicenseAgreement
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"betaTesters": func(b []byte) (string, interface{}, error) {
+			var v BetaTester
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"builds": func(b []byte) (string, interface{}, error) {
+			var v Build
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"buildBetaDetails": func(b []byte) (string, interface{}, error) {
+			var v BuildBetaDetail
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"buildIcons": func(b []byte) (string, interface{}, error) {
+			var v BuildIcon
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"bundleIds": func(b []byte) (string, interface{}, error) {
+			var v BundleID
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"bundleIdCapabilities": func(b []byte) (string, interface{}, error) {
+			var v BundleIDCapability
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"certificates": func(b []byte) (string, interface{}, error) {
+			var v Certificate
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"devices": func(b []byte) (string, interface{}, error) {
+			var v Device
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"diagnosticSignatures": func(b []byte) (string, interface{}, error) {
+			var v DiagnosticSignature
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"endUserLicenseAgreements": func(b []byte) (string, interface{}, error) {
+			var v EndUserLicenseAgreement
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"gameCenterEnabledVersions": func(b []byte) (string, interface{}, error) {
+			var v GameCenterEnabledVersion
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"idfaDeclarations": func(b []byte) (string, interface{}, error) {
+			var v IDFADeclaration
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"inAppPurchases": func(b []byte) (string, interface{}, error) {
+			var v InAppPurchase
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"perfPowerMetrics": func(b []byte) (string, interface{}, error) {
+			var v PerfPowerMetric
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"preReleaseVersions": func(b []byte) (string, interface{}, error) {
+			var v PrereleaseVersion
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"profiles": func(b []byte) (string, interface{}, error) {
+			var v Profile
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"routingAppCoverages": func(b []byte) (string, interface{}, error) {
+			var v RoutingAppCoverage
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
+		"territories": func(b []byte) (string, interface{}, error) {
+			var v Territory
+			err := json.Unmarshal(b, &v)
+			return v.Type, v, err
+		},
 	}
 
+	return func(typeName string, b []byte) (string, interface{}, error) {
+		if deser, ok := allCases[typeName]; ok {
+			return deser(b)
+		}
+		return typeName, nil, fmt.Errorf("type %s not recognized as includable model", typeName)
+	}
 }
