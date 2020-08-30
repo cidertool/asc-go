@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"reflect"
 	"regexp"
@@ -32,6 +33,7 @@ const (
 
 var (
 	emailRegex = regexp.MustCompile(emailRegexString)
+	httpDebug  = false
 )
 
 // Client is the root instance of the App Store Connect API
@@ -79,6 +81,11 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Users = (*UsersService)(&c.common)
 
 	return c
+}
+
+// SetHTTPDebug this enables global http request/response dumping for this API
+func SetHTTPDebug(flag bool) {
+	httpDebug = flag
 }
 
 // Response is a App Store Connect API response. This wraps the standard http.Response
@@ -290,6 +297,12 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
+		if httpDebug {
+			if dump, err := httputil.DumpRequest(req, true); err == nil {
+				fmt.Printf("DEBUG request uri=%s\n%s\n", req.URL, dump)
+			}
+		}
+
 		resp, err := c.client.Do(req)
 		if err != nil {
 			select {
@@ -299,13 +312,25 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 				return backoff.Permanent(err)
 			}
 		}
+
+		if httpDebug {
+			if dump, err := httputil.DumpResponse(resp, true); err == nil {
+				fmt.Printf("DEBUG response uri=%s\n%s\n", req.URL, dump)
+			}
+		}
+
 		respCh <- resp
 		return nil
 	}
 
-	notify := func(err error, delay time.Duration) {}
+	notify := func(err error, delay time.Duration) {
+		if httpDebug {
+			fmt.Printf("DEBUG error %v, retry in %v\n", err, delay)
+		}
+	}
 
 	err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify)
+
 	resp := <-respCh
 	defer resp.Body.Close()
 	response := newResponse(resp)

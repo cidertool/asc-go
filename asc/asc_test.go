@@ -23,6 +23,13 @@ func TestNewClient(t *testing.T) {
 	assert.NotSame(t, c.client, c2.client, "NewClient returned same http.Clients, but they should differ")
 }
 
+func TestSetHTTPDebug(t *testing.T) {
+	SetHTTPDebug(true)
+	assert.True(t, httpDebug)
+	SetHTTPDebug(false)
+	assert.False(t, httpDebug)
+}
+
 type mockPayload struct {
 	Value string `json:"value"`
 }
@@ -36,16 +43,17 @@ type mockBody struct {
 	Field string `url:"field,omitempty"`
 }
 
-func TestContextErrors(t *testing.T) {
-	client, server := newServer("", false)
+func TestNilContextReturnsError(t *testing.T) {
+	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
 	_, err := client.get(nil, "test", nil, nil)
 	assert.Error(t, err)
 }
 
 func TestGet(t *testing.T) {
+	SetHTTPDebug(true)
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -54,11 +62,12 @@ func TestGet(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
+	SetHTTPDebug(false)
 }
 
 func TestGetWithQuery(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	params := mockParams{
@@ -76,7 +85,7 @@ func TestGetWithQuery(t *testing.T) {
 }
 
 func TestGetWithQuery_Error(t *testing.T) {
-	client, server := newServer("", true)
+	client, server := newServer("", http.StatusOK, true)
 	defer server.Close()
 
 	badQueryValue := []string{"horses"}
@@ -88,7 +97,7 @@ func TestGetWithQuery_Error(t *testing.T) {
 
 func TestGetError(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -101,7 +110,7 @@ func TestGetError(t *testing.T) {
 
 func TestPost(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -116,7 +125,7 @@ func TestPost(t *testing.T) {
 
 func TestPatch(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -131,7 +140,7 @@ func TestPatch(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, true)
+	client, server := newServer(marshaled, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -197,37 +206,24 @@ func mustParseURL(t *testing.T, u string) url.URL {
 	return *parsed
 }
 
-func newServer(raw string, addRateLimit bool) (*Client, *httptest.Server) {
+func newServer(raw string, status int, addRateLimit bool) (*Client, *httptest.Server) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if addRateLimit {
 			w.Header().Add("X-Rate-Limit", "user-hour-lim:2500;user-hour-rem:10;hank:dean:venture;rusty:jr;;")
 		}
+		w.WriteHeader(status)
 		fmt.Fprintln(w, raw)
 	}))
+
 	base, _ := url.Parse(server.URL)
-	client := &Client{
-		client:    server.Client(),
-		baseURL:   base,
-		UserAgent: "asc-go",
-	}
-
-	client.common.client = client
-
-	client.Apps = (*AppsService)(&client.common)
-	client.Builds = (*BuildsService)(&client.common)
-	client.Pricing = (*PricingService)(&client.common)
-	client.Provisioning = (*ProvisioningService)(&client.common)
-	client.Publishing = (*PublishingService)(&client.common)
-	client.Reporting = (*ReportingService)(&client.common)
-	client.Submission = (*SubmissionService)(&client.common)
-	client.TestFlight = (*TestflightService)(&client.common)
-	client.Users = (*UsersService)(&client.common)
+	client := NewClient(server.Client())
+	client.baseURL = base
 
 	return client, server
 }
 
 func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface{}, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
-	client, server := newServer(marshalledGot, true)
+	client, server := newServer(marshalledGot, http.StatusOK, true)
 	defer server.Close()
 
 	got, resp, err := endpoint(context.Background(), client)
@@ -240,7 +236,7 @@ func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface
 }
 
 func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, client *Client) (*Response, error)) {
-	client, server := newServer("", false)
+	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
 
 	resp, err := endpoint(context.Background(), client)
@@ -250,7 +246,7 @@ func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, 
 }
 
 func testEndpointExpectingError(t *testing.T, marshalledGot string, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
-	client, server := newServer(marshalledGot, true)
+	client, server := newServer(marshalledGot, http.StatusOK, true)
 	defer server.Close()
 
 	got, _, err := endpoint(context.Background(), client)
@@ -260,7 +256,7 @@ func testEndpointExpectingError(t *testing.T, marshalledGot string, endpoint fun
 }
 
 func testEndpointCustomBehavior(marshalledGot string, behavior func(ctx context.Context, client *Client)) {
-	client, server := newServer(marshalledGot, true)
+	client, server := newServer(marshalledGot, http.StatusOK, true)
 	defer server.Close()
 	behavior(context.Background(), client)
 }

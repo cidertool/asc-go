@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"testing"
 
@@ -29,7 +30,7 @@ func TestMultipartUpload(t *testing.T) {
 		assert.FailNow(t, "writing the temp file produced an error", err)
 	}
 
-	client, server := newServer("", false)
+	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
 
 	operations := []UploadOperation{
@@ -138,7 +139,7 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 		assert.FailNow(t, "writing the temp file produced an error", err)
 	}
 
-	client, server := newServer("", false)
+	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
 
 	operations := []UploadOperation{
