@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // PhasedReleaseState defines model for PhasedReleaseState.
@@ -38,7 +37,7 @@ type AppStoreVersionPhasedRelease struct {
 type AppStoreVersionPhasedReleaseAttributes struct {
 	CurrentDayNumber   *int                `json:"currentDayNumber,omitempty"`
 	PhasedReleaseState *PhasedReleaseState `json:"phasedReleaseState,omitempty"`
-	StartDate          *time.Time          `json:"startDate,omitempty"`
+	StartDate          *DateTime           `json:"startDate,omitempty"`
 	TotalPauseDuration *int                `json:"totalPauseDuration,omitempty"`
 }
 

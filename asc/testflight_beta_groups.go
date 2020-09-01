@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // BetaGroup defines model for BetaGroup.
@@ -21,15 +20,15 @@ type BetaGroup struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/betagroup/attributes
 type BetaGroupAttributes struct {
-	CreatedDate            *time.Time `json:"createdDate,omitempty"`
-	FeedbackEnabled        *bool      `json:"feedbackEnabled,omitempty"`
-	IsInternalGroup        *bool      `json:"isInternalGroup,omitempty"`
-	Name                   *string    `json:"name,omitempty"`
-	PublicLink             *string    `json:"publicLink,omitempty"`
-	PublicLinkEnabled      *bool      `json:"publicLinkEnabled,omitempty"`
-	PublicLinkID           *string    `json:"publicLinkId,omitempty"`
-	PublicLinkLimit        *int       `json:"publicLinkLimit,omitempty"`
-	PublicLinkLimitEnabled *bool      `json:"publicLinkLimitEnabled,omitempty"`
+	CreatedDate            *DateTime `json:"createdDate,omitempty"`
+	FeedbackEnabled        *bool     `json:"feedbackEnabled,omitempty"`
+	IsInternalGroup        *bool     `json:"isInternalGroup,omitempty"`
+	Name                   *string   `json:"name,omitempty"`
+	PublicLink             *string   `json:"publicLink,omitempty"`
+	PublicLinkEnabled      *bool     `json:"publicLinkEnabled,omitempty"`
+	PublicLinkID           *string   `json:"publicLinkId,omitempty"`
+	PublicLinkLimit        *int      `json:"publicLinkLimit,omitempty"`
+	PublicLinkLimitEnabled *bool     `json:"publicLinkLimitEnabled,omitempty"`
 }
 
 // BetaGroupRelationships defines model for BetaGroup.Relationships

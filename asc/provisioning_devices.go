@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // Device defines model for Device.
@@ -20,7 +19,7 @@ type Device struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/device/attributes
 type DeviceAttributes struct {
-	AddedDate   *time.Time        `json:"addedDate,omitempty"`
+	AddedDate   *DateTime         `json:"addedDate,omitempty"`
 	DeviceClass *string           `json:"deviceClass,omitempty"`
 	Model       *string           `json:"model,omitempty"`
 	Name        *string           `json:"name,omitempty"`

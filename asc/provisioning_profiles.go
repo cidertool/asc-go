@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // Profile defines model for Profile.
@@ -21,8 +20,8 @@ type Profile struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/profile/attributes
 type ProfileAttributes struct {
-	CreatedDate    *time.Time        `json:"createdDate,omitempty"`
-	ExpirationDate *time.Time        `json:"expirationDate,omitempty"`
+	CreatedDate    *DateTime         `json:"createdDate,omitempty"`
+	ExpirationDate *DateTime         `json:"expirationDate,omitempty"`
 	Name           *string           `json:"name,omitempty"`
 	Platform       *BundleIDPlatform `json:"platform,omitempty"`
 	ProfileContent *string           `json:"profileContent,omitempty"`

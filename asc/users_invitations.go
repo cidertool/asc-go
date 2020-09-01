@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // UserInvitation defines model for UserInvitation.
@@ -23,7 +22,7 @@ type UserInvitation struct {
 type UserInvitationAttributes struct {
 	AllAppsVisible      *bool      `json:"allAppsVisible,omitempty"`
 	Email               *Email     `json:"email,omitempty"`
-	ExpirationDate      *time.Time `json:"expirationDate,omitempty"`
+	ExpirationDate      *DateTime  `json:"expirationDate,omitempty"`
 	FirstName           *string    `json:"firstName,omitempty"`
 	LastName            *string    `json:"lastName,omitempty"`
 	ProvisioningAllowed *bool      `json:"provisioningAllowed,omitempty"`

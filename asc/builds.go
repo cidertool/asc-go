@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // BuildsService handles communication with build-related methods of the App Store Connect API
@@ -28,12 +27,12 @@ type Build struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/build/attributes
 type BuildAttributes struct {
-	ExpirationDate          *time.Time  `json:"expirationDate,omitempty"`
+	ExpirationDate          *DateTime   `json:"expirationDate,omitempty"`
 	Expired                 *bool       `json:"expired,omitempty"`
 	IconAssetToken          *ImageAsset `json:"iconAssetToken,omitempty"`
 	MinOsVersion            *string     `json:"minOsVersion,omitempty"`
 	ProcessingState         *string     `json:"processingState,omitempty"`
-	UploadedDate            *time.Time  `json:"uploadedDate,omitempty"`
+	UploadedDate            *DateTime   `json:"uploadedDate,omitempty"`
 	UsesNonExemptEncryption *bool       `json:"usesNonExemptEncryption,omitempty"`
 	Version                 *string     `json:"version,omitempty"`
 }

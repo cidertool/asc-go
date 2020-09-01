@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // AppStoreVersionState defines model for AppStoreVersionState.
@@ -46,12 +45,12 @@ type appStoreVersionUpdateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionupdaterequest/data/attributes
 type AppStoreVersionUpdateRequestAttributes struct {
-	Copyright           *string    `json:"copyright,omitempty"`
-	Downloadable        *bool      `json:"downloadable,omitempty"`
-	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
-	ReleaseType         *string    `json:"releaseType,omitempty"`
-	UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
-	VersionString       *string    `json:"versionString,omitempty"`
+	Copyright           *string   `json:"copyright,omitempty"`
+	Downloadable        *bool     `json:"downloadable,omitempty"`
+	EarliestReleaseDate *DateTime `json:"earliestReleaseDate,omitempty"`
+	ReleaseType         *string   `json:"releaseType,omitempty"`
+	UsesIDFA            *bool     `json:"usesIdfa,omitempty"`
+	VersionString       *string   `json:"versionString,omitempty"`
 }
 
 // appStoreVersionUpdateRequestRelationships are relationships for AppStoreVersionUpdateRequest
@@ -108,9 +107,9 @@ type AppStoreVersion struct {
 type AppStoreVersionAttributes struct {
 	AppStoreState       *AppStoreVersionState `json:"appStoreState,omitempty"`
 	Copyright           *string               `json:"copyright,omitempty"`
-	CreatedDate         *time.Time            `json:"createdDate,omitempty"`
+	CreatedDate         *DateTime             `json:"createdDate,omitempty"`
 	Downloadable        *bool                 `json:"downloadable,omitempty"`
-	EarliestReleaseDate *time.Time            `json:"earliestReleaseDate,omitempty"`
+	EarliestReleaseDate *DateTime             `json:"earliestReleaseDate,omitempty"`
 	Platform            *Platform             `json:"platform,omitempty"`
 	ReleaseType         *string               `json:"releaseType,omitempty"`
 	UsesIDFA            *bool                 `json:"usesIdfa,omitempty"`
@@ -168,12 +167,12 @@ type appStoreVersionCreateRequest struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversioncreaterequest/data/attributes
 type AppStoreVersionCreateRequestAttributes struct {
-	Copyright           *string    `json:"copyright,omitempty"`
-	EarliestReleaseDate *time.Time `json:"earliestReleaseDate,omitempty"`
-	Platform            Platform   `json:"platform"`
-	ReleaseType         *string    `json:"releaseType,omitempty"`
-	UsesIDFA            *bool      `json:"usesIdfa,omitempty"`
-	VersionString       string     `json:"versionString"`
+	Copyright           *string   `json:"copyright,omitempty"`
+	EarliestReleaseDate *DateTime `json:"earliestReleaseDate,omitempty"`
+	Platform            Platform  `json:"platform"`
+	ReleaseType         *string   `json:"releaseType,omitempty"`
+	UsesIDFA            *bool     `json:"usesIdfa,omitempty"`
+	VersionString       string    `json:"versionString"`
 }
 
 // AppStoreVersionCreateRequestRelationships are relationships for AppStoreVersionCreateRequest

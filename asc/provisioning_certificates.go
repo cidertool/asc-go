@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"time"
 )
 
 // CertificateType defines model for CertificateType.
@@ -44,7 +43,7 @@ type CertificateAttributes struct {
 	CertificateContent *string           `json:"certificateContent,omitempty"`
 	CertificateType    *CertificateType  `json:"certificateType,omitempty"`
 	DisplayName        *string           `json:"displayName,omitempty"`
-	ExpirationDate     *time.Time        `json:"expirationDate,omitempty"`
+	ExpirationDate     *DateTime         `json:"expirationDate,omitempty"`
 	Name               *string           `json:"name,omitempty"`
 	Platform           *BundleIDPlatform `json:"platform,omitempty"`
 	SerialNumber       *string           `json:"serialNumber,omitempty"`

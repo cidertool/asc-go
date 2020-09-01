@@ -3,7 +3,6 @@ package asc
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 // AppEncryptionDeclarationState defines model for AppEncryptionDeclarationState.
@@ -45,7 +44,7 @@ type AppEncryptionDeclarationAttributes struct {
 	DocumentURL                     *string                        `json:"documentUrl,omitempty"`
 	Exempt                          *bool                          `json:"exempt,omitempty"`
 	Platform                        *Platform                      `json:"platform,omitempty"`
-	UploadedDate                    *time.Time                     `json:"uploadedDate,omitempty"`
+	UploadedDate                    *DateTime                      `json:"uploadedDate,omitempty"`
 	UsesEncryption                  *bool                          `json:"usesEncryption,omitempty"`
 }
 
