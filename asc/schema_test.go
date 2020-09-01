@@ -56,6 +56,54 @@ func TestDateUnmarshalInvalidDate(t *testing.T) {
 	assert.Error(t, err)
 }
 
+type dateTimeContainer struct {
+	Field DateTime `json:"time"`
+}
+
+func newDateTimeContainer(year int, month time.Month, date int, hour int, min int, sec int, nsec int) dateTimeContainer {
+	return dateTimeContainer{
+		DateTime{
+			time.Date(year, month, date, hour, min, sec, nsec, time.UTC),
+		},
+	}
+}
+
+func dateTimeContainerJSON(dateTime string) string {
+	return fmt.Sprintf(`{"time":"%s"}`, dateTime)
+}
+
+func TestDateTimeMarshal(t *testing.T) {
+	want := dateTimeContainerJSON("2020-04-01T05:16:48.915+0000")
+	b := newDateTimeContainer(2020, 4, 1, 5, 16, 48, 915000000)
+	got, err := json.Marshal(b)
+	assert.NoError(t, err)
+	assert.JSONEq(t, want, string(got))
+}
+
+func TestDateTimeUnmarshal(t *testing.T) {
+	time.Local = time.UTC
+	want := time.Date(2020, 4, 1, 5, 16, 48, 915000000, time.Local)
+	jsonStr := dateTimeContainerJSON("2020-04-01T05:16:48.915+0000")
+	var b dateTimeContainer
+	err := json.Unmarshal([]byte(jsonStr), &b)
+	assert.NoError(t, err)
+	assert.Equal(t, b.Field.Time, want)
+}
+
+func TestDateTimeUnmarshalWrongType(t *testing.T) {
+	jsonStr := `{"time":-1}`
+	var b dateTimeContainer
+	err := json.Unmarshal([]byte(jsonStr), &b)
+	assert.Error(t, err)
+}
+
+func TestDateTimeUnmarshalInvalidDate(t *testing.T) {
+	jsonStr := dateTimeContainerJSON("TEST")
+	var b dateTimeContainer
+	err := json.Unmarshal([]byte(jsonStr), &b)
+	assert.Error(t, err)
+}
+
 type emailContainer struct {
 	Field Email `json:"email"`
 }
