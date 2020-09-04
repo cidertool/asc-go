@@ -195,7 +195,7 @@ func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, att
 		Type: "appStoreVersionLocalizations",
 	}
 	res := new(AppStoreVersionLocalizationResponse)
-	resp, err := s.client.post(ctx, "appStoreVersionLocalizations", req, res)
+	resp, err := s.client.post(ctx, "appStoreVersionLocalizations", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -210,7 +210,7 @@ func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id 
 	}
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

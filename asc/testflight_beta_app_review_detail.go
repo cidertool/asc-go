@@ -164,6 +164,6 @@ func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id st
 	}
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }

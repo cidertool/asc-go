@@ -133,7 +133,7 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, 
 		Type: "appScreenshots",
 	}
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.post(ctx, "appScreenshots", req, res)
+	resp, err := s.client.post(ctx, "appScreenshots", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -153,7 +153,7 @@ func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, upload
 	}
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

@@ -129,7 +129,7 @@ func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, b
 		Type: "betaAppReviewSubmissions",
 	}
 	res := new(BetaAppReviewSubmissionResponse)
-	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", req, res)
+	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", newRequestBody(req), res)
 	return res, resp, err
 }
 

@@ -110,7 +110,7 @@ func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, attribute
 		Type: "idfaDeclarations",
 	}
 	res := new(IDFADeclarationResponse)
-	resp, err := s.client.post(ctx, "idfaDeclarations", req, res)
+	resp, err := s.client.post(ctx, "idfaDeclarations", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -125,7 +125,7 @@ func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string
 	}
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

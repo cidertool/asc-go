@@ -154,7 +154,7 @@ func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, attributes 
 		Type: "appInfoLocalizations",
 	}
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.post(ctx, "appInfoLocalizations", req, res)
+	resp, err := s.client.post(ctx, "appInfoLocalizations", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -169,7 +169,7 @@ func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, 
 	}
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

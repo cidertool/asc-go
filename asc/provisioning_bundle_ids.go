@@ -172,7 +172,7 @@ func (s *ProvisioningService) CreateBundleID(ctx context.Context, attributes Bun
 		Type:       "bundleIds",
 	}
 	res := new(BundleIDResponse)
-	resp, err := s.client.post(ctx, "bundleIds", req, res)
+	resp, err := s.client.post(ctx, "bundleIds", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -191,7 +191,7 @@ func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, nam
 	}
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

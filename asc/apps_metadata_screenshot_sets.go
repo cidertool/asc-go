@@ -173,7 +173,7 @@ func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, screenshotDisp
 		Type: "appScreenshotSets",
 	}
 	res := new(AppScreenshotSetResponse)
-	resp, err := s.client.post(ctx, "appScreenshotSets", req, res)
+	resp, err := s.client.post(ctx, "appScreenshotSets", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -211,5 +211,5 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, appScreenshotIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appScreenshotIDs, "appScreenshots")
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
-	return s.client.patch(ctx, url, linkages, nil)
+	return s.client.patch(ctx, url, newRequestBody(linkages), nil)
 }

@@ -273,7 +273,7 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppS
 	}
 	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.post(ctx, url, req, res)
+	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -293,7 +293,7 @@ func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attr
 	}
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -322,7 +322,7 @@ func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id stri
 	linkage := newRelationshipDeclaration(buildID, "builds")
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
-	resp, err := s.client.patch(ctx, url, linkage, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(linkage), res)
 	return res, resp, err
 }
 

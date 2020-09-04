@@ -151,7 +151,7 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName strin
 		Type: "appStoreReviewAttachments",
 	}
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.post(ctx, "appStoreReviewAttachments", req, res)
+	resp, err := s.client.post(ctx, "appStoreReviewAttachments", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -171,7 +171,7 @@ func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, upl
 	}
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

@@ -186,7 +186,7 @@ func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, loc
 	}
 	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.post(ctx, url, req, res)
+	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -205,7 +205,7 @@ func (s *TestflightService) UpdateBetaBuildLocalization(ctx context.Context, id 
 	}
 	url := fmt.Sprintf("betaBuildLocalizations/%s", id)
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

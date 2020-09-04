@@ -120,7 +120,7 @@ func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, appI
 		Type: "endUserLicenseAgreements",
 	}
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.post(ctx, "endUserLicenseAgreements", req, res)
+	resp, err := s.client.post(ctx, "endUserLicenseAgreements", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -145,7 +145,7 @@ func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *
 	}
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

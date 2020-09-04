@@ -116,7 +116,7 @@ func (s *PublishingService) CreatePhasedRelease(ctx context.Context, phasedRelea
 		}
 	}
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", req, res)
+	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -135,7 +135,7 @@ func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, 
 	}
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

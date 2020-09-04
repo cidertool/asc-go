@@ -57,6 +57,6 @@ func (s *TestflightService) CreateBetaTesterInvitation(ctx context.Context, appI
 		Type: "betaTesterInvitations",
 	}
 	res := new(BetaTesterInvitationResponse)
-	resp, err := s.client.post(ctx, "betaTesterInvitations", req, res)
+	resp, err := s.client.post(ctx, "betaTesterInvitations", newRequestBody(req), res)
 	return res, resp, err
 }

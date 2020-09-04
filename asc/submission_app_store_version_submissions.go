@@ -70,7 +70,7 @@ func (s *SubmissionService) CreateSubmission(ctx context.Context, appStoreVersio
 		Type: "appStoreVersionSubmissions",
 	}
 	res := new(AppStoreVersionSubmissionResponse)
-	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", req, res)
+	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", newRequestBody(req), res)
 	return res, resp, err
 }
 

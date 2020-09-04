@@ -282,17 +282,71 @@ func (s *AppsService) GetApp(ctx context.Context, id string, params *GetAppQuery
 	return res, resp, err
 }
 
+// NewAppPriceRelationship models the parameters for a new app price relationship
+//
+// Set StartDate to nil if you want the price tier to take effect immediately.
+// Use the AppPriceTier methods on *PricingService to populate the PriceTierID value.
+type NewAppPriceRelationship struct {
+	StartDate   *Date
+	PriceTierID *string
+}
+
+type appPriceRelationship struct {
+	Type          string                            `json:"type"`
+	ID            string                            `json:"id"`
+	Attributes    appPriceRelationshipAttributes    `json:"attributes"`
+	Relationships appPriceRelationshipRelationships `json:"relationships"`
+}
+
+type appPriceRelationshipAttributes struct {
+	StartDate *Date `json:"startDate"`
+}
+
+type appPriceRelationshipRelationships struct {
+	PriceTier *relationshipDeclaration `json:"priceTier"`
+}
+
+func (r NewAppPriceRelationship) relationship(index int) appPriceRelationship {
+	return appPriceRelationship{
+		Type: "appPrices",
+		ID:   fmt.Sprintf("${new-price-%d}", index),
+		Attributes: appPriceRelationshipAttributes{
+			StartDate: r.StartDate,
+		},
+		Relationships: appPriceRelationshipRelationships{
+			PriceTier: newRelationshipDeclaration(r.PriceTierID, "priceTiers"),
+		},
+	}
+}
+
 // UpdateApp updates app information including bundle ID, primary locale, price schedule, and global availability.
 //
+// Note: The relationship behavior of this API is undocumented, outside of WWDC20 session 10004, "Expanding automation with the App Store Connect API".
+// Furthermore, changes made to app pricing and available territories take effect immediately. Take caution when testing this API against live apps.
+// If you discover any unusual behavior when customizing pricing relationships with this method, please file an issue.
+//
 // https://developer.apple.com/documentation/appstoreconnectapi/modify_an_app
-func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppUpdateRequestAttributes, availableTerritoryIDs []string, priceIDs []string) (*AppResponse, *Response, error) {
+// https://help.apple.com/app-store-connect/#/dev9fc06e23d
+// https://developer.apple.com/videos/play/wwdc2020/10004/
+func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppUpdateRequestAttributes, availableTerritoryIDs []string, appPriceRelationships []NewAppPriceRelationship) (*AppResponse, *Response, error) {
 	req := appUpdateRequest{
 		Attributes: attributes,
 		ID:         id,
 		Type:       "apps",
 	}
+
+	newAppPrices := make([]appPriceRelationship, len(appPriceRelationships))
+	priceIDs := make([]string, len(appPriceRelationships))
+
+	for i, rel := range appPriceRelationships {
+		rel := rel.relationship(i)
+		newAppPrices[i] = rel
+		priceIDs[i] = rel.ID
+	}
+
+	anyPrices := len(newAppPrices) > 0
 	anyTerritories := len(availableTerritoryIDs) > 0
-	anyPrices := len(priceIDs) > 0
+
 	if anyTerritories || anyPrices {
 		req.Relationships = &appUpdateRequestRelationships{}
 		if anyTerritories {
@@ -306,7 +360,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 	}
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBodyWithIncluded(req, newAppPrices), res)
 	return res, resp, err
 }
 
@@ -316,7 +370,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
-	return s.client.delete(ctx, url, linkages)
+	return s.client.delete(ctx, url, newRequestBody(linkages))
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.

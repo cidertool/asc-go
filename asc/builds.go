@@ -301,7 +301,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 	}
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
-	resp, err := s.client.post(ctx, url, req, res)
+	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -311,7 +311,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, appEncryptionDeclarationID *string) (*Response, error) {
 	linkage := newRelationshipDeclaration(appEncryptionDeclarationID, "builds")
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
-	return s.client.patch(ctx, url, linkage, nil)
+	return s.client.patch(ctx, url, newRequestBody(linkage), nil)
 }
 
 // CreateAccessForBetaGroupsToBuild adds or creates a beta group to a build to enable testing.
@@ -320,7 +320,7 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.post(ctx, url, linkages, nil)
+	return s.client.post(ctx, url, newRequestBody(linkages), nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
@@ -329,7 +329,7 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.delete(ctx, url, linkages)
+	return s.client.delete(ctx, url, newRequestBody(linkages))
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
@@ -338,7 +338,7 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.post(ctx, url, linkages, nil)
+	return s.client.post(ctx, url, newRequestBody(linkages), nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
@@ -347,7 +347,7 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.delete(ctx, url, linkages)
+	return s.client.delete(ctx, url, newRequestBody(linkages))
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.

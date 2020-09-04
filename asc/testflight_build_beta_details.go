@@ -194,6 +194,6 @@ func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string
 	}
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }

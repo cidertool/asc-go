@@ -158,7 +158,7 @@ func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationship
 	}
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

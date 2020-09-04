@@ -155,7 +155,7 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName str
 		Type: "routingAppCoverages",
 	}
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.post(ctx, "routingAppCoverages", req, res)
+	resp, err := s.client.post(ctx, "routingAppCoverages", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -175,7 +175,7 @@ func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, u
 	}
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

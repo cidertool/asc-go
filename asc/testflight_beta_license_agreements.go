@@ -154,6 +154,6 @@ func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id s
 	}
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }

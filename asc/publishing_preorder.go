@@ -132,7 +132,7 @@ func (s *PublishingService) CreatePreOrder(ctx context.Context, appReleaseDate *
 		}
 	}
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.post(ctx, "appPreOrders", req, res)
+	resp, err := s.client.post(ctx, "appPreOrders", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -151,7 +151,7 @@ func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, appRe
 	}
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

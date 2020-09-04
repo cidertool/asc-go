@@ -114,7 +114,7 @@ func (s *ProvisioningService) CreateDevice(ctx context.Context, name string, udi
 		Type: "devices",
 	}
 	res := new(DeviceResponse)
-	resp, err := s.client.post(ctx, "devices", req, res)
+	resp, err := s.client.post(ctx, "devices", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -153,6 +153,6 @@ func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, name 
 	}
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }

@@ -166,7 +166,7 @@ func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, pr
 		req.Relationships.Devices = &relationships
 	}
 	res := new(ProfileResponse)
-	resp, err := s.client.post(ctx, "profiles", req, res)
+	resp, err := s.client.post(ctx, "profiles", newRequestBody(req), res)
 	return res, resp, err
 }
 

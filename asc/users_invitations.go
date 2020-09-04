@@ -143,7 +143,7 @@ func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvi
 		}
 	}
 	res := new(UserInvitationResponse)
-	resp, err := s.client.post(ctx, "userInvitations", req, res)
+	resp, err := s.client.post(ctx, "userInvitations", newRequestBody(req), res)
 	return res, resp, err
 }
 

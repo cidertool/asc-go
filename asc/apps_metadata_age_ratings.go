@@ -93,6 +93,6 @@ func (s *AppsService) UpdateAgeRatingDeclaration(ctx context.Context, id string,
 	}
 	url := fmt.Sprintf("ageRatingDeclarations/%s", id)
 	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }

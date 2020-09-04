@@ -170,7 +170,7 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fil
 		Type: "appPreviews",
 	}
 	res := new(AppPreviewResponse)
-	resp, err := s.client.post(ctx, "appPreviews", req, res)
+	resp, err := s.client.post(ctx, "appPreviews", newRequestBody(req), res)
 	return res, resp, err
 }
 
@@ -191,7 +191,7 @@ func (s *AppsService) CommitAppPreview(ctx context.Context, id string, uploaded 
 	}
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
-	resp, err := s.client.patch(ctx, url, req, res)
+	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
 	return res, resp, err
 }
 

@@ -123,7 +123,7 @@ func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificate
 		Type: "certificates",
 	}
 	res := new(CertificateResponse)
-	resp, err := s.client.post(ctx, "certificates", req, res)
+	resp, err := s.client.post(ctx, "certificates", newRequestBody(req), res)
 	return res, resp, err
 }
 

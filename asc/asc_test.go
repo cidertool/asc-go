@@ -116,7 +116,7 @@ func TestPost(t *testing.T) {
 	body := mockBody{"TEST"}
 
 	var unmarshaled mockPayload
-	resp, err := client.post(context.Background(), "test", &body, &unmarshaled)
+	resp, err := client.post(context.Background(), "test", newRequestBody(body), &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -131,7 +131,7 @@ func TestPatch(t *testing.T) {
 	body := mockBody{"TEST"}
 
 	var unmarshaled mockPayload
-	resp, err := client.patch(context.Background(), "test", &body, &unmarshaled)
+	resp, err := client.patch(context.Background(), "test", newRequestBody(body), &unmarshaled)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
@@ -145,7 +145,7 @@ func TestDelete(t *testing.T) {
 
 	body := mockBody{"TEST"}
 
-	resp, err := client.delete(context.Background(), "test", &body)
+	resp, err := client.delete(context.Background(), "test", newRequestBody(body))
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
