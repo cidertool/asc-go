@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -26,11 +27,12 @@ const (
 	headerRateLimit = "X-Rate-Limit"
 )
 
+// nolint: gochecknoglobals
 var (
 	httpDebug = false
 )
 
-// Client is the root instance of the App Store Connect API
+// Client is the root instance of the App Store Connect API.
 type Client struct {
 	client    *http.Client
 	baseURL   *url.URL
@@ -49,7 +51,7 @@ type Client struct {
 	Users        *UsersService
 }
 
-// NewClient creates a new Client instance
+// NewClient creates a new Client instance.
 func NewClient(httpClient *http.Client) *Client {
 	if httpClient == nil {
 		httpClient = &http.Client{}
@@ -77,7 +79,7 @@ func NewClient(httpClient *http.Client) *Client {
 	return c
 }
 
-// SetHTTPDebug this enables global http request/response dumping for this API
+// SetHTTPDebug this enables global http request/response dumping for this API.
 func SetHTTPDebug(flag bool) {
 	httpDebug = flag
 }
@@ -108,7 +110,7 @@ type ErrorResponse struct {
 	Errors   []ErrorResponseError `json:"errors,omitempty"`
 }
 
-// ErrorResponseError is a model used in ErrorResponse to describe a single error from the API
+// ErrorResponseError is a model used in ErrorResponse to describe a single error from the API.
 type ErrorResponseError struct {
 	// Code is a machine-readable indication of the type of error. The code is a hierarchical
 	// value with levels of specificity separated by the '.' character. This value is parseable
@@ -146,7 +148,7 @@ type service struct {
 	client *Client
 }
 
-// request is a common structure for a request body sent to the API
+// request is a common structure for a request body sent to the API.
 type requestBody struct {
 	Data     interface{} `json:"data"`
 	Included interface{} `json:"included,omitempty"`
@@ -202,7 +204,7 @@ func appendingQueryOptions(s string, opt interface{}) (string, error) {
 	return u.String(), nil
 }
 
-// get sends a GET request to the API as configured
+// get sends a GET request to the API as configured.
 func (c *Client) get(ctx context.Context, url string, query interface{}, v interface{}, options ...requestOption) (*Response, error) {
 	var err error
 	if query != nil {
@@ -224,7 +226,7 @@ func (c *Client) get(ctx context.Context, url string, query interface{}, v inter
 	return resp, err
 }
 
-// post sends a POST request to the API as configured
+// post sends a POST request to the API as configured.
 func (c *Client) post(ctx context.Context, url string, body *requestBody, v interface{}) (*Response, error) {
 	req, err := c.newRequest(ctx, "POST", url, body, withContentType("application/json"))
 	if err != nil {
@@ -237,7 +239,7 @@ func (c *Client) post(ctx context.Context, url string, body *requestBody, v inte
 	return resp, err
 }
 
-// patch sends a PATCH request to the API as configured
+// patch sends a PATCH request to the API as configured.
 func (c *Client) patch(ctx context.Context, url string, body *requestBody, v interface{}) (*Response, error) {
 	req, err := c.newRequest(ctx, "PATCH", url, body, withContentType("application/json"))
 	if err != nil {
@@ -250,7 +252,7 @@ func (c *Client) patch(ctx context.Context, url string, body *requestBody, v int
 	return resp, err
 }
 
-// delete sends a DELETE request to the API as configured
+// delete sends a DELETE request to the API as configured.
 func (c *Client) delete(ctx context.Context, url string, body *requestBody) (*Response, error) {
 	req, err := c.newRequest(ctx, "DELETE", url, body, withContentType("application/json"))
 	if err != nil {
@@ -305,7 +307,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 			}
 		}
 
-		resp, err := c.client.Do(req)
+		resp, err := c.client.Do(req) // nolint: bodyclose
 		if err != nil {
 			select {
 			case <-ctx.Done():
@@ -334,7 +336,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 	err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify)
 
 	resp := <-respCh
-	defer resp.Body.Close()
+	defer closeDesc(resp.Body)
 	response := newResponse(resp)
 
 	if err != nil {
@@ -369,7 +371,10 @@ func checkResponse(r *Response) error {
 	data, err := ioutil.ReadAll(r.Body)
 	erro := new(ErrorResponse)
 	if err == nil && data != nil {
-		json.Unmarshal(data, erro)
+		err := json.Unmarshal(data, erro)
+		if err != nil {
+			return err
+		}
 	}
 	erro.Response = r.Response
 	return erro
@@ -419,4 +424,12 @@ func (e ErrorResponse) Error() string {
 		e.Response.StatusCode,
 		report.String(),
 	)
+}
+
+// Close closes an open descriptor.
+func closeDesc(c io.Closer) {
+	err := c.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

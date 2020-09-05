@@ -10,13 +10,17 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/iconassettype
 type IconAssetType string
 
-// List of IconAssetType
 const (
-	IconAssetTypeAppStore         IconAssetType = "APP_STORE"
+	// IconAssetTypeAppStore is an icon asset type for AppStore.
+	IconAssetTypeAppStore IconAssetType = "APP_STORE"
+	// IconAssetTypeMessagesAppStore is an icon asset type for MessagesAppStore.
 	IconAssetTypeMessagesAppStore IconAssetType = "MESSAGES_APP_STORE"
-	IconAssetTypeTVOSHomeScreen   IconAssetType = "TV_OS_HOME_SCREEN"
-	IconAssetTypeTVOSTopShelf     IconAssetType = "TV_OS_TOP_SHELF"
-	IconAssetTypeWatchAppStore    IconAssetType = "WATCH_APP_STORE"
+	// IconAssetTypeTVOSHomeScreen is an icon asset type for TVOSHomeScreen.
+	IconAssetTypeTVOSHomeScreen IconAssetType = "TV_OS_HOME_SCREEN"
+	// IconAssetTypeTVOSTopShelf is an icon asset type for TVOSTopShelf.
+	IconAssetTypeTVOSTopShelf IconAssetType = "TV_OS_TOP_SHELF"
+	// IconAssetTypeWatchAppStore is an icon asset type for WatchAppStore.
+	IconAssetTypeWatchAppStore IconAssetType = "WATCH_APP_STORE"
 )
 
 // BuildIcon defines model for BuildIcon.

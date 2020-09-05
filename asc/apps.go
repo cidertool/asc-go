@@ -16,11 +16,13 @@ type AppsService service
 // https://developer.apple.com/documentation/appstoreconnectapi/platform
 type Platform string
 
-// List of Platform
 const (
-	PlatformIOS   Platform = "IOS"
+	// PlatformIOS is for an app on iOS.
+	PlatformIOS Platform = "IOS"
+	// PlatformMACOS is for an app on macOS.
 	PlatformMACOS Platform = "MAC_OS"
-	PlatformTVOS  Platform = "TV_OS"
+	// PlatformTVOS is for an app on tvOS.
+	PlatformTVOS Platform = "TV_OS"
 )
 
 // App defines model for App.

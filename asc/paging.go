@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-// Reference is a wrapper type for a URL that contains a cursor parameter
+// Reference is a wrapper type for a URL that contains a cursor parameter.
 type Reference struct {
 	url.URL
 }
@@ -15,12 +15,12 @@ func (r Reference) Cursor() string {
 	return r.Query().Get("cursor")
 }
 
-// MarshalJSON marshals the Reference into a JSON fragment
+// MarshalJSON marshals the Reference into a JSON fragment.
 func (r Reference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(r.String())
 }
 
-// UnmarshalJSON unmarshals the JSON fragment into a Reference
+// UnmarshalJSON unmarshals the JSON fragment into a Reference.
 func (r *Reference) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -61,37 +61,37 @@ type DocumentLinks struct {
 	Self Reference `json:"self"`
 }
 
-// Relationship contains data about a related resources as well as API references that can be followed
+// Relationship contains data about a related resources as well as API references that can be followed.
 type Relationship struct {
 	Data  *RelationshipData  `json:"data,omitempty"`
 	Links *RelationshipLinks `json:"links,omitempty"`
 }
 
-// PagedRelationship is a relationship to multiple resources that have paging information
+// PagedRelationship is a relationship to multiple resources that have paging information.
 type PagedRelationship struct {
 	Data  []RelationshipData `json:"data,omitempty"`
 	Links *RelationshipLinks `json:"links,omitempty"`
 	Meta  *PagingInformation `json:"meta,omitempty"`
 }
 
-// RelationshipData contains data on the given relationship
+// RelationshipData contains data on the given relationship.
 type RelationshipData struct {
 	ID   string `json:"id"`
 	Type string `json:"type"`
 }
 
-// RelationshipLinks contains links on the given relationship
+// RelationshipLinks contains links on the given relationship.
 type RelationshipLinks struct {
 	Related *Reference `json:"related,omitempty"`
 	Self    *Reference `json:"self,omitempty"`
 }
 
-// relationshipDeclaration represents a declared relationship to a single resource
+// relationshipDeclaration represents a declared relationship to a single resource.
 type relationshipDeclaration struct {
 	Data RelationshipData `json:"data"`
 }
 
-// pagedRelationshipDeclaration represents a declared relationship to multiple resources
+// pagedRelationshipDeclaration represents a declared relationship to multiple resources.
 type pagedRelationshipDeclaration struct {
 	Data []RelationshipData `json:"data"`
 }

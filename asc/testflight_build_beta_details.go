@@ -10,20 +10,31 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/externalbetastate
 type ExternalBetaState string
 
-// List of ExternalBetaState
 const (
-	ExternalBetaStateApproved                 ExternalBetaState = "BETA_APPROVED"
-	ExternalBetaStateRejected                 ExternalBetaState = "BETA_REJECTED"
-	ExternalBetaStateExpired                  ExternalBetaState = "EXPIRED"
-	ExternalBetaStateInReview                 ExternalBetaState = "IN_BETA_REVIEW"
-	ExternalBetaStateInTesting                ExternalBetaState = "IN_BETA_TESTING"
+	// ExternalBetaStateApproved is an external beta state for Approved.
+	ExternalBetaStateApproved ExternalBetaState = "BETA_APPROVED"
+	// ExternalBetaStateRejected is an external beta state for Rejected.
+	ExternalBetaStateRejected ExternalBetaState = "BETA_REJECTED"
+	// ExternalBetaStateExpired is an external beta state for Expired.
+	ExternalBetaStateExpired ExternalBetaState = "EXPIRED"
+	// ExternalBetaStateInReview is an external beta state for InReview.
+	ExternalBetaStateInReview ExternalBetaState = "IN_BETA_REVIEW"
+	// ExternalBetaStateInTesting is an external beta state for InTesting.
+	ExternalBetaStateInTesting ExternalBetaState = "IN_BETA_TESTING"
+	// ExternalBetaStateInExportComplianceReview is an external beta state for InExportComplianceReview.
 	ExternalBetaStateInExportComplianceReview ExternalBetaState = "IN_EXPORT_COMPLIANCE_REVIEW"
-	ExternalBetaStateMissingExportCompliance  ExternalBetaState = "MISSING_EXPORT_COMPLIANCE"
-	ExternalBetaStateProcessing               ExternalBetaState = "PROCESSING"
-	ExternalBetaStateProcessingException      ExternalBetaState = "PROCESSING_EXCEPTION"
-	ExternalBetaStateReadyForBetaSubmission   ExternalBetaState = "READY_FOR_BETA_SUBMISSION"
-	ExternalBetaStateReadyForBetaTesting      ExternalBetaState = "READY_FOR_BETA_TESTING"
-	ExternalBetaStateWaitingForBetaReview     ExternalBetaState = "WAITING_FOR_BETA_REVIEW"
+	// ExternalBetaStateMissingExportCompliance is an external beta state for MissingExportCompliance.
+	ExternalBetaStateMissingExportCompliance ExternalBetaState = "MISSING_EXPORT_COMPLIANCE"
+	// ExternalBetaStateProcessing is an external beta state for Processing.
+	ExternalBetaStateProcessing ExternalBetaState = "PROCESSING"
+	// ExternalBetaStateProcessingException is an external beta state for ProcessingException.
+	ExternalBetaStateProcessingException ExternalBetaState = "PROCESSING_EXCEPTION"
+	// ExternalBetaStateReadyForBetaSubmission is an external beta state for ReadyForBetaSubmission.
+	ExternalBetaStateReadyForBetaSubmission ExternalBetaState = "READY_FOR_BETA_SUBMISSION"
+	// ExternalBetaStateReadyForBetaTesting is an external beta state for ReadyForBetaTesting.
+	ExternalBetaStateReadyForBetaTesting ExternalBetaState = "READY_FOR_BETA_TESTING"
+	// ExternalBetaStateWaitingForBetaReview is an external beta state for WaitingForBetaReview.
+	ExternalBetaStateWaitingForBetaReview ExternalBetaState = "WAITING_FOR_BETA_REVIEW"
 )
 
 // InternalBetaState defines model for InternalBetaState.
@@ -31,15 +42,21 @@ const (
 // https://developer.apple.com/documentation/appstoreconnectapi/internalbetastate
 type InternalBetaState string
 
-// List of InternalBetaState
 const (
-	InternalBetaStateExpired                  InternalBetaState = "EXPIRED"
-	InternalBetaStateInTesting                InternalBetaState = "IN_BETA_TESTING"
+	// InternalBetaStateExpired is an internal beta state for Expired.
+	InternalBetaStateExpired InternalBetaState = "EXPIRED"
+	// InternalBetaStateInTesting is an internal beta state for InTesting.
+	InternalBetaStateInTesting InternalBetaState = "IN_BETA_TESTING"
+	// InternalBetaStateInExportComplianceReview is an internal beta state for InExportComplianceReview.
 	InternalBetaStateInExportComplianceReview InternalBetaState = "IN_EXPORT_COMPLIANCE_REVIEW"
-	InternalBetaStateMissingExportCompliance  InternalBetaState = "MISSING_EXPORT_COMPLIANCE"
-	InternalBetaStateProcessing               InternalBetaState = "PROCESSING"
-	InternalBetaStateProcessingException      InternalBetaState = "PROCESSING_EXCEPTION"
-	InternalBetaStateReadyForBetaTesting      InternalBetaState = "READY_FOR_BETA_TESTING"
+	// InternalBetaStateMissingExportCompliance is an internal beta state for MissingExportCompliance.
+	InternalBetaStateMissingExportCompliance InternalBetaState = "MISSING_EXPORT_COMPLIANCE"
+	// InternalBetaStateProcessing is an internal beta state for Processing.
+	InternalBetaStateProcessing InternalBetaState = "PROCESSING"
+	// InternalBetaStateProcessingException is an internal beta state for ProcessingException.
+	InternalBetaStateProcessingException InternalBetaState = "PROCESSING_EXCEPTION"
+	// InternalBetaStateReadyForBetaTesting is an internal beta state for ReadyForBetaTesting.
+	InternalBetaStateReadyForBetaTesting InternalBetaState = "READY_FOR_BETA_TESTING"
 )
 
 // BuildBetaDetail defines model for BuildBetaDetail.

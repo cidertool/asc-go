@@ -10,23 +10,37 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/previewtype
 type PreviewType string
 
-// List of PreviewType
 const (
-	PreviewTypeAppleTV        PreviewType = "APPLE_TV"
-	PreviewTypeDesktop        PreviewType = "DESKTOP"
-	PreviewTypeiPad105        PreviewType = "IPAD_105"
-	PreviewTypeiPad97         PreviewType = "IPAD_97"
-	PreviewTypeiPadPro129     PreviewType = "IPAD_PRO_129"
-	PreviewTypeiPadPro3Gen11  PreviewType = "IPAD_PRO_3GEN_11"
+	// PreviewTypeAppleTV is a preview type for Apple TV.
+	PreviewTypeAppleTV PreviewType = "APPLE_TV"
+	// PreviewTypeDesktop is a preview type for Desktop.
+	PreviewTypeDesktop PreviewType = "DESKTOP"
+	// PreviewTypeiPad105 is a preview type for iPad 10.5".
+	PreviewTypeiPad105 PreviewType = "IPAD_105"
+	// PreviewTypeiPad97 is a preview type for iPad 9.7".
+	PreviewTypeiPad97 PreviewType = "IPAD_97"
+	// PreviewTypeiPadPro129 is a preview type for iPad Pro 12.9".
+	PreviewTypeiPadPro129 PreviewType = "IPAD_PRO_129"
+	// PreviewTypeiPadPro3Gen11 is a preview type for iPad Pro 3rd Gen 11".
+	PreviewTypeiPadPro3Gen11 PreviewType = "IPAD_PRO_3GEN_11"
+	// PreviewTypeiPadPro3Gen129 is a preview type for iPad Pro 3rd Gen 12.9".
 	PreviewTypeiPadPro3Gen129 PreviewType = "IPAD_PRO_3GEN_129"
-	PreviewTypeiPhone35       PreviewType = "IPHONE_35"
-	PreviewTypeiPhone40       PreviewType = "IPHONE_40"
-	PreviewTypeiPhone47       PreviewType = "IPHONE_47"
-	PreviewTypeiPhone55       PreviewType = "IPHONE_55"
-	PreviewTypeiPhone58       PreviewType = "IPHONE_58"
-	PreviewTypeiPhone65       PreviewType = "IPHONE_65"
-	PreviewTypeWatchSeries3   PreviewType = "WATCH_SERIES_3"
-	PreviewTypeWatchSeries4   PreviewType = "WATCH_SERIES_4"
+	// PreviewTypeiPhone35 is a preview type for iPhone 3.5".
+	PreviewTypeiPhone35 PreviewType = "IPHONE_35"
+	// PreviewTypeiPhone40 is a preview type for iPhone 4".
+	PreviewTypeiPhone40 PreviewType = "IPHONE_40"
+	// PreviewTypeiPhone47 is a preview type for iPhone 4.7".
+	PreviewTypeiPhone47 PreviewType = "IPHONE_47"
+	// PreviewTypeiPhone55 is a preview type for iPhone 5.5".
+	PreviewTypeiPhone55 PreviewType = "IPHONE_55"
+	// PreviewTypeiPhone58 is a preview type for iPhone 5.8".
+	PreviewTypeiPhone58 PreviewType = "IPHONE_58"
+	// PreviewTypeiPhone65 is a preview type for iPhone 6.5".
+	PreviewTypeiPhone65 PreviewType = "IPHONE_65"
+	// PreviewTypeWatchSeries3 is a preview type for Apple Watch Series 3.
+	PreviewTypeWatchSeries3 PreviewType = "WATCH_SERIES_3"
+	// PreviewTypeWatchSeries4 is a preview type for Apple Watch Series 4.
+	PreviewTypeWatchSeries4 PreviewType = "WATCH_SERIES_4"
 )
 
 // AppPreview defines model for AppPreview.

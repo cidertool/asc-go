@@ -13,16 +13,24 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/certificatetype
 type CertificateType string
 
-// List of CertificateType
 const (
-	CertificateTypeDeveloperIDApplication   CertificateType = "DEVELOPER_ID_APPLICATION"
-	CertificateTypeDeveloperIDKext          CertificateType = "DEVELOPER_ID_KEXT"
-	CertificateTypeDevelopment              CertificateType = "DEVELOPMENT"
-	CertificateTypeDistribution             CertificateType = "DISTRIBUTION"
-	CertificateTypeiOSDevelopment           CertificateType = "IOS_DEVELOPMENT"
-	CertificateTypeiOSDistribution          CertificateType = "IOS_DISTRIBUTION"
-	CertificateTypeMacAppDevelopment        CertificateType = "MAC_APP_DEVELOPMENT"
-	CertificateTypeMacAppDistribution       CertificateType = "MAC_APP_DISTRIBUTION"
+	// CertificateTypeDeveloperIDApplication is a certificate type for DeveloperIDApplication.
+	CertificateTypeDeveloperIDApplication CertificateType = "DEVELOPER_ID_APPLICATION"
+	// CertificateTypeDeveloperIDKext is a certificate type for DeveloperIDKext.
+	CertificateTypeDeveloperIDKext CertificateType = "DEVELOPER_ID_KEXT"
+	// CertificateTypeDevelopment is a certificate type for Development.
+	CertificateTypeDevelopment CertificateType = "DEVELOPMENT"
+	// CertificateTypeDistribution is a certificate type for Distribution.
+	CertificateTypeDistribution CertificateType = "DISTRIBUTION"
+	// CertificateTypeiOSDevelopment is a certificate type for iOSDevelopment.
+	CertificateTypeiOSDevelopment CertificateType = "IOS_DEVELOPMENT"
+	// CertificateTypeiOSDistribution is a certificate type for iOSDistribution.
+	CertificateTypeiOSDistribution CertificateType = "IOS_DISTRIBUTION"
+	// CertificateTypeMacAppDevelopment is a certificate type for MacAppDevelopment.
+	CertificateTypeMacAppDevelopment CertificateType = "MAC_APP_DEVELOPMENT"
+	// CertificateTypeMacAppDistribution is a certificate type for MacAppDistribution.
+	CertificateTypeMacAppDistribution CertificateType = "MAC_APP_DISTRIBUTION"
+	// CertificateTypeMacInstallerDistribution is a certificate type for MacInstallerDistribution.
 	CertificateTypeMacInstallerDistribution CertificateType = "MAC_INSTALLER_DISTRIBUTION"
 )
 

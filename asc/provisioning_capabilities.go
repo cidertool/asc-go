@@ -10,35 +10,62 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/capabilitytype
 type CapabilityType string
 
-// List of CapabilityType
 const (
-	CapabilityTypeAccessWifiInformation          CapabilityType = "ACCESS_WIFI_INFORMATION"
-	CapabilityTypeAppleIDAuth                    CapabilityType = "APPLE_ID_AUTH"
-	CapabilityTypeApplePay                       CapabilityType = "APPLE_PAY"
-	CapabilityTypeAppGroups                      CapabilityType = "APP_GROUPS"
-	CapabilityTypeAssociatedDomains              CapabilityType = "ASSOCIATED_DOMAINS"
-	CapabilityTypeAutoFillCredentialProvider     CapabilityType = "AUTOFILL_CREDENTIAL_PROVIDER"
-	CapabilityTypeClassKit                       CapabilityType = "CLASSKIT"
-	CapabilityTypeCoreMediaHLSLowLatency         CapabilityType = "COREMEDIA_HLS_LOW_LATENCY"
-	CapabilityTypeDataProtection                 CapabilityType = "DATA_PROTECTION"
-	CapabilityTypeGameCenter                     CapabilityType = "GAME_CENTER"
-	CapabilityTypeHealthKit                      CapabilityType = "HEALTHKIT"
-	CapabilityTypeHomeKit                        CapabilityType = "HOMEKIT"
-	CapabilityTypeHotSpot                        CapabilityType = "HOT_SPOT"
-	CapabilityTypeiCloud                         CapabilityType = "ICLOUD"
-	CapabilityTypeInterAppAudio                  CapabilityType = "INTER_APP_AUDIO"
-	CapabilityTypeInAppPurchase                  CapabilityType = "IN_APP_PURCHASE"
-	CapabilityTypeMaps                           CapabilityType = "MAPS"
-	CapabilityTypeMultipath                      CapabilityType = "MULTIPATH"
-	CapabilityTypeNetworkCustomProtocol          CapabilityType = "NETWORK_CUSTOM_PROTOCOL"
-	CapabilityTypeNetworkExtensions              CapabilityType = "NETWORK_EXTENSIONS"
-	CapabilityTypeNFCTagReading                  CapabilityType = "NFC_TAG_READING"
-	CapabilityTypePersonalVPN                    CapabilityType = "PERSONAL_VPN"
-	CapabilityTypePushNotifications              CapabilityType = "PUSH_NOTIFICATIONS"
-	CapabilityTypeSiriKit                        CapabilityType = "SIRIKIT"
-	CapabilityTypeSystemExtensionInstall         CapabilityType = "SYSTEM_EXTENSION_INSTALL"
-	CapabilityTypeUserManagement                 CapabilityType = "USER_MANAGEMENT"
-	CapabilityTypeWallet                         CapabilityType = "WALLET"
+	// CapabilityTypeAccessWifiInformation is a capability type for AccessWifiInformation.
+	CapabilityTypeAccessWifiInformation CapabilityType = "ACCESS_WIFI_INFORMATION"
+	// CapabilityTypeAppleIDAuth is a capability type for AppleIDAuth.
+	CapabilityTypeAppleIDAuth CapabilityType = "APPLE_ID_AUTH"
+	// CapabilityTypeApplePay is a capability type for ApplePay.
+	CapabilityTypeApplePay CapabilityType = "APPLE_PAY"
+	// CapabilityTypeAppGroups is a capability type for AppGroups.
+	CapabilityTypeAppGroups CapabilityType = "APP_GROUPS"
+	// CapabilityTypeAssociatedDomains is a capability type for AssociatedDomains.
+	CapabilityTypeAssociatedDomains CapabilityType = "ASSOCIATED_DOMAINS"
+	// CapabilityTypeAutoFillCredentialProvider is a capability type for AutoFillCredentialProvider.
+	CapabilityTypeAutoFillCredentialProvider CapabilityType = "AUTOFILL_CREDENTIAL_PROVIDER"
+	// CapabilityTypeClassKit is a capability type for ClassKit.
+	CapabilityTypeClassKit CapabilityType = "CLASSKIT"
+	// CapabilityTypeCoreMediaHLSLowLatency is a capability type for CoreMediaHLSLowLatency.
+	CapabilityTypeCoreMediaHLSLowLatency CapabilityType = "COREMEDIA_HLS_LOW_LATENCY"
+	// CapabilityTypeDataProtection is a capability type for DataProtection.
+	CapabilityTypeDataProtection CapabilityType = "DATA_PROTECTION"
+	// CapabilityTypeGameCenter is a capability type for GameCenter.
+	CapabilityTypeGameCenter CapabilityType = "GAME_CENTER"
+	// CapabilityTypeHealthKit is a capability type for HealthKit.
+	CapabilityTypeHealthKit CapabilityType = "HEALTHKIT"
+	// CapabilityTypeHomeKit is a capability type for HomeKit.
+	CapabilityTypeHomeKit CapabilityType = "HOMEKIT"
+	// CapabilityTypeHotSpot is a capability type for HotSpot.
+	CapabilityTypeHotSpot CapabilityType = "HOT_SPOT"
+	// CapabilityTypeiCloud is a capability type for iCloud.
+	CapabilityTypeiCloud CapabilityType = "ICLOUD"
+	// CapabilityTypeInterAppAudio is a capability type for InterAppAudio.
+	CapabilityTypeInterAppAudio CapabilityType = "INTER_APP_AUDIO"
+	// CapabilityTypeInAppPurchase is a capability type for InAppPurchase.
+	CapabilityTypeInAppPurchase CapabilityType = "IN_APP_PURCHASE"
+	// CapabilityTypeMaps is a capability type for Maps.
+	CapabilityTypeMaps CapabilityType = "MAPS"
+	// CapabilityTypeMultipath is a capability type for Multipath.
+	CapabilityTypeMultipath CapabilityType = "MULTIPATH"
+	// CapabilityTypeNetworkCustomProtocol is a capability type for NetworkCustomProtocol.
+	CapabilityTypeNetworkCustomProtocol CapabilityType = "NETWORK_CUSTOM_PROTOCOL"
+	// CapabilityTypeNetworkExtensions is a capability type for NetworkExtensions.
+	CapabilityTypeNetworkExtensions CapabilityType = "NETWORK_EXTENSIONS"
+	// CapabilityTypeNFCTagReading is a capability type for NFCTagReading.
+	CapabilityTypeNFCTagReading CapabilityType = "NFC_TAG_READING"
+	// CapabilityTypePersonalVPN is a capability type for PersonalVPN.
+	CapabilityTypePersonalVPN CapabilityType = "PERSONAL_VPN"
+	// CapabilityTypePushNotifications is a capability type for PushNotifications.
+	CapabilityTypePushNotifications CapabilityType = "PUSH_NOTIFICATIONS"
+	// CapabilityTypeSiriKit is a capability type for SiriKit.
+	CapabilityTypeSiriKit CapabilityType = "SIRIKIT"
+	// CapabilityTypeSystemExtensionInstall is a capability type for SystemExtensionInstall.
+	CapabilityTypeSystemExtensionInstall CapabilityType = "SYSTEM_EXTENSION_INSTALL"
+	// CapabilityTypeUserManagement is a capability type for UserManagement.
+	CapabilityTypeUserManagement CapabilityType = "USER_MANAGEMENT"
+	// CapabilityTypeWallet is a capability type for Wallet.
+	CapabilityTypeWallet CapabilityType = "WALLET"
+	// CapabilityTypeWirelessAccessoryConfiguration is a capability type for WirelessAccessoryConfiguration.
 	CapabilityTypeWirelessAccessoryConfiguration CapabilityType = "WIRELESS_ACCESSORY_CONFIGURATION"
 )
 

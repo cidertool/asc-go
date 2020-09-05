@@ -184,9 +184,8 @@ func (s *TestflightService) CreateBetaBuildLocalization(ctx context.Context, loc
 		},
 		Type: "betaBuildLocalizations",
 	}
-	url := fmt.Sprintf("betaBuildLocalizations")
 	res := new(BetaBuildLocalizationResponse)
-	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
+	resp, err := s.client.post(ctx, "betaBuildLocalizations", newRequestBody(req), res)
 	return res, resp, err
 }
 

@@ -47,7 +47,7 @@ type appPreOrderCreateRequestAttributes struct {
 	AppReleaseDate *Date `json:"appReleaseDate,omitempty"`
 }
 
-// AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest
+// AppPreOrderCreateRequestRelationships are relationships for AppPreOrderCreateRequest.
 type appPreOrderCreateRequestRelationships struct {
 	App relationshipDeclaration `json:"app"`
 }

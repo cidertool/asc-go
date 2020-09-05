@@ -10,12 +10,16 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/appencryptiondeclarationstate
 type AppEncryptionDeclarationState string
 
-// List of AppEncryptionDeclarationState
 const (
+	// AppEncryptionDeclarationStateApproved is an app encryption declaration state type for Approved.
 	AppEncryptionDeclarationStateApproved AppEncryptionDeclarationState = "APPROVED"
-	AppEncryptionDeclarationStateExpired  AppEncryptionDeclarationState = "EXPIRED"
-	AppEncryptionDeclarationStateInvalid  AppEncryptionDeclarationState = "INVALID"
+	// AppEncryptionDeclarationStateExpired is an app encryption declaration state type for Expired.
+	AppEncryptionDeclarationStateExpired AppEncryptionDeclarationState = "EXPIRED"
+	// AppEncryptionDeclarationStateInvalid is an app encryption declaration state type for Invalid.
+	AppEncryptionDeclarationStateInvalid AppEncryptionDeclarationState = "INVALID"
+	// AppEncryptionDeclarationStateInReview is an app encryption declaration state type for InReview.
 	AppEncryptionDeclarationStateInReview AppEncryptionDeclarationState = "IN_REVIEW"
+	// AppEncryptionDeclarationStateRejected is an app encryption declaration state type for Rejected.
 	AppEncryptionDeclarationStateRejected AppEncryptionDeclarationState = "REJECTED"
 )
 

@@ -67,7 +67,7 @@ type ListGameCenterEnabledVersionsForAppQuery struct {
 	Cursor                          string   `url:"cursor,omitempty"`
 }
 
-// ListCompatibleVersionsForGameCenterEnabledVersionQuery are query options for ListCompatibleVersionsForGameCenterEnabledVersion
+// ListCompatibleVersionsForGameCenterEnabledVersionQuery are query options for ListCompatibleVersionsForGameCenterEnabledVersion.
 type ListCompatibleVersionsForGameCenterEnabledVersionQuery struct {
 	FieldsApps                      []string `url:"fields[apps],omitempty"`
 	FieldsGameCenterEnabledVersions []string `url:"fields[gameCenterEnabledVersions],omitempty"`

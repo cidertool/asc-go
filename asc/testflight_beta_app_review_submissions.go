@@ -10,11 +10,14 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/betareviewstate
 type BetaReviewState string
 
-// List of BetaReviewState
 const (
-	BetaReviewStateApproved         BetaReviewState = "APPROVED"
-	BetaReviewStateInReview         BetaReviewState = "IN_REVIEW"
-	BetaReviewStateRejected         BetaReviewState = "REJECTED"
+	// BetaReviewStateApproved is a beta review satte for Approved.
+	BetaReviewStateApproved BetaReviewState = "APPROVED"
+	// BetaReviewStateInReview is a beta review satte for InReview.
+	BetaReviewStateInReview BetaReviewState = "IN_REVIEW"
+	// BetaReviewStateRejected is a beta review satte for Rejected.
+	BetaReviewStateRejected BetaReviewState = "REJECTED"
+	// BetaReviewStateWaitingForReview is a beta review satte for WaitingForReview.
 	BetaReviewStateWaitingForReview BetaReviewState = "WAITING_FOR_REVIEW"
 )
 
