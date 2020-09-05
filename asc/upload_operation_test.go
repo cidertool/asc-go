@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
+	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"testing"
@@ -160,6 +160,6 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 func rmFile(f *os.File) {
 	err := os.Remove(f.Name())
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
