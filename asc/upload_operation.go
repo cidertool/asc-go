@@ -6,7 +6,6 @@ import (
 	"errors"
 	"io"
 	"net/http"
-	"os"
 	"sync"
 )
 
@@ -41,8 +40,8 @@ func (e UploadOperationError) Error() string {
 	return e.Err.Error()
 }
 
-// chunk returns the bytes in the file from the given offset and with the given length
-func (op *UploadOperation) chunk(f *os.File) (io.Reader, error) {
+// chunk returns the bytes in the file from the given offset and with the given length.
+func (op *UploadOperation) chunk(f io.ReadSeeker) (io.Reader, error) {
 	if op.Offset == nil || op.Length == nil {
 		return nil, errors.New("could not establish bounds of upload operation")
 	}
@@ -58,7 +57,7 @@ func (op *UploadOperation) chunk(f *os.File) (io.Reader, error) {
 	return bytes.NewBuffer(data), nil
 }
 
-// request creates a new http.request instance from the given UploadOperation and buffer
+// request creates a new http.request instance from the given UploadOperation and buffer.
 func (op *UploadOperation) request(ctx context.Context, data io.Reader) (*http.Request, error) {
 	if op.Method == nil || op.URL == nil {
 		return nil, errors.New("could not establish destination of upload operation")
@@ -78,8 +77,8 @@ func (op *UploadOperation) request(ctx context.Context, data io.Reader) (*http.R
 	return req, nil
 }
 
-// Upload takes a file path and concurrently uploads each part of the file to App Store Connect
-func (c *Client) Upload(ctx context.Context, ops []UploadOperation, file *os.File) error {
+// Upload takes a file path and concurrently uploads each part of the file to App Store Connect.
+func (c *Client) Upload(ctx context.Context, ops []UploadOperation, file io.ReadSeeker) error {
 	var wg sync.WaitGroup
 	errs := make(chan UploadOperationError)
 
@@ -125,5 +124,4 @@ func (c *Client) uploadChunk(ctx context.Context, op UploadOperation, chunk io.R
 			Err:       err,
 		}
 	}
-
 }

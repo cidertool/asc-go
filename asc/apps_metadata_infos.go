@@ -84,7 +84,7 @@ type appInfoUpdateRequestRelationships struct {
 	SecondarySubcategoryTwo *relationshipDeclaration `json:"secondarySubcategoryTwo,omitempty"`
 }
 
-// AppInfoUpdateRequestRelationships is a public-facing options object for AppInfoUpdateRequest relationships
+// AppInfoUpdateRequestRelationships is a public-facing options object for AppInfoUpdateRequest relationships.
 type AppInfoUpdateRequestRelationships struct {
 	PrimaryCategoryID         *string
 	PrimarySubcategoryOneID   *string

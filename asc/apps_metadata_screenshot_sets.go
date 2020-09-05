@@ -10,33 +10,57 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/screenshotdisplaytype
 type ScreenshotDisplayType string
 
-// List of ScreenshotDisplayType
 const (
-	ScreenshotDisplayTypeAppAppleTV                ScreenshotDisplayType = "APP_APPLE_TV"
-	ScreenshotDisplayTypeAppDesktop                ScreenshotDisplayType = "APP_DESKTOP"
-	ScreenshotDisplayTypeAppiPad105                ScreenshotDisplayType = "APP_IPAD_105"
-	ScreenshotDisplayTypeAppiPad97                 ScreenshotDisplayType = "APP_IPAD_97"
-	ScreenshotDisplayTypeAppiPadPro129             ScreenshotDisplayType = "APP_IPAD_PRO_129"
-	ScreenshotDisplayTypeAppiPadPro3Gen11          ScreenshotDisplayType = "APP_IPAD_PRO_3GEN_11"
-	ScreenshotDisplayTypeAppiPadPro3Gen129         ScreenshotDisplayType = "APP_IPAD_PRO_3GEN_129"
-	ScreenshotDisplayTypeAppiPhone35               ScreenshotDisplayType = "APP_IPHONE_35"
-	ScreenshotDisplayTypeAppiPhone40               ScreenshotDisplayType = "APP_IPHONE_40"
-	ScreenshotDisplayTypeAppiPhone47               ScreenshotDisplayType = "APP_IPHONE_47"
-	ScreenshotDisplayTypeAppiPhone55               ScreenshotDisplayType = "APP_IPHONE_55"
-	ScreenshotDisplayTypeAppiPhone58               ScreenshotDisplayType = "APP_IPHONE_58"
-	ScreenshotDisplayTypeAppiPhone65               ScreenshotDisplayType = "APP_IPHONE_65"
-	ScreenshotDisplayTypeAppWatchSeries3           ScreenshotDisplayType = "APP_WATCH_SERIES_3"
-	ScreenshotDisplayTypeAppWatchSeries4           ScreenshotDisplayType = "APP_WATCH_SERIES_4"
-	ScreenshotDisplayTypeiMessageAppIPad105        ScreenshotDisplayType = "IMESSAGE_APP_IPAD_105"
-	ScreenshotDisplayTypeiMessageAppIPad97         ScreenshotDisplayType = "IMESSAGE_APP_IPAD_97"
-	ScreenshotDisplayTypeiMessageAppIPadPro129     ScreenshotDisplayType = "IMESSAGE_APP_IPAD_PRO_129"
-	ScreenshotDisplayTypeiMessageAppIPadPro3Gen11  ScreenshotDisplayType = "IMESSAGE_APP_IPAD_PRO_3GEN_11"
+	// ScreenshotDisplayTypeAppAppleTV is a screenshot display type for AppAppleTV.
+	ScreenshotDisplayTypeAppAppleTV ScreenshotDisplayType = "APP_APPLE_TV"
+	// ScreenshotDisplayTypeAppDesktop is a screenshot display type for AppDesktop.
+	ScreenshotDisplayTypeAppDesktop ScreenshotDisplayType = "APP_DESKTOP"
+	// ScreenshotDisplayTypeAppiPad105 is a screenshot display type for AppiPad105.
+	ScreenshotDisplayTypeAppiPad105 ScreenshotDisplayType = "APP_IPAD_105"
+	// ScreenshotDisplayTypeAppiPad97 is a screenshot display type for AppiPad97.
+	ScreenshotDisplayTypeAppiPad97 ScreenshotDisplayType = "APP_IPAD_97"
+	// ScreenshotDisplayTypeAppiPadPro129 is a screenshot display type for AppiPadPro129.
+	ScreenshotDisplayTypeAppiPadPro129 ScreenshotDisplayType = "APP_IPAD_PRO_129"
+	// ScreenshotDisplayTypeAppiPadPro3Gen11 is a screenshot display type for AppiPadPro3Gen11.
+	ScreenshotDisplayTypeAppiPadPro3Gen11 ScreenshotDisplayType = "APP_IPAD_PRO_3GEN_11"
+	// ScreenshotDisplayTypeAppiPadPro3Gen129 is a screenshot display type for AppiPadPro3Gen129.
+	ScreenshotDisplayTypeAppiPadPro3Gen129 ScreenshotDisplayType = "APP_IPAD_PRO_3GEN_129"
+	// ScreenshotDisplayTypeAppiPhone35 is a screenshot display type for AppiPhone35.
+	ScreenshotDisplayTypeAppiPhone35 ScreenshotDisplayType = "APP_IPHONE_35"
+	// ScreenshotDisplayTypeAppiPhone40 is a screenshot display type for AppiPhone40.
+	ScreenshotDisplayTypeAppiPhone40 ScreenshotDisplayType = "APP_IPHONE_40"
+	// ScreenshotDisplayTypeAppiPhone47 is a screenshot display type for AppiPhone47.
+	ScreenshotDisplayTypeAppiPhone47 ScreenshotDisplayType = "APP_IPHONE_47"
+	// ScreenshotDisplayTypeAppiPhone55 is a screenshot display type for AppiPhone55.
+	ScreenshotDisplayTypeAppiPhone55 ScreenshotDisplayType = "APP_IPHONE_55"
+	// ScreenshotDisplayTypeAppiPhone58 is a screenshot display type for AppiPhone58.
+	ScreenshotDisplayTypeAppiPhone58 ScreenshotDisplayType = "APP_IPHONE_58"
+	// ScreenshotDisplayTypeAppiPhone65 is a screenshot display type for AppiPhone65.
+	ScreenshotDisplayTypeAppiPhone65 ScreenshotDisplayType = "APP_IPHONE_65"
+	// ScreenshotDisplayTypeAppWatchSeries3 is a screenshot display type for AppWatchSeries3.
+	ScreenshotDisplayTypeAppWatchSeries3 ScreenshotDisplayType = "APP_WATCH_SERIES_3"
+	// ScreenshotDisplayTypeAppWatchSeries4 is a screenshot display type for AppWatchSeries4.
+	ScreenshotDisplayTypeAppWatchSeries4 ScreenshotDisplayType = "APP_WATCH_SERIES_4"
+	// ScreenshotDisplayTypeiMessageAppIPad105 is a screenshot display type for iMessageAppIPad105.
+	ScreenshotDisplayTypeiMessageAppIPad105 ScreenshotDisplayType = "IMESSAGE_APP_IPAD_105"
+	// ScreenshotDisplayTypeiMessageAppIPad97 is a screenshot display type for iMessageAppIPad97.
+	ScreenshotDisplayTypeiMessageAppIPad97 ScreenshotDisplayType = "IMESSAGE_APP_IPAD_97"
+	// ScreenshotDisplayTypeiMessageAppIPadPro129 is a screenshot display type for iMessageAppIPadPro129.
+	ScreenshotDisplayTypeiMessageAppIPadPro129 ScreenshotDisplayType = "IMESSAGE_APP_IPAD_PRO_129"
+	// ScreenshotDisplayTypeiMessageAppIPadPro3Gen11 is a screenshot display type for iMessageAppIPadPro3Gen11.
+	ScreenshotDisplayTypeiMessageAppIPadPro3Gen11 ScreenshotDisplayType = "IMESSAGE_APP_IPAD_PRO_3GEN_11"
+	// ScreenshotDisplayTypeiMessageAppIPadPro3Gen129 is a screenshot display type for iMessageAppIPadPro3Gen129.
 	ScreenshotDisplayTypeiMessageAppIPadPro3Gen129 ScreenshotDisplayType = "IMESSAGE_APP_IPAD_PRO_3GEN_129"
-	ScreenshotDisplayTypeiMessageAppIPhone40       ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_40"
-	ScreenshotDisplayTypeiMessageAppIPhone47       ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_47"
-	ScreenshotDisplayTypeiMessageAppIPhone55       ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_55"
-	ScreenshotDisplayTypeiMessageAppIPhone58       ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_58"
-	ScreenshotDisplayTypeiMessageAppIPhone65       ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_65"
+	// ScreenshotDisplayTypeiMessageAppIPhone40 is a screenshot display type for iMessageAppIPhone40.
+	ScreenshotDisplayTypeiMessageAppIPhone40 ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_40"
+	// ScreenshotDisplayTypeiMessageAppIPhone47 is a screenshot display type for iMessageAppIPhone47.
+	ScreenshotDisplayTypeiMessageAppIPhone47 ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_47"
+	// ScreenshotDisplayTypeiMessageAppIPhone55 is a screenshot display type for iMessageAppIPhone55.
+	ScreenshotDisplayTypeiMessageAppIPhone55 ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_55"
+	// ScreenshotDisplayTypeiMessageAppIPhone58 is a screenshot display type for iMessageAppIPhone58.
+	ScreenshotDisplayTypeiMessageAppIPhone58 ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_58"
+	// ScreenshotDisplayTypeiMessageAppIPhone65 is a screenshot display type for iMessageAppIPhone65.
+	ScreenshotDisplayTypeiMessageAppIPhone65 ScreenshotDisplayType = "IMESSAGE_APP_IPHONE_65"
 )
 
 // AppScreenshotSet defines model for AppScreenshotSet.

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -18,7 +19,7 @@ func TestMultipartUpload(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
-	defer os.Remove(file.Name())
+	defer rmFile(file)
 
 	contents := make([]byte, 64)
 	_, err = rand.Read(contents)
@@ -91,7 +92,7 @@ func TestUploadOperationChunk(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
-	defer os.Remove(file.Name())
+	defer rmFile(file)
 
 	contents := make([]byte, 20)
 	_, err = rand.Read(contents)
@@ -127,7 +128,7 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
-	defer os.Remove(file.Name())
+	defer rmFile(file)
 
 	contents := make([]byte, 64)
 	_, err = rand.Read(contents)
@@ -153,4 +154,12 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 
 	err = client.Upload(context.Background(), operations, file)
 	assert.Error(t, err)
+}
+
+// rmFile closes an open descriptor.
+func rmFile(f *os.File) {
+	err := os.Remove(f.Name())
+	if err != nil {
+		fmt.Println(err)
+	}
 }

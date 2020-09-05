@@ -10,25 +10,41 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversionstate
 type AppStoreVersionState string
 
-// List of AppStoreVersionState
 const (
-	AppStoreVersionStateDeveloperRejected          AppStoreVersionState = "DEVELOPER_REJECTED"
-	AppStoreVersionStateDeveloperRemovedFromSale   AppStoreVersionState = "DEVELOPER_REMOVED_FROM_SALE"
-	AppStoreVersionStateInvalidBinary              AppStoreVersionState = "INVALID_BINARY"
-	AppStoreVersionStateInReview                   AppStoreVersionState = "IN_REVIEW"
-	AppStoreVersionStateMetadataRejected           AppStoreVersionState = "METADATA_REJECTED"
-	AppStoreVersionStatePendingAppleRelease        AppStoreVersionState = "PENDING_APPLE_RELEASE"
-	AppStoreVersionStatePendingContract            AppStoreVersionState = "PENDING_CONTRACT"
-	AppStoreVersionStatePendingDeveloperRelease    AppStoreVersionState = "PENDING_DEVELOPER_RELEASE"
-	AppStoreVersionStatePreorderReadyForSale       AppStoreVersionState = "PREORDER_READY_FOR_SALE"
-	AppStoreVersionStatePrepareForSubmission       AppStoreVersionState = "PREPARE_FOR_SUBMISSION"
-	AppStoreVersionStateProcessingForAppStore      AppStoreVersionState = "PROCESSING_FOR_APP_STORE"
-	AppStoreVersionStateReadyForSale               AppStoreVersionState = "READY_FOR_SALE"
-	AppStoreVersionStateRejected                   AppStoreVersionState = "REJECTED"
-	AppStoreVersionStateRemovedFromSale            AppStoreVersionState = "REMOVED_FROM_SALE"
-	AppStoreVersionStateReplacedWithNewVersion     AppStoreVersionState = "REPLACED_WITH_NEW_VERSION"
+	// AppStoreVersionStateDeveloperRejected is an app store version state for DeveloperRejected.
+	AppStoreVersionStateDeveloperRejected AppStoreVersionState = "DEVELOPER_REJECTED"
+	// AppStoreVersionStateDeveloperRemovedFromSale is an app store version state for DeveloperRemovedFromSale.
+	AppStoreVersionStateDeveloperRemovedFromSale AppStoreVersionState = "DEVELOPER_REMOVED_FROM_SALE"
+	// AppStoreVersionStateInvalidBinary is an app store version state for InvalidBinary.
+	AppStoreVersionStateInvalidBinary AppStoreVersionState = "INVALID_BINARY"
+	// AppStoreVersionStateInReview is an app store version state for InReview.
+	AppStoreVersionStateInReview AppStoreVersionState = "IN_REVIEW"
+	// AppStoreVersionStateMetadataRejected is an app store version state for MetadataRejected.
+	AppStoreVersionStateMetadataRejected AppStoreVersionState = "METADATA_REJECTED"
+	// AppStoreVersionStatePendingAppleRelease is an app store version state for PendingAppleRelease.
+	AppStoreVersionStatePendingAppleRelease AppStoreVersionState = "PENDING_APPLE_RELEASE"
+	// AppStoreVersionStatePendingContract is an app store version state for PendingContract.
+	AppStoreVersionStatePendingContract AppStoreVersionState = "PENDING_CONTRACT"
+	// AppStoreVersionStatePendingDeveloperRelease is an app store version state for PendingDeveloperRelease.
+	AppStoreVersionStatePendingDeveloperRelease AppStoreVersionState = "PENDING_DEVELOPER_RELEASE"
+	// AppStoreVersionStatePreorderReadyForSale is an app store version state for PreorderReadyForSale.
+	AppStoreVersionStatePreorderReadyForSale AppStoreVersionState = "PREORDER_READY_FOR_SALE"
+	// AppStoreVersionStatePrepareForSubmission is an app store version state for PrepareForSubmission.
+	AppStoreVersionStatePrepareForSubmission AppStoreVersionState = "PREPARE_FOR_SUBMISSION"
+	// AppStoreVersionStateProcessingForAppStore is an app store version state for ProcessingForAppStore.
+	AppStoreVersionStateProcessingForAppStore AppStoreVersionState = "PROCESSING_FOR_APP_STORE"
+	// AppStoreVersionStateReadyForSale is an app store version state for ReadyForSale.
+	AppStoreVersionStateReadyForSale AppStoreVersionState = "READY_FOR_SALE"
+	// AppStoreVersionStateRejected is an app store version state for Rejected.
+	AppStoreVersionStateRejected AppStoreVersionState = "REJECTED"
+	// AppStoreVersionStateRemovedFromSale is an app store version state for RemovedFromSale.
+	AppStoreVersionStateRemovedFromSale AppStoreVersionState = "REMOVED_FROM_SALE"
+	// AppStoreVersionStateReplacedWithNewVersion is an app store version state for ReplacedWithNewVersion.
+	AppStoreVersionStateReplacedWithNewVersion AppStoreVersionState = "REPLACED_WITH_NEW_VERSION"
+	// AppStoreVersionStateWaitingForExportCompliance is an app store version state for WaitingForExportCompliance.
 	AppStoreVersionStateWaitingForExportCompliance AppStoreVersionState = "WAITING_FOR_EXPORT_COMPLIANCE"
-	AppStoreVersionStateWaitingForReview           AppStoreVersionState = "WAITING_FOR_REVIEW"
+	// AppStoreVersionStateWaitingForReview is an app store version state for WaitingForReview.
+	AppStoreVersionStateWaitingForReview AppStoreVersionState = "WAITING_FOR_REVIEW"
 )
 
 // AppStoreVersionUpdateRequest defines model for AppStoreVersionUpdateRequest.
@@ -271,9 +287,8 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppS
 	if buildID != nil {
 		req.Relationships.Build = newRelationshipDeclaration(buildID, "builds")
 	}
-	url := fmt.Sprintf("appStoreVersions")
 	res := new(AppStoreVersionResponse)
-	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
+	resp, err := s.client.post(ctx, "appStoreVersions", newRequestBody(req), res)
 	return res, resp, err
 }
 

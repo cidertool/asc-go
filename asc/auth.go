@@ -67,7 +67,7 @@ func parsePrivateKey(blob []byte) (*ecdsa.PrivateKey, error) {
 	return nil, errors.New("key could not be parsed as a valid ecdsa.PrivateKey")
 }
 
-// RoundTrip implements the http.RoundTripper interface to set the Authorization header
+// RoundTrip implements the http.RoundTripper interface to set the Authorization header.
 func (t AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	token, err := t.jwtGenerator.Token()
 	if err != nil {

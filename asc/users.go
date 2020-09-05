@@ -16,29 +16,28 @@ type UsersService service
 // https://developer.apple.com/documentation/appstoreconnectapi/userrole
 type UserRole string
 
-// List of UserRole
 const (
-	// AccessToReports.Downloads reports associated with a role. The Access To Reports role is an additional permission for users with the App Manager, Developer, Marketing, or Sales role. If this permission is added, the user has access to all of your apps.
+	// UserRoleAccessToReports allows download access to reports associated with a role. The Access To Reports role is an additional permission for users with the App Manager, Developer, Marketing, or Sales role. If this permission is added, the user has access to all of your apps.
 	UserRoleAccessToReports UserRole = "ACCESS_TO_REPORTS"
-	// AccountHolder is responsible for entering into legal agreements with Apple. The person who completes program enrollment is assigned the Account Holder role in both the Apple Developer account and App Store Connect.
+	// UserRoleAccountHolder is responsible for entering into legal agreements with Apple. The person who completes program enrollment is assigned the Account Holder role in both the Apple Developer account and App Store Connect.
 	UserRoleAccountHolder UserRole = "ACCOUNT_HOLDER"
-	// Admin serves as a secondary contact for teams and has many of the same responsibilities as the Account Holder role. Admins have access to all apps.
+	// UserRoleAdmin serves as a secondary contact for teams and has many of the same responsibilities as the Account Holder role. Admins have access to all apps.
 	UserRoleAdmin UserRole = "ADMIN"
-	// AppManager manages all aspects of an app, such as pricing, App Store information, and app development and delivery.
+	// UserRoleAppManager manages all aspects of an app, such as pricing, App Store information, and app development and delivery.
 	UserRoleAppManager UserRole = "APP_MANAGER"
-	// CustomerSupport analyzes and responds to customer reviews on the App Store. If a user has only the Customer Support role, they'll go straight to the Ratings and Reviews section when they click on an app in My Apps.
+	// UserRoleCustomerSupport analyzes and responds to customer reviews on the App Store. If a user has only the Customer Support role, they'll go straight to the Ratings and Reviews section when they click on an app in My Apps.
 	UserRoleCustomerSupport UserRole = "CUSTOMER_SUPPORT"
-	// Developer manages development and delivery of an app.
+	// UserRoleDeveloper manages development and delivery of an app.
 	UserRoleDeveloper UserRole = "DEVELOPER"
-	// Finance manages financial information, including reports and tax forms. A user assigned this role can view all apps in Payments and Financial Reports, Sales and Trends, and App Analytics.
+	// UserRoleFinance manages financial information, including reports and tax forms. A user assigned this role can view all apps in Payments and Financial Reports, Sales and Trends, and App Analytics.
 	UserRoleFinance UserRole = "FINANCE"
-	// Marketing manages marketing materials and promotional artwork. A user assigned this role will be contacted by Apple if the app is in consideration to be featured on the App Store.
+	// UserRoleMarketing manages marketing materials and promotional artwork. A user assigned this role will be contacted by Apple if the app is in consideration to be featured on the App Store.
 	UserRoleMarketing UserRole = "MARKETING"
-	// ReadOnly represents a user with limited access and no write access.
+	// UserRoleReadOnly represents a user with limited access and no write access.
 	UserRoleReadOnly UserRole = "READ_ONLY"
-	// Sales analyzes sales, downloads, and other analytics for the app.
+	// UserRoleSales analyzes sales, downloads, and other analytics for the app.
 	UserRoleSales UserRole = "SALES"
-	// Technical role is no longer assignable to new users in App Store Connect. Existing users with the Technical role can manage all the aspects of an app, such as pricing, App Store information, and app development and delivery. Techncial users have access to all apps.
+	// UserRoleTechnical role is no longer assignable to new users in App Store Connect. Existing users with the Technical role can manage all the aspects of an app, such as pricing, App Store information, and app development and delivery. Techncial users have access to all apps.
 	UserRoleTechnical UserRole = "TECHNICAL"
 )
 

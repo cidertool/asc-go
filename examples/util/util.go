@@ -5,7 +5,9 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"log"
 	"time"
 
 	"github.com/aaronsky/asc-go/asc"
@@ -49,4 +51,12 @@ func GetApp(ctx context.Context, client *asc.Client, params *asc.ListAppsQuery) 
 		return nil, fmt.Errorf("query for app returned no data")
 	}
 	return &apps.Data[0], nil
+}
+
+// Close closes an open descriptor.
+func Close(c io.Closer) {
+	err := c.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

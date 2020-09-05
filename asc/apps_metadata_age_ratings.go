@@ -10,12 +10,15 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreagerating
 type AppStoreAgeRating string
 
-// List of AppStoreAgeRating
 const (
-	AppStoreAgeRatingFourPlus      AppStoreAgeRating = "FOUR_PLUS"
-	AppStoreAgeRatingNinePlus      AppStoreAgeRating = "NINE_PLUS"
+	// AppStoreAgeRatingFourPlus is for an age rating of 4+.
+	AppStoreAgeRatingFourPlus AppStoreAgeRating = "FOUR_PLUS"
+	// AppStoreAgeRatingNinePlus is for an age rating of 9+.
+	AppStoreAgeRatingNinePlus AppStoreAgeRating = "NINE_PLUS"
+	// AppStoreAgeRatingSeventeenPlus is for an age rating of 17+.
 	AppStoreAgeRatingSeventeenPlus AppStoreAgeRating = "SEVENTEEN_PLUS"
-	AppStoreAgeRatingTwelvePlus    AppStoreAgeRating = "TWELVE_PLUS"
+	// AppStoreAgeRatingTwelvePlus is for an age rating of 12+.
+	AppStoreAgeRatingTwelvePlus AppStoreAgeRating = "TWELVE_PLUS"
 )
 
 // BrazilAgeRating defines model for BrazilAgeRating.
@@ -23,14 +26,19 @@ const (
 // https://developer.apple.com/documentation/appstoreconnectapi/brazilagerating
 type BrazilAgeRating string
 
-// List of BrazilAgeRating
 const (
+	// BrazilAgeRatingEighteen is for an age rating of 18.
 	BrazilAgeRatingEighteen BrazilAgeRating = "EIGHTEEN"
+	// BrazilAgeRatingFourteen is for an age rating of 14.
 	BrazilAgeRatingFourteen BrazilAgeRating = "FOURTEEN"
-	BrazilAgeRatingL        BrazilAgeRating = "L"
-	BrazilAgeRatingSixteen  BrazilAgeRating = "SIXTEEN"
-	BrazilAgeRatingTen      BrazilAgeRating = "TEN"
-	BrazilAgeRatingTwelve   BrazilAgeRating = "TWELVE"
+	// BrazilAgeRatingL is for an age rating of L, for general audiences.
+	BrazilAgeRatingL BrazilAgeRating = "L"
+	// BrazilAgeRatingSixteen is for an age rating of 16.
+	BrazilAgeRatingSixteen BrazilAgeRating = "SIXTEEN"
+	// BrazilAgeRatingTen is for an age rating of 10.
+	BrazilAgeRatingTen BrazilAgeRating = "TEN"
+	// BrazilAgeRatingTwelve is for an age rating of 12.
+	BrazilAgeRatingTwelve BrazilAgeRating = "TWELVE"
 )
 
 // KidsAgeBand defines model for KidsAgeBand.
@@ -38,11 +46,13 @@ const (
 // https://developer.apple.com/documentation/appstoreconnectapi/kidsageband
 type KidsAgeBand string
 
-// List of KidsAgeBand
 const (
+	// KidsAgeBandFiveAndUnder is for an age rating of 5 and under.
 	KidsAgeBandFiveAndUnder KidsAgeBand = "FIVE_AND_UNDER"
+	// KidsAgeBandNineToEleven is for an age rating of 9 to 11.
 	KidsAgeBandNineToEleven KidsAgeBand = "NINE_TO_ELEVEN"
-	KidsAgeBandSixToEight   KidsAgeBand = "SIX_TO_EIGHT"
+	// KidsAgeBandSixToEight is for an age rating of 6 to 8.
+	KidsAgeBandSixToEight KidsAgeBand = "SIX_TO_EIGHT"
 )
 
 // ageRatingDeclarationUpdateRequest defines model for AgeRatingDeclarationUpdateRequest.

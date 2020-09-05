@@ -11,13 +11,13 @@ import (
 type PhasedReleaseState string
 
 const (
-	// PhasedReleaseStateInactive is a representation of the INACTIVE state
+	// PhasedReleaseStateInactive is a representation of the INACTIVE state.
 	PhasedReleaseStateInactive PhasedReleaseState = "INACTIVE"
-	// PhasedReleaseStateActive is a representation of the ACTIVE state
+	// PhasedReleaseStateActive is a representation of the ACTIVE state.
 	PhasedReleaseStateActive PhasedReleaseState = "ACTIVE"
-	// PhasedReleaseStatePaused is a representation of the PAUSED state
+	// PhasedReleaseStatePaused is a representation of the PAUSED state.
 	PhasedReleaseStatePaused PhasedReleaseState = "PAUSED"
-	// PhasedReleaseStateComplete is a representation of the COMPLETE state
+	// PhasedReleaseStateComplete is a representation of the COMPLETE state.
 	PhasedReleaseStateComplete PhasedReleaseState = "COMPLETE"
 )
 

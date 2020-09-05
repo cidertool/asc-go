@@ -10,9 +10,10 @@ import (
 // https://developer.apple.com/documentation/appstoreconnectapi/betainvitetype
 type BetaInviteType string
 
-// List of BetaInviteType
 const (
-	BetaInviteTypeEmail      BetaInviteType = "EMAIL"
+	// BetaInviteTypeEmail is a beta invite type for Email.
+	BetaInviteTypeEmail BetaInviteType = "EMAIL"
+	// BetaInviteTypePublicLink is a beta invite type for PublicLink.
 	BetaInviteTypePublicLink BetaInviteType = "PUBLIC_LINK"
 )
 

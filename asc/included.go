@@ -7,7 +7,7 @@ import (
 
 type included struct {
 	Type  string
-	inner interface{}
+	inner interface{} // nolint: structcheck
 }
 
 func extractIncludedAgeRatingDeclaration(i interface{}) *AgeRatingDeclaration {

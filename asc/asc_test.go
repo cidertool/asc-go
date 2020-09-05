@@ -13,6 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const marshaledMockPayload = `{"value":"TEST"}`
+
 func TestNewClient(t *testing.T) {
 	c := NewClient(nil)
 
@@ -46,14 +48,13 @@ type mockBody struct {
 func TestNilContextReturnsError(t *testing.T) {
 	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
-	_, err := client.get(nil, "test", nil, nil)
+	_, err := client.get(nil, "test", nil, nil) // nolint: staticcheck
 	assert.Error(t, err)
 }
 
 func TestGet(t *testing.T) {
 	SetHTTPDebug(true)
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -66,8 +67,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetWithQuery(t *testing.T) {
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	params := mockParams{
@@ -96,8 +96,7 @@ func TestGetWithQuery_Error(t *testing.T) {
 }
 
 func TestGetError(t *testing.T) {
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -109,8 +108,7 @@ func TestGetError(t *testing.T) {
 }
 
 func TestPost(t *testing.T) {
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -124,8 +122,7 @@ func TestPost(t *testing.T) {
 }
 
 func TestPatch(t *testing.T) {
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -139,8 +136,7 @@ func TestPatch(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	marshaled := `{"value":"TEST"}`
-	client, server := newServer(marshaled, http.StatusOK, true)
+	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
 	body := mockBody{"TEST"}
@@ -198,15 +194,7 @@ func TestAppendingQueryOptions(t *testing.T) {
 	assert.Error(t, err)
 }
 
-func mustParseURL(t *testing.T, u string) url.URL {
-	parsed, err := url.Parse(u)
-	if err != nil {
-		t.Fatalf("Parse(%q) got err %v", u, err)
-	}
-	return *parsed
-}
-
-func newServer(raw string, status int, addRateLimit bool) (*Client, *httptest.Server) {
+func newServer(raw string, status int, addRateLimit bool) (*Client, *httptest.Server) { // nolint: unparam
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if addRateLimit {
 			w.Header().Add("X-Rate-Limit", "user-hour-lim:2500;user-hour-rem:10;hank:dean:venture;rusty:jr;;")

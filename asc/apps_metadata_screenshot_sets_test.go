@@ -1,4 +1,4 @@
-package asc
+package asc // nolint: dupl
 
 import (
 	"context"
