@@ -1,4 +1,4 @@
-module github.com/aaronsky/asc-go
+module github.com/cidertool/asc-go
 
 go 1.13
 

@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/aaronsky/asc-go/asc"
+	"github.com/cidertool/asc-go/asc"
 )
 
 const (

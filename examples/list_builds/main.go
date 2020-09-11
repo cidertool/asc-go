@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/aaronsky/asc-go/asc"
-	"github.com/aaronsky/asc-go/examples/util"
+	"github.com/cidertool/asc-go/asc"
+	"github.com/cidertool/asc-go/examples/util"
 )
 
 var (

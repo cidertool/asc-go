@@ -10,7 +10,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/aaronsky/asc-go/asc"
+	"github.com/cidertool/asc-go/asc"
 )
 
 var (

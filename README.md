@@ -1,7 +1,7 @@
 # asc-go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/aaronsky/asc-go/asc)](https://pkg.go.dev/github.com/aaronsky/asc-go/asc)
-[![Test Status](https://github.com/aaronsky/asc-go/workflows/Run%20Tests/badge.svg)](https://github.com/aaronsky/asc-go/actions?query=workflow%253A%2522Run+Tests%2522)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/cidertool/asc-go/asc)](https://pkg.go.dev/github.com/cidertool/asc-go/asc)
+[![Test Status](https://github.com/cidertool/asc-go/workflows/Run%20Tests/badge.svg)](https://github.com/cidertool/asc-go/actions?query=workflow%253A%2522Run+Tests%2522)
 
 asc-go is a Go client library for accessing Apple's [App Store Connect API](https://developer.apple.com/documentation/appstoreconnectapi).
 
@@ -10,7 +10,7 @@ asc-go is a Go client library for accessing Apple's [App Store Connect API](http
 This project uses Go Modules.
 
 ```go
-import "github.com/aaronsky/asc-go/asc"
+import "github.com/cidertool/asc-go/asc"
 ```
 
 Construct a new App Store Connect client, then use the various services on the client to access different parts of the App Store Connect API. For example:
@@ -26,7 +26,7 @@ apps, _, err := client.Apps.ListApps(&asc.ListAppsQuery{
 
 The client is divided into logical chunks closely corresponding to the layout and structure of Apple's own documentation at <https://developer.apple.com/documentation/appstoreconnectapi>.
 
-For more sample code snippets, head over to the [examples](https://github.com/aaronsky/asc-go/tree/master/examples) directory.
+For more sample code snippets, head over to the [examples](https://github.com/cidertool/asc-go/tree/master/examples) directory.
 
 ### Authentication
 
@@ -36,7 +36,7 @@ You may find that the code snippet above will always fail due to a lack of autho
 import (
     "time"
 
-    "github.com/aaronsky/asc-go/asc"
+    "github.com/cidertool/asc-go/asc"
 )
 
 func main() {
@@ -100,7 +100,7 @@ for {
 }
 ```
 
-For complete usage of asc-go, see the full [package docs](https://pkg.go.dev/github.com/aaronsky/asc-go/asc).
+For complete usage of asc-go, see the full [package docs](https://pkg.go.dev/github.com/cidertool/asc-go/asc).
 
 ## Contributing
 

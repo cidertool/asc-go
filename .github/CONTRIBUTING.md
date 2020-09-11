@@ -8,7 +8,7 @@ This project abides by the [Contributor Covenant Code of Conduct](./CODE_OF_COND
 
 ## Reporting Issues
 
-Bugs, enhancements, and questions should be filed as [issues](https://github.com/aaronsky/asc-go/issues) on this repository. If you're reporting a bug, please provide as much supporting context as possible such as your operating system, Go version, and anything else that might be relevant to the bug. For anything else, explain what you're trying to achieve and what is missing from the package that you had expected to aid your efforts. 
+Bugs, enhancements, and questions should be filed as [issues](https://github.com/cidertool/asc-go/issues) on this repository. If you're reporting a bug, please provide as much supporting context as possible such as your operating system, Go version, and anything else that might be relevant to the bug. For anything else, explain what you're trying to achieve and what is missing from the package that you had expected to aid your efforts. 
 
 ## Submitting a Pull Request
 
