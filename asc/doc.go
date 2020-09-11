@@ -20,7 +20,7 @@ access different parts of the App Store Connect API. For example:
 The client is divided into logical chunks closely corresponding to the layout and structure
 of Apple's own documentation at https://developer.apple.com/documentation/appstoreconnectapi.
 
-For more sample code snippets, head over to the https://github.com/cidertool/asc-go/tree/master/examples directory.
+For more sample code snippets, head over to the https://github.com/cidertool/asc-go/tree/main/examples directory.
 
 Authentication
 

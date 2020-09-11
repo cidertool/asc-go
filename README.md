@@ -26,7 +26,7 @@ apps, _, err := client.Apps.ListApps(&asc.ListAppsQuery{
 
 The client is divided into logical chunks closely corresponding to the layout and structure of Apple's own documentation at <https://developer.apple.com/documentation/appstoreconnectapi>.
 
-For more sample code snippets, head over to the [examples](https://github.com/cidertool/asc-go/tree/master/examples) directory.
+For more sample code snippets, head over to the [examples](https://github.com/cidertool/asc-go/tree/main/examples) directory.
 
 ### Authentication
 
