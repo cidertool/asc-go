@@ -27,19 +27,25 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
 
-      - name: Cache go modules
+      - name: Cache Go Modules
         uses: actions/cache@v1
         with:
           path: ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
           restore-keys: ${{ runner.os }}-go-
 
-      - name: Run unit tests
+      - name: Run Tests
         run: go test -v -race -coverprofile coverage.out -covermode atomic ./...
 
-      - name: Ensure integration tests build
+      - name: Ensure Integration Tests Build
         # don't actually run tests since they hit the live API
         run: go test -v -tags=integration -run=^$ ./test/integration
+
+      - name: Upload Coverage to Codecov
+        if: success()
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.out
 
   golangci:
     name: lint
