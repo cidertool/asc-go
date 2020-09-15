@@ -309,7 +309,7 @@ func (s *TestflightService) ListBetaGroupsForApp(ctx context.Context, id string,
 func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveBetaTestersFromBetaGroup removes a specific beta tester from a one or more beta groups, revoking their access to test builds associated with those groups.
@@ -318,7 +318,7 @@ func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id st
 func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // AddBuildsToBetaGroup associates builds with a beta group to enable the group to test the builds.
@@ -327,7 +327,7 @@ func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, 
 func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveBuildsFromBetaGroup removes access to test one or more builds from beta testers in a specific beta group.
@@ -336,7 +336,7 @@ func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string,
 func (s *TestflightService) RemoveBuildsFromBetaGroup(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // ListBuildsForBetaGroup gets a list of builds associated with a specific beta group.

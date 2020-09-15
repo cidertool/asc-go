@@ -235,5 +235,5 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, appScreenshotIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appScreenshotIDs, "appScreenshots")
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
-	return s.client.patch(ctx, url, newRequestBody(linkages), nil)
+	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }

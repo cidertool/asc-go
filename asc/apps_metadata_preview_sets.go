@@ -178,5 +178,5 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, appPreviewIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appPreviewIDs, "appPreviews")
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
-	return s.client.patch(ctx, url, newRequestBody(linkages), nil)
+	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }

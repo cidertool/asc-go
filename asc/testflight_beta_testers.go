@@ -280,7 +280,7 @@ func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params
 func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveBetaTesterFromBetaGroups removes a specific beta tester from one or more beta groups, revoking their access to test builds associated with those groups.
@@ -289,7 +289,7 @@ func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id st
 func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // AssignSingleBetaTesterToBuilds individually assign a beta tester to a build.
@@ -298,7 +298,7 @@ func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, 
 func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // UnassignSingleBetaTesterFromBuilds removes an individually assigned beta tester's ability to test a build.
@@ -307,7 +307,7 @@ func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, 
 func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // RemoveSingleBetaTesterAccessApps removes a specific beta tester's access to test any builds of one or more apps.
@@ -316,7 +316,7 @@ func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Conte
 func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, appIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // ListAppsForBetaTester gets a list of apps that a beta tester can test.

@@ -125,7 +125,7 @@ func (s *AppsService) ListCompatibleVersionIDsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // UpdateCompatibleVersionsForGameCenterEnabledVersion updates the relationship between a given version and a Game Center enabled version
@@ -134,7 +134,7 @@ func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
-	return s.client.patch(ctx, url, newRequestBody(linkages), nil)
+	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveCompatibleVersionsForGameCenterEnabledVersion deletes the relationship between a given version and a Game Center enabled version
@@ -143,5 +143,5 @@ func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }

@@ -372,7 +372,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // ListInAppPurchasesForApp lists the in-app purchases that are available for your app.

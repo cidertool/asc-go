@@ -320,7 +320,7 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveAccessForBetaGroupsFromBuild removes access to a specific build for all beta testers in one or more beta groups.
@@ -329,7 +329,7 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // CreateAccessForIndividualTestersToBuild enables a beta tester who is not a part of a beta group to test a build.
@@ -338,7 +338,7 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
 // RemoveAccessForIndividualTestersFromBuild removes access to test a specific build from one or more individually assigned testers.
@@ -347,7 +347,7 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
-	return s.client.delete(ctx, url, newRequestBody(linkages))
+	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
 // ListResourceIDsForIndividualTestersForBuild gets a list of resource IDs of individual testers associated with a build.

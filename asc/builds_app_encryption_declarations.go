@@ -143,5 +143,5 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
-	return s.client.post(ctx, url, newRequestBody(linkages), nil)
+	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
