@@ -161,14 +161,35 @@ func TestCheckBadResponse(t *testing.T) {
 				Method: "GET",
 				URL:    &url.URL{},
 			},
-			Body: ioutil.NopCloser(strings.NewReader(`{"errors":[{"code":"","status":"","title":"","detail":""}]}`)),
+			Body: ioutil.NopCloser(strings.NewReader(`{
+				"errors": [
+				  	{
+						"code": "",
+						"status": "",
+						"title": "",
+						"detail": "",
+						"meta": {
+					  		"associatedErrors": {
+								"/v1/route/": [
+						  			{
+										"code": "",
+										"status": "",
+										"title": "",
+										"detail": ""
+						  			}
+								]
+					  		}
+						}
+				  	}
+				]
+			}`)),
 		},
 	}
 	err := checkResponse(resp)
 	assert.Error(t, err)
 	assert.IsType(t, new(ErrorResponse), err)
 	assert.Equal(t, resp.Response, err.(*ErrorResponse).Response)
-	assert.NotZero(t, len(err.Error()))
+	assert.NotEmpty(t, err.Error())
 }
 
 func TestAppendingQueryOptions(t *testing.T) {
