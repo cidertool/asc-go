@@ -131,6 +131,8 @@ type ErrorResponseError struct {
 	Status string `json:"status"`
 	// Title is a summary of the error. Do not use this field for programmatic error handling.
 	Title string `json:"title"`
+	// Meta is an undocumented field associating an error to many other errors.
+	Meta *ErrorMeta `json:"meta,omitempty"`
 }
 
 // ErrorSource is the union of two API types: `ErrorResponse.Errors.JsonPointer` and `ErrorResponse.Errors.Parameter`.
@@ -142,6 +144,12 @@ type ErrorSource struct {
 	Pointer string `json:"pointer,omitempty"`
 	// The query parameter that produced the error.
 	Parameter string `json:"parameter,omitempty"`
+}
+
+// ErrorMeta is an undocumented type that contains associations to other errors, grouped by route.
+type ErrorMeta struct {
+	// AssociatedErrors is a map of routes to array of errors that are associated with the current error.
+	AssociatedErrors map[string][]ErrorResponseError `json:"associatedErrors,omitempty"`
 }
 
 type service struct {
@@ -414,7 +422,7 @@ func (e ErrorResponse) Error() string {
 	report := strings.Builder{}
 	if e.Errors != nil {
 		for _, err := range e.Errors {
-			report.WriteString(fmt.Sprintf("* %s %s – %s\n\t%s\n", err.Status, err.Code, err.Title, err.Detail))
+			report.WriteString(fmt.Sprintf("* %s", err.String(1)))
 		}
 	}
 	return fmt.Sprintf(
@@ -424,6 +432,21 @@ func (e ErrorResponse) Error() string {
 		e.Response.StatusCode,
 		report.String(),
 	)
+}
+
+func (e ErrorResponseError) String(level int) string {
+	str := strings.Builder{}
+	str.WriteString(fmt.Sprintf("%s %s – %s\n%s%s\n", e.Status, e.Code, e.Title, strings.Repeat("\t", level), e.Detail))
+	if e.Meta == nil {
+		return str.String()
+	}
+	for route, errs := range e.Meta.AssociatedErrors {
+		str.WriteString(fmt.Sprintf("\t%s:\n", route))
+		for _, err := range errs {
+			str.WriteString(fmt.Sprintf("%s%s", strings.Repeat("\t", level+1), err.String(level+2)))
+		}
+	}
+	return str.String()
 }
 
 // Close closes an open descriptor.
