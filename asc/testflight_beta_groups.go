@@ -233,7 +233,7 @@ func (s *TestflightService) CreateBetaGroup(ctx context.Context, attributes Beta
 		req.Relationships.BetaTesters = &relationship
 	}
 	if len(buildIDs) > 0 {
-		relationship := newPagedRelationshipDeclaration(buildIDs, "betaTesters")
+		relationship := newPagedRelationshipDeclaration(buildIDs, "builds")
 		req.Relationships.Builds = &relationship
 	}
 	res := new(BetaGroupResponse)
