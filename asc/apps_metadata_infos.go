@@ -125,6 +125,7 @@ func (s *AppsService) GetAppInfo(ctx context.Context, id string, params *GetAppI
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -135,6 +136,7 @@ func (s *AppsService) ListAppInfosForApp(ctx context.Context, id string, params 
 	url := fmt.Sprintf("apps/%s/appInfos", id)
 	res := new(AppInfosResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -146,6 +148,7 @@ func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationship
 		ID:   id,
 		Type: "appInfos",
 	}
+
 	if relationships != nil {
 		req.Relationships = &appInfoUpdateRequestRelationships{
 			PrimaryCategory:         newRelationshipDeclaration(relationships.PrimaryCategoryID, "appCategories"),
@@ -156,9 +159,11 @@ func (s *AppsService) UpdateAppInfo(ctx context.Context, id string, relationship
 			SecondarySubcategoryTwo: newRelationshipDeclaration(relationships.SecondarySubcategoryTwoID, "appCategories"),
 		}
 	}
+
 	url := fmt.Sprintf("appInfos/%s", id)
 	res := new(AppInfoResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -167,6 +172,7 @@ func (i *AppInfoResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

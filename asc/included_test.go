@@ -18,6 +18,7 @@ func (i *mockIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 
@@ -58,6 +59,7 @@ func TestKnownIncludeTypes(t *testing.T) {
 		"preReleaseVersions", "profiles", "routingAppCoverages", "territories"}
 
 	var payload *mockPayloadIncluded
+
 	var err error
 
 	for _, typeName := range knownTypes {

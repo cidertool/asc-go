@@ -121,6 +121,7 @@ func (s *AppsService) CreateEULA(ctx context.Context, agreementText string, appI
 	}
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.post(ctx, "endUserLicenseAgreements", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -137,15 +138,18 @@ func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *
 			AgreementText: agreementText,
 		}
 	}
+
 	if len(territoryIDs) > 0 {
 		relationships := newPagedRelationshipDeclaration(territoryIDs, "territories")
 		req.Relationships = &endUserLicenseAgreementUpdateRequestRelationships{
 			Territories: &relationships,
 		}
 	}
+
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -164,6 +168,7 @@ func (s *AppsService) GetEULA(ctx context.Context, id string, params *GetEULAQue
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -174,5 +179,6 @@ func (s *AppsService) GetEULAForApp(ctx context.Context, id string, params *GetE
 	url := fmt.Sprintf("apps/%s/endUserLicenseAgreement", id)
 	res := new(EndUserLicenseAgreementResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

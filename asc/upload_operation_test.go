@@ -19,19 +19,23 @@ func TestMultipartUpload(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
+
 	defer rmFile(file)
 
 	contents := make([]byte, 64)
+
 	_, err = rand.Read(contents)
 	if err != nil {
 		assert.FailNow(t, "random bytes produced an error", err)
 	}
+
 	_, err = file.Write(contents)
 	if err != nil {
 		assert.FailNow(t, "writing the temp file produced an error", err)
 	}
 
 	client, server := newServer("", http.StatusOK, false)
+
 	defer server.Close()
 
 	operations := []UploadOperation{
@@ -92,13 +96,16 @@ func TestUploadOperationChunk(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
+
 	defer rmFile(file)
 
 	contents := make([]byte, 20)
+
 	_, err = rand.Read(contents)
 	if err != nil {
 		assert.FailNow(t, "random bytes produced an error", err)
 	}
+
 	_, err = file.Write(contents)
 	if err != nil {
 		assert.FailNow(t, "writing the temp file produced an error", err)
@@ -113,7 +120,9 @@ func TestUploadOperationChunk(t *testing.T) {
 
 	_, err = op.chunk(file)
 	assert.Error(t, err)
+
 	op.Length = Int(10)
+
 	chunk, err := op.chunk(file)
 	assert.NoError(t, err)
 
@@ -128,13 +137,16 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
+
 	defer rmFile(file)
 
 	contents := make([]byte, 64)
+
 	_, err = rand.Read(contents)
 	if err != nil {
 		assert.FailNow(t, "random bytes produced an error", err)
 	}
+
 	_, err = file.Write(contents)
 	if err != nil {
 		assert.FailNow(t, "writing the temp file produced an error", err)

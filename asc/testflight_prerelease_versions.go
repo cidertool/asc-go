@@ -124,6 +124,7 @@ type GetPrereleaseVersionForBuildQuery struct {
 func (s *TestflightService) ListPrereleaseVersions(ctx context.Context, params *ListPrereleaseVersionsQuery) (*PrereleaseVersionsResponse, *Response, error) {
 	res := new(PrereleaseVersionsResponse)
 	resp, err := s.client.get(ctx, "preReleaseVersions", params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +135,7 @@ func (s *TestflightService) GetPrereleaseVersion(ctx context.Context, id string,
 	url := fmt.Sprintf("preReleaseVersions/%s", id)
 	res := new(PrereleaseVersionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -144,6 +146,7 @@ func (s *TestflightService) GetAppForPrereleaseVersion(ctx context.Context, id s
 	url := fmt.Sprintf("preReleaseVersions/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -154,6 +157,7 @@ func (s *TestflightService) ListPrereleaseVersionsForApp(ctx context.Context, id
 	url := fmt.Sprintf("apps/%s/preReleaseVersions", id)
 	res := new(PrereleaseVersionsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -164,6 +168,7 @@ func (s *TestflightService) ListBuildsForPrereleaseVersion(ctx context.Context, 
 	url := fmt.Sprintf("preReleaseVersions/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -174,6 +179,7 @@ func (s *TestflightService) GetPrereleaseVersionForBuild(ctx context.Context, id
 	url := fmt.Sprintf("builds/%s/preReleaseVersion", id)
 	res := new(PrereleaseVersionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -182,6 +188,7 @@ func (i *PrereleaseVersionResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

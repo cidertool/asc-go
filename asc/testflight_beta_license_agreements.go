@@ -106,6 +106,7 @@ type GetBetaLicenseAgreementForAppQuery struct {
 func (s *TestflightService) ListBetaLicenseAgreements(ctx context.Context, params *ListBetaLicenseAgreementsQuery) (*BetaLicenseAgreementsResponse, *Response, error) {
 	res := new(BetaLicenseAgreementsResponse)
 	resp, err := s.client.get(ctx, "betaLicenseAgreements", params, res)
+
 	return res, resp, err
 }
 
@@ -116,6 +117,7 @@ func (s *TestflightService) GetBetaLicenseAgreement(ctx context.Context, id stri
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -126,6 +128,7 @@ func (s *TestflightService) GetAppForBetaLicenseAgreement(ctx context.Context, i
 	url := fmt.Sprintf("betaLicenseAgreements/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -136,6 +139,7 @@ func (s *TestflightService) GetBetaLicenseAgreementForApp(ctx context.Context, i
 	url := fmt.Sprintf("apps/%s/betaLicenseAgreement", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -147,13 +151,16 @@ func (s *TestflightService) UpdateBetaLicenseAgreement(ctx context.Context, id s
 		ID:   id,
 		Type: "betaLicenseAgreements",
 	}
+
 	if agreementText != nil {
 		req.Attributes = &betaLicenseAgreementUpdateRequestAttributes{
 			AgreementText: agreementText,
 		}
 	}
+
 	url := fmt.Sprintf("betaLicenseAgreements/%s", id)
 	res := new(BetaLicenseAgreementResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

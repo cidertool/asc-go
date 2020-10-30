@@ -118,6 +118,7 @@ func (s *AppsService) GetAppPreviewSet(ctx context.Context, id string, params *G
 	url := fmt.Sprintf("appPreviewSets/%s", id)
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -141,6 +142,7 @@ func (s *AppsService) CreateAppPreviewSet(ctx context.Context, previewType Previ
 	}
 	res := new(AppPreviewSetResponse)
 	resp, err := s.client.post(ctx, "appPreviewSets", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -159,6 +161,7 @@ func (s *AppsService) ListAppPreviewsForSet(ctx context.Context, id string, para
 	url := fmt.Sprintf("appPreviewSets/%s/appPreviews", id)
 	res := new(AppPreviewsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -169,6 +172,7 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
 	res := new(AppPreviewSetAppPreviewsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -178,5 +182,6 @@ func (s *AppsService) ListAppPreviewIDsForSet(ctx context.Context, id string, pa
 func (s *AppsService) ReplaceAppPreviewsForSet(ctx context.Context, id string, appPreviewIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appPreviewIDs, "appPreviews")
 	url := fmt.Sprintf("appPreviewSets/%s/relationships/appPreviews", id)
+
 	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }

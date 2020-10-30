@@ -5,6 +5,17 @@ import (
 	"fmt"
 )
 
+// ErrInvalidIncluded happens when an invalid "included" type is returned by the App Store Connect API.
+// If this is encountered, it should be reported as a bug to the cidertool/asc-go repository issue
+// tracker.
+type ErrInvalidIncluded struct {
+	Type string
+}
+
+func (e ErrInvalidIncluded) Error() string {
+	return fmt.Sprintf("type %s not recognized as includable model", e.Type)
+}
+
 type included struct {
 	Type  string
 	inner interface{} // nolint: structcheck
@@ -14,6 +25,7 @@ func extractIncludedAgeRatingDeclaration(i interface{}) *AgeRatingDeclaration {
 	if v, ok := i.(AgeRatingDeclaration); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -21,6 +33,7 @@ func extractIncludedApp(i interface{}) *App {
 	if v, ok := i.(App); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -28,6 +41,7 @@ func extractIncludedAppCategory(i interface{}) *AppCategory {
 	if v, ok := i.(AppCategory); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -35,6 +49,7 @@ func extractIncludedAppEncryptionDeclaration(i interface{}) *AppEncryptionDeclar
 	if v, ok := i.(AppEncryptionDeclaration); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -42,6 +57,7 @@ func extractIncludedAppInfo(i interface{}) *AppInfo {
 	if v, ok := i.(AppInfo); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -49,6 +65,7 @@ func extractIncludedAppInfoLocalization(i interface{}) *AppInfoLocalization {
 	if v, ok := i.(AppInfoLocalization); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -56,6 +73,7 @@ func extractIncludedAppPreOrder(i interface{}) *AppPreOrder {
 	if v, ok := i.(AppPreOrder); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -63,6 +81,7 @@ func extractIncludedAppPreviewSet(i interface{}) *AppPreviewSet {
 	if v, ok := i.(AppPreviewSet); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -70,6 +89,7 @@ func extractIncludedAppPrice(i interface{}) *AppPrice {
 	if v, ok := i.(AppPrice); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -77,6 +97,7 @@ func extractIncludedAppScreenshotSet(i interface{}) *AppScreenshotSet {
 	if v, ok := i.(AppScreenshotSet); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -84,6 +105,7 @@ func extractIncludedAppStoreReviewDetail(i interface{}) *AppStoreReviewDetail {
 	if v, ok := i.(AppStoreReviewDetail); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -91,6 +113,7 @@ func extractIncludedAppStoreVersion(i interface{}) *AppStoreVersion {
 	if v, ok := i.(AppStoreVersion); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -98,6 +121,7 @@ func extractIncludedAppStoreVersionLocalization(i interface{}) *AppStoreVersionL
 	if v, ok := i.(AppStoreVersionLocalization); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -105,6 +129,7 @@ func extractIncludedAppStoreVersionPhasedRelease(i interface{}) *AppStoreVersion
 	if v, ok := i.(AppStoreVersionPhasedRelease); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -112,6 +137,7 @@ func extractIncludedAppStoreVersionSubmission(i interface{}) *AppStoreVersionSub
 	if v, ok := i.(AppStoreVersionSubmission); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -119,6 +145,7 @@ func extractIncludedBetaAppLocalization(i interface{}) *BetaAppLocalization {
 	if v, ok := i.(BetaAppLocalization); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -126,6 +153,7 @@ func extractIncludedBetaAppReviewDetail(i interface{}) *BetaAppReviewDetail {
 	if v, ok := i.(BetaAppReviewDetail); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -133,6 +161,7 @@ func extractIncludedBetaAppReviewSubmission(i interface{}) *BetaAppReviewSubmiss
 	if v, ok := i.(BetaAppReviewSubmission); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -140,6 +169,7 @@ func extractIncludedBetaBuildLocalization(i interface{}) *BetaBuildLocalization 
 	if v, ok := i.(BetaBuildLocalization); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -147,6 +177,7 @@ func extractIncludedBetaGroup(i interface{}) *BetaGroup {
 	if v, ok := i.(BetaGroup); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -154,6 +185,7 @@ func extractIncludedBetaLicenseAgreement(i interface{}) *BetaLicenseAgreement {
 	if v, ok := i.(BetaLicenseAgreement); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -161,6 +193,7 @@ func extractIncludedBetaTester(i interface{}) *BetaTester {
 	if v, ok := i.(BetaTester); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -168,6 +201,7 @@ func extractIncludedBuild(i interface{}) *Build {
 	if v, ok := i.(Build); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -175,6 +209,7 @@ func extractIncludedBuildBetaDetail(i interface{}) *BuildBetaDetail {
 	if v, ok := i.(BuildBetaDetail); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -182,6 +217,7 @@ func extractIncludedBuildIcon(i interface{}) *BuildIcon {
 	if v, ok := i.(BuildIcon); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -189,6 +225,7 @@ func extractIncludedBundleID(i interface{}) *BundleID {
 	if v, ok := i.(BundleID); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -196,6 +233,7 @@ func extractIncludedBundleIDCapability(i interface{}) *BundleIDCapability {
 	if v, ok := i.(BundleIDCapability); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -203,6 +241,7 @@ func extractIncludedCertificate(i interface{}) *Certificate {
 	if v, ok := i.(Certificate); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -210,6 +249,7 @@ func extractIncludedDevice(i interface{}) *Device {
 	if v, ok := i.(Device); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -217,6 +257,7 @@ func extractIncludedDiagnosticSignature(i interface{}) *DiagnosticSignature {
 	if v, ok := i.(DiagnosticSignature); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -224,6 +265,7 @@ func extractIncludedEndUserLicenseAgreement(i interface{}) *EndUserLicenseAgreem
 	if v, ok := i.(EndUserLicenseAgreement); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -231,6 +273,7 @@ func extractIncludedGameCenterEnabledVersion(i interface{}) *GameCenterEnabledVe
 	if v, ok := i.(GameCenterEnabledVersion); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -238,6 +281,7 @@ func extractIncludedIDFADeclaration(i interface{}) *IDFADeclaration {
 	if v, ok := i.(IDFADeclaration); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -245,6 +289,7 @@ func extractIncludedInAppPurchase(i interface{}) *InAppPurchase {
 	if v, ok := i.(InAppPurchase); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -252,6 +297,7 @@ func extractIncludedPerfPowerMetric(i interface{}) *PerfPowerMetric {
 	if v, ok := i.(PerfPowerMetric); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -259,6 +305,7 @@ func extractIncludedPrereleaseVersion(i interface{}) *PrereleaseVersion {
 	if v, ok := i.(PrereleaseVersion); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -266,6 +313,7 @@ func extractIncludedProfile(i interface{}) *Profile {
 	if v, ok := i.(Profile); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -273,6 +321,7 @@ func extractIncludedRoutingAppCoverage(i interface{}) *RoutingAppCoverage {
 	if v, ok := i.(RoutingAppCoverage); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -280,6 +329,7 @@ func extractIncludedTerritory(i interface{}) *Territory {
 	if v, ok := i.(Territory); ok {
 		return &v
 	}
+
 	return nil
 }
 
@@ -287,11 +337,14 @@ func unmarshalInclude(b []byte) (string, interface{}, error) {
 	var typeRef struct {
 		Type string `json:"type"`
 	}
+
 	err := json.Unmarshal(b, &typeRef)
 	if err != nil {
 		return "", nil, err
 	}
+
 	typeName := typeRef.Type
+
 	return supportedIncludeTypes()(typeName, b)
 }
 
@@ -500,6 +553,7 @@ func supportedIncludeTypes() func(string, []byte) (string, interface{}, error) {
 		if deser, ok := allCases[typeName]; ok {
 			return deser(b)
 		}
-		return typeName, nil, fmt.Errorf("type %s not recognized as includable model", typeName)
+
+		return typeName, nil, ErrInvalidIncluded{Type: typeName}
 	}
 }

@@ -173,6 +173,7 @@ func (s *ProvisioningService) CreateBundleID(ctx context.Context, attributes Bun
 	}
 	res := new(BundleIDResponse)
 	resp, err := s.client.post(ctx, "bundleIds", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -184,14 +185,17 @@ func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, nam
 		ID:   id,
 		Type: "bundleIds",
 	}
+
 	if name != nil {
 		req.Attributes = &bundleIDUpdateRequestAttributes{
 			Name: name,
 		}
 	}
+
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -209,6 +213,7 @@ func (s *ProvisioningService) DeleteBundleID(ctx context.Context, id string) (*R
 func (s *ProvisioningService) ListBundleIDs(ctx context.Context, params *ListBundleIDsQuery) (*BundleIDsResponse, *Response, error) {
 	res := new(BundleIDsResponse)
 	resp, err := s.client.get(ctx, "bundleIds", params, res)
+
 	return res, resp, err
 }
 
@@ -219,6 +224,7 @@ func (s *ProvisioningService) GetBundleID(ctx context.Context, id string, params
 	url := fmt.Sprintf("bundleIds/%s", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -229,6 +235,7 @@ func (s *ProvisioningService) GetAppForBundleID(ctx context.Context, id string, 
 	url := fmt.Sprintf("bundleIds/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -239,6 +246,7 @@ func (s *ProvisioningService) ListProfilesForBundleID(ctx context.Context, id st
 	url := fmt.Sprintf("bundleIds/%s/profiles", id)
 	res := new(ProfilesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -249,6 +257,7 @@ func (s *ProvisioningService) ListCapabilitiesForBundleID(ctx context.Context, i
 	url := fmt.Sprintf("bundleIds/%s/bundleIdCapabilities", id)
 	res := new(BundleIDCapabilitiesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -257,6 +266,7 @@ func (i *BundleIDResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

@@ -35,6 +35,7 @@ PURJWPQa24fI+wNPDi4OzjkB2g6fa5BHqam1gRlZHe8BU3+IjuC3AUFz
 
 	tok, err := token.jwtGenerator.Token()
 	assert.NoError(t, err)
+
 	components := strings.Split(tok, ".")
 	assert.Equal(t, 3, len(components))
 

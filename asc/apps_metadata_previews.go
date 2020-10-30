@@ -161,6 +161,7 @@ func (s *AppsService) GetAppPreview(ctx context.Context, id string, params *GetA
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -185,6 +186,7 @@ func (s *AppsService) CreateAppPreview(ctx context.Context, fileName string, fil
 	}
 	res := new(AppPreviewResponse)
 	resp, err := s.client.post(ctx, "appPreviews", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -196,6 +198,7 @@ func (s *AppsService) CommitAppPreview(ctx context.Context, id string, uploaded 
 		ID:   id,
 		Type: "appPreviews",
 	}
+
 	if uploaded != nil || sourceFileChecksum != nil || previewFrameTimeCode != nil {
 		req.Attributes = &appPreviewUpdateRequestAttributes{
 			Uploaded:             uploaded,
@@ -203,9 +206,11 @@ func (s *AppsService) CommitAppPreview(ctx context.Context, id string, uploaded 
 			PreviewFrameTimeCode: previewFrameTimeCode,
 		}
 	}
+
 	url := fmt.Sprintf("appPreviews/%s", id)
 	res := new(AppPreviewResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

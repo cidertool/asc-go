@@ -124,6 +124,7 @@ func (s *AppsService) ListAppInfoLocalizationsForAppInfo(ctx context.Context, id
 	url := fmt.Sprintf("appInfos/%s/appInfoLocalizations", id)
 	res := new(AppInfoLocalizationsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +135,7 @@ func (s *AppsService) GetAppInfoLocalization(ctx context.Context, id string, par
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -155,6 +157,7 @@ func (s *AppsService) CreateAppInfoLocalization(ctx context.Context, attributes 
 	}
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.post(ctx, "appInfoLocalizations", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -170,6 +173,7 @@ func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, 
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
 	res := new(AppInfoLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

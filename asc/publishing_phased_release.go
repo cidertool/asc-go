@@ -110,13 +110,16 @@ func (s *PublishingService) CreatePhasedRelease(ctx context.Context, phasedRelea
 		},
 		Type: "appStoreVersionPhasedReleases",
 	}
+
 	if phasedReleaseState != nil {
 		req.Attributes = &appStoreVersionPhasedReleaseCreateRequestAttributes{
 			PhasedReleaseState: phasedReleaseState,
 		}
 	}
+
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionPhasedReleases", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -128,14 +131,17 @@ func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, 
 		ID:   id,
 		Type: "appStoreVersionPhasedReleases",
 	}
+
 	if state != nil {
 		req.Attributes = &appStoreVersionPhasedReleaseUpdateRequestAttributes{
 			PhasedReleaseState: state,
 		}
 	}
+
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -154,5 +160,6 @@ func (s *PublishingService) GetAppStoreVersionPhasedReleaseForAppStoreVersion(ct
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionPhasedRelease", id)
 	res := new(AppStoreVersionPhasedReleaseResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

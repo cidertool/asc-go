@@ -71,6 +71,7 @@ func (s *SubmissionService) CreateSubmission(ctx context.Context, appStoreVersio
 	}
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionSubmissions", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -89,5 +90,6 @@ func (s *SubmissionService) GetAppStoreVersionSubmissionForAppStoreVersion(ctx c
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionSubmission", id)
 	res := new(AppStoreVersionSubmissionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

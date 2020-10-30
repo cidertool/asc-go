@@ -161,12 +161,15 @@ func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, pr
 		},
 		Type: "profiles",
 	}
+
 	if len(deviceIDs) > 0 {
 		relationships := newPagedRelationshipDeclaration(deviceIDs, "devices")
 		req.Relationships.Devices = &relationships
 	}
+
 	res := new(ProfileResponse)
 	resp, err := s.client.post(ctx, "profiles", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -184,6 +187,7 @@ func (s *ProvisioningService) DeleteProfile(ctx context.Context, id string) (*Re
 func (s *ProvisioningService) ListProfiles(ctx context.Context, params *ListProfilesQuery) (*ProfilesResponse, *Response, error) {
 	res := new(ProfilesResponse)
 	resp, err := s.client.get(ctx, "profiles", params, res)
+
 	return res, resp, err
 }
 
@@ -194,6 +198,7 @@ func (s *ProvisioningService) GetProfile(ctx context.Context, id string, params 
 	url := fmt.Sprintf("profiles/%s", id)
 	res := new(ProfileResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -204,6 +209,7 @@ func (s *ProvisioningService) GetBundleIDForProfile(ctx context.Context, id stri
 	url := fmt.Sprintf("profiles/%s/bundleId", id)
 	res := new(BundleIDResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -214,6 +220,7 @@ func (s *ProvisioningService) ListCertificatesInProfile(ctx context.Context, id 
 	url := fmt.Sprintf("profiles/%s/certificates", id)
 	res := new(CertificatesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -224,6 +231,7 @@ func (s *ProvisioningService) ListDevicesInProfile(ctx context.Context, id strin
 	url := fmt.Sprintf("profiles/%s/devices", id)
 	res := new(DevicesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -232,6 +240,7 @@ func (i *ProfileResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

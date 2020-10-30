@@ -96,6 +96,7 @@ func (s *AppsService) ListGameCenterEnabledVersionsForApp(ctx context.Context, i
 	url := fmt.Sprintf("apps/%s/gameCenterEnabledVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -106,6 +107,7 @@ func (s *AppsService) ListCompatibleVersionsForGameCenterEnabledVersion(ctx cont
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -116,6 +118,7 @@ func (s *AppsService) ListCompatibleVersionIDsForGameCenterEnabledVersion(ctx co
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
 	res := new(GameCenterEnabledVersionCompatibleVersionsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -125,6 +128,7 @@ func (s *AppsService) ListCompatibleVersionIDsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -134,6 +138,7 @@ func (s *AppsService) CreateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
+
 	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -143,5 +148,6 @@ func (s *AppsService) UpdateCompatibleVersionsForGameCenterEnabledVersion(ctx co
 func (s *AppsService) RemoveCompatibleVersionsForGameCenterEnabledVersion(ctx context.Context, id string, gameCenterCompatibleVersionIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(gameCenterCompatibleVersionIDs, "gameCenterEnabledVersions")
 	url := fmt.Sprintf("gameCenterEnabledVersions/%s/relationships/compatibleVersions", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }

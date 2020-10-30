@@ -120,6 +120,7 @@ type GetBetaAppReviewDetailsForAppQuery struct {
 func (s *TestflightService) ListBetaAppReviewDetails(ctx context.Context, params *ListBetaAppReviewDetailsQuery) (*BetaAppReviewDetailsResponse, *Response, error) {
 	res := new(BetaAppReviewDetailsResponse)
 	resp, err := s.client.get(ctx, "betaAppReviewDetails", params, res)
+
 	return res, resp, err
 }
 
@@ -130,6 +131,7 @@ func (s *TestflightService) GetBetaAppReviewDetail(ctx context.Context, id strin
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -140,6 +142,7 @@ func (s *TestflightService) GetAppForBetaAppReviewDetail(ctx context.Context, id
 	url := fmt.Sprintf("betaAppReviewDetails/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -150,6 +153,7 @@ func (s *TestflightService) GetBetaAppReviewDetailsForApp(ctx context.Context, i
 	url := fmt.Sprintf("apps/%s/betaAppReviewDetail", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -165,5 +169,6 @@ func (s *TestflightService) UpdateBetaAppReviewDetail(ctx context.Context, id st
 	url := fmt.Sprintf("betaAppReviewDetails/%s", id)
 	res := new(BetaAppReviewDetailResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

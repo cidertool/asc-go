@@ -163,6 +163,7 @@ type GetBuildBetaDetailForBuildQuery struct {
 func (s *TestflightService) ListBuildBetaDetails(ctx context.Context, params *ListBuildBetaDetailsQuery) (*BuildBetaDetailsResponse, *Response, error) {
 	res := new(BuildBetaDetailsResponse)
 	resp, err := s.client.get(ctx, "buildBetaDetails", params, res)
+
 	return res, resp, err
 }
 
@@ -173,6 +174,7 @@ func (s *TestflightService) GetBuildBetaDetail(ctx context.Context, id string, p
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -183,6 +185,7 @@ func (s *TestflightService) GetBuildForBuildBetaDetail(ctx context.Context, id s
 	url := fmt.Sprintf("buildBetaDetails/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -193,6 +196,7 @@ func (s *TestflightService) GetBuildBetaDetailForBuild(ctx context.Context, id s
 	url := fmt.Sprintf("builds/%s/buildBetaDetail", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -204,13 +208,16 @@ func (s *TestflightService) UpdateBuildBetaDetail(ctx context.Context, id string
 		ID:   id,
 		Type: "buildBetaDetails",
 	}
+
 	if autoNotifyEnabled != nil {
 		req.Attributes = &buildBetaDetailUpdateRequestAttributes{
 			AutoNotifyEnabled: autoNotifyEnabled,
 		}
 	}
+
 	url := fmt.Sprintf("buildBetaDetails/%s", id)
 	res := new(BuildBetaDetailResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

@@ -231,19 +231,24 @@ func (s *TestflightService) CreateBetaTester(ctx context.Context, attributes Bet
 	}
 	anyBetaGroups := len(betaGroupIDs) > 0
 	anyBuilds := len(buildIDs) > 0
+
 	if anyBetaGroups || anyBuilds {
 		req.Relationships = &betaTesterCreateRequestRelationships{}
+
 		if anyBetaGroups {
 			relationships := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 			req.Relationships.BetaGroups = &relationships
 		}
+
 		if anyBuilds {
 			relationships := newPagedRelationshipDeclaration(buildIDs, "builds")
 			req.Relationships.Builds = &relationships
 		}
 	}
+
 	res := new(BetaTesterResponse)
 	resp, err := s.client.post(ctx, "betaTesters", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -261,6 +266,7 @@ func (s *TestflightService) DeleteBetaTester(ctx context.Context, id string) (*R
 func (s *TestflightService) ListBetaTesters(ctx context.Context, params *ListBetaTestersQuery) (*BetaTestersResponse, *Response, error) {
 	res := new(BetaTestersResponse)
 	resp, err := s.client.get(ctx, "betaTesters", params, res)
+
 	return res, resp, err
 }
 
@@ -271,6 +277,7 @@ func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params
 	url := fmt.Sprintf("betaTesters/%s", id)
 	res := new(BetaTesterResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -280,6 +287,7 @@ func (s *TestflightService) GetBetaTester(ctx context.Context, id string, params
 func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -289,6 +297,7 @@ func (s *TestflightService) AddBetaTesterToBetaGroups(ctx context.Context, id st
 func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -298,6 +307,7 @@ func (s *TestflightService) RemoveBetaTesterFromBetaGroups(ctx context.Context, 
 func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -307,6 +317,7 @@ func (s *TestflightService) AssignSingleBetaTesterToBuilds(ctx context.Context, 
 func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -316,6 +327,7 @@ func (s *TestflightService) UnassignSingleBetaTesterFromBuilds(ctx context.Conte
 func (s *TestflightService) RemoveSingleBetaTesterAccessApps(ctx context.Context, id string, appIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -326,6 +338,7 @@ func (s *TestflightService) ListAppsForBetaTester(ctx context.Context, id string
 	url := fmt.Sprintf("betaTesters/%s/apps", id)
 	res := new(AppsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -336,6 +349,7 @@ func (s *TestflightService) ListAppIDsForBetaTester(ctx context.Context, id stri
 	url := fmt.Sprintf("betaTesters/%s/relationships/apps", id)
 	res := new(BetaTesterAppsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -346,6 +360,7 @@ func (s *TestflightService) ListBuildsIndividuallyAssignedToBetaTester(ctx conte
 	url := fmt.Sprintf("betaTesters/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -356,6 +371,7 @@ func (s *TestflightService) ListBuildIDsIndividuallyAssignedToBetaTester(ctx con
 	url := fmt.Sprintf("betaTesters/%s/relationships/builds", id)
 	res := new(BetaTesterBuildsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -366,6 +382,7 @@ func (s *TestflightService) ListIndividualTestersForBuild(ctx context.Context, i
 	url := fmt.Sprintf("builds/%s/individualTesters", id)
 	res := new(BetaTestersResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -376,6 +393,7 @@ func (s *TestflightService) ListBetaGroupsForBetaTester(ctx context.Context, id 
 	url := fmt.Sprintf("betaTesters/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -386,6 +404,7 @@ func (s *TestflightService) ListBetaGroupIDsForBetaTester(ctx context.Context, i
 	url := fmt.Sprintf("betaTesters/%s/relationships/betaGroups", id)
 	res := new(BetaTesterBetaGroupsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -394,6 +413,7 @@ func (i *BetaTesterResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

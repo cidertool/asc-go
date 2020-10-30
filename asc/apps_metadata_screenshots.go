@@ -110,6 +110,7 @@ func (s *AppsService) GetAppScreenshot(ctx context.Context, id string, params *G
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +135,7 @@ func (s *AppsService) CreateAppScreenshot(ctx context.Context, fileName string, 
 	}
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.post(ctx, "appScreenshots", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -145,15 +147,18 @@ func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, upload
 		ID:   id,
 		Type: "appScreenshots",
 	}
+
 	if uploaded != nil || sourceFileChecksum != nil {
 		req.Attributes = &appScreenshotUpdateRequestAttributes{
 			Uploaded:           uploaded,
 			SourceFileChecksum: sourceFileChecksum,
 		}
 	}
+
 	url := fmt.Sprintf("appScreenshots/%s", id)
 	res := new(AppScreenshotResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

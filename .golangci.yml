@@ -7,13 +7,11 @@ issues:
 linters:
   enable-all: true
   disable:
-    - wsl
     - lll
     - funlen
-    - godox
-    - gomnd
-    - goerr113
     - gofumpt
     - gci
     - nlreturn
     - testpackage
+    - exhaustivestruct
+    - wrapcheck

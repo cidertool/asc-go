@@ -26,13 +26,16 @@ func (r *Reference) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
+
 	u, err := url.Parse(s)
 	if err != nil {
 		return err
 	}
+
 	if u != nil {
 		r.URL = *u
 	}
+
 	return nil
 }
 
@@ -100,6 +103,7 @@ func newRelationshipDeclaration(id *string, relationshipType string) *relationsh
 	if id == nil {
 		return nil
 	}
+
 	return &relationshipDeclaration{
 		Data: RelationshipData{
 			ID:   *id,
@@ -116,5 +120,6 @@ func newPagedRelationshipDeclaration(ids []string, relationshipType string) page
 			Type: relationshipType,
 		})
 	}
+
 	return pagedRelationshipDeclaration{Data: datas}
 }

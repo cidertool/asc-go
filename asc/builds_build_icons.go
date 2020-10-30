@@ -66,5 +66,6 @@ func (s *BuildsService) ListIconsForBuild(ctx context.Context, id string, params
 	url := fmt.Sprintf("builds/%s/icons", id)
 	res := new(BuildIconsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

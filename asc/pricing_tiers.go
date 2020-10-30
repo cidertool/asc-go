@@ -156,6 +156,7 @@ type GetAppPricePointQuery struct {
 func (s *PricingService) ListAppPriceTiers(ctx context.Context, params *ListAppPriceTiersQuery) (*AppPriceTiersResponse, *Response, error) {
 	res := new(AppPriceTiersResponse)
 	resp, err := s.client.get(ctx, "appPriceTiers", params, res)
+
 	return res, resp, err
 }
 
@@ -166,6 +167,7 @@ func (s *PricingService) GetAppPriceTier(ctx context.Context, id string, params 
 	url := fmt.Sprintf("appPriceTiers/%s", id)
 	res := new(AppPriceTierResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -176,6 +178,7 @@ func (s *PricingService) ListPricePointsForAppPriceTier(ctx context.Context, id 
 	url := fmt.Sprintf("appPriceTiers/%s/pricePoints", id)
 	res := new(AppPricePointsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -185,6 +188,7 @@ func (s *PricingService) ListPricePointsForAppPriceTier(ctx context.Context, id 
 func (s *PricingService) ListAppPricePoints(ctx context.Context, params *ListAppPricePointsQuery) (*AppPricePointsResponse, *Response, error) {
 	res := new(AppPricePointsResponse)
 	resp, err := s.client.get(ctx, "appPricePoints", params, res)
+
 	return res, resp, err
 }
 
@@ -195,6 +199,7 @@ func (s *PricingService) GetTerritoryForAppPricePoint(ctx context.Context, id st
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -205,5 +210,6 @@ func (s *PricingService) GetAppPricePoint(ctx context.Context, id string, params
 	url := fmt.Sprintf("appPricePoints/%s", id)
 	res := new(AppPricePointResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

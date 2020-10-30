@@ -56,6 +56,7 @@ func NewClient(httpClient *http.Client) *Client {
 	if httpClient == nil {
 		httpClient = &http.Client{}
 	}
+
 	baseURL, _ := url.Parse(defaultBaseURL)
 
 	c := &Client{
@@ -209,6 +210,7 @@ func appendingQueryOptions(s string, opt interface{}) (string, error) {
 	}
 
 	u.RawQuery = qs.Encode()
+
 	return u.String(), nil
 }
 
@@ -231,6 +233,7 @@ func (c *Client) get(ctx context.Context, url string, query interface{}, v inter
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, err
 }
 
@@ -240,10 +243,12 @@ func (c *Client) post(ctx context.Context, url string, body *requestBody, v inte
 	if err != nil {
 		return nil, err
 	}
+
 	resp, err := c.do(ctx, req, v)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, err
 }
 
@@ -253,10 +258,12 @@ func (c *Client) patch(ctx context.Context, url string, body *requestBody, v int
 	if err != nil {
 		return nil, err
 	}
+
 	resp, err := c.do(ctx, req, v)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, err
 }
 
@@ -266,6 +273,7 @@ func (c *Client) delete(ctx context.Context, url string, body *requestBody) (*Re
 	if err != nil {
 		return nil, err
 	}
+
 	return c.do(ctx, req, nil)
 }
 
@@ -283,6 +291,7 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 	}
 
 	buf := new(bytes.Buffer)
+
 	if body != nil {
 		err := json.NewEncoder(buf).Encode(body)
 		if err != nil {
@@ -332,6 +341,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 		}
 
 		respCh <- resp
+
 		return nil
 	}
 
@@ -369,6 +379,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 func newResponse(r *http.Response) *Response {
 	response := &Response{Response: r}
 	response.Rate = parseRate(r)
+
 	return response
 }
 
@@ -376,38 +387,51 @@ func checkResponse(r *Response) error {
 	if c := r.StatusCode; 200 <= c && c <= 299 {
 		return nil
 	}
+
 	data, err := ioutil.ReadAll(r.Body)
 	erro := new(ErrorResponse)
+
 	if err == nil && data != nil {
 		err := json.Unmarshal(data, erro)
 		if err != nil {
 			return err
 		}
 	}
+
 	erro.Response = r.Response
+
 	return erro
 }
 
 // parseRate parses the rate related headers.
 func parseRate(r *http.Response) Rate {
 	var rate Rate
+
 	header := r.Header.Get(headerRateLimit)
+
 	if header == "" {
 		return rate
 	}
+
 	for _, component := range strings.Split(header, ";") {
 		if component == "" {
 			continue
 		}
+
+		var kvpLen = 2
+
 		kvp := strings.Split(component, ":")
-		if len(kvp) != 2 {
+		if len(kvp) != kvpLen {
 			continue
 		}
+
 		key := kvp[0]
 		value, err := strconv.Atoi(kvp[1])
+
 		if err != nil {
 			continue
 		}
+
 		switch key {
 		case "user-hour-lim":
 			rate.Limit = value
@@ -415,16 +439,19 @@ func parseRate(r *http.Response) Rate {
 			rate.Remaining = value
 		}
 	}
+
 	return rate
 }
 
 func (e ErrorResponse) Error() string {
 	report := strings.Builder{}
+
 	if e.Errors != nil {
 		for _, err := range e.Errors {
 			report.WriteString(fmt.Sprintf("* %s", err.String(1)))
 		}
 	}
+
 	return fmt.Sprintf(
 		"%v %v: %d\n%v",
 		e.Response.Request.Method,
@@ -437,15 +464,24 @@ func (e ErrorResponse) Error() string {
 func (e ErrorResponseError) String(level int) string {
 	str := strings.Builder{}
 	str.WriteString(fmt.Sprintf("%s %s – %s\n%s%s\n", e.Status, e.Code, e.Title, strings.Repeat("\t", level), e.Detail))
+
 	if e.Meta == nil {
 		return str.String()
 	}
+
 	for route, errs := range e.Meta.AssociatedErrors {
 		str.WriteString(fmt.Sprintf("\t%s:\n", route))
+
 		for _, err := range errs {
-			str.WriteString(fmt.Sprintf("%s%s", strings.Repeat("\t", level+1), err.String(level+2)))
+			var (
+				tabLen     = 1
+				contentLen = 2
+			)
+
+			str.WriteString(fmt.Sprintf("%s%s", strings.Repeat("\t", level+tabLen), err.String(level+contentLen)))
 		}
 	}
+
 	return str.String()
 }
 

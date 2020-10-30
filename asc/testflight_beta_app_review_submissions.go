@@ -133,6 +133,7 @@ func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, b
 	}
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.post(ctx, "betaAppReviewSubmissions", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -142,6 +143,7 @@ func (s *TestflightService) CreateBetaAppReviewSubmission(ctx context.Context, b
 func (s *TestflightService) ListBetaAppReviewSubmissions(ctx context.Context, params *ListBetaAppReviewSubmissionsQuery) (*BetaAppReviewSubmissionsResponse, *Response, error) {
 	res := new(BetaAppReviewSubmissionsResponse)
 	resp, err := s.client.get(ctx, "betaAppReviewSubmissions", params, res)
+
 	return res, resp, err
 }
 
@@ -152,6 +154,7 @@ func (s *TestflightService) GetBetaAppReviewSubmission(ctx context.Context, id s
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -162,6 +165,7 @@ func (s *TestflightService) GetBuildForBetaAppReviewSubmission(ctx context.Conte
 	url := fmt.Sprintf("betaAppReviewSubmissions/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -172,5 +176,6 @@ func (s *TestflightService) GetBetaAppReviewSubmissionForBuild(ctx context.Conte
 	url := fmt.Sprintf("builds/%s/betaAppReviewSubmission", id)
 	res := new(BetaAppReviewSubmissionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

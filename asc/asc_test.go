@@ -2,6 +2,7 @@ package asc
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -47,7 +48,9 @@ type mockBody struct {
 
 func TestNilContextReturnsError(t *testing.T) {
 	client, server := newServer("", http.StatusOK, false)
+
 	defer server.Close()
+
 	_, err := client.get(nil, "test", nil, nil) // nolint: staticcheck
 	assert.Error(t, err)
 }
@@ -55,6 +58,7 @@ func TestNilContextReturnsError(t *testing.T) {
 func TestGet(t *testing.T) {
 	SetHTTPDebug(true)
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
+
 	defer server.Close()
 
 	var unmarshaled mockPayload
@@ -188,7 +192,12 @@ func TestCheckBadResponse(t *testing.T) {
 	err := checkResponse(resp)
 	assert.Error(t, err)
 	assert.IsType(t, new(ErrorResponse), err)
-	assert.Equal(t, resp.Response, err.(*ErrorResponse).Response)
+
+	var respErr ErrorResponse
+
+	ok := errors.As(err, &respErr)
+	assert.True(t, ok)
+	assert.Equal(t, resp.Response, respErr.Response)
 	assert.NotEmpty(t, err.Error())
 }
 
@@ -239,6 +248,7 @@ func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface
 
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
+
 	if want != nil {
 		assert.Equal(t, want, got)
 	}

@@ -8,6 +8,10 @@ import (
 	"io/ioutil"
 )
 
+// ErrMissingCSRContent happens when CreateCertificate is provided a nil Reader for processing
+// a certificate signing request (CSR).
+var ErrMissingCSRContent = errors.New("no csr content provided, could not send request")
+
 // CertificateType defines model for CertificateType.
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/certificatetype
@@ -117,12 +121,14 @@ type GetCertificateQuery struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/create_a_certificate
 func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificateType CertificateType, csrContent io.Reader) (*CertificateResponse, *Response, error) {
 	if csrContent == nil {
-		return nil, nil, errors.New("no csr content provided, could not send request")
+		return nil, nil, ErrMissingCSRContent
 	}
+
 	csrBytes, err := ioutil.ReadAll(csrContent)
 	if err != nil {
 		return nil, nil, err
 	}
+
 	req := certificateCreateRequest{
 		Attributes: certificateCreateRequestAttributes{
 			CertificateType: certificateType,
@@ -132,6 +138,7 @@ func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificate
 	}
 	res := new(CertificateResponse)
 	resp, err := s.client.post(ctx, "certificates", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -141,6 +148,7 @@ func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificate
 func (s *ProvisioningService) ListCertificates(ctx context.Context, params *ListCertificatesQuery) (*CertificatesResponse, *Response, error) {
 	res := new(CertificatesResponse)
 	resp, err := s.client.get(ctx, "certificates", params, res)
+
 	return res, resp, err
 }
 
@@ -151,6 +159,7 @@ func (s *ProvisioningService) GetCertificate(ctx context.Context, id string, par
 	url := fmt.Sprintf("certificates/%s", id)
 	res := new(CertificateResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 

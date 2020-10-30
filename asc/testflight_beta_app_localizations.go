@@ -146,6 +146,7 @@ type ListBetaAppLocalizationsForAppQuery struct {
 func (s *TestflightService) ListBetaAppLocalizations(ctx context.Context, params *ListBetaAppLocalizationsQuery) (*BetaAppLocalizationsResponse, *Response, error) {
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.client.get(ctx, "betaAppLocalizations", params, res)
+
 	return res, resp, err
 }
 
@@ -156,6 +157,7 @@ func (s *TestflightService) GetBetaAppLocalization(ctx context.Context, id strin
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -166,6 +168,7 @@ func (s *TestflightService) GetAppForBetaAppLocalization(ctx context.Context, id
 	url := fmt.Sprintf("betaAppLocalizations/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -176,6 +179,7 @@ func (s *TestflightService) ListBetaAppLocalizationsForApp(ctx context.Context, 
 	url := fmt.Sprintf("apps/%s/betaAppLocalizations", id)
 	res := new(BetaAppLocalizationsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -197,6 +201,7 @@ func (s *TestflightService) CreateBetaAppLocalization(ctx context.Context, attri
 	}
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.post(ctx, "betaAppLocalizations", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -212,6 +217,7 @@ func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id st
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
 	res := new(BetaAppLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

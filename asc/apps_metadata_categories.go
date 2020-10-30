@@ -104,6 +104,7 @@ type GetAppCategoryForAppInfoQuery struct {
 func (s *AppsService) ListAppCategories(ctx context.Context, params *ListAppCategoriesQuery) (*AppCategoriesResponse, *Response, error) {
 	res := new(AppCategoriesResponse)
 	resp, err := s.client.get(ctx, "appCategories", params, res)
+
 	return res, resp, err
 }
 
@@ -114,6 +115,7 @@ func (s *AppsService) ListSubcategoriesForAppCategory(ctx context.Context, id st
 	url := fmt.Sprintf("appCategories/%s/subcategories", id)
 	res := new(AppCategoriesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -124,6 +126,7 @@ func (s *AppsService) GetAppCategory(ctx context.Context, id string, params *Get
 	url := fmt.Sprintf("appCategories/%s", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +137,7 @@ func (s *AppsService) GetParentCategoryForAppCategory(ctx context.Context, id st
 	url := fmt.Sprintf("appCategories/%s/parent", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -144,6 +148,7 @@ func (s *AppsService) GetPrimaryCategoryForAppInfo(ctx context.Context, id strin
 	url := fmt.Sprintf("appInfos/%s/primaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -154,6 +159,7 @@ func (s *AppsService) GetSecondaryCategoryForAppInfo(ctx context.Context, id str
 	url := fmt.Sprintf("appInfos/%s/secondaryCategory", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -164,6 +170,7 @@ func (s *AppsService) GetPrimarySubcategoryOneForAppInfo(ctx context.Context, id
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -174,6 +181,7 @@ func (s *AppsService) GetPrimarySubcategoryTwoForAppInfo(ctx context.Context, id
 	url := fmt.Sprintf("appInfos/%s/primarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -184,6 +192,7 @@ func (s *AppsService) GetSecondarySubcategoryOneForAppInfo(ctx context.Context, 
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryOne", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -194,6 +203,7 @@ func (s *AppsService) GetSecondarySubcategoryTwoForAppInfo(ctx context.Context, 
 	url := fmt.Sprintf("appInfos/%s/secondarySubcategoryTwo", id)
 	res := new(AppCategoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -202,6 +212,7 @@ func (i *AppCategoryResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

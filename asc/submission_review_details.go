@@ -138,6 +138,7 @@ func (s *SubmissionService) CreateReviewDetail(ctx context.Context, attributes *
 	}
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.post(ctx, "appStoreReviewDetails", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -148,6 +149,7 @@ func (s *SubmissionService) GetReviewDetail(ctx context.Context, id string, para
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -158,6 +160,7 @@ func (s *SubmissionService) GetReviewDetailsForAppStoreVersion(ctx context.Conte
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreReviewDetail", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -173,5 +176,6 @@ func (s *SubmissionService) UpdateReviewDetail(ctx context.Context, id string, a
 	url := fmt.Sprintf("appStoreReviewDetails/%s", id)
 	res := new(AppStoreReviewDetailResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

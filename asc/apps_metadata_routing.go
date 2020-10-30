@@ -122,6 +122,7 @@ func (s *AppsService) GetRoutingAppCoverageForAppStoreVersion(ctx context.Contex
 	url := fmt.Sprintf("appStoreVersions/%s/routingAppCoverage", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -132,6 +133,7 @@ func (s *AppsService) GetRoutingAppCoverage(ctx context.Context, id string, para
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -156,6 +158,7 @@ func (s *AppsService) CreateRoutingAppCoverage(ctx context.Context, fileName str
 	}
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.post(ctx, "routingAppCoverages", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -167,15 +170,18 @@ func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, u
 		ID:   id,
 		Type: "routingAppCoverages",
 	}
+
 	if uploaded != nil || sourceFileChecksum != nil {
 		req.Attributes = &routingAppCoverageUpdateRequestAttributes{
 			Uploaded:           uploaded,
 			SourceFileChecksum: sourceFileChecksum,
 		}
 	}
+
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
 	res := new(RoutingAppCoverageResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

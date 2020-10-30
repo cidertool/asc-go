@@ -111,6 +111,7 @@ func (s *SubmissionService) CreateIDFADeclaration(ctx context.Context, attribute
 	}
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.post(ctx, "idfaDeclarations", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -126,6 +127,7 @@ func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -144,5 +146,6 @@ func (s *SubmissionService) GetIDFADeclarationForAppStoreVersion(ctx context.Con
 	url := fmt.Sprintf("appStoreVersions/%s/idfaDeclaration", id)
 	res := new(IDFADeclarationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

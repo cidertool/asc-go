@@ -74,6 +74,7 @@ func (s *PricingService) ListPricesForApp(ctx context.Context, id string, params
 	url := fmt.Sprintf("apps/%s/prices", id)
 	res := new(AppPricesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -84,5 +85,6 @@ func (s *PricingService) GetPrice(ctx context.Context, id string, params *GetPri
 	url := fmt.Sprintf("appPrices/%s", id)
 	res := new(AppPriceResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

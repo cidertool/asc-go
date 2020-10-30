@@ -115,6 +115,7 @@ func (s *ProvisioningService) CreateDevice(ctx context.Context, name string, udi
 	}
 	res := new(DeviceResponse)
 	resp, err := s.client.post(ctx, "devices", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -124,6 +125,7 @@ func (s *ProvisioningService) CreateDevice(ctx context.Context, name string, udi
 func (s *ProvisioningService) ListDevices(ctx context.Context, params *ListDevicesQuery) (*DevicesResponse, *Response, error) {
 	res := new(DevicesResponse)
 	resp, err := s.client.get(ctx, "devices", params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +136,7 @@ func (s *ProvisioningService) GetDevice(ctx context.Context, id string, params *
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -145,14 +148,17 @@ func (s *ProvisioningService) UpdateDevice(ctx context.Context, id string, name 
 		ID:   id,
 		Type: "devices",
 	}
+
 	if name != nil || status != nil {
 		req.Attributes = &deviceUpdateRequestAttributes{
 			Name:   name,
 			Status: status,
 		}
 	}
+
 	url := fmt.Sprintf("devices/%s", id)
 	res := new(DeviceResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

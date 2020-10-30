@@ -114,6 +114,7 @@ type GetAppForEncryptionDeclarationQuery struct {
 func (s *BuildsService) ListAppEncryptionDeclarations(ctx context.Context, params *ListAppEncryptionDeclarationsQuery) (*AppEncryptionDeclarationsResponse, *Response, error) {
 	res := new(AppEncryptionDeclarationsResponse)
 	resp, err := s.client.get(ctx, "appEncryptionDeclarations", params, res)
+
 	return res, resp, err
 }
 
@@ -124,6 +125,7 @@ func (s *BuildsService) GetAppEncryptionDeclaration(ctx context.Context, id stri
 	url := fmt.Sprintf("appEncryptionDeclarations/%s", id)
 	res := new(AppEncryptionDeclarationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -134,6 +136,7 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 	url := fmt.Sprintf("appEncryptionDeclarations/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -143,5 +146,6 @@ func (s *BuildsService) GetAppForAppEncryptionDeclaration(ctx context.Context, i
 func (s *BuildsService) AssignBuildsToAppEncryptionDeclaration(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }

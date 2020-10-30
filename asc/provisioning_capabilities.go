@@ -192,6 +192,7 @@ func (s *ProvisioningService) EnableCapability(ctx context.Context, capabilityTy
 	}
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.client.patch(ctx, "bundleIdCapabilities", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -211,14 +212,17 @@ func (s *ProvisioningService) UpdateCapability(ctx context.Context, id string, c
 		ID:   id,
 		Type: "bundleIdCapabilities",
 	}
+
 	if capabilityType != nil || settings != nil {
 		req.Attributes = &bundleIDCapabilityUpdateRequestAttributes{
 			CapabilityType: capabilityType,
 			Settings:       settings,
 		}
 	}
+
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
 	res := new(BundleIDCapabilityResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }

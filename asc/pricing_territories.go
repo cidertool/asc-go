@@ -57,6 +57,7 @@ type ListTerritoriesQuery struct {
 func (s *PricingService) ListTerritories(ctx context.Context, params *ListTerritoriesQuery) (*TerritoriesResponse, *Response, error) {
 	res := new(TerritoriesResponse)
 	resp, err := s.client.get(ctx, "territories", params, res)
+
 	return res, resp, err
 }
 
@@ -67,6 +68,7 @@ func (s *PricingService) ListTerritoriesForApp(ctx context.Context, id string, p
 	url := fmt.Sprintf("apps/%s/availableTerritories", id)
 	res := new(TerritoriesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -77,6 +79,7 @@ func (s *PricingService) ListTerritoriesForEULA(ctx context.Context, id string, 
 	url := fmt.Sprintf("endUserLicenseAgreements/%s/territories", id)
 	res := new(TerritoriesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -87,5 +90,6 @@ func (s *PricingService) GetTerritoryForAppPrice(ctx context.Context, id string,
 	url := fmt.Sprintf("appPricePoints/%s/territory", id)
 	res := new(TerritoryResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

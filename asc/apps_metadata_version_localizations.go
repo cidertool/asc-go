@@ -165,6 +165,7 @@ func (s *AppsService) ListLocalizationsForAppStoreVersion(ctx context.Context, i
 	url := fmt.Sprintf("appStoreVersions/%s/appStoreVersionLocalizations", id)
 	res := new(AppStoreVersionLocalizationsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -175,6 +176,7 @@ func (s *AppsService) GetAppStoreVersionLocalization(ctx context.Context, id str
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -196,6 +198,7 @@ func (s *AppsService) CreateAppStoreVersionLocalization(ctx context.Context, att
 	}
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.post(ctx, "appStoreVersionLocalizations", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -211,6 +214,7 @@ func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id 
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
 	res := new(AppStoreVersionLocalizationResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -229,6 +233,7 @@ func (s *AppsService) ListAppScreenshotSetsForAppStoreVersionLocalization(ctx co
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appScreenshotSets", id)
 	res := new(AppScreenshotSetsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -239,6 +244,7 @@ func (s *AppsService) ListAppPreviewSetsForAppStoreVersionLocalization(ctx conte
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s/appPreviewSets", id)
 	res := new(AppPreviewSetsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -247,6 +253,7 @@ func (i *AppStoreVersionLocalizationResponseIncluded) UnmarshalJSON(b []byte) er
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

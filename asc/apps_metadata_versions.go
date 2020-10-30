@@ -260,6 +260,7 @@ func (s *AppsService) ListAppStoreVersionsForApp(ctx context.Context, id string,
 	url := fmt.Sprintf("apps/%s/appStoreVersions", id)
 	res := new(AppStoreVersionsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -270,6 +271,7 @@ func (s *AppsService) GetAppStoreVersion(ctx context.Context, id string, params 
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -284,11 +286,14 @@ func (s *AppsService) CreateAppStoreVersion(ctx context.Context, attributes AppS
 		},
 		Type: "appStoreVersions",
 	}
+
 	if buildID != nil {
 		req.Relationships.Build = newRelationshipDeclaration(buildID, "builds")
 	}
+
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.post(ctx, "appStoreVersions", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -301,14 +306,17 @@ func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attr
 		ID:         id,
 		Type:       "appStoreVersions",
 	}
+
 	if buildID != nil {
 		req.Relationships = &appStoreVersionUpdateRequestRelationships{
 			Build: newRelationshipDeclaration(buildID, "builds"),
 		}
 	}
+
 	url := fmt.Sprintf("appStoreVersions/%s", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -327,6 +335,7 @@ func (s *AppsService) GetBuildIDForAppStoreVersion(ctx context.Context, id strin
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.get(ctx, url, nil, res)
+
 	return res, resp, err
 }
 
@@ -338,6 +347,7 @@ func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id stri
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(linkage), res)
+
 	return res, resp, err
 }
 
@@ -348,6 +358,7 @@ func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(ctx context.Cont
 	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
 	res := new(AgeRatingDeclarationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -356,6 +367,7 @@ func (i *AppStoreVersionResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

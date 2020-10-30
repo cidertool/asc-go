@@ -228,16 +228,20 @@ func (s *TestflightService) CreateBetaGroup(ctx context.Context, attributes Beta
 		},
 		Type: "betaGroups",
 	}
+
 	if len(betaTesterIDs) > 0 {
 		relationship := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 		req.Relationships.BetaTesters = &relationship
 	}
+
 	if len(buildIDs) > 0 {
 		relationship := newPagedRelationshipDeclaration(buildIDs, "builds")
 		req.Relationships.Builds = &relationship
 	}
+
 	res := new(BetaGroupResponse)
 	resp, err := s.client.post(ctx, "betaGroups", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -253,6 +257,7 @@ func (s *TestflightService) UpdateBetaGroup(ctx context.Context, id string, attr
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -270,6 +275,7 @@ func (s *TestflightService) DeleteBetaGroup(ctx context.Context, id string) (*Re
 func (s *TestflightService) ListBetaGroups(ctx context.Context, params *ListBetaGroupsQuery) (*BetaGroupsResponse, *Response, error) {
 	res := new(BetaGroupsResponse)
 	resp, err := s.client.get(ctx, "betaGroups", params, res)
+
 	return res, resp, err
 }
 
@@ -280,6 +286,7 @@ func (s *TestflightService) GetBetaGroup(ctx context.Context, id string, params 
 	url := fmt.Sprintf("betaGroups/%s", id)
 	res := new(BetaGroupResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -290,6 +297,7 @@ func (s *TestflightService) GetAppForBetaGroup(ctx context.Context, id string, p
 	url := fmt.Sprintf("betaGroups/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -300,6 +308,7 @@ func (s *TestflightService) ListBetaGroupsForApp(ctx context.Context, id string,
 	url := fmt.Sprintf("apps/%s/betaGroups", id)
 	res := new(BetaGroupsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -309,6 +318,7 @@ func (s *TestflightService) ListBetaGroupsForApp(ctx context.Context, id string,
 func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -318,6 +328,7 @@ func (s *TestflightService) AddBetaTestersToBetaGroup(ctx context.Context, id st
 func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -327,6 +338,7 @@ func (s *TestflightService) RemoveBetaTestersFromBetaGroup(ctx context.Context, 
 func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -336,6 +348,7 @@ func (s *TestflightService) AddBuildsToBetaGroup(ctx context.Context, id string,
 func (s *TestflightService) RemoveBuildsFromBetaGroup(ctx context.Context, id string, buildIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(buildIDs, "builds")
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -346,6 +359,7 @@ func (s *TestflightService) ListBuildsForBetaGroup(ctx context.Context, id strin
 	url := fmt.Sprintf("betaGroups/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -356,6 +370,7 @@ func (s *TestflightService) ListBuildIDsForBetaGroup(ctx context.Context, id str
 	url := fmt.Sprintf("betaGroups/%s/relationships/builds", id)
 	res := new(BetaGroupBuildsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -366,6 +381,7 @@ func (s *TestflightService) ListBetaTestersForBetaGroup(ctx context.Context, id 
 	url := fmt.Sprintf("betaGroups/%s/betaTesters", id)
 	res := new(BetaTestersResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -376,6 +392,7 @@ func (s *TestflightService) ListBetaTesterIDsForBetaGroup(ctx context.Context, i
 	url := fmt.Sprintf("betaGroups/%s/relationships/betaTesters", id)
 	res := new(BetaGroupBetaTestersLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -384,6 +401,7 @@ func (i *BetaGroupResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

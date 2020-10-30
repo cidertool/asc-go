@@ -271,6 +271,7 @@ type GetInAppPurchaseQuery struct {
 func (s *AppsService) ListApps(ctx context.Context, params *ListAppsQuery) (*AppsResponse, *Response, error) {
 	res := new(AppsResponse)
 	resp, err := s.client.get(ctx, "apps", params, res)
+
 	return res, resp, err
 }
 
@@ -281,6 +282,7 @@ func (s *AppsService) GetApp(ctx context.Context, id string, params *GetAppQuery
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -351,18 +353,22 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 
 	if anyTerritories || anyPrices {
 		req.Relationships = &appUpdateRequestRelationships{}
+
 		if anyTerritories {
 			relationships := newPagedRelationshipDeclaration(availableTerritoryIDs, "territories")
 			req.Relationships.AvailableTerritories = &relationships
 		}
+
 		if anyPrices {
 			relationships := newPagedRelationshipDeclaration(priceIDs, "appPrices")
 			req.Relationships.Prices = &relationships
 		}
 	}
+
 	url := fmt.Sprintf("apps/%s", id)
 	res := new(AppResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBodyWithIncluded(req, newAppPrices), res)
+
 	return res, resp, err
 }
 
@@ -372,6 +378,7 @@ func (s *AppsService) UpdateApp(ctx context.Context, id string, attributes *AppU
 func (s *AppsService) RemoveBetaTestersFromApp(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("apps/%s/relationships/betaTesters", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -382,6 +389,7 @@ func (s *AppsService) ListInAppPurchasesForApp(ctx context.Context, id string, p
 	url := fmt.Sprintf("apps/%s/inAppPurchases", id)
 	res := new(InAppPurchasesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -392,6 +400,7 @@ func (s *AppsService) GetInAppPurchase(ctx context.Context, id string, params *G
 	url := fmt.Sprintf("inAppPurchases/%s", id)
 	res := new(InAppPurchaseResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -400,6 +409,7 @@ func (i *AppResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

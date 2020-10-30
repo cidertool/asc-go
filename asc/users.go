@@ -175,6 +175,7 @@ type ListVisibleAppsByResourceIDQuery struct {
 func (s *UsersService) ListUsers(ctx context.Context, params *ListUsersQuery) (*UsersResponse, *Response, error) {
 	res := new(UsersResponse)
 	resp, err := s.client.get(ctx, "users", params, res)
+
 	return res, resp, err
 }
 
@@ -185,6 +186,7 @@ func (s *UsersService) GetUser(ctx context.Context, id string, params *GetUserQu
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -197,15 +199,18 @@ func (s *UsersService) UpdateUser(ctx context.Context, id string, attributes *Us
 		ID:         id,
 		Type:       "users",
 	}
+
 	if len(visibleAppIDs) > 0 {
 		relationships := newPagedRelationshipDeclaration(visibleAppIDs, "apps")
 		req.Relationships = &userUpdateRequestRelationships{
 			VisibleApps: &relationships,
 		}
 	}
+
 	url := fmt.Sprintf("users/%s", id)
 	res := new(UserResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -224,6 +229,7 @@ func (s *UsersService) ListVisibleAppsForUser(ctx context.Context, id string, pa
 	url := fmt.Sprintf("users/%s/visibleApps", id)
 	res := new(AppsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -234,6 +240,7 @@ func (s *UsersService) ListVisibleAppsByResourceIDForUser(ctx context.Context, i
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
 	res := new(UserVisibleAppsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -251,6 +258,7 @@ func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, app
 func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
+
 	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -260,5 +268,6 @@ func (s *UsersService) UpdateVisibleAppsForUser(ctx context.Context, id string, 
 func (s *UsersService) RemoveVisibleAppsFromUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
 	url := fmt.Sprintf("users/%s/relationships/visibleApps", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }

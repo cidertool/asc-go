@@ -98,6 +98,7 @@ func (s *PublishingService) GetPreOrder(ctx context.Context, id string, params *
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -108,6 +109,7 @@ func (s *PublishingService) GetPreOrderForApp(ctx context.Context, id string, pa
 	url := fmt.Sprintf("apps/%s/preOrder", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -126,13 +128,16 @@ func (s *PublishingService) CreatePreOrder(ctx context.Context, appReleaseDate *
 		},
 		Type: "appPreOrders",
 	}
+
 	if appReleaseDate != nil {
 		req.Attributes = &appPreOrderCreateRequestAttributes{
 			AppReleaseDate: appReleaseDate,
 		}
 	}
+
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.post(ctx, "appPreOrders", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -144,14 +149,17 @@ func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, appRe
 		ID:   id,
 		Type: "appPreOrders",
 	}
+
 	if appReleaseDate != nil {
 		req.Attributes = &appPreOrderUpdateRequestAttributes{
 			AppReleaseDate: appReleaseDate,
 		}
 	}
+
 	url := fmt.Sprintf("appPreOrders/%s", id)
 	res := new(AppPreOrderResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

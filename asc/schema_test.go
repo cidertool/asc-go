@@ -36,6 +36,7 @@ func TestDateMarshal(t *testing.T) {
 func TestDateUnmarshal(t *testing.T) {
 	want := time.Date(2020, 4, 1, 0, 0, 0, 0, time.UTC)
 	jsonStr := dateContainerJSON("2020-04-01")
+
 	var b dateContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.NoError(t, err)
@@ -44,6 +45,7 @@ func TestDateUnmarshal(t *testing.T) {
 
 func TestDateUnmarshalWrongType(t *testing.T) {
 	jsonStr := `{"date":-1}`
+
 	var b dateContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)
@@ -51,6 +53,7 @@ func TestDateUnmarshalWrongType(t *testing.T) {
 
 func TestDateUnmarshalInvalidDate(t *testing.T) {
 	jsonStr := dateContainerJSON("TEST")
+
 	var b dateContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)
@@ -84,6 +87,7 @@ func TestDateTimeUnmarshal(t *testing.T) {
 	time.Local = time.UTC
 	want := time.Date(2020, 4, 1, 5, 16, 48, 915000000, time.Local)
 	jsonStr := dateTimeContainerJSON("2020-04-01T05:16:48.915+0000")
+
 	var b dateTimeContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.NoError(t, err)
@@ -92,6 +96,7 @@ func TestDateTimeUnmarshal(t *testing.T) {
 
 func TestDateTimeUnmarshalWrongType(t *testing.T) {
 	jsonStr := `{"time":-1}`
+
 	var b dateTimeContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)
@@ -99,6 +104,7 @@ func TestDateTimeUnmarshalWrongType(t *testing.T) {
 
 func TestDateTimeUnmarshalInvalidDate(t *testing.T) {
 	jsonStr := dateTimeContainerJSON("TEST")
+
 	var b dateTimeContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)
@@ -136,6 +142,7 @@ func TestEmailMarshalInvalidEmail(t *testing.T) {
 func TestEmailUnmarshal(t *testing.T) {
 	want := "my@email.com"
 	jsonStr := emailContainerJSON(want)
+
 	var b emailContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.NoError(t, err)
@@ -144,6 +151,7 @@ func TestEmailUnmarshal(t *testing.T) {
 
 func TestEmailUnmarshalWrongType(t *testing.T) {
 	jsonStr := `{"email":-1}`
+
 	var b emailContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)
@@ -151,6 +159,7 @@ func TestEmailUnmarshalWrongType(t *testing.T) {
 
 func TestEmailUnmarshalInvalidEmail(t *testing.T) {
 	jsonStr := emailContainerJSON("TEST")
+
 	var b emailContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
 	assert.Error(t, err)

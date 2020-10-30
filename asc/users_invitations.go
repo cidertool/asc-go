@@ -115,6 +115,7 @@ type GetInvitationQuery struct {
 func (s *UsersService) ListInvitations(ctx context.Context, params *ListInvitationsQuery) (*UserInvitationsResponse, *Response, error) {
 	res := new(UserInvitationsResponse)
 	resp, err := s.client.get(ctx, "userInvitations", params, res)
+
 	return res, resp, err
 }
 
@@ -125,6 +126,7 @@ func (s *UsersService) GetInvitation(ctx context.Context, id string, params *Get
 	url := fmt.Sprintf("userInvitations/%s", id)
 	res := new(UserInvitationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -136,14 +138,17 @@ func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvi
 		Attributes: attributes,
 		Type:       "userInvitations",
 	}
+
 	if len(visibleAppIDs) > 0 {
 		relationships := newPagedRelationshipDeclaration(visibleAppIDs, "apps")
 		req.Relationships = &userInvitationCreateRequestRelationships{
 			VisibleApps: &relationships,
 		}
 	}
+
 	res := new(UserInvitationResponse)
 	resp, err := s.client.post(ctx, "userInvitations", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -162,5 +167,6 @@ func (s *UsersService) ListVisibleAppsForInvitation(ctx context.Context, id stri
 	url := fmt.Sprintf("userInvitations/%s/visibleApps", id)
 	res := new(AppsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }

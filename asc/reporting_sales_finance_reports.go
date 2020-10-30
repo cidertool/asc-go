@@ -34,6 +34,7 @@ type DownloadSalesAndTrendsReportsQuery struct {
 func (s *ReportingService) DownloadFinanceReports(ctx context.Context, params *DownloadFinanceReportsQuery) (io.Reader, *Response, error) {
 	buffer := new(bytes.Buffer)
 	resp, err := s.client.get(ctx, "financeReports", params, buffer, withAccept("application/a-gzip"))
+
 	return buffer, resp, err
 }
 
@@ -43,5 +44,6 @@ func (s *ReportingService) DownloadFinanceReports(ctx context.Context, params *D
 func (s *ReportingService) DownloadSalesAndTrendsReports(ctx context.Context, params *DownloadSalesAndTrendsReportsQuery) (io.Reader, *Response, error) {
 	buffer := new(bytes.Buffer)
 	resp, err := s.client.get(ctx, "salesReports", params, buffer, withAccept("application/a-gzip"))
+
 	return buffer, resp, err
 }

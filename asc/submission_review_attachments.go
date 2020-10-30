@@ -118,6 +118,7 @@ func (s *SubmissionService) GetAttachment(ctx context.Context, id string, params
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -128,6 +129,7 @@ func (s *SubmissionService) ListAttachmentsForReviewDetail(ctx context.Context, 
 	url := fmt.Sprintf("appStoreReviewDetails/%s/appStoreReviewAttachments", id)
 	res := new(AppStoreReviewAttachmentsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -152,6 +154,7 @@ func (s *SubmissionService) CreateAttachment(ctx context.Context, fileName strin
 	}
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.post(ctx, "appStoreReviewAttachments", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -163,15 +166,18 @@ func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, upl
 		ID:   id,
 		Type: "appStoreReviewAttachments",
 	}
+
 	if uploaded != nil || sourceFileChecksum != nil {
 		req.Attributes = &appStoreReviewAttachmentUpdateRequestAttributes{
 			Uploaded:           uploaded,
 			SourceFileChecksum: sourceFileChecksum,
 		}
 	}
+
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
 	res := new(AppStoreReviewAttachmentResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 

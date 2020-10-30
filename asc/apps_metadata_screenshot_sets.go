@@ -175,6 +175,7 @@ func (s *AppsService) GetAppScreenshotSet(ctx context.Context, id string, params
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -198,6 +199,7 @@ func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, screenshotDisp
 	}
 	res := new(AppScreenshotSetResponse)
 	resp, err := s.client.post(ctx, "appScreenshotSets", newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -216,6 +218,7 @@ func (s *AppsService) ListAppScreenshotsForSet(ctx context.Context, id string, p
 	url := fmt.Sprintf("appScreenshotSets/%s/appScreenshots", id)
 	res := new(AppScreenshotsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -226,6 +229,7 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
 	res := new(AppScreenshotSetAppScreenshotsLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -235,5 +239,6 @@ func (s *AppsService) ListAppScreenshotIDsForSet(ctx context.Context, id string,
 func (s *AppsService) ReplaceAppScreenshotsForSet(ctx context.Context, id string, appScreenshotIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appScreenshotIDs, "appScreenshots")
 	url := fmt.Sprintf("appScreenshotSets/%s/relationships/appScreenshots", id)
+
 	return s.client.patch(ctx, url, newRequestBody(linkages.Data), nil)
 }

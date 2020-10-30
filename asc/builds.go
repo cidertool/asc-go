@@ -227,6 +227,7 @@ type GetAppEncryptionDeclarationForBuildQuery struct {
 func (s *BuildsService) ListBuilds(ctx context.Context, params *ListBuildsQuery) (*BuildsResponse, *Response, error) {
 	res := new(BuildsResponse)
 	resp, err := s.client.get(ctx, "builds", params, res)
+
 	return res, resp, err
 }
 
@@ -237,6 +238,7 @@ func (s *BuildsService) ListBuildsForApp(ctx context.Context, id string, params 
 	url := fmt.Sprintf("apps/%s/builds", id)
 	res := new(BuildsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -247,6 +249,7 @@ func (s *BuildsService) GetBuild(ctx context.Context, id string, params *GetBuil
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -257,6 +260,7 @@ func (s *BuildsService) GetAppForBuild(ctx context.Context, id string, params *G
 	url := fmt.Sprintf("builds/%s/app", id)
 	res := new(AppResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -267,6 +271,7 @@ func (s *BuildsService) GetAppStoreVersionForBuild(ctx context.Context, id strin
 	url := fmt.Sprintf("builds/%s/appStoreVersion", id)
 	res := new(AppStoreVersionResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -277,6 +282,7 @@ func (s *BuildsService) GetBuildForAppStoreVersion(ctx context.Context, id strin
 	url := fmt.Sprintf("appStoreVersions/%s/build", id)
 	res := new(BuildResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -288,20 +294,24 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 		ID:   id,
 		Type: "builds",
 	}
+
 	if expired != nil || usesNonExemptEncryption != nil {
 		req.Attributes = &buildUpdateRequestAttributes{
 			Expired:                 expired,
 			UsesNonExemptEncryption: usesNonExemptEncryption,
 		}
 	}
+
 	if appEncryptionDeclarationID != nil {
 		req.Relationships = &buildUpdateRequestRelationships{
 			AppEncryptionDeclaration: newRelationshipDeclaration(appEncryptionDeclarationID, "appEncryptionDeclarations"),
 		}
 	}
+
 	url := fmt.Sprintf("builds/%s", id)
 	res := new(BuildResponse)
 	resp, err := s.client.post(ctx, url, newRequestBody(req), res)
+
 	return res, resp, err
 }
 
@@ -311,6 +321,7 @@ func (s *BuildsService) UpdateBuild(ctx context.Context, id string, expired *boo
 func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Context, id string, appEncryptionDeclarationID *string) (*Response, error) {
 	linkage := newRelationshipDeclaration(appEncryptionDeclarationID, "builds")
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
+
 	return s.client.patch(ctx, url, newRequestBody(linkage), nil)
 }
 
@@ -320,6 +331,7 @@ func (s *BuildsService) UpdateAppEncryptionDeclarationForBuild(ctx context.Conte
 func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -329,6 +341,7 @@ func (s *BuildsService) CreateAccessForBetaGroupsToBuild(ctx context.Context, id
 func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, id string, betaGroupIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaGroupIDs, "betaGroups")
 	url := fmt.Sprintf("builds/%s/relationships/betaGroups", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -338,6 +351,7 @@ func (s *BuildsService) RemoveAccessForBetaGroupsFromBuild(ctx context.Context, 
 func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
+
 	return s.client.post(ctx, url, newRequestBody(linkages.Data), nil)
 }
 
@@ -347,6 +361,7 @@ func (s *BuildsService) CreateAccessForIndividualTestersToBuild(ctx context.Cont
 func (s *BuildsService) RemoveAccessForIndividualTestersFromBuild(ctx context.Context, id string, betaTesterIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(betaTesterIDs, "betaTesters")
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
+
 	return s.client.delete(ctx, url, newRequestBody(linkages.Data))
 }
 
@@ -357,6 +372,7 @@ func (s *BuildsService) ListResourceIDsForIndividualTestersForBuild(ctx context.
 	url := fmt.Sprintf("builds/%s/relationships/individualTesters", id)
 	res := new(BuildIndividualTestersLinkagesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -367,6 +383,7 @@ func (s *BuildsService) GetAppEncryptionDeclarationForBuild(ctx context.Context,
 	url := fmt.Sprintf("builds/%s/appEncryptionDeclaration", id)
 	res := new(AppEncryptionDeclarationResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -377,6 +394,7 @@ func (s *BuildsService) GetAppEncryptionDeclarationIDForBuild(ctx context.Contex
 	url := fmt.Sprintf("builds/%s/relationships/appEncryptionDeclaration", id)
 	res := new(BuildAppEncryptionDeclarationLinkageResponse)
 	resp, err := s.client.get(ctx, url, nil, res)
+
 	return res, resp, err
 }
 
@@ -385,6 +403,7 @@ func (i *BuildResponseIncluded) UnmarshalJSON(b []byte) error {
 	typeName, inner, err := unmarshalInclude(b)
 	i.Type = typeName
 	i.inner = inner
+
 	return err
 }
 

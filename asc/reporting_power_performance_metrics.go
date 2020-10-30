@@ -115,6 +115,7 @@ func (s *ReportingService) GetPerfPowerMetricsForApp(ctx context.Context, id str
 	url := fmt.Sprintf("apps/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -125,6 +126,7 @@ func (s *ReportingService) GetPerfPowerMetricsForBuild(ctx context.Context, id s
 	url := fmt.Sprintf("builds/%s/perfPowerMetrics", id)
 	res := new(PerfPowerMetricsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -135,6 +137,7 @@ func (s *ReportingService) ListDiagnosticSignaturesForBuild(ctx context.Context,
 	url := fmt.Sprintf("builds/%s/diagnosticSignatures", id)
 	res := new(DiagnosticSignaturesResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
 
@@ -145,5 +148,6 @@ func (s *ReportingService) GetLogsForDiagnosticSignature(ctx context.Context, id
 	url := fmt.Sprintf("diagnosticSignatures/%s/logs", id)
 	res := new(DiagnosticLogsResponse)
 	resp, err := s.client.get(ctx, url, params, res)
+
 	return res, resp, err
 }
