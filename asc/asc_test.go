@@ -47,10 +47,11 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestSetHTTPDebug(t *testing.T) {
-	SetHTTPDebug(true)
-	assert.True(t, httpDebug)
-	SetHTTPDebug(false)
-	assert.False(t, httpDebug)
+	client := NewClient(nil)
+	client.SetHTTPDebug(true)
+	assert.True(t, client.httpDebug)
+	client.SetHTTPDebug(false)
+	assert.False(t, client.httpDebug)
 }
 
 type mockPayload struct {
@@ -76,8 +77,8 @@ func TestNilContextReturnsError(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	SetHTTPDebug(true)
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
+	client.SetHTTPDebug(true)
 
 	defer server.Close()
 
@@ -87,11 +88,11 @@ func TestGet(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, mockPayload{"TEST"}, unmarshaled)
-	SetHTTPDebug(false)
 }
 
 func TestGetWithQuery(t *testing.T) {
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
+
 	defer server.Close()
 
 	params := mockParams{

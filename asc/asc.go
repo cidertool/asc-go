@@ -43,13 +43,9 @@ import (
 const (
 	defaultBaseURL = "https://api.appstoreconnect.apple.com/v1/"
 	userAgent      = "asc-go"
+	defaultTimeout = 30 * time.Second
 
 	headerRateLimit = "X-Rate-Limit"
-)
-
-// nolint: gochecknoglobals
-var (
-	httpDebug = false
 )
 
 // Client is the root instance of the App Store Connect API.
@@ -57,6 +53,7 @@ type Client struct {
 	client    *http.Client
 	baseURL   *url.URL
 	UserAgent string
+	httpDebug bool
 
 	common service
 
@@ -74,7 +71,11 @@ type Client struct {
 // NewClient creates a new Client instance.
 func NewClient(httpClient *http.Client) *Client {
 	if httpClient == nil {
-		httpClient = &http.Client{}
+		httpClient = &http.Client{
+			Transport: &http.Transport{
+				IdleConnTimeout: defaultTimeout,
+			},
+		}
 	}
 
 	baseURL, _ := url.Parse(defaultBaseURL)
@@ -101,8 +102,8 @@ func NewClient(httpClient *http.Client) *Client {
 }
 
 // SetHTTPDebug this enables global http request/response dumping for this API.
-func SetHTTPDebug(flag bool) {
-	httpDebug = flag
+func (c *Client) SetHTTPDebug(flag bool) {
+	c.httpDebug = flag
 }
 
 // Response is a App Store Connect API response. This wraps the standard http.Response
@@ -338,7 +339,7 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
-		if httpDebug {
+		if c.httpDebug {
 			if dump, err := httputil.DumpRequest(req, true); err == nil {
 				fmt.Printf("DEBUG request uri=%s\n%s\n", req.URL, dump)
 			}
@@ -354,7 +355,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 			}
 		}
 
-		if httpDebug {
+		if c.httpDebug {
 			if dump, err := httputil.DumpResponse(resp, true); err == nil {
 				fmt.Printf("DEBUG response uri=%s\n%s\n", req.URL, dump)
 			}
@@ -366,7 +367,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 	}
 
 	notify := func(err error, delay time.Duration) {
-		if httpDebug {
+		if c.httpDebug {
 			fmt.Printf("DEBUG error %v, retry in %v\n", err, delay)
 		}
 	}
@@ -374,7 +375,9 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 	err := backoff.RetryNotify(op, backoff.NewExponentialBackOff(), notify)
 
 	resp := <-respCh
+
 	defer closeDesc(resp.Body)
+
 	response := newResponse(resp)
 
 	if err != nil {

@@ -76,6 +76,7 @@ func NewTokenConfig(keyID string, issuerID string, expireDuration time.Duration,
 	_, err = gen.Token()
 
 	return &AuthTransport{
+		Transport:    newTransport(),
 		jwtGenerator: gen,
 	}, err
 }
@@ -116,11 +117,11 @@ func (t *AuthTransport) Client() *http.Client {
 }
 
 func (t *AuthTransport) transport() http.RoundTripper {
-	if t.Transport != nil {
-		return t.Transport
+	if t.Transport == nil {
+		t.Transport = newTransport()
 	}
 
-	return http.DefaultTransport
+	return t.Transport
 }
 
 func (g *standardJWTGenerator) Token() (string, error) {
@@ -166,5 +167,11 @@ func (g *standardJWTGenerator) claims() jwt.Claims {
 		Audience:  jwt.ClaimStrings{"appstoreconnect-v1"},
 		Issuer:    g.issuerID,
 		ExpiresAt: jwt.At(expiry),
+	}
+}
+
+func newTransport() http.RoundTripper {
+	return &http.Transport{
+		IdleConnTimeout: defaultTimeout,
 	}
 }

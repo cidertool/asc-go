@@ -89,8 +89,8 @@ func TestAuthTransport(t *testing.T) {
 	}
 	client := transport.Client()
 
-	req, _ := http.NewRequest("GET", "", nil) // nolint: noctx
-	_, _ = client.Do(req)                     // nolint: bodyclose
+	req, _ := http.NewRequest("GET", "", nil)
+	_, _ = client.Do(req) // nolint: bodyclose
 
 	got, want := req.Header.Get("Authorization"), fmt.Sprintf("Bearer %s", token)
 	assert.Equal(t, want, got)
@@ -99,7 +99,6 @@ func TestAuthTransport(t *testing.T) {
 func TestAuthTransportCustomTransport(t *testing.T) {
 	token := "TEST.TEST.TEST"
 	transport := AuthTransport{
-		Transport:    http.DefaultTransport,
 		jwtGenerator: &mockJWTGenerator{token: token},
 	}
 	client := transport.Client()
