@@ -15,3 +15,6 @@ linters:
     - testpackage
     - exhaustivestruct
     - wrapcheck
+    - paralleltest
+    - forbidigo
+    - thelper
