@@ -105,7 +105,7 @@ For complete usage of asc-go, see the full [package docs](https://pkg.go.dev/git
 
 ## Contributing
 
-This project's primary goal is to cover the entire API surface exposed by the official App Store Connect API. Otherwise, it's being developed to aid in internal application development by the authors. Therefore, until the package's version stabilizes with v1, there isn't a strong roadmap beyond those stated goals. However, contributions are always welcome. If you want to get involved or you just want to offer feedback, please see [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md) for details.
+This project's primary goal is to cover the entire API surface exposed by the official App Store Connect API. Otherwise, it's being developed to aid in internal application development by the authors. Therefore, until the package's version stabilizes with v1, there isn't a strong roadmap beyond those stated goals. However, contributions are always welcome. If you want to get involved or you just want to offer feedback, please see [`CONTRIBUTING.md`](https://github.com/cidertool/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## License
 
