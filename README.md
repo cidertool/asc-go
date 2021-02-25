@@ -8,7 +8,7 @@ asc-go is a Go client library for accessing Apple's [App Store Connect API](http
 
 ## Usage
 
-This project uses Go Modules.
+This project uses Go Modules. It requires **Go 1.16 or higher**.
 
 ```go
 import "github.com/cidertool/asc-go/asc"
