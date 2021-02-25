@@ -26,7 +26,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httputil"
@@ -336,6 +335,7 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 	return req, nil
 }
 
+// nolint: cyclop
 func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
@@ -411,7 +411,7 @@ func checkResponse(r *Response) error {
 		return nil
 	}
 
-	data, err := ioutil.ReadAll(r.Body)
+	data, err := io.ReadAll(r.Body)
 	erro := new(ErrorResponse)
 
 	if err == nil && data != nil {
@@ -510,8 +510,7 @@ func (e ErrorResponseError) String(level int) string {
 
 // Close closes an open descriptor.
 func closeDesc(c io.Closer) {
-	err := c.Close()
-	if err != nil {
+	if err := c.Close(); err != nil {
 		log.Fatal(err)
 	}
 }

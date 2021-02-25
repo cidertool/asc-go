@@ -24,7 +24,6 @@ package integration
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"time"
 
@@ -58,7 +57,7 @@ func tokenConfig() *asc.AuthTransport {
 		privateKey = []byte(key)
 	} else if keyPath := os.Getenv(envPrivateKeyPath); keyPath != "" {
 		// Read private key file as []byte
-		privateKey, err = ioutil.ReadFile(keyPath)
+		privateKey, err = os.ReadFile(keyPath)
 		if err != nil {
 			fmt.Println(err)
 			return nil

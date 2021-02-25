@@ -11,6 +11,7 @@ linters:
     - funlen
     - gofumpt
     - gci
+    - ifshort
     - nlreturn
     - testpackage
     - exhaustivestruct

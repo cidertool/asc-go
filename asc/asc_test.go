@@ -24,7 +24,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -186,7 +186,7 @@ func TestCheckBadResponse(t *testing.T) {
 				Method: "GET",
 				URL:    &url.URL{},
 			},
-			Body: ioutil.NopCloser(strings.NewReader(`{
+			Body: io.NopCloser(strings.NewReader(`{
 				"errors": [
 				  	{
 						"code": "",

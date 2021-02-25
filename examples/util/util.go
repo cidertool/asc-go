@@ -26,8 +26,8 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
+	"os"
 	"time"
 
 	"github.com/cidertool/asc-go/asc"
@@ -47,7 +47,7 @@ func TokenConfig() (auth *asc.AuthTransport, err error) {
 		secret = []byte(*privateKey)
 	} else if *privateKeyPath != "" {
 		// Read private key file as []byte
-		secret, err = ioutil.ReadFile(*privateKeyPath)
+		secret, err = os.ReadFile(*privateKeyPath)
 		if err != nil {
 			return nil, err
 		}

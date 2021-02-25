@@ -25,7 +25,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 )
 
 // ErrMissingCSRContent happens when CreateCertificate is provided a nil Reader for processing
@@ -144,7 +143,7 @@ func (s *ProvisioningService) CreateCertificate(ctx context.Context, certificate
 		return nil, nil, ErrMissingCSRContent
 	}
 
-	csrBytes, err := ioutil.ReadAll(csrContent)
+	csrBytes, err := io.ReadAll(csrContent)
 	if err != nil {
 		return nil, nil, err
 	}
