@@ -335,7 +335,6 @@ func (c *Client) newRequest(ctx context.Context, method string, path string, bod
 	return req, nil
 }
 
-// nolint: cyclop
 func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	respCh := make(chan *http.Response, 1)
 	op := func() error {
