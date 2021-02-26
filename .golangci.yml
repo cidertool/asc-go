@@ -7,14 +7,16 @@ issues:
 linters:
   enable-all: true
   disable:
-    - lll
-    - funlen
-    - gofumpt
-    - gci
-    - nlreturn
-    - testpackage
+    - cyclop
     - exhaustivestruct
-    - wrapcheck
-    - paralleltest
     - forbidigo
+    - funlen
+    - gci
+    - gofumpt
+    - ifshort
+    - lll
+    - nlreturn
+    - paralleltest
+    - testpackage
     - thelper
+    - wrapcheck

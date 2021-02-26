@@ -26,7 +26,6 @@ import (
 	"crypto/rand"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"testing"
@@ -35,7 +34,7 @@ import (
 )
 
 func TestMultipartUpload(t *testing.T) {
-	file, err := ioutil.TempFile("", "big_file")
+	file, err := os.CreateTemp("", "big_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
@@ -112,7 +111,7 @@ func TestMultipartUpload(t *testing.T) {
 }
 
 func TestUploadOperationChunk(t *testing.T) {
-	file, err := ioutil.TempFile("", "small_file")
+	file, err := os.CreateTemp("", "small_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
@@ -153,7 +152,7 @@ func TestUploadOperationChunk(t *testing.T) {
 }
 
 func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
-	file, err := ioutil.TempFile("", "big_file")
+	file, err := os.CreateTemp("", "big_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
 	}
@@ -190,8 +189,7 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 
 // rmFile closes an open descriptor.
 func rmFile(f *os.File) {
-	err := os.Remove(f.Name())
-	if err != nil {
+	if err := os.Remove(f.Name()); err != nil {
 		fmt.Println(err)
 	}
 }

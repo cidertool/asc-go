@@ -51,6 +51,7 @@ and rotating JSON Web Tokens automatically. For example, the above snippet could
 to look a little more like this:
 
 	import (
+		"os"
 		"time"
 
 		"github.com/cidertool/asc-go/asc"
@@ -66,7 +67,7 @@ to look a little more like this:
 		expiryDuration = 20*time.Minute
 		// The bytes of the PKCS#8 private key created on App Store Connect. Keep this key
 		// safe as you can only download it once.
-		privateKey = ioutil.ReadFile("path/to/key")
+		privateKey = os.ReadFile("path/to/key")
 
 		auth, err = asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
 		if err != nil {

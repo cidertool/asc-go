@@ -8,7 +8,7 @@ asc-go is a Go client library for accessing Apple's [App Store Connect API](http
 
 ## Usage
 
-This project uses Go Modules.
+This project uses Go Modules. It requires **Go 1.16 or higher**.
 
 ```go
 import "github.com/cidertool/asc-go/asc"
@@ -35,6 +35,7 @@ You may find that the code snippet above will always fail due to a lack of autho
 
 ```go
 import (
+    "os"
     "time"
 
     "github.com/cidertool/asc-go/asc"
@@ -48,7 +49,7 @@ func main() {
     // A duration value for the lifetime of a token. App Store Connect does not accept a token with a lifetime of longer than 20 minutes
     expiryDuration = 20*time.Minute
     // The bytes of the PKCS#8 private key created on App Store Connect. Keep this key safe as you can only download it once.
-    privateKey = ioutil.ReadFile("path/to/key")
+    privateKey = os.ReadFile("path/to/key")
 
     auth, err = asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
     if err != nil {
