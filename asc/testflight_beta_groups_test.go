@@ -28,36 +28,48 @@ import (
 )
 
 func TestCreateBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.CreateBetaGroup(ctx, BetaGroupCreateRequestAttributes{}, "", []string{"10"}, []string{"10"})
 	})
 }
 
 func TestUpdateBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaGroup(ctx, "10", &BetaGroupUpdateRequestAttributes{})
 	})
 }
 
 func TestDeleteBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.DeleteBetaGroup(ctx, "10")
 	})
 }
 
 func TestListBetaGroups(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaGroups(ctx, &ListBetaGroupsQuery{})
 	})
 }
 
 func TestGetBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBetaGroup(ctx, "10", &GetBetaGroupQuery{})
 	})
 }
 
 func TestGetBetaGroupIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[{"type":"apps"},{"type":"builds"},{"type":"betaTesters"}]}`, func(ctx context.Context, client *Client) {
 		group, _, err := client.TestFlight.GetBetaGroup(ctx, "10", &GetBetaGroupQuery{})
 		assert.NoError(t, err)
@@ -73,60 +85,80 @@ func TestGetBetaGroupIncludeds(t *testing.T) {
 }
 
 func TestGetAppForBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetAppForBetaGroup(ctx, "10", &GetAppForBetaGroupQuery{})
 	})
 }
 
 func TestListBetaGroupsForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaGroupsForApp(ctx, "10", &ListBetaGroupsForAppQuery{})
 	})
 }
 
 func TestAddBetaTestersToBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.AddBetaTestersToBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveBetaTestersFromBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveBetaTestersFromBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestAddBuildsToBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.AddBuildsToBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveBuildsFromBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.RemoveBuildsFromBetaGroup(ctx, "10", []string{"10"})
 	})
 }
 
 func TestListBuildsForBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBuildsForBetaGroup(ctx, "10", &ListBuildsForBetaGroupQuery{})
 	})
 }
 
 func TestListBuildIDsForBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupBuildsLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBuildIDsForBetaGroup(ctx, "10", &ListBuildIDsForBetaGroupQuery{})
 	})
 }
 
 func TestListBetaTestersForBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaTestersResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaTestersForBetaGroup(ctx, "10", &ListBetaTestersForBetaGroupQuery{})
 	})
 }
 
 func TestListBetaTesterIDsForBetaGroup(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaGroupBetaTestersLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaTesterIDsForBetaGroup(ctx, "10", &ListBetaTesterIDsForBetaGroupQuery{})
 	})

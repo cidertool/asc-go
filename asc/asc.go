@@ -340,7 +340,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 	op := func() error {
 		if c.httpDebug {
 			if dump, err := httputil.DumpRequest(req, true); err == nil {
-				fmt.Printf("DEBUG request uri=%s\n%s\n", req.URL, dump)
+				fmt.Printf("DEBUG request uri=%s\n%s\n", req.URL, dump) // nolint: forbidigo
 			}
 		}
 
@@ -356,7 +356,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 
 		if c.httpDebug {
 			if dump, err := httputil.DumpResponse(resp, true); err == nil {
-				fmt.Printf("DEBUG response uri=%s\n%s\n", req.URL, dump)
+				fmt.Printf("DEBUG response uri=%s\n%s\n", req.URL, dump) // nolint: forbidigo
 			}
 		}
 
@@ -367,7 +367,7 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*Res
 
 	notify := func(err error, delay time.Duration) {
 		if c.httpDebug {
-			fmt.Printf("DEBUG error %v, retry in %v\n", err, delay)
+			fmt.Printf("DEBUG error %v, retry in %v\n", err, delay) // nolint: forbidigo
 		}
 	}
 

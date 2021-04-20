@@ -26,18 +26,24 @@ import (
 )
 
 func TestCreateSubmission(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Submission.CreateSubmission(ctx, "")
 	})
 }
 
 func TestDeleteSubmission(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Submission.DeleteSubmission(ctx, "10")
 	})
 }
 
 func TestGetAppStoreVersionSubmissionForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionSubmissionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Submission.GetAppStoreVersionSubmissionForAppStoreVersion(ctx, "10", &GetAppStoreVersionSubmissionForAppStoreVersionQuery{})
 	})

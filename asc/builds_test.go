@@ -28,24 +28,32 @@ import (
 )
 
 func TestListBuilds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.ListBuilds(ctx, &ListBuildsQuery{})
 	})
 }
 
 func TestListBuildsForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.ListBuildsForApp(ctx, "10", &ListBuildsForAppQuery{})
 	})
 }
 
 func TestGetBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetBuild(ctx, "10", &GetBuildQuery{})
 	})
 }
 
 func TestGetBuildIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[
 		{"type":"preReleaseVersions"},{"type":"betaTesters"},{"type":"betaBuildLocalizations"},
 		{"type":"appEncryptionDeclarations"},{"type":"betaAppReviewSubmissions"},{"type":"apps"},
@@ -82,72 +90,96 @@ func TestGetBuildIncludeds(t *testing.T) {
 }
 
 func TestGetAppForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppForBuild(ctx, "10", &GetAppForBuildQuery{})
 	})
 }
 
 func TestGetAppStoreVersionForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppStoreVersionForBuild(ctx, "10", &GetAppStoreVersionForBuildQuery{})
 	})
 }
 
 func TestGetBuildForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetBuildForAppStoreVersion(ctx, "10", &GetBuildForAppStoreVersionQuery{})
 	})
 }
 
 func TestUpdateBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.UpdateBuild(ctx, "10", Bool(true), nil, String("10"))
 	})
 }
 
 func TestUpdateAppEncryptionDeclarationForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.UpdateAppEncryptionDeclarationForBuild(ctx, "10", String("10"))
 	})
 }
 
 func TestCreateAccessForBetaGroupsToBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.CreateAccessForBetaGroupsToBuild(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveAccessForBetaGroupsFromBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.RemoveAccessForBetaGroupsFromBuild(ctx, "10", []string{"10"})
 	})
 }
 
 func TestCreateAccessForIndividualTestersToBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.CreateAccessForIndividualTestersToBuild(ctx, "10", []string{"10"})
 	})
 }
 
 func TestRemoveAccessForIndividualTestersFromBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.RemoveAccessForIndividualTestersFromBuild(ctx, "10", []string{"10"})
 	})
 }
 
 func TestListResourceIDsForIndividualTestersForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildIndividualTestersLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.ListResourceIDsForIndividualTestersForBuild(ctx, "10", &ListResourceIDsForIndividualTestersForBuildQuery{})
 	})
 }
 
 func TestGetAppEncryptionDeclarationForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppEncryptionDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppEncryptionDeclarationForBuild(ctx, "10", &GetAppEncryptionDeclarationForBuildQuery{})
 	})
 }
 
 func TestGetAppEncryptionDeclarationIDForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildAppEncryptionDeclarationLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppEncryptionDeclarationIDForBuild(ctx, "10")
 	})

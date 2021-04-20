@@ -26,30 +26,40 @@ import (
 )
 
 func TestListAppInfoLocalizationsForAppInfo(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppInfoLocalizationsForAppInfo(ctx, "10", &ListAppInfoLocalizationsForAppInfoQuery{})
 	})
 }
 
 func TestGetAppInfoLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppInfoLocalization(ctx, "10", &GetAppInfoLocalizationQuery{})
 	})
 }
 
 func TestCreateAppInfoLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CreateAppInfoLocalization(ctx, AppInfoLocalizationCreateRequestAttributes{}, "")
 	})
 }
 
 func TestUpdateAppInfoLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppInfoLocalization(ctx, "10", &AppInfoLocalizationUpdateRequestAttributes{})
 	})
 }
 
 func TestDeleteAppInfoLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppInfoLocalization(ctx, "10")
 	})

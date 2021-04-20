@@ -188,5 +188,6 @@ func (s *PublishingService) UpdatePreOrder(ctx context.Context, id string, appRe
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_pre-order
 func (s *PublishingService) DeletePreOrder(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appPreOrders/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

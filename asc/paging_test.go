@@ -29,6 +29,8 @@ import (
 )
 
 func TestReference(t *testing.T) {
+	t.Parallel()
+
 	marshaled := `{"self":"https://api.appstoreconnect.apple.com/me?cursor=TEST"}`
 
 	var links DocumentLinks
@@ -41,6 +43,8 @@ func TestReference(t *testing.T) {
 }
 
 func TestReferenceNoCursor(t *testing.T) {
+	t.Parallel()
+
 	ref := new(Reference)
 	assert.Empty(t, ref.Cursor())
 	ref = &Reference{url.URL{}}
@@ -48,6 +52,8 @@ func TestReferenceNoCursor(t *testing.T) {
 }
 
 func TestReferenceBadUnmarshal(t *testing.T) {
+	t.Parallel()
+
 	marshaledNoString := `{"self":0}`
 	marshaledNoURL := `{"self":":"}`
 
@@ -59,6 +65,8 @@ func TestReferenceBadUnmarshal(t *testing.T) {
 }
 
 func TestNewRelationships(t *testing.T) {
+	t.Parallel()
+
 	var rel *relationshipDeclaration
 	rel = newRelationshipDeclaration(nil, "dog")
 	assert.Nil(t, rel)

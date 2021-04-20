@@ -187,5 +187,6 @@ func (s *AppsService) CommitAppScreenshot(ctx context.Context, id string, upload
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_screenshot
 func (s *AppsService) DeleteAppScreenshot(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appScreenshots/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

@@ -198,6 +198,7 @@ func (s *ProvisioningService) CreateProfile(ctx context.Context, name string, pr
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_profile
 func (s *ProvisioningService) DeleteProfile(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("profiles/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

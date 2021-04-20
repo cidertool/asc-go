@@ -246,5 +246,6 @@ func (s *TestflightService) UpdateBetaAppLocalization(ctx context.Context, id st
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_app_localization
 func (s *TestflightService) DeleteBetaAppLocalization(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("betaAppLocalizations/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

@@ -171,6 +171,7 @@ func (s *AppsService) CreateAppPreviewSet(ctx context.Context, previewType Previ
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_preview_set
 func (s *AppsService) DeleteAppPreviewSet(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appPreviewSets/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

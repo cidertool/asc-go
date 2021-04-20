@@ -228,6 +228,7 @@ func (s *AppsService) CreateAppScreenshotSet(ctx context.Context, screenshotDisp
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_screenshot_set
 func (s *AppsService) DeleteAppScreenshotSet(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appScreenshotSets/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

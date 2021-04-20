@@ -26,30 +26,40 @@ import (
 )
 
 func TestListBetaAppReviewDetails(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaAppReviewDetails(ctx, &ListBetaAppReviewDetailsQuery{})
 	})
 }
 
 func TestGetBetaAppReviewDetail(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBetaAppReviewDetail(ctx, "10", &GetBetaAppReviewDetailQuery{})
 	})
 }
 
 func TestGetAppForBetaAppReviewDetail(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetAppForBetaAppReviewDetail(ctx, "10", &GetAppForBetaAppReviewDetailQuery{})
 	})
 }
 
 func TestGetBetaAppReviewDetailsForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBetaAppReviewDetailsForApp(ctx, "10", &GetBetaAppReviewDetailsForAppQuery{})
 	})
 }
 
 func TestUpdateBetaAppReviewDetail(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaAppReviewDetailResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaAppReviewDetail(ctx, "10", &BetaAppReviewDetailUpdateRequestAttributes{})
 	})

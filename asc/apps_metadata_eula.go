@@ -178,6 +178,7 @@ func (s *AppsService) UpdateEULA(ctx context.Context, id string, agreementText *
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_end_user_license_agreement
 func (s *AppsService) DeleteEULA(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("endUserLicenseAgreements/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

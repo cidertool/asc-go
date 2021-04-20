@@ -9,14 +9,11 @@ linters:
   disable:
     - cyclop
     - exhaustivestruct
-    - forbidigo
     - funlen
-    - gci
     - gofumpt
-    - ifshort
+    - interfacer
     - lll
-    - nlreturn
-    - paralleltest
+    - maligned
+    - scopelint
     - testpackage
-    - thelper
     - wrapcheck

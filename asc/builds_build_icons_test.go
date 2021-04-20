@@ -26,6 +26,8 @@ import (
 )
 
 func TestListIconsForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildIconsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.ListIconsForBuild(ctx, "10", &ListIconsQuery{})
 	})

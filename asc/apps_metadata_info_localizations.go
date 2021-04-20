@@ -202,5 +202,6 @@ func (s *AppsService) UpdateAppInfoLocalization(ctx context.Context, id string, 
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_info_localization
 func (s *AppsService) DeleteAppInfoLocalization(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appInfoLocalizations/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

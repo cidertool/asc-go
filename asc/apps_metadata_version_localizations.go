@@ -243,6 +243,7 @@ func (s *AppsService) UpdateAppStoreVersionLocalization(ctx context.Context, id 
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_localization
 func (s *AppsService) DeleteAppStoreVersionLocalization(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionLocalizations/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

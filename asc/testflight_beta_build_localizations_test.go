@@ -26,42 +26,56 @@ import (
 )
 
 func TestListBetaBuildLocalizations(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaBuildLocalizations(ctx, &ListBetaBuildLocalizationsQuery{})
 	})
 }
 
 func TestGetBetaBuildLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBetaBuildLocalization(ctx, "10", &GetBetaBuildLocalizationQuery{})
 	})
 }
 
 func TestGetBuildForBetaBuildLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetBuildForBetaBuildLocalization(ctx, "10", &GetBuildForBetaBuildLocalizationQuery{})
 	})
 }
 
 func TestListBetaBuildLocalizationsForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBetaBuildLocalizationsForBuild(ctx, "10", &ListBetaBuildLocalizationsForBuildQuery{})
 	})
 }
 
 func TestCreateBetaBuildLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.CreateBetaBuildLocalization(ctx, "", nil, "")
 	})
 }
 
 func TestUpdateBetaBuildLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BetaBuildLocalizationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.UpdateBetaBuildLocalization(ctx, "10", String(""))
 	})
 }
 
 func TestDeleteBetaBuildLocalization(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.TestFlight.DeleteBetaBuildLocalization(ctx, "10")
 	})

@@ -187,5 +187,6 @@ func (s *ProvisioningService) GetCertificate(ctx context.Context, id string, par
 // https://developer.apple.com/documentation/appstoreconnectapi/revoke_a_certificate
 func (s *ProvisioningService) RevokeCertificate(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("certificates/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

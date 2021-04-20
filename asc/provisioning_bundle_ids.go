@@ -224,6 +224,7 @@ func (s *ProvisioningService) UpdateBundleID(ctx context.Context, id string, nam
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_bundle_id
 func (s *ProvisioningService) DeleteBundleID(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("bundleIds/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

@@ -170,6 +170,7 @@ func (s *PublishingService) UpdatePhasedRelease(ctx context.Context, id string, 
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_phased_release
 func (s *PublishingService) DeletePhasedRelease(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionPhasedReleases/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 
