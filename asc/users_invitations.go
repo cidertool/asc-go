@@ -177,6 +177,7 @@ func (s *UsersService) CreateInvitation(ctx context.Context, attributes UserInvi
 // https://developer.apple.com/documentation/appstoreconnectapi/cancel_a_user_invitation
 func (s *UsersService) CancelInvitation(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("userInvitations/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

@@ -100,6 +100,7 @@ func (s *SubmissionService) CreateSubmission(ctx context.Context, appStoreVersio
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version_submission
 func (s *SubmissionService) DeleteSubmission(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersionSubmissions/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

@@ -239,6 +239,7 @@ func (s *UsersService) UpdateUser(ctx context.Context, id string, attributes *Us
 // https://developer.apple.com/documentation/appstoreconnectapi/remove_a_user_account
 func (s *UsersService) RemoveUser(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("users/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 
@@ -269,6 +270,7 @@ func (s *UsersService) ListVisibleAppsByResourceIDForUser(ctx context.Context, i
 // https://developer.apple.com/documentation/appstoreconnectapi/add_visible_apps_to_a_user
 func (s *UsersService) AddVisibleAppsForUser(ctx context.Context, id string, appIDs []string) (*Response, error) {
 	linkages := newPagedRelationshipDeclaration(appIDs, "apps")
+
 	return s.client.post(ctx, "appStoreReviewDetails", newRequestBody(linkages.Data), nil)
 }
 

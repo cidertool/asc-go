@@ -26,36 +26,48 @@ import (
 )
 
 func TestGetAppScreenshotSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppScreenshotSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppScreenshotSet(ctx, "10", &GetAppScreenshotSetQuery{})
 	})
 }
 
 func TestCreateAppScreenshotSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppScreenshotSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CreateAppScreenshotSet(ctx, ScreenshotDisplayTypeAppiPadPro129, "")
 	})
 }
 
 func TestDeleteAppScreenshotSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppScreenshotSet(ctx, "10")
 	})
 }
 
 func TestListAppScreenshotsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppScreenshotsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppScreenshotsForSet(ctx, "10", &ListAppScreenshotsForSetQuery{})
 	})
 }
 
 func TestListAppScreenshotIDsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppScreenshotSetAppScreenshotsLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppScreenshotIDsForSet(ctx, "10", &ListAppScreenshotIDsForSetQuery{})
 	})
 }
 
 func TestReplaceAppScreenshotsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.ReplaceAppScreenshotsForSet(ctx, "10", []string{"10"})
 	})

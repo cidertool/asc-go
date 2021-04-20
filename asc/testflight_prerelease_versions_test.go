@@ -28,18 +28,24 @@ import (
 )
 
 func TestListPrereleaseVersions(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &PrereleaseVersionsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListPrereleaseVersions(ctx, &ListPrereleaseVersionsQuery{})
 	})
 }
 
 func TestGetPrereleaseVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &PrereleaseVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetPrereleaseVersion(ctx, "10", &GetPrereleaseVersionQuery{})
 	})
 }
 
 func TestGetPrereleaseVersionIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[{"type":"apps"},{"type":"builds"}]}`, func(ctx context.Context, client *Client) {
 		version, _, err := client.TestFlight.GetPrereleaseVersion(ctx, "10", &GetPrereleaseVersionQuery{})
 		assert.NoError(t, err)
@@ -53,24 +59,32 @@ func TestGetPrereleaseVersionIncludeds(t *testing.T) {
 }
 
 func TestGetAppForPrereleaseVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetAppForPrereleaseVersion(ctx, "10", &GetAppForPrereleaseVersionQuery{})
 	})
 }
 
 func TestListPrereleaseVersionsForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &PrereleaseVersionsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListPrereleaseVersionsForApp(ctx, "10", &ListPrereleaseVersionsForAppQuery{})
 	})
 }
 
 func TestListBuildsForPrereleaseVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.ListBuildsForPrereleaseVersion(ctx, "10", &ListBuildsForPrereleaseVersionQuery{})
 	})
 }
 
 func TestGetPrereleaseVersionForBuild(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &PrereleaseVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.GetPrereleaseVersionForBuild(ctx, "10", &GetPrereleaseVersionForBuildQuery{})
 	})

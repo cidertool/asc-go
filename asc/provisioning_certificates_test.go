@@ -27,6 +27,8 @@ import (
 )
 
 func TestCreateCertificate(t *testing.T) {
+	t.Parallel()
+
 	testEndpointExpectingError(t, "{}", func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.CreateCertificate(ctx, CertificateTypeDevelopment, nil)
 	})
@@ -36,18 +38,24 @@ func TestCreateCertificate(t *testing.T) {
 }
 
 func TestListCertificates(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListCertificates(ctx, &ListCertificatesQuery{})
 	})
 }
 
 func TestGetCertificate(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &CertificateResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.GetCertificate(ctx, "10", &GetCertificateQuery{})
 	})
 }
 
 func TestRevokeCertificate(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Provisioning.RevokeCertificate(ctx, "10")
 	})

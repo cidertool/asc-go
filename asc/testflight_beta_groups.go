@@ -286,6 +286,7 @@ func (s *TestflightService) UpdateBetaGroup(ctx context.Context, id string, attr
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_group
 func (s *TestflightService) DeleteBetaGroup(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("betaGroups/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

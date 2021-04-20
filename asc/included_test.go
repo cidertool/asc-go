@@ -43,6 +43,8 @@ func (i *mockIncluded) UnmarshalJSON(b []byte) error {
 }
 
 func TestIncluded(t *testing.T) {
+	t.Parallel()
+
 	var payload *mockPayloadIncluded
 
 	payload = nil
@@ -69,6 +71,8 @@ func TestIncluded(t *testing.T) {
 }
 
 func TestKnownIncludeTypes(t *testing.T) {
+	t.Parallel()
+
 	knownTypes := []string{"ageRatingDeclarations", "apps", "appCategories", "appEncryptionDeclarations",
 		"appInfos", "appInfoLocalizations", "appPreOrders", "appPreviewSets", "appPrices", "appScreenshotSets",
 		"appStoreReviewDetails", "appStoreVersions", "appStoreVersionLocalizations", "appStoreVersionPhasedReleases",

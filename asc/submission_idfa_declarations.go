@@ -156,6 +156,7 @@ func (s *SubmissionService) UpdateIDFADeclaration(ctx context.Context, id string
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_idfa_declaration
 func (s *SubmissionService) DeleteIDFADeclaration(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("idfaDeclarations/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

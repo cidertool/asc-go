@@ -210,5 +210,6 @@ func (s *AppsService) CommitRoutingAppCoverage(ctx context.Context, id string, u
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_routing_app_coverage
 func (s *AppsService) DeleteRoutingAppCoverage(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("routingAppCoverages/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

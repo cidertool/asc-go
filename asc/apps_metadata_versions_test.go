@@ -28,18 +28,24 @@ import (
 )
 
 func TestListAppStoreVersionsForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppStoreVersionsForApp(ctx, "10", &ListAppStoreVersionsQuery{})
 	})
 }
 
 func TestGetAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppStoreVersion(ctx, "10", &GetAppStoreVersionQuery{})
 	})
 }
 
 func TestGetAppStoreVersionIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[
 		{"type":"ageRatingDeclarations"},{"type":"appStoreVersionLocalizations"},
 		{"type":"builds"},{"type":"appStoreVersionPhasedReleases"},
@@ -71,36 +77,48 @@ func TestGetAppStoreVersionIncludeds(t *testing.T) {
 }
 
 func TestCreateAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CreateAppStoreVersion(ctx, AppStoreVersionCreateRequestAttributes{}, "10", String("10"))
 	})
 }
 
 func TestUpdateAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppStoreVersion(ctx, "10", &AppStoreVersionUpdateRequestAttributes{}, String("10"))
 	})
 }
 
 func TestDeleteAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppStoreVersion(ctx, "10")
 	})
 }
 
 func TestGetBuildIDForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetBuildIDForAppStoreVersion(ctx, "10")
 	})
 }
 
 func TestUpdateBuildForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionBuildLinkageResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", String("10"))
 	})
 }
 
 func TestGetAgeRatingDeclarationForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AgeRatingDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAgeRatingDeclarationForAppStoreVersion(ctx, "10", &GetAgeRatingDeclarationForAppStoreVersionQuery{})
 	})

@@ -345,6 +345,7 @@ func (s *AppsService) UpdateAppStoreVersion(ctx context.Context, id string, attr
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_version
 func (s *AppsService) DeleteAppStoreVersion(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreVersions/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

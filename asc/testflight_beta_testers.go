@@ -249,8 +249,9 @@ func (s *TestflightService) CreateBetaTester(ctx context.Context, attributes Bet
 		Attributes: attributes,
 		Type:       "betaTesters",
 	}
+
 	anyBetaGroups := len(betaGroupIDs) > 0
-	anyBuilds := len(buildIDs) > 0
+	anyBuilds := len(buildIDs) > 0 // nolint: ifshort
 
 	if anyBetaGroups || anyBuilds {
 		req.Relationships = &betaTesterCreateRequestRelationships{}
@@ -277,6 +278,7 @@ func (s *TestflightService) CreateBetaTester(ctx context.Context, attributes Bet
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_a_beta_tester
 func (s *TestflightService) DeleteBetaTester(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("betaTesters/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

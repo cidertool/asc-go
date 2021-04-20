@@ -26,6 +26,8 @@ import (
 )
 
 func TestListInvitations(t *testing.T) {
+	t.Parallel()
+
 	email := Email("me@email.com")
 	want := &UserInvitationsResponse{
 		Data: []UserInvitation{
@@ -42,6 +44,8 @@ func TestListInvitations(t *testing.T) {
 }
 
 func TestGetInvitation(t *testing.T) {
+	t.Parallel()
+
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
@@ -56,6 +60,8 @@ func TestGetInvitation(t *testing.T) {
 }
 
 func TestCreateInvitation(t *testing.T) {
+	t.Parallel()
+
 	email := Email("me@email.com")
 	want := &UserInvitationResponse{
 		Data: UserInvitation{
@@ -70,12 +76,16 @@ func TestCreateInvitation(t *testing.T) {
 }
 
 func TestCancelInvitation(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Users.CancelInvitation(ctx, "10")
 	})
 }
 
 func TestListVisibleAppsForInvitation(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Users.ListVisibleAppsForInvitation(ctx, "10", &ListVisibleAppsQuery{})
 	})

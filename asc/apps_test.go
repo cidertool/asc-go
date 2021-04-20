@@ -28,18 +28,24 @@ import (
 )
 
 func TestListApps(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListApps(ctx, &ListAppsQuery{})
 	})
 }
 
 func TestGetApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetApp(ctx, "10", &GetAppQuery{})
 	})
 }
 
 func TestGetAppIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[
 		{"type":"betaGroups"},{"type":"appStoreVersions"},{"type":"preReleaseVersions"},
 		{"type":"betaAppLocalizations"},{"type":"builds"},{"type":"betaLicenseAgreements"},
@@ -85,24 +91,32 @@ func TestGetAppIncludeds(t *testing.T) {
 }
 
 func TestUpdateApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateApp(ctx, "10", &AppUpdateRequestAttributes{}, []string{"10"}, []NewAppPriceRelationship{{StartDate: nil}})
 	})
 }
 
 func TestRemoveBetaTestersFromApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.RemoveBetaTestersFromApp(ctx, "10", []string{"10"})
 	})
 }
 
 func TestListInAppPurchasesForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &InAppPurchasesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListInAppPurchasesForApp(ctx, "10", &ListInAppPurchasesQuery{})
 	})
 }
 
 func TestGetInAppPurchase(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &InAppPurchaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetInAppPurchase(ctx, "10", &GetInAppPurchaseQuery{})
 	})

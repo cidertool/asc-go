@@ -26,36 +26,48 @@ import (
 )
 
 func TestGetAppPreviewSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppPreviewSet(ctx, "10", &GetAppPreviewSetQuery{})
 	})
 }
 
 func TestCreateAppPreviewSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewSetResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CreateAppPreviewSet(ctx, PreviewTypeiPadPro129, "")
 	})
 }
 
 func TestDeleteAppPreviewSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppPreviewSet(ctx, "10")
 	})
 }
 
 func TestListAppPreviewsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppPreviewsForSet(ctx, "10", &ListAppPreviewsForSetQuery{})
 	})
 }
 
 func TestListAppPreviewIDsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewSetAppPreviewsLinkagesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppPreviewIDsForSet(ctx, "10", &ListAppPreviewIDsForSetQuery{})
 	})
 }
 
 func TestReplaceAppPreviewsForSet(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.ReplaceAppPreviewsForSet(ctx, "10", []string{"10"})
 	})

@@ -31,6 +31,8 @@ import (
 )
 
 func TestNewTokenConfig(t *testing.T) {
+	t.Parallel()
+
 	// This is a key that I generated solely for mocking purposes. This is not a
 	// real secret, so don't get any funny ideas. If you need to regenerate it,
 	// run this openssl command in a shell and copy the contents of key.pem to the string:
@@ -65,11 +67,15 @@ PURJWPQa24fI+wNPDi4OzjkB2g6fa5BHqam1gRlZHe8BU3+IjuC3AUFz
 }
 
 func TestNewTokenConfigBadPEM(t *testing.T) {
+	t.Parallel()
+
 	_, err := NewTokenConfig("TEST", "TEST", 20*time.Minute, []byte("TEST"))
 	assert.Error(t, err, "Expected error for invalid PEM, got nil")
 }
 
 func TestNewTokenConfigPrivateKeyNotPKCS8(t *testing.T) {
+	t.Parallel()
+
 	var badKey = []byte(`
 -----BEGIN EC PRIVATE KEY-----
 MHcCAQEEIIXpcxwADKgwJSwxz24ypAMDFUHPrirqhcx0vimrl9L2oAoGCCqGSM49
@@ -83,6 +89,8 @@ oH1YGuY57H3BQ3zLPVPsN+A8xnInGDa8yQ==
 }
 
 func TestAuthTransport(t *testing.T) {
+	t.Parallel()
+
 	token := "TEST.TEST.TEST"
 	transport := AuthTransport{
 		jwtGenerator: &mockJWTGenerator{token: token},
@@ -97,6 +105,8 @@ func TestAuthTransport(t *testing.T) {
 }
 
 func TestAuthTransportCustomTransport(t *testing.T) {
+	t.Parallel()
+
 	token := "TEST.TEST.TEST"
 	transport := AuthTransport{
 		jwtGenerator: &mockJWTGenerator{token: token},

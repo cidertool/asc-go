@@ -206,5 +206,6 @@ func (s *SubmissionService) CommitAttachment(ctx context.Context, id string, upl
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_store_review_attachment
 func (s *SubmissionService) DeleteAttachment(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appStoreReviewAttachments/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

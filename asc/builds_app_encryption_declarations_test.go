@@ -26,24 +26,32 @@ import (
 )
 
 func TestListAppEncryptionDeclarations(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppEncryptionDeclarationsResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.ListAppEncryptionDeclarations(ctx, &ListAppEncryptionDeclarationsQuery{})
 	})
 }
 
 func TestGetAppEncryptionDeclaration(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppEncryptionDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppEncryptionDeclaration(ctx, "10", &GetAppEncryptionDeclarationQuery{})
 	})
 }
 
 func TestGetAppForAppEncryptionDeclaration(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Builds.GetAppForAppEncryptionDeclaration(ctx, "10", &GetAppForEncryptionDeclarationQuery{})
 	})
 }
 
 func TestAssignBuildsToAppEncryptionDeclaration(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Builds.AssignBuildsToAppEncryptionDeclaration(ctx, "10", []string{"10"})
 	})

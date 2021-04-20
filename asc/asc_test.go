@@ -37,6 +37,8 @@ import (
 const marshaledMockPayload = `{"value":"TEST"}`
 
 func TestNewClient(t *testing.T) {
+	t.Parallel()
+
 	c := NewClient(nil)
 
 	assert.Equal(t, defaultBaseURL, c.baseURL.String())
@@ -47,6 +49,8 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestSetHTTPDebug(t *testing.T) {
+	t.Parallel()
+
 	client := NewClient(nil)
 	client.SetHTTPDebug(true)
 	assert.True(t, client.httpDebug)
@@ -68,6 +72,8 @@ type mockBody struct {
 }
 
 func TestNilContextReturnsError(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer("", http.StatusOK, false)
 
 	defer server.Close()
@@ -77,6 +83,8 @@ func TestNilContextReturnsError(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	client.SetHTTPDebug(true)
 
@@ -91,6 +99,8 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetWithQuery(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 
 	defer server.Close()
@@ -110,6 +120,8 @@ func TestGetWithQuery(t *testing.T) {
 }
 
 func TestGetWithQuery_Error(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer("", http.StatusOK, true)
 	defer server.Close()
 
@@ -121,6 +133,8 @@ func TestGetWithQuery_Error(t *testing.T) {
 }
 
 func TestGetError(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
@@ -133,6 +147,8 @@ func TestGetError(t *testing.T) {
 }
 
 func TestPost(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
@@ -147,6 +163,8 @@ func TestPost(t *testing.T) {
 }
 
 func TestPatch(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
@@ -161,6 +179,8 @@ func TestPatch(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
+	t.Parallel()
+
 	client, server := newServer(marshaledMockPayload, http.StatusOK, true)
 	defer server.Close()
 
@@ -173,12 +193,16 @@ func TestDelete(t *testing.T) {
 }
 
 func TestCheckGoodResponse(t *testing.T) {
+	t.Parallel()
+
 	resp := &Response{&http.Response{StatusCode: 200}, Rate{}}
 	err := checkResponse(resp)
 	assert.NoError(t, err)
 }
 
 func TestCheckBadResponse(t *testing.T) {
+	t.Parallel()
+
 	resp := &Response{
 		Response: &http.Response{
 			StatusCode: 400,
@@ -223,6 +247,8 @@ func TestCheckBadResponse(t *testing.T) {
 }
 
 func TestAppendingQueryOptions(t *testing.T) {
+	t.Parallel()
+
 	got, err := appendingQueryOptions("dog", nil)
 	assert.NoError(t, err)
 	assert.Equal(t, "dog", got)
@@ -262,6 +288,8 @@ func newServer(raw string, status int, addRateLimit bool) (*Client, *httptest.Se
 }
 
 func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface{}, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
+	t.Helper()
+
 	client, server := newServer(marshalledGot, http.StatusOK, true)
 	defer server.Close()
 
@@ -276,6 +304,8 @@ func testEndpointWithResponse(t *testing.T, marshalledGot string, want interface
 }
 
 func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, client *Client) (*Response, error)) {
+	t.Helper()
+
 	client, server := newServer("", http.StatusOK, false)
 	defer server.Close()
 
@@ -286,6 +316,8 @@ func testEndpointWithNoContent(t *testing.T, endpoint func(ctx context.Context, 
 }
 
 func testEndpointExpectingError(t *testing.T, marshalledGot string, endpoint func(ctx context.Context, client *Client) (interface{}, *Response, error)) {
+	t.Helper()
+
 	client, server := newServer(marshalledGot, http.StatusOK, true)
 	defer server.Close()
 

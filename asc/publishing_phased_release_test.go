@@ -26,26 +26,36 @@ import (
 )
 
 func TestCreatePhasedRelease(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		state := PhasedReleaseStateActive
+
 		return client.Publishing.CreatePhasedRelease(ctx, &state, "")
 	})
 }
 
 func TestUpdatePhasedRelease(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		state := PhasedReleaseStateActive
+
 		return client.Publishing.UpdatePhasedRelease(ctx, "10", &state)
 	})
 }
 
 func TestDeletePhasedRelease(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Publishing.DeletePhasedRelease(ctx, "10")
 	})
 }
 
 func TestGetAppStoreVersionPhasedReleaseForAppStoreVersion(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppStoreVersionPhasedReleaseResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Publishing.GetAppStoreVersionPhasedReleaseForAppStoreVersion(ctx, "10", &GetAppStoreVersionPhasedReleaseForAppStoreVersionQuery{})
 	})

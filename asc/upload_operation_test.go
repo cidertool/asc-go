@@ -34,6 +34,8 @@ import (
 )
 
 func TestMultipartUpload(t *testing.T) {
+	t.Parallel()
+
 	file, err := os.CreateTemp("", "big_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
@@ -111,6 +113,8 @@ func TestMultipartUpload(t *testing.T) {
 }
 
 func TestUploadOperationChunk(t *testing.T) {
+	t.Parallel()
+
 	file, err := os.CreateTemp("", "small_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
@@ -152,6 +156,8 @@ func TestUploadOperationChunk(t *testing.T) {
 }
 
 func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
+	t.Parallel()
+
 	file, err := os.CreateTemp("", "big_file")
 	if err != nil {
 		assert.FailNow(t, "temp file creation produced an error", err)
@@ -190,6 +196,6 @@ func TestUploadOperationUploadError_InvalidOperation(t *testing.T) {
 // rmFile closes an open descriptor.
 func rmFile(f *os.File) {
 	if err := os.Remove(f.Name()); err != nil {
-		fmt.Println(err)
+		fmt.Println(err) // nolint: forbidigo
 	}
 }

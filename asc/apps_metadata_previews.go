@@ -239,5 +239,6 @@ func (s *AppsService) CommitAppPreview(ctx context.Context, id string, uploaded 
 // https://developer.apple.com/documentation/appstoreconnectapi/delete_an_app_preview
 func (s *AppsService) DeleteAppPreview(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("appPreviews/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }

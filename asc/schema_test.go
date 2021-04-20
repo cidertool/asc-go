@@ -46,6 +46,8 @@ func dateContainerJSON(date string) string {
 }
 
 func TestDateMarshal(t *testing.T) {
+	t.Parallel()
+
 	want := dateContainerJSON("2020-04-01")
 	b := newDateContainer(2020, 4, 1)
 	got, err := json.Marshal(b)
@@ -54,6 +56,8 @@ func TestDateMarshal(t *testing.T) {
 }
 
 func TestDateUnmarshal(t *testing.T) {
+	t.Parallel()
+
 	want := time.Date(2020, 4, 1, 0, 0, 0, 0, time.UTC)
 	jsonStr := dateContainerJSON("2020-04-01")
 
@@ -64,6 +68,8 @@ func TestDateUnmarshal(t *testing.T) {
 }
 
 func TestDateUnmarshalWrongType(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := `{"date":-1}`
 
 	var b dateContainer
@@ -72,6 +78,8 @@ func TestDateUnmarshalWrongType(t *testing.T) {
 }
 
 func TestDateUnmarshalInvalidDate(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := dateContainerJSON("TEST")
 
 	var b dateContainer
@@ -96,6 +104,8 @@ func dateTimeContainerJSON(dateTime string) string {
 }
 
 func TestDateTimeMarshal(t *testing.T) {
+	t.Parallel()
+
 	want := dateTimeContainerJSON("2020-04-01T05:16:48.915+0000")
 	b := newDateTimeContainer(2020, 4, 1, 5, 16, 48, 915000000)
 	got, err := json.Marshal(b)
@@ -104,9 +114,10 @@ func TestDateTimeMarshal(t *testing.T) {
 }
 
 func TestDateTimeUnmarshal(t *testing.T) {
-	time.Local = time.UTC
-	want := time.Date(2020, 4, 1, 5, 16, 48, 915000000, time.Local)
-	jsonStr := dateTimeContainerJSON("2020-04-01T05:16:48.915+0000")
+	t.Parallel()
+
+	want := time.Date(2020, 4, 1, 5, 16, 48, 915000000, time.UTC)
+	jsonStr := dateTimeContainerJSON("2020-04-01T05:16:48.915Z")
 
 	var b dateTimeContainer
 	err := json.Unmarshal([]byte(jsonStr), &b)
@@ -115,6 +126,8 @@ func TestDateTimeUnmarshal(t *testing.T) {
 }
 
 func TestDateTimeUnmarshalWrongType(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := `{"time":-1}`
 
 	var b dateTimeContainer
@@ -123,6 +136,8 @@ func TestDateTimeUnmarshalWrongType(t *testing.T) {
 }
 
 func TestDateTimeUnmarshalInvalidDate(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := dateTimeContainerJSON("TEST")
 
 	var b dateTimeContainer
@@ -145,6 +160,8 @@ func emailContainerJSON(email string) string {
 }
 
 func TestEmailMarshal(t *testing.T) {
+	t.Parallel()
+
 	email := "my@email.com"
 	want := emailContainerJSON(email)
 	b := newEmailContainer(email)
@@ -154,12 +171,16 @@ func TestEmailMarshal(t *testing.T) {
 }
 
 func TestEmailMarshalInvalidEmail(t *testing.T) {
+	t.Parallel()
+
 	b := newEmailContainer("TEST")
 	_, err := json.Marshal(b)
 	assert.Error(t, err)
 }
 
 func TestEmailUnmarshal(t *testing.T) {
+	t.Parallel()
+
 	want := "my@email.com"
 	jsonStr := emailContainerJSON(want)
 
@@ -170,6 +191,8 @@ func TestEmailUnmarshal(t *testing.T) {
 }
 
 func TestEmailUnmarshalWrongType(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := `{"email":-1}`
 
 	var b emailContainer
@@ -178,6 +201,8 @@ func TestEmailUnmarshalWrongType(t *testing.T) {
 }
 
 func TestEmailUnmarshalInvalidEmail(t *testing.T) {
+	t.Parallel()
+
 	jsonStr := emailContainerJSON("TEST")
 
 	var b emailContainer
@@ -186,24 +211,32 @@ func TestEmailUnmarshalInvalidEmail(t *testing.T) {
 }
 
 func TestBool(t *testing.T) {
+	t.Parallel()
+
 	got := true
 	want := Bool(got)
 	assert.Equal(t, want, &got, "Bool returned same *bool, but they should differ")
 }
 
 func TestInt(t *testing.T) {
+	t.Parallel()
+
 	got := 100
 	want := Int(got)
 	assert.Equal(t, want, &got, "Int returned same *int, but they should differ")
 }
 
 func TestFloat(t *testing.T) {
+	t.Parallel()
+
 	got := 100.5
 	want := Float(got)
 	assert.Equal(t, want, &got, "Float returned same *float64, but they should differ")
 }
 
 func TestString(t *testing.T) {
+	t.Parallel()
+
 	got := "App Store Connect"
 	want := String(got)
 	assert.Equal(t, want, &got, "String returned same *string, but they should differ")

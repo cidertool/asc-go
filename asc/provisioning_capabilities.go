@@ -221,6 +221,7 @@ func (s *ProvisioningService) EnableCapability(ctx context.Context, capabilityTy
 // https://developer.apple.com/documentation/appstoreconnectapi/disable_a_capability
 func (s *ProvisioningService) DisableCapability(ctx context.Context, id string) (*Response, error) {
 	url := fmt.Sprintf("bundleIdCapabilities/%s", id)
+
 	return s.client.delete(ctx, url, nil)
 }
 

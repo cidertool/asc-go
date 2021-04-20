@@ -68,13 +68,13 @@ The authenticated client created here will automatically regenerate the token if
 
 ### Rate Limiting
 
-Apple imposes a rate limit on all API clients. The returned `Response.Rate` value contains the rate limit information from the most recent API call. If the API produces a rate limit error, it will be identifiable as an `ErrorResponse` with an error code of `429`. 
+Apple imposes a rate limit on all API clients. The returned `Response.Rate` value contains the rate limit information from the most recent API call. If the API produces a rate limit error, it will be identifiable as an `ErrorResponse` with an error code of `429`.
 
 Learn more about rate limiting at <https://developer.apple.com/documentation/appstoreconnectapi/identifying_rate_limits>.
 
 ### Pagination
 
-All requests for resource collections (apps, builds, beta groups, etc.) support pagination. Responses for paginated resources will contain a `Links` property of type `PagedDocumentLinks`, with `Reference` URLs for first, next, and self. A `Reference` can have its cursor extracted with the `Cursor()` method, and that can be passed to a query param using its `Cursor` field. You can also find more information about the per-page limit and total count of resources in the response's `Meta` field of type `PagingInformation`.  
+All requests for resource collections (apps, builds, beta groups, etc.) support pagination. Responses for paginated resources will contain a `Links` property of type `PagedDocumentLinks`, with `Reference` URLs for first, next, and self. A `Reference` can have its cursor extracted with the `Cursor()` method, and that can be passed to a query param using its `Cursor` field. You can also find more information about the per-page limit and total count of resources in the response's `Meta` field of type `PagingInformation`.
 
 ```go
 auth, _ = asc.NewTokenConfig(keyID, issuerID, expiryDuration, privateKey)
@@ -90,7 +90,7 @@ for {
 	if err != nil {
 		return err
 	}
-	allApps = append(allApps, apps.Data...)    
+	allApps = append(allApps, apps.Data...)
     if apps.Links.Next == nil {
         break
     }

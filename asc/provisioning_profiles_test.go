@@ -28,30 +28,40 @@ import (
 )
 
 func TestCreateProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.CreateProfile(ctx, "", "", "", []string{"10"}, []string{"10"})
 	})
 }
 
 func TestDeleteProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Provisioning.DeleteProfile(ctx, "10")
 	})
 }
 
 func TestListProfiles(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &ProfilesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListProfiles(ctx, &ListProfilesQuery{})
 	})
 }
 
 func TestGetProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &ProfileResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.GetProfile(ctx, "10", &GetProfileQuery{})
 	})
 }
 
 func TestGetProfileIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[{"type":"bundleIds"},{"type":"certificates"},{"type":"devices"}]}`, func(ctx context.Context, client *Client) {
 		profile, _, err := client.Provisioning.GetProfile(ctx, "10", &GetProfileQuery{})
 		assert.NoError(t, err)
@@ -68,18 +78,24 @@ func TestGetProfileIncludeds(t *testing.T) {
 }
 
 func TestGetBundleIDForProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BundleIDResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.GetBundleIDForProfile(ctx, "10", &GetBundleIDForProfileQuery{})
 	})
 }
 
 func TestListCertificatesInProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &CertificatesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListCertificatesInProfile(ctx, "10", &ListCertificatesForProfileQuery{})
 	})
 }
 
 func TestListDevicesInProfile(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &DevicesResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Provisioning.ListDevicesInProfile(ctx, "10", &ListDevicesInProfileQuery{})
 	})

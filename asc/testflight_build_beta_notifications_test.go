@@ -26,6 +26,8 @@ import (
 )
 
 func TestCreateAvailableBuildNotification(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &BuildBetaNotificationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.TestFlight.CreateAvailableBuildNotification(ctx, "")
 	})

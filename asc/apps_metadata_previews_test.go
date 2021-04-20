@@ -26,24 +26,32 @@ import (
 )
 
 func TestGetAppPreview(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppPreview(ctx, "10", &GetAppPreviewQuery{})
 	})
 }
 
 func TestCreateAppPreview(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CreateAppPreview(ctx, "", 0, "")
 	})
 }
 
 func TestCommitAppPreview(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppPreviewResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.CommitAppPreview(ctx, "10", Bool(true), String("10"), nil)
 	})
 }
 
 func TestDeleteAppPreview(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithNoContent(t, func(ctx context.Context, client *Client) (*Response, error) {
 		return client.Apps.DeleteAppPreview(ctx, "10")
 	})

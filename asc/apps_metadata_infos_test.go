@@ -28,12 +28,16 @@ import (
 )
 
 func TestGetAppInfo(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.GetAppInfo(ctx, "10", &GetAppInfoQuery{})
 	})
 }
 
 func TestGetAppInfoIncludeds(t *testing.T) {
+	t.Parallel()
+
 	testEndpointCustomBehavior(`{"included":[{"type":"appInfoLocalizations"},{"type":"appCategories"}]}`, func(ctx context.Context, client *Client) {
 		infos, _, err := client.Apps.GetAppInfo(ctx, "10", &GetAppInfoQuery{})
 		assert.NoError(t, err)
@@ -48,12 +52,16 @@ func TestGetAppInfoIncludeds(t *testing.T) {
 }
 
 func TestListAppInfosForApp(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfosResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.ListAppInfosForApp(ctx, "10", &ListAppInfosForAppQuery{})
 	})
 }
 
 func TestUpdateAppInfo(t *testing.T) {
+	t.Parallel()
+
 	testEndpointWithResponse(t, "{}", &AppInfoResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
 		return client.Apps.UpdateAppInfo(ctx, "10", &AppInfoUpdateRequestRelationships{})
 	})
