@@ -58,6 +58,7 @@ type AppInfoRelationships struct {
 	SecondaryCategory       *Relationship      `json:"secondaryCategory,omitempty"`
 	SecondarySubcategoryOne *Relationship      `json:"secondarySubcategoryOne,omitempty"`
 	SecondarySubcategoryTwo *Relationship      `json:"secondarySubcategoryTwo,omitempty"`
+	AgeRatingDeclaration    *Relationship      `json:"ageRatingDeclarations,omitempty"`
 }
 
 // AppInfoResponse defines model for AppInfoResponse.
@@ -118,24 +119,33 @@ type AppInfoUpdateRequestRelationships struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/read_app_info_information
 type GetAppInfoQuery struct {
-	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
-	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
-	FieldsAppCategories        []string `url:"fields[appCategories],omitempty"`
-	Include                    []string `url:"include,omitempty"`
-	LimitAppInfoLocalizations  int      `url:"limit[appInfoLocalizations],omitempty"`
+	FieldsAppInfos              []string `url:"fields[appInfos],omitempty"`
+	FieldsAppInfoLocalizations  []string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories         []string `url:"fields[appCategories],omitempty"`
+	Include                     []string `url:"include,omitempty"`
+	LimitAppInfoLocalizations   int      `url:"limit[appInfoLocalizations],omitempty"`
+	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitEmpty"`
 }
 
 // ListAppInfosForAppQuery are query options for ListAppInfosForApp
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/list_all_app_infos_for_an_app
 type ListAppInfosForAppQuery struct {
-	FieldsAppInfos             []string `url:"fields[appInfos],omitempty"`
-	FieldsApps                 []string `url:"fields[apps],omitempty"`
-	FieldsAppInfoLocalizations []string `url:"fields[appInfoLocalizations],omitempty"`
-	FieldsAppCategories        []string `url:"fields[appCategories],omitempty"`
-	Limit                      int      `url:"limit,omitempty"`
-	Include                    []string `url:"include,omitempty"`
-	Cursor                     string   `url:"cursor,omitempty"`
+	FieldsAppInfos              []string `url:"fields[appInfos],omitempty"`
+	FieldsApps                  []string `url:"fields[apps],omitempty"`
+	FieldsAppInfoLocalizations  []string `url:"fields[appInfoLocalizations],omitempty"`
+	FieldsAppCategories         []string `url:"fields[appCategories],omitempty"`
+	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
+	Limit                       int      `url:"limit,omitempty"`
+	Include                     []string `url:"include,omitempty"`
+	Cursor                      string   `url:"cursor,omitempty"`
+}
+
+// GetAgeRatingDeclarationForAppInfoQuery are query options for GetAgeRatingDeclarationForInfo
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_v1_appinfos_id_ageratingdeclaration
+type GetAgeRatingDeclarationForAppInfoQuery struct {
+	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
 }
 
 // GetAppInfo reads App Store information including your App Store state, age ratings, Brazil age rating, and kids' age band.
@@ -204,4 +214,15 @@ func (i *AppInfoResponseIncluded) AppInfoLocalization() *AppInfoLocalization {
 // AppCategory returns the AppCategory stored within, if one is present.
 func (i *AppInfoResponseIncluded) AppCategory() *AppCategory {
 	return extractIncludedAppCategory(i.inner)
+}
+
+// GetAgeRatingDeclarationForAppInfo gets the age-related information declared for your app.
+//
+// https://developer.apple.com/documentation/appstoreconnectapi/get_v1_appinfos_id_ageratingdeclaration
+func (s *AppsService) GetAgeRatingDeclarationForAppInfo(ctx context.Context, id string, params *GetAgeRatingDeclarationForAppInfoQuery) (*AgeRatingDeclarationResponse, *Response, error) {
+	url := fmt.Sprintf("appInfos/%s/ageRatingDeclaration", id)
+	res := new(AgeRatingDeclarationResponse)
+	resp, err := s.client.get(ctx, url, params, res)
+
+	return res, resp, err
 }

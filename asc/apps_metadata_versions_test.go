@@ -115,11 +115,3 @@ func TestUpdateBuildForAppStoreVersion(t *testing.T) {
 		return client.Apps.UpdateBuildForAppStoreVersion(ctx, "10", String("10"))
 	})
 }
-
-func TestGetAgeRatingDeclarationForAppStoreVersion(t *testing.T) {
-	t.Parallel()
-
-	testEndpointWithResponse(t, "{}", &AgeRatingDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
-		return client.Apps.GetAgeRatingDeclarationForAppStoreVersion(ctx, "10", &GetAgeRatingDeclarationForAppStoreVersionQuery{})
-	})
-}
