@@ -111,7 +111,8 @@ type AgeRatingDeclaration struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclaration/attributes
 type AgeRatingDeclarationAttributes struct {
 	AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
-	GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
+	Contests                                    *string      `json:"contests,omitempty"`
+	Gambling                                    *bool        `json:"gambling,omitempty"`
 	GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
 	HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
 	KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
@@ -120,6 +121,7 @@ type AgeRatingDeclarationAttributes struct {
 	ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
 	SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
 	SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
+	SeventeenPlus                               *bool        `json:"seventeenPlus,omitempty"`
 	UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
 	ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
 	ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`
@@ -156,7 +158,6 @@ type AppStoreVersionAttributes struct {
 //
 // https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion/relationships
 type AppStoreVersionRelationships struct {
-	AgeRatingDeclaration         *Relationship      `json:"ageRatingDeclaration,omitempty"`
 	App                          *Relationship      `json:"app,omitempty"`
 	AppStoreReviewDetail         *Relationship      `json:"appStoreReviewDetail,omitempty"`
 	AppStoreVersionLocalizations *PagedRelationship `json:"appStoreVersionLocalizations,omitempty"`
@@ -257,20 +258,12 @@ type GetAppStoreVersionQuery struct {
 	FieldsAppStoreVersionSubmissions    []string `url:"fields[appStoreVersionSubmissions],omitempty"`
 	FieldsBuilds                        []string `url:"fields[builds],omitempty"`
 	FieldsAppStoreReviewDetails         []string `url:"fields[appStoreReviewDetails],omitempty"`
-	FieldsAgeRatingDeclarations         []string `url:"fields[ageRatingDeclarations],omitempty"`
 	FieldsAppStoreVersionPhasedReleases []string `url:"fields[appStoreVersionPhasedReleases],omitempty"`
 	FieldsRoutingAppCoverages           []string `url:"fields[routingAppCoverages],omitempty"`
 	FieldsIDFADeclarations              []string `url:"fields[idfaDeclarations],omitempty"`
 	FieldsAppStoreVersionLocalizations  []string `url:"fields[appStoreVersionLocalizations],omitempty"`
 	Include                             []string `url:"include,omitempty"`
 	LimitAppStoreVersionLocalizations   int      `url:"limit[appStoreVersionLocalizations],omitempty"`
-}
-
-// GetAgeRatingDeclarationForAppStoreVersionQuery are query options for GetAgeRatingDeclarationForAppStoreVersion
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
-type GetAgeRatingDeclarationForAppStoreVersionQuery struct {
-	FieldsAgeRatingDeclarations []string `url:"fields[ageRatingDeclarations],omitempty"`
 }
 
 // ListAppStoreVersionsForApp gets a list of all App Store versions of an app across all platforms.
@@ -368,17 +361,6 @@ func (s *AppsService) UpdateBuildForAppStoreVersion(ctx context.Context, id stri
 	url := fmt.Sprintf("appStoreVersions/%s/relationships/build", id)
 	res := new(AppStoreVersionBuildLinkageResponse)
 	resp, err := s.client.patch(ctx, url, newRequestBody(linkage), res)
-
-	return res, resp, err
-}
-
-// GetAgeRatingDeclarationForAppStoreVersion gets the age-related information declared for your app.
-//
-// https://developer.apple.com/documentation/appstoreconnectapi/read_the_age_rating_declaration_information_of_an_app_store_version
-func (s *AppsService) GetAgeRatingDeclarationForAppStoreVersion(ctx context.Context, id string, params *GetAgeRatingDeclarationForAppStoreVersionQuery) (*AgeRatingDeclarationResponse, *Response, error) {
-	url := fmt.Sprintf("appStoreVersions/%s/ageRatingDeclaration", id)
-	res := new(AgeRatingDeclarationResponse)
-	resp, err := s.client.get(ctx, url, params, res)
 
 	return res, resp, err
 }

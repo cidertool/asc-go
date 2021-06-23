@@ -89,7 +89,8 @@ type ageRatingDeclarationUpdateRequest struct {
 // https://developer.apple.com/documentation/appstoreconnectapi/ageratingdeclarationupdaterequest/data/attributes
 type AgeRatingDeclarationUpdateRequestAttributes struct {
 	AlcoholTobaccoOrDrugUseOrReferences         *string      `json:"alcoholTobaccoOrDrugUseOrReferences,omitempty"`
-	GamblingAndContests                         *bool        `json:"gamblingAndContests,omitempty"`
+	Contests                                    *string      `json:"contests,omitempty"`
+	Gambling                                    *bool        `json:"gambling,omitempty"`
 	GamblingSimulated                           *string      `json:"gamblingSimulated,omitempty"`
 	HorrorOrFearThemes                          *string      `json:"horrorOrFearThemes,omitempty"`
 	KidsAgeBand                                 *KidsAgeBand `json:"kidsAgeBand,omitempty"`
@@ -98,6 +99,7 @@ type AgeRatingDeclarationUpdateRequestAttributes struct {
 	ProfanityOrCrudeHumor                       *string      `json:"profanityOrCrudeHumor,omitempty"`
 	SexualContentGraphicAndNudity               *string      `json:"sexualContentGraphicAndNudity,omitempty"`
 	SexualContentOrNudity                       *string      `json:"sexualContentOrNudity,omitempty"`
+	SeventeenPlus                               *bool        `json:"seventeenPlus,omitempty"`
 	UnrestrictedWebAccess                       *bool        `json:"unrestrictedWebAccess,omitempty"`
 	ViolenceCartoonOrFantasy                    *string      `json:"violenceCartoonOrFantasy,omitempty"`
 	ViolenceRealistic                           *string      `json:"violenceRealistic,omitempty"`

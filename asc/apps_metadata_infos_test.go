@@ -66,3 +66,11 @@ func TestUpdateAppInfo(t *testing.T) {
 		return client.Apps.UpdateAppInfo(ctx, "10", &AppInfoUpdateRequestRelationships{})
 	})
 }
+
+func TestGetAgeRatingDeclarationForAppInfo(t *testing.T) {
+	t.Parallel()
+
+	testEndpointWithResponse(t, "{}", &AgeRatingDeclarationResponse{}, func(ctx context.Context, client *Client) (interface{}, *Response, error) {
+		return client.Apps.GetAgeRatingDeclarationForAppInfo(ctx, "10", &GetAgeRatingDeclarationForAppInfoQuery{})
+	})
+}
