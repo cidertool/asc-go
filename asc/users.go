@@ -45,10 +45,10 @@ const (
 	UserRoleAdmin UserRole = "ADMIN"
 	// UserRoleAppManager manages all aspects of an app, such as pricing, App Store information, and app development and delivery.
 	UserRoleAppManager UserRole = "APP_MANAGER"
-	// UserRoleCloudSigningAppDistribution is a service role for managing Cloud Signing of apps for distribution.
-	UserRoleCloudSigningAppDistribution UserRole = "CLOUD_SIGNING_APP_DISTRIBUTION"
-	// UserRoleCloudSigningDeveloperID is a service role covering the developer account ID for an app enabled for Cloud Signing.
-	UserRoleCloudSigningDeveloperID UserRole = "CLOUD_SIGNING_DEVELOPER_ID"
+	// UserRoleCloudManagedAppDistribution is a service role for managing Cloud Signing of apps for distribution.
+	UserRoleCloudManagedAppDistribution UserRole = "CLOUD_MANAGED_APP_DISTRIBUTION"
+	// UserRoleCloudManagedDeveloperID is a service role covering the developer account ID for an app enabled for Cloud Signing.
+	UserRoleCloudManagedDeveloperID UserRole = "CLOUD_MANAGED_DEVELOPER_ID"
 	// UserRoleCreateApps is a service role for automatic creation of apps.
 	UserRoleCreateApps UserRole = "CREATE_APPS"
 	// UserRoleCustomerSupport analyzes and responds to customer reviews on the App Store. If a user has only the Customer Support role, they'll go straight to the Ratings and Reviews section when they click on an app in My Apps.
